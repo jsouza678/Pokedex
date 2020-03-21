@@ -4,5 +4,5 @@ import com.squareup.moshi.Json
 
 data class PokeRootProperty(
     @Json(name = "results")
-    var results : List<PokeProperty>? = null
+    var results : MutableList<PokeProperty>? = null
 )

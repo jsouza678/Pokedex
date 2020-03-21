@@ -6,15 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.poke_item_view.view.*
-import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.network.PokeProperty
+import android.R
 
-class PokesAdapter(private val pokes: List<PokeProperty>?, private val context: Context) : RecyclerView.Adapter<PokesAdapter.ViewHolder>() {
+
+
+class PokesAdapter(private val pokes: MutableList<PokeProperty>?, private val context: Context) : RecyclerView.Adapter<PokesAdapter.ViewHolder>() {
 
     var onItemClick: ((PokeProperty) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokesAdapter.ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.poke_item_view, parent, false)
+        val view = LayoutInflater.from(context).inflate(souza.home.com.pokedexapp.R.layout.poke_item_view, parent, false)
         return ViewHolder(view)
     }
 
@@ -23,7 +25,7 @@ class PokesAdapter(private val pokes: List<PokeProperty>?, private val context: 
     }
 
     override fun onBindViewHolder(holder: PokesAdapter.ViewHolder, position: Int) {
-        var name = pokes?.get(position)?.name
+        var name = pokes?.get(position)?.url
 
         holder.poke_name.text = name
 
@@ -40,6 +42,5 @@ class PokesAdapter(private val pokes: List<PokeProperty>?, private val context: 
     }
 
     }
-
 
 }
