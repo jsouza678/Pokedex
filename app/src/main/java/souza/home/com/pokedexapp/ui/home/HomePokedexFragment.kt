@@ -1,4 +1,4 @@
-package souza.home.com.pokedexapp.ui
+package souza.home.com.pokedexapp.ui.home
 
 
 import android.content.Context
@@ -20,14 +20,13 @@ import souza.home.com.pokedexapp.databinding.FragmentHomePokedexBinding
 import souza.home.com.pokedexapp.network.PokeApi
 import souza.home.com.pokedexapp.network.main_model.Pokemon
 import souza.home.com.pokedexapp.network.PokeRootProperty
-
-
+import souza.home.com.pokedexapp.ui.PokesAdapter
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class HomePokedex : Fragment() {
+class HomePokedexFragment : Fragment() {
 
     lateinit var layoutManager: LinearLayoutManager
     var page = 0

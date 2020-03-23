@@ -10,7 +10,7 @@
 
     <fragment
         android:id="@+id/homePokedex"
-        android:name="souza.home.com.pokedexapp.ui.HomePokedex"
+        android:name="souza.home.com.pokedexapp.ui.home.HomePokedexFragment"
         android:label="fragment_home_pokedex"
         tools:layout="@layout/fragment_home_pokedex">
         <action android:id="@+id/action_homePokedex_to_detailsPokedex"
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/detailsPokedex"
-        android:name="souza.home.com.pokedexapp.ui.DetailsPokedex"
+        android:name="souza.home.com.pokedexapp.ui.details.DetailsPokedexFragment"
         android:label="fragment_details_pokedex"
         tools:layout="@layout/fragment_details_pokedex" />
 

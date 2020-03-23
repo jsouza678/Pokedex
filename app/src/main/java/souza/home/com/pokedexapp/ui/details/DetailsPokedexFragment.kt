@@ -1,4 +1,4 @@
-package souza.home.com.pokedexapp.ui
+package souza.home.com.pokedexapp.ui.details
 
 
 import android.content.Context
@@ -18,13 +18,12 @@ import souza.home.com.pokedexapp.network.PokeApi
 import souza.home.com.pokedexapp.network.stats.PokemonProperty
 import souza.home.com.pokedexapp.network.evolution_chain.PokeEvolutionChain
 import souza.home.com.pokedexapp.network.varieties.PokeRootVarieties
-import souza.home.com.pokedexapp.network.varieties.PokeVarieties
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class DetailsPokedex : Fragment() {
+class DetailsPokedexFragment : Fragment() {
 
 
     private lateinit var tvName : TextView
@@ -41,8 +40,6 @@ class DetailsPokedex : Fragment() {
         val binding = FragmentDetailsPokedexBinding.inflate(inflater)
 
         val poke: String = "25"
-
-
 
         getStats(poke, binding.root.context)
 
@@ -71,11 +68,11 @@ class DetailsPokedex : Fragment() {
     fun getStats(pokemon: String, context: Context){
         PokeApi.retrofitService.getPokeStats(pokemon).enqueue(object: Callback<PokemonProperty> {
             override fun onFailure(call: Call<PokemonProperty>, t: Throwable) {
-                Toast.makeText(context, "Failure 1" + t.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Failure on getting stats" + t.message, Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<PokemonProperty>, response: Response<PokemonProperty>) {
-                Toast.makeText(context, "Success 1", Toast.LENGTH_SHORT).show()
+              //  Toast.makeText(context, "Success 1", Toast.LENGTH_SHORT).show()
                 val item = response.body()
 
 
@@ -147,13 +144,13 @@ class DetailsPokedex : Fragment() {
 
         PokeApi.retrofitService.getVariations(pokemon).enqueue(object: Callback<PokeRootVarieties> {
             override fun onFailure(call: Call<PokeRootVarieties>, t: Throwable) {
-                Toast.makeText(context, "FAILURE" + t.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "FAILURE o getting varieties " + t.message, Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<PokeRootVarieties>, response: Response<PokeRootVarieties>) {
-                Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
-                var items = response.body()
-                var length = response.body()?.varieties?.size
+                //Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
+                val items = response.body()
+                val length = response.body()?.varieties?.size
                 //varietiesArray = response.body().varieties
 
 
@@ -171,7 +168,7 @@ class DetailsPokedex : Fragment() {
 
                 // calling chain evoltuion at selection
                 var poke_path = urlChain?.substringAfterLast("n/")
-                Toast.makeText(context, poke_path, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(context, poke_path, Toast.LENGTH_SHORT).show()
 
                 getChainEvolution(poke_path!!, context)
 
@@ -184,8 +181,9 @@ class DetailsPokedex : Fragment() {
 
                         urlChain = items!!.varieties[position].pokemon.url
                         poke_path = urlChain?.substringAfterLast("n/")
-                        Toast.makeText(context, poke_path, Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(context, poke_path, Toast.LENGTH_SHORT).show()
 
+                        getStats(poke_path!!, context)
                        getChainEvolution(poke_path!!, context)
 
                         //Toast.makeText(context,"selected", Toast.LENGTH_SHORT).show()
