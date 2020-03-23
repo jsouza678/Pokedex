@@ -23,51 +23,57 @@
                 <!-- TODO: Update blank fragment layout -->
 
                 <TextView
-                    android:id="@+id/tv_1"
+                    android:id="@+id/tv_detail_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/hello_blank_fragment"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Pokemon name" />
 
-                <TextView
-                    android:id="@+id/tv_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/hello_blank_fragment"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_1" />
-
-                <TextView
-                    android:id="@+id/tv_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/hello_blank_fragment"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_2" />
 
                 <ListView
-                    android:id="@+id/lv_test"
+                    android:id="@+id/lv_stats"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toTopOf="@+id/spinner_evolution_chain"
+                    android:layout_height="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_name" />
+
+                <ListView
+                    android:id="@+id/lv_abilities"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lv_stats" />
+
+                <ListView
+                    android:id="@+id/lv_types"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_3">
+                    app:layout_constraintTop_toBottomOf="@id/lv_abilities" />
 
-                </ListView>
+                <ListView
+                    android:id="@+id/lv_chain"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lv_types" />
 
                 <Spinner
-                    android:id="@+id/spinner_evolution_chain"
+                    android:id="@+id/spinner_variations"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lv_test" />
+                    app:layout_constraintTop_toBottomOf="@id/lv_chain" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

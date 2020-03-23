@@ -7,8 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.*
 import kotlinx.android.synthetic.main.fragment_details_pokedex.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,6 +17,8 @@ import souza.home.com.pokedexapp.databinding.FragmentDetailsPokedexBinding
 import souza.home.com.pokedexapp.network.PokeApi
 import souza.home.com.pokedexapp.network.stats.PokemonProperty
 import souza.home.com.pokedexapp.network.evolution_chain.PokeEvolutionChain
+import souza.home.com.pokedexapp.network.varieties.PokeRootVarieties
+import souza.home.com.pokedexapp.network.varieties.PokeVarieties
 
 
 /**
@@ -25,27 +26,50 @@ import souza.home.com.pokedexapp.network.evolution_chain.PokeEvolutionChain
  */
 class DetailsPokedex : Fragment() {
 
+
+    private lateinit var tvName : TextView
+    private lateinit var lvStats : ListView
+    private lateinit var lvTypes : ListView
+    private lateinit var lvChain : ListView
+    private lateinit var spVariations : Spinner
+    private lateinit var evolutionArray: ArrayList<String>
+    private lateinit var varietiesArray: ArrayList<String>
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val binding = FragmentDetailsPokedexBinding.inflate(inflater)
 
-        val poke: String = "1"
+        val poke: String = "25"
 
-        getPoke(poke, binding.root.context)
 
-        binding.tv1
-        binding.tv2
-        binding.tv3
-        binding.lvTest
 
-        getChainEvolution(poke, binding.root.context)
+        getStats(poke, binding.root.context)
+
+        //getChainEvolution("10", binding.root.context)
+
+        getVarieties(poke, binding.root.context)
+
+
+        evolutionArray = ArrayList<String>()
+        varietiesArray = ArrayList<String>()
+
+        tvName = binding.tvDetailName
+
+
+
+        lvStats = binding.lvStats
+        lvTypes = binding.lvTypes
+        lvChain = binding.lvChain
+        spVariations = binding.spinnerVariations
+
 
         return binding.root
     }
 
 
-    fun getPoke(pokemon: String, context: Context){
-        PokeApi.retrofitService.searchPokes(pokemon).enqueue(object: Callback<PokemonProperty> {
+    fun getStats(pokemon: String, context: Context){
+        PokeApi.retrofitService.getPokeStats(pokemon).enqueue(object: Callback<PokemonProperty> {
             override fun onFailure(call: Call<PokemonProperty>, t: Throwable) {
                 Toast.makeText(context, "Failure 1" + t.message, Toast.LENGTH_SHORT).show()
             }
@@ -55,12 +79,19 @@ class DetailsPokedex : Fragment() {
                 val item = response.body()
 
 
-                tv_1.text = item?.name
 
-                val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, item?.stats!!)
-                lv_test.adapter = adapter
-                tv_2.text = item.stats[1].stat.stat
-                tv_3.text = item.stats[1].base_stat
+                tvName.text = item?.name
+
+
+                val adapterStats = ArrayAdapter(context, android.R.layout.simple_list_item_1, item?.stats!!)
+                //val adapterTypes = ArrayAdapter(context, android.R.layout.simple_list_item_1, item?.)
+
+
+                lv_stats.adapter = adapterStats
+                //lv_types.adapter = adapterTypes
+
+
+
 
             }
 
@@ -70,18 +101,101 @@ class DetailsPokedex : Fragment() {
 
     }
 
-    fun getChainEvolution(pokemon: String, context: Context){
+    private fun getChainEvolution(pokemon: String, context: Context){
         PokeApi.retrofitService.getEvolutionChain(pokemon).enqueue(object: Callback<PokeEvolutionChain> {
             override fun onFailure(call: Call<PokeEvolutionChain>, t: Throwable) {
-                Toast.makeText(context, "Failure 2" + t.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Failure on getting Chain Evolution" + t.message, Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<PokeEvolutionChain>, response: Response<PokeEvolutionChain>) {
-                Toast.makeText(context, "Success 2" + response.body()?.chain!!.evolves_to[0].evolves_to[0].species.name, Toast.LENGTH_LONG).show()
+                //Toast.makeText(context, "Success 2", Toast.LENGTH_LONG).show()
+                val item = response.body()
+                evolutionArray.clear()
+                if(item?.chain?.species?.name != null){  //// 1 CHAIN
+
+                    evolutionArray.add(item.chain.species?.name!!)
+
+                    try{
+                        evolutionArray.add(item.chain.evolves_to!![0].species?.name!!)
+                        try {
+                            evolutionArray.add(item.chain.evolves_to!![0].evolves_to?.get(0)?.species?.name!!)
+                            //Toast.makeText(context, "achei", Toast.LENGTH_LONG).show()
+                        }catch (e: Exception){
+                           // Toast.makeText(context, "n deu2 ", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    catch (e: Exception) {
+                        //Toast.makeText(context, "n deu1 ", Toast.LENGTH_LONG).show()
+                    }
+
+                } else{
+                    //evolutionArray.clear()
+                    evolutionArray.add("This Poke does not evolutes") //////// HARDCODED
+                }
+
+                val adapterChain = ArrayAdapter(context, android.R.layout.simple_list_item_1, evolutionArray)
+
+
+                lv_chain.adapter = adapterChain
             }
 
         })
 
     }
 
+    private fun getVarieties(pokemon: String, context: Context){
+
+        PokeApi.retrofitService.getVariations(pokemon).enqueue(object: Callback<PokeRootVarieties> {
+            override fun onFailure(call: Call<PokeRootVarieties>, t: Throwable) {
+                Toast.makeText(context, "FAILURE" + t.message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<PokeRootVarieties>, response: Response<PokeRootVarieties>) {
+                Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
+                var items = response.body()
+                var length = response.body()?.varieties?.size
+                //varietiesArray = response.body().varieties
+
+
+                for(i in 0 until length!!) {
+                    try {
+                        varietiesArray.add(response.body()?.varieties!![i].pokemon.name)
+                    } catch (e: Exception) {
+                       // varietiesArray.add("No varieties")
+                    }
+                }
+
+                val spinnerAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, varietiesArray)
+
+                var urlChain = items?.evolution_chain?.url
+
+                // calling chain evoltuion at selection
+                var poke_path = urlChain?.substringAfterLast("n/")
+                Toast.makeText(context, poke_path, Toast.LENGTH_SHORT).show()
+
+                getChainEvolution(poke_path!!, context)
+
+                spVariations.adapter = spinnerAdapter
+
+                spVariations.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+                    override fun onItemSelected(parent:AdapterView<*>, view: View, position: Int, id: Long){
+                        // Display the selected item text on text view
+
+
+                        urlChain = items!!.varieties[position].pokemon.url
+                        poke_path = urlChain?.substringAfterLast("n/")
+                        Toast.makeText(context, poke_path, Toast.LENGTH_SHORT).show()
+
+                       getChainEvolution(poke_path!!, context)
+
+                        //Toast.makeText(context,"selected", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>){
+                        getChainEvolution(poke_path!!, context)
+                    }
+                }
+            }
+        })
+    }
 }

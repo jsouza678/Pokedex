@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.poke_item_view.view.*
-import souza.home.com.pokedexapp.network.PokeProperty
+import souza.home.com.pokedexapp.network.main_model.Pokemon
 
 
-class PokesAdapter(private val pokes: MutableList<PokeProperty>?, private val context: Context) : RecyclerView.Adapter<PokesAdapter.ViewHolder>() {
+class PokesAdapter(private val pokes: MutableList<Pokemon>?, private val context: Context) : RecyclerView.Adapter<PokesAdapter.ViewHolder>() {
 
-    var onItemClick: ((PokeProperty) -> Unit)? = null
+    var onItemClick: ((Pokemon) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokesAdapter.ViewHolder {
         val view = LayoutInflater.from(context).inflate(souza.home.com.pokedexapp.R.layout.poke_item_view, parent, false)

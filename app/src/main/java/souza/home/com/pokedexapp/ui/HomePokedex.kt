@@ -18,7 +18,7 @@ import retrofit2.Response
 
 import souza.home.com.pokedexapp.databinding.FragmentHomePokedexBinding
 import souza.home.com.pokedexapp.network.PokeApi
-import souza.home.com.pokedexapp.network.PokeProperty
+import souza.home.com.pokedexapp.network.main_model.Pokemon
 import souza.home.com.pokedexapp.network.PokeRootProperty
 
 
@@ -32,7 +32,7 @@ class HomePokedex : Fragment() {
     lateinit var layoutManager: LinearLayoutManager
     var page = 0
     var isLoading = false
-    var numberList: MutableList<PokeProperty> = ArrayList()
+    var numberList: MutableList<Pokemon> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

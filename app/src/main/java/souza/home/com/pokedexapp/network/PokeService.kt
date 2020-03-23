@@ -10,6 +10,8 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import souza.home.com.pokedexapp.network.evolution_chain.PokeEvolutionChain
 import souza.home.com.pokedexapp.network.stats.PokemonProperty
+import souza.home.com.pokedexapp.network.varieties.PokeRootVarieties
+import souza.home.com.pokedexapp.network.varieties.PokeVarieties
 
 private const val BASE_URL = "https://pokeapi.co/api/v2/"
 
@@ -28,12 +30,16 @@ interface PokeService{
             Call<PokeRootProperty>
 
     @GET("pokemon/{poke}")
-    fun searchPokes(@Path("poke") poke: String?):
+    fun getPokeStats(@Path("poke") poke: String?):
             Call<PokemonProperty>
 
     @GET("evolution-chain/{id}")
     fun getEvolutionChain(@Path("id") id : String?):
             Call<PokeEvolutionChain>
+
+    @GET("pokemon-species/{id}")
+    fun getVariations(@Path("id") id : String?):
+            Call<PokeRootVarieties>
 }
 
 object PokeApi{
