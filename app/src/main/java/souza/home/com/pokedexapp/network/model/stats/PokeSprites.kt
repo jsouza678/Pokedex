@@ -1,4 +1,4 @@
-package souza.home.com.pokedexapp.network.stats
+package souza.home.com.pokedexapp.network.model.stats
 
 data class PokeSprites(
     var back_default: String? = "",

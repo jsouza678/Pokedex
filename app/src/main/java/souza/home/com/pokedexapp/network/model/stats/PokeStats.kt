@@ -1,6 +1,4 @@
-package souza.home.com.pokedexapp.network.stats
-
-import souza.home.com.pokedexapp.network.stats.PokeNestedStat
+package souza.home.com.pokedexapp.network.model.stats
 
 data class PokeStats(
 

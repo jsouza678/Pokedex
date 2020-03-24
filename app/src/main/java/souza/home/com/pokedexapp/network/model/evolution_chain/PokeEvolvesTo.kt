@@ -1,4 +1,4 @@
-package souza.home.com.pokedexapp.network.evolution_chain
+package souza.home.com.pokedexapp.network.model.evolution_chain
 
 import com.squareup.moshi.Json
 

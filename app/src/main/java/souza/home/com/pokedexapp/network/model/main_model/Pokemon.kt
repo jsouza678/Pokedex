@@ -1,4 +1,4 @@
-package souza.home.com.pokedexapp.network.main_model
+package souza.home.com.pokedexapp.network.model.main_model
 
 
 data class Pokemon(

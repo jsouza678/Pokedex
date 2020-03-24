@@ -2,7 +2,6 @@ package souza.home.com.pokedexapp.ui.home
 
 import android.content.Context
 import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,8 +11,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import souza.home.com.pokedexapp.network.PokeApi
 import souza.home.com.pokedexapp.network.PokeRootProperty
-import souza.home.com.pokedexapp.network.main_model.Pokemon
-import souza.home.com.pokedexapp.ui.PokesAdapter
+import souza.home.com.pokedexapp.network.model.main_model.Pokemon
 
 class HomePokedexViewModel : ViewModel(){
 
@@ -37,7 +35,8 @@ class HomePokedexViewModel : ViewModel(){
                     layoutManager = LinearLayoutManager(context)
                     recyclerView.layoutManager = layoutManager
 
-                    val adapter = PokesAdapter(_poke.value , context)
+                    val adapter =
+                        PokesAdapter(_poke.value, context)
 
                     recyclerView.adapter = adapter
                     recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {

@@ -1,4 +1,4 @@
-package souza.home.com.pokedexapp.network.evolution_chain
+package souza.home.com.pokedexapp.network.model.evolution_chain
 
 data class PokeEvolution(
     var evolves_to: List<PokeEvolution>?,
