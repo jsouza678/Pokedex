@@ -4,11 +4,7 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: 'kotlin-kapt'
-
 android {
-
-
 
 
     compileSdkVersion 29
@@ -53,6 +49,9 @@ dependencies {
 
     // RecyclerView
     implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
+
+    // ViewModel
+    implementation "android.arch.lifecycle:extensions:1.1.1"
 
 
 }

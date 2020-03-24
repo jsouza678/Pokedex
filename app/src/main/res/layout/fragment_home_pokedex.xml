@@ -16,6 +16,7 @@
             android:paddingTop="8dp"
             app:spanCount="1"
             tools:itemCount="8"
+            android:visibility="visible"
             tools:listitem="@layout/poke_item_view" />
 
 
