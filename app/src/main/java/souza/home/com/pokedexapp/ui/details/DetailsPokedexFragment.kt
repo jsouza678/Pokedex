@@ -12,8 +12,8 @@ import kotlinx.android.synthetic.main.fragment_details_pokedex.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import souza.home.com.pokedexapp.R
 
-import souza.home.com.pokedexapp.databinding.FragmentDetailsPokedexBinding
 import souza.home.com.pokedexapp.network.PokeApi
 import souza.home.com.pokedexapp.network.stats.PokemonProperty
 import souza.home.com.pokedexapp.network.evolution_chain.PokeEvolutionChain
@@ -37,31 +37,32 @@ class DetailsPokedexFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val binding = FragmentDetailsPokedexBinding.inflate(inflater)
 
+        var view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
         val poke: String = "25"
 
-        getStats(poke, binding.root.context)
+
+        getStats(poke, view.context)
 
         //getChainEvolution("10", binding.root.context)
 
-        getVarieties(poke, binding.root.context)
+        getVarieties(poke, view.context)
 
 
         evolutionArray = ArrayList<String>()
         varietiesArray = ArrayList<String>()
 
-        tvName = binding.tvDetailName
+        tvName = view.findViewById<TextView>(R.id.tv_detail_name)
 
 
+        lvStats = view.findViewById<ListView>(R.id.lv_stats)
 
-        lvStats = binding.lvStats
-        lvTypes = binding.lvTypes
-        lvChain = binding.lvChain
-        spVariations = binding.spinnerVariations
+        lvTypes = view.findViewById<ListView>(R.id.lv_types)
+        lvChain = view.findViewById<ListView>(R.id.lv_chain)
+        spVariations = view.findViewById<Spinner>(R.id.spinner_variations)
 
 
-        return binding.root
+        return view
     }
 
 

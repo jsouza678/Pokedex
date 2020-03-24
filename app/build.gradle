@@ -8,9 +8,6 @@ apply plugin: 'kotlin-kapt'
 
 android {
 
-    dataBinding {
-        enabled = true
-    }
 
 
 
@@ -57,10 +54,5 @@ dependencies {
     // RecyclerView
     implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
 
-    // Navigation
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.1'
-
-    implementation 'com.github.mancj:MaterialSearchBar:0.8.5'
 
 }

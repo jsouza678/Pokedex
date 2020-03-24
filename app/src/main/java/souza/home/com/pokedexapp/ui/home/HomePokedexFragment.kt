@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.fragment_home_pokedex.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import souza.home.com.pokedexapp.R
 
-import souza.home.com.pokedexapp.databinding.FragmentHomePokedexBinding
 import souza.home.com.pokedexapp.network.PokeApi
 import souza.home.com.pokedexapp.network.main_model.Pokemon
 import souza.home.com.pokedexapp.network.PokeRootProperty
@@ -37,15 +37,15 @@ class HomePokedexFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val binding = FragmentHomePokedexBinding.inflate(inflater)
+        var view = inflater.inflate(R.layout.fragment_home_pokedex, container, false)
 
-        loadFirstPage(binding.root.context)
+        loadFirstPage(view.context)
 
         //var searchBar = binding.searchBar
         //var searchText = searchBar.text
 
 
-        return binding.root
+        return view
     }
 
 

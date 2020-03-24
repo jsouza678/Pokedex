@@ -11,7 +11,6 @@ import retrofit2.http.Query
 import souza.home.com.pokedexapp.network.evolution_chain.PokeEvolutionChain
 import souza.home.com.pokedexapp.network.stats.PokemonProperty
 import souza.home.com.pokedexapp.network.varieties.PokeRootVarieties
-import souza.home.com.pokedexapp.network.varieties.PokeVarieties
 
 private const val BASE_URL = "https://pokeapi.co/api/v2/"
 
