@@ -15,7 +15,7 @@ import souza.home.com.pokedexapp.network.model.varieties.PokeRootVarieties
 
 class DetailsPokedexViewModel : ViewModel() {
 
-fun getStats(pokemon: String, context: Context, textViewName: TextView, listViewStats: ListView){
+fun getStats(pokemon: String, context: Context, textViewName: TextView, tvHp: TextView, tvAttack: TextView, tvDeffense: TextView, tvSpecialAttack: TextView, tvSpecialDefense: TextView, tvSpeed: TextView){
     PokeApi.retrofitService.getPokeStats(pokemon).enqueue(object: Callback<PokemonProperty> {
         override fun onFailure(call: Call<PokemonProperty>, t: Throwable) {
             Toast.makeText(context, "Failure on getting stats" + t.message, Toast.LENGTH_SHORT).show()
@@ -29,12 +29,13 @@ fun getStats(pokemon: String, context: Context, textViewName: TextView, listView
 
             textViewName.text = item?.name
 
-
-            val adapterStats = ArrayAdapter(context, R.layout.simple_list_item_1, item?.stats!!)
-            //val adapterTypes = ArrayAdapter(context, android.R.layout.simple_list_item_1, item?.)
-
-
-            listViewStats.adapter = adapterStats
+            //Toast.makeText(context, item.name,Toast.LENGTH_SHORT).show()
+            tvHp.text = item?.stats!![5].base_stat
+            tvAttack.text = item.stats[4].base_stat
+            tvDeffense.text = item.stats[3].base_stat
+            tvSpecialAttack.text = item.stats[2].base_stat
+            tvSpecialDefense.text = item.stats[1].base_stat
+            tvSpeed.text = item.stats[0].base_stat
             //lv_types.adapter = adapterTypes
 
 
@@ -91,7 +92,7 @@ fun getChainEvolution(pokemon: String, context: Context, evolutionArray: ArrayLi
 
 }
 
-fun getVarieties(pokemon: String, context: Context, varietiesArray: ArrayList<String>, spVariations: Spinner, evolutionArray: ArrayList<String>, listViewChain: ListView, textViewName: TextView, listViewStats: ListView){
+fun getVarieties(pokemon: String, context: Context, varietiesArray: ArrayList<String>, spVariations: Spinner, evolutionArray: ArrayList<String>, listViewChain: ListView, textViewName: TextView, tvHp: TextView, tvAttack: TextView, tvDeffense: TextView, tvSpecialAttack: TextView, tvSpecialDefense: TextView, tvSpeed: TextView){
 
     PokeApi.retrofitService.getVariations(pokemon).enqueue(object: Callback<PokeRootVarieties> {
         override fun onFailure(call: Call<PokeRootVarieties>, t: Throwable) {
@@ -134,7 +135,7 @@ fun getVarieties(pokemon: String, context: Context, varietiesArray: ArrayList<St
                     pokePath = urlChain?.substringAfterLast("n/")
                     //Toast.makeText(context, pokePath, Toast.LENGTH_SHORT).show()
 
-                    getStats(pokePath!!, context, textViewName, listViewStats)
+                    getStats(pokePath!!, context, textViewName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed)
                     getChainEvolution(pokePath!!, context, evolutionArray, listViewChain)
 
                     //Toast.makeText(context,"selected", Toast.LENGTH_SHORT).show()

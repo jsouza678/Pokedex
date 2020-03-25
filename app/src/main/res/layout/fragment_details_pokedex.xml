@@ -8,18 +8,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.details.DetailsPokedexFragment">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-
-                <!-- TODO: Update blank fragment layout -->
 
                 <TextView
                     android:id="@+id/tv_detail_name"
@@ -31,14 +22,141 @@
                     tools:text="Pokemon name" />
 
 
-                <ListView
-                    android:id="@+id/lv_stats"
-                    android:layout_width="0dp"
-                    android:layout_height="100dp"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/view_card_stats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:layout_editor_absoluteY="19dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_detail_name" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_name">
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_detail_hp"
+                            style="@style/stat_name"
+                            android:layout_marginTop="8dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="@string/hp_poke" />
+
+                        <TextView
+                            android:id="@+id/tv_poke_hp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/mock_hp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_hp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/tv_detail_hp" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_attack"
+                            style="@style/stat_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_detail_hp"
+                            android:text="@string/attack_poke" />
+
+                        <TextView
+                            android:id="@+id/tv_poke_attack"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/mock_attack"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_attack"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/tv_detail_attack" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_deffense"
+                            style="@style/stat_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_detail_attack"
+                            android:text="@string/poke_deffense" />
+
+                        <TextView
+                            android:id="@+id/tv_poke_deffense"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/mock_deffense"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_deffense"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/tv_detail_deffense" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_special_attack"
+                            style="@style/stat_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_detail_deffense"
+                            android:text="@string/poke_special_attack" />
+
+                        <TextView
+                            android:id="@+id/tv_poke_special_attack"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/mock_special_attack"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_special_attack"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/tv_detail_special_attack" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_special_deffense"
+                            style="@style/stat_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_detail_special_attack"
+                            android:text="@string/poke_special_deffense" />
+
+                        <TextView
+                            android:id="@+id/tv_poke_special_deffense"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/mock_special_deffense"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_special_deffense"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/tv_detail_special_deffense" />
+
+                        <TextView
+                            android:id="@+id/tv_detail_speed"
+                            style="@style/stat_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_detail_special_deffense"
+                            android:text="@string/poke_speed" />
+
+                        <TextView
+                            android:id="@+id/tv_poke_speed"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/mock_speed"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_speed"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/tv_detail_speed" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
 
                 <ListView
                     android:id="@+id/lv_abilities"
@@ -47,7 +165,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/lv_stats" />
+                    app:layout_constraintTop_toBottomOf="@id/view_card_stats" />
 
                 <ListView
                     android:id="@+id/lv_types"
@@ -77,6 +195,5 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
 
 </LinearLayout>

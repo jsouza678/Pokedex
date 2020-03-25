@@ -81,11 +81,9 @@ class HomePokedexViewModel : ViewModel(){
                     call: Call<PokeRootProperty>,
                     response: Response<PokeRootProperty>
                 ) {
-                    Toast.makeText(context, "call success", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "call success", Toast.LENGTH_SHORT).show()
 
                     val length = response.body()?.results?.size
-                    val numberList: MutableList<Pokemon> = ArrayList()
-
 
                     for (i in 0 until length!!) {
                         _poke.value?.add((response.body()?.results!![i]))

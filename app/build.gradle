@@ -53,5 +53,8 @@ dependencies {
     // ViewModel
     implementation "android.arch.lifecycle:extensions:1.1.1"
 
+    // CardView
+    implementation 'androidx.cardview:cardview:1.0.0'
+
 
 }

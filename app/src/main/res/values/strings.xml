@@ -6,4 +6,16 @@
     <string name="mock_header_text">Pokedex Nav</string>
     <string name="cd_iv_header" />
     <string name="mock_poke_name">Charmander</string>
+    <string name="hp_poke">HP:</string>
+    <string name="attack_poke">ATTACK:</string>
+    <string name="poke_deffense">DEFFENSE:</string>
+    <string name="poke_special_attack">SPECIAL ATTACK:</string>
+    <string name="poke_special_deffense">SPECIAL DEFFENSE:</string>
+    <string name="poke_speed">SPEED:</string>
+    <string name="mock_hp">85</string>
+    <string name="mock_attack">40</string>
+    <string name="mock_deffense">50</string>
+    <string name="mock_special_attack">120</string>
+    <string name="mock_special_deffense">80</string>
+    <string name="mock_speed">190</string>
 </resources>

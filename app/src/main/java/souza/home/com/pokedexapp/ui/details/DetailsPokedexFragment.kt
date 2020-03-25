@@ -18,7 +18,12 @@ class DetailsPokedexFragment : Fragment() {
 
 
     private lateinit var tvName : TextView
-    private lateinit var lvStats : ListView
+    private lateinit var tvHp : TextView
+    private lateinit var tvAttack : TextView
+    private lateinit var tvDeffense : TextView
+    private lateinit var tvSpecialAttack: TextView
+    private lateinit var tvSpecialDefense : TextView
+    private lateinit var tvSpeed : TextView
     private lateinit var lvTypes : ListView
     private lateinit var lvChain : ListView
     private lateinit var spVariations : Spinner
@@ -39,15 +44,21 @@ class DetailsPokedexFragment : Fragment() {
         evolutionArray = ArrayList()
         varietiesArray = ArrayList()
         tvName = view.findViewById(R.id.tv_detail_name)
-        lvStats = view.findViewById(R.id.lv_stats)
         lvTypes = view.findViewById(R.id.lv_types)
         lvChain = view.findViewById(R.id.lv_chain)
         spVariations = view.findViewById(R.id.spinner_variations)
+        tvHp = view.findViewById(R.id.tv_poke_hp)
+        tvAttack = view.findViewById(R.id.tv_poke_attack)
+        tvDeffense = view.findViewById(R.id.tv_poke_deffense)
+        tvSpecialAttack = view.findViewById(R.id.tv_poke_special_attack)
+        tvSpecialDefense = view.findViewById(R.id.tv_poke_special_deffense)
+        tvSpeed = view.findViewById(R.id.tv_poke_speed)
 
 
-        viewModel.getStats(poke, view.context, tvName, lvStats)
+        //viewModel.getStats(poke, view.context, tvName, lvStats, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed)
+        viewModel.getStats(poke, view.context, tvName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed)
         viewModel.getChainEvolution(poke, view.context, evolutionArray, lvChain)
-        viewModel.getVarieties(poke, view.context, varietiesArray, spVariations, evolutionArray, lvChain, tvName, lvStats)
+        viewModel.getVarieties(poke, view.context, varietiesArray, spVariations, evolutionArray, lvChain, tvName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed)
 
         return view
     }
