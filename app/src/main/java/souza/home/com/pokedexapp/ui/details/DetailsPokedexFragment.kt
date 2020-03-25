@@ -14,7 +14,7 @@ import souza.home.com.pokedexapp.R
 /**
  * A simple [Fragment] subclass.
  */
-class DetailsPokedexFragment : Fragment() {
+class DetailsPokedexFragment(var poke: String) : Fragment() {
 
 
     private lateinit var tvName : TextView
@@ -40,7 +40,7 @@ class DetailsPokedexFragment : Fragment() {
         // Inflate the layout for this fragment
 
         val view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
-        val poke: String = "25"
+        //poke: String = "25"
 
         evolutionArray = ArrayList()
         varietiesArray = ArrayList()
