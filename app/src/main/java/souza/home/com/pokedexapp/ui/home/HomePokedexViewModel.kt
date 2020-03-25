@@ -57,7 +57,7 @@ class HomePokedexViewModel : ViewModel(){
 
                         val manager = getFragmentManager(context)
 
-                        manager.beginTransaction().replace(souza.home.com.pokedexapp.R.id.nav_host_fragment, details).commit()
+                        manager.beginTransaction().replace(souza.home.com.pokedexapp.R.id.nav_host_fragment, details).addToBackStack(null).commit()
 
                     }
 
@@ -123,12 +123,6 @@ class HomePokedexViewModel : ViewModel(){
 
     fun getFragmentManager(context: Context): FragmentManager {
         return (context as AppCompatActivity).supportFragmentManager
-    }
-
-    fun openFragment(context: Context, frameId: Int, fragment: Fragment) {
-        getFragmentManager(context).beginTransaction()
-            .replace(frameId, fragment, "Details")
-            .addToBackStack(null).commit()
     }
 
 }
