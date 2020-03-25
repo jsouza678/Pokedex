@@ -18,4 +18,8 @@
     <string name="mock_special_attack">120</string>
     <string name="mock_special_deffense">80</string>
     <string name="mock_speed">190</string>
+    <string name="mock_ability">Ability Grown</string>
+    <string name="title_type">Types</string>
+    <string name="title_ability">Abilities</string>
+    <string name="mock_spinner_item">Pikachu</string>
 </resources>

@@ -9,12 +9,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import souza.home.com.pokedexapp.network.PokeApi
+import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolution
 import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolutionChain
 import souza.home.com.pokedexapp.network.model.stats.PokemonProperty
 import souza.home.com.pokedexapp.network.model.varieties.PokeRootVarieties
 
 class DetailsPokedexViewModel : ViewModel() {
 
+    var check : Int = 0
 
 fun getStats(
     pokemon: String,
@@ -38,17 +40,20 @@ fun getStats(
             //  Toast.makeText(context, "Success 1", Toast.LENGTH_SHORT).show()
             val item = response.body()
 
-            val adapterTypes = ArrayAdapter(context, R.layout.simple_list_item_1, item?.types!!)
-            val adapterAbilities = ArrayAdapter(context, R.layout.simple_list_item_1, item?.abilities!!)
+
+
+            val adapterTypes = CustomTypeAdapter(context, item?.types!!)
+            val adapterAbilities = CustomAbilityAdapter(context, item?.abilities!!)
+
 
             lvTypes.adapter = adapterTypes
             lvAbilities.adapter = adapterAbilities
-            textViewName.text = item?.name
+            textViewName.text = item?.name?.capitalize()
 
             Toast.makeText(context, item?.abilities!![0].ability.name, Toast.LENGTH_LONG).show()
 
             //Toast.makeText(context, item.name,Toast.LENGTH_SHORT).show()
-            tvHp.text = item?.stats!![5].base_stat
+            tvHp.text = item.stats[5].base_stat
             tvAttack.text = item.stats[4].base_stat
             tvDeffense.text = item.stats[3].base_stat
             tvSpecialAttack.text = item.stats[2].base_stat
@@ -82,15 +87,20 @@ fun getChainEvolution(
         override fun onResponse(call: Call<PokeEvolutionChain>, response: Response<PokeEvolutionChain>) {
             //Toast.makeText(context, "Success 2", Toast.LENGTH_LONG).show()
             val item = response.body()
+            val evolutionArray : List<PokeEvolution>
+
+            evolutionArray = ArrayList()
             evolutionArray.clear()
+
+
             if(item?.chain?.species?.name != null){  //// 1 CHAIN
 
-                evolutionArray.add(item.chain.species?.name!!)
+                evolutionArray.add(item.chain)
 
                 try{
-                    evolutionArray.add(item.chain.evolves_to!![0].species?.name!!)
+                    evolutionArray.add(item.chain.evolves_to!![0])
                     try {
-                        evolutionArray.add(item.chain.evolves_to!![0].evolves_to?.get(0)?.species?.name!!)
+                        evolutionArray.add(item.chain.evolves_to!![0].evolves_to!![0])
 
                     }catch (e: Exception){
 
@@ -100,12 +110,9 @@ fun getChainEvolution(
 
                 }
 
-            } else{
-                //evolutionArray.clear()
-                evolutionArray.add("This Poke does not evolutes") //////// HARDCODED
             }
 
-            val adapterChain = ArrayAdapter(context, R.layout.simple_list_item_1, evolutionArray)
+            val adapterChain = CustomChainAdapter(context, evolutionArray)
 
 
             listViewChain.adapter = adapterChain
@@ -142,18 +149,21 @@ fun getVarieties(
             //Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
             val items = response.body()
             val length = response.body()?.varieties?.size
-            //varietiesArray = response.body().varieties
+            //val svarietiesArray = response.body()?.varieties
 
 
             for(i in 0 until length!!) {
                 try {
-                    varietiesArray.add(response.body()?.varieties!![i].pokemon.name)
+                    varietiesArray.add(response.body()?.varieties!![i].pokemon.name.capitalize())
                 } catch (e: Exception) {
                     // varietiesArray.add("No varieties")
                 }
             }
 
-            val spinnerAdapter = ArrayAdapter(context, R.layout.simple_spinner_item, varietiesArray)
+
+            //val spinnerAdapter = CustomSpinnerAdapter(context, svarietiesArray)
+            val spinnerAdapter = ArrayAdapter(context, R.layout.simple_list_item_1, varietiesArray)
+
 
             var urlChain = items?.evolution_chain?.url
 
@@ -168,18 +178,19 @@ fun getVarieties(
             spVariations.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long){
                     // Display the selected item text on text view
+                    check+=1
+                    if(check>1){
+                        urlChain = items!!.varieties[position].pokemon.url
+                        pokePath = urlChain?.substringAfterLast("n/")
+                        //Toast.makeText(context, pokePath, Toast.LENGTH_SHORT).show()
 
+                        getStats(pokePath!!, context, textViewName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed, lvTypes, lvAbilities)
+                        getChainEvolution(pokePath!!, context, evolutionArray, listViewChain)
 
-                    urlChain = items!!.varieties[position].pokemon.url
-                    pokePath = urlChain?.substringAfterLast("n/")
-                    //Toast.makeText(context, pokePath, Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(context,"selected", Toast.LENGTH_SHORT).show()
+                    }
 
-                    getStats(pokePath!!, context, textViewName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed, lvTypes, lvAbilities)
-                    getChainEvolution(pokePath!!, context, evolutionArray, listViewChain)
-
-                    //Toast.makeText(context,"selected", Toast.LENGTH_SHORT).show()
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>){
                     getChainEvolution(pokePath!!, context, evolutionArray, listViewChain)
                 }
