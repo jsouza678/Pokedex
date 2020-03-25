@@ -24,6 +24,7 @@ class DetailsPokedexFragment : Fragment() {
     private lateinit var tvSpecialAttack: TextView
     private lateinit var tvSpecialDefense : TextView
     private lateinit var tvSpeed : TextView
+    private lateinit var lvAbilities : ListView
     private lateinit var lvTypes : ListView
     private lateinit var lvChain : ListView
     private lateinit var spVariations : Spinner
@@ -45,6 +46,7 @@ class DetailsPokedexFragment : Fragment() {
         varietiesArray = ArrayList()
         tvName = view.findViewById(R.id.tv_detail_name)
         lvTypes = view.findViewById(R.id.lv_types)
+        lvAbilities = view.findViewById(R.id.lv_abilities)
         lvChain = view.findViewById(R.id.lv_chain)
         spVariations = view.findViewById(R.id.spinner_variations)
         tvHp = view.findViewById(R.id.tv_poke_hp)
@@ -56,9 +58,9 @@ class DetailsPokedexFragment : Fragment() {
 
 
         //viewModel.getStats(poke, view.context, tvName, lvStats, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed)
-        viewModel.getStats(poke, view.context, tvName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed)
+        viewModel.getStats(poke, view.context, tvName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed, lvTypes, lvAbilities)
         viewModel.getChainEvolution(poke, view.context, evolutionArray, lvChain)
-        viewModel.getVarieties(poke, view.context, varietiesArray, spVariations, evolutionArray, lvChain, tvName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed)
+        viewModel.getVarieties(poke, view.context, varietiesArray, spVariations, evolutionArray, lvChain, tvName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed, lvTypes, lvAbilities)
 
         return view
     }
