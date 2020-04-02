@@ -22,4 +22,5 @@
     <string name="title_type">Types</string>
     <string name="title_ability">Abilities</string>
     <string name="mock_spinner_item">Pikachu</string>
+    <string name="cd_iv_poke_sprite">Pokemon Sprite, Home Screen</string>
 </resources>
