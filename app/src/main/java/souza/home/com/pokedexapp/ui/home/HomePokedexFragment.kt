@@ -11,10 +11,9 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomappbar.BottomAppBar
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.network.model.main_model.Pokemon
 import souza.home.com.pokedexapp.ui.details.DetailsPokedexFragment
@@ -24,7 +23,6 @@ class HomePokedexFragment : Fragment() {
 
     private lateinit var pokesList : MutableList<Pokemon>
     private lateinit var layoutManager: GridLayoutManager
-    //private val detailsPoke =  DetailsPokedexFragment()
     private lateinit var manager : FragmentManager
     private lateinit var progressBar : ProgressBar
     private lateinit var recyclerView : RecyclerView
@@ -39,7 +37,6 @@ class HomePokedexFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_home_pokedex, container, false)
         progressBar = view.findViewById(R.id.progressBar)
-
         manager = activity!!.supportFragmentManager
         adapter = PokesAdapter(pokesList, view.context)
 
@@ -50,6 +47,11 @@ class HomePokedexFragment : Fragment() {
 
 
         initObservers(viewModel)
+
+      /*  bottomAppBar.replaceMenu(R.menu.menu_wallpaper)
+        bottomAppBar.setNavigationOnClickListener {
+            // do something interesting on navigation click
+        }*/
 
         return view
     }
@@ -68,8 +70,6 @@ class HomePokedexFragment : Fragment() {
 
                     }*/
                 }
-
-
             })
 
             this.status.observe(viewLifecycleOwner, Observer {
@@ -86,21 +86,13 @@ class HomePokedexFragment : Fragment() {
                 }
             })
         }
-
-
     }
 
     private fun initRecyclerView(viewModel : HomePokedexViewModel){
 
         layoutManager = GridLayoutManager(context, 2)
         recyclerView.layoutManager = layoutManager
-
         recyclerView.adapter = adapter
-/*        recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                context,
-                GridLayoutManager.VERTICAL)
-        )*/
 
        setTransitionToPokeDetails()
 
@@ -130,7 +122,7 @@ class HomePokedexFragment : Fragment() {
         adapter.onItemClick = {
 
             val urlChain = it.url
-            val pokePath = urlChain?.substringAfterLast("n/")
+            val pokePath = urlChain.substringAfterLast("n/")
 
             val details = DetailsPokedexFragment(pokePath)
 
@@ -139,8 +131,5 @@ class HomePokedexFragment : Fragment() {
         }
 
     }
-
-
-
 
 }

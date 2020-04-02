@@ -9,13 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.fragment_details_pokedex.view.*
 import kotlinx.android.synthetic.main.poke_item_view.view.*
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.network.model.main_model.Pokemon
-
-
-
 
 class PokesAdapter(private val pokes: MutableList<Pokemon>?, private val context: Context) : RecyclerView.Adapter<PokesAdapter.ViewHolder>() {
 
@@ -42,7 +38,7 @@ class PokesAdapter(private val pokes: MutableList<Pokemon>?, private val context
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val name = pokes?.get(position)?.name
         val url = pokes?.get(position)?.url
-        val imageUri = url?.substringAfter("https://pokeapi.co/api/v2/pokemon/")?.substringBefore('/')
+        val imageUri = url?.substringAfter("n/")?.substringBefore('/')
 
         holder.pokeName.text = name
 
@@ -54,7 +50,7 @@ class PokesAdapter(private val pokes: MutableList<Pokemon>?, private val context
         val options = RequestOptions()
             .placeholder(R.drawable.poke_load) // grey pokemon with load animation
             .circleCrop()
-            .error(R.drawable.poke_grey) // error pokemon with prohibited simbol
+            .error(R.drawable.poke_grey) // error pokemon with prohibited symbol
         Glide.with(this.context)
             .setDefaultRequestOptions(options)
             .load(uri)
@@ -75,4 +71,4 @@ class PokesAdapter(private val pokes: MutableList<Pokemon>?, private val context
 
     }
 
-    }
+}

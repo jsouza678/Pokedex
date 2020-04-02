@@ -23,4 +23,6 @@
     <string name="title_ability">Abilities</string>
     <string name="mock_spinner_item">Pikachu</string>
     <string name="cd_iv_poke_sprite">Pokemon Sprite, Home Screen</string>
+    <string name="cd_iv_empty_pokes_list">Empty Pokes List Image</string>
+    <string name="text_no_pokes">No pokes!</string>
 </resources>

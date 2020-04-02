@@ -1,17 +1,14 @@
 package souza.home.com.pokedexapp.ui.home
 
 import android.os.Handler
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import souza.home.com.pokedexapp.network.PokeApi
 import souza.home.com.pokedexapp.network.PokeRootProperty
 import souza.home.com.pokedexapp.network.model.main_model.Pokemon
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 
 enum class HomePokedexStatus{ LOADING, ERROR, DONE, EMPTY}
@@ -59,7 +56,6 @@ class HomePokedexViewModel : ViewModel(){
 
                     }
 
-
                 }
             })
     }
@@ -85,24 +81,15 @@ class HomePokedexViewModel : ViewModel(){
                         _poke.value?.add((response.body()?.results!![i]))
                     }
 
-                  /*  if(length!! > 0){
-                        _status.value = HomePokedexStatus.EMPTY
-                    }else{
-
-                    }*/
-
                     val r = Runnable {
                         _status.value = HomePokedexStatus.DONE
                         isLoading = false
                     }
                     Handler().postDelayed(r, 500)
-
-
                 }
 
             })
         return _poke.value!!
     }
-
 
 }

@@ -16,11 +16,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:clipToPadding="false"
-
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/progressBar"
+
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:spanCount="2"
@@ -28,18 +28,6 @@
 
 
     <!-- In case of Empty list -->
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="#00FFFFFF"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/poke_recycler_view" />
 
     <ImageView
         android:id="@+id/iv_empty"
@@ -48,6 +36,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="228dp"
         android:layout_weight="1"
+        android:contentDescription="@string/cd_iv_empty_pokes_list"
         android:src="@drawable/clear"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,13 +51,60 @@
         android:layout_marginTop="16dp"
         android:layout_weight="2"
         android:gravity="center_horizontal"
-        android:text="No Pokes"
+        android:text="@string/text_no_pokes"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_empty"
         app:layout_constraintVertical_bias="0.026" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/poke_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottom_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            app:backgroundTint="@color/blue_poke"
+            app:fabAlignmentMode="center"
+            app:fabCradleMargin="8dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_anchor="@id/bottom_app_bar"
+            app:layout_anchorGravity="center">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:visibility="visible" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/poke_ball"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/poke_ball"
+                android:layout_centerInParent="true"
+                app:maxImageSize="56dp" />
+
+        </RelativeLayout>
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
