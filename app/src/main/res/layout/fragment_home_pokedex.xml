@@ -28,7 +28,6 @@
 
 
     <!-- In case of Empty list -->
-
     <ImageView
         android:id="@+id/iv_empty"
         android:layout_width="150dp"
@@ -81,6 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_anchor="@id/bottom_app_bar"
+            android:layout_marginBottom="8dp"
             app:layout_anchorGravity="center">
 
             <ProgressBar

@@ -13,10 +13,12 @@ import kotlinx.android.synthetic.main.poke_item_view.view.*
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.network.model.main_model.Pokemon
 
+
+
 class PokesAdapter(private val pokes: MutableList<Pokemon>?, private val context: Context) : RecyclerView.Adapter<PokesAdapter.ViewHolder>() {
 
     var onItemClick: ((Pokemon) -> Unit)? = null
-    private final val BASE_URL = "https://pokeres.bastionbot.org/images/pokemon/"
+    private val imageResourceUrl = "https://pokeres.bastionbot.org/images/pokemon/"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(souza.home.com.pokedexapp.R.layout.poke_item_view, parent, false)
@@ -42,15 +44,16 @@ class PokesAdapter(private val pokes: MutableList<Pokemon>?, private val context
 
         holder.pokeName.text = name
 
-        holder.pokeImage.loadImage("$BASE_URL$imageUri.png")
+        holder.pokeImage.loadImage("$imageResourceUrl$imageUri.png")
 
     }
 
-    fun ImageView.loadImage(uri: String?) {
+    private fun ImageView.loadImage(uri: String?) {
         val options = RequestOptions()
             .placeholder(R.drawable.poke_load) // grey pokemon with load animation
-            .circleCrop()
+            .override(320, 320)
             .error(R.drawable.poke_grey) // error pokemon with prohibited symbol
+
         Glide.with(this.context)
             .setDefaultRequestOptions(options)
             .load(uri)
