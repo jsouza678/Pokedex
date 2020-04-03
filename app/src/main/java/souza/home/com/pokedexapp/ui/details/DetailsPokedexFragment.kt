@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import souza.home.com.pokedexapp.network.model.stats.PokemonProperty
 import android.animation.ValueAnimator
 import souza.home.com.pokedexapp.R
+import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolution
 
 class DetailsPokedexFragment(var poke: String) : Fragment() {
 
@@ -26,27 +27,27 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
     private lateinit var lvTypes : ListView
     private lateinit var lvChain : ListView
     private lateinit var spVariations : Spinner
-    private lateinit var evolutionArray: ArrayList<String>
+    private lateinit var evolutionArray: MutableList<PokeEvolution>
     private lateinit var varietiesArray: ArrayList<String>
     private lateinit var viewModel: DetailsPokedexViewModel
     private lateinit var pokemon: String
-
+    private lateinit var adapterChain : CustomChainAdapter
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
 
         val view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
-
         this.pokemon = poke
 
         viewModel = ViewModelProviders.of(this, DetailsPokedexViewModelFactory(pokemon, activity!!.application))
             .get(DetailsPokedexViewModel::class.java)
 
-        initObservers(viewModel)
+
 
         evolutionArray = ArrayList()
         varietiesArray = ArrayList()
+
         tvName = view.findViewById(R.id.tv_detail_name)
         lvTypes = view.findViewById(R.id.lv_types)
         lvAbilities = view.findViewById(R.id.lv_abilities)
@@ -59,7 +60,11 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
         tvSpecialDefense = view.findViewById(R.id.tv_poke_special_deffense)
         tvSpeed = view.findViewById(R.id.tv_poke_speed)
 
-        //viewModel.getStats(poke, view.context, tvName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed, lvTypes, lvAbilities)
+        adapterChain = CustomChainAdapter(view.context, evolutionArray)
+        initChainEvolution()
+        initObservers(viewModel)
+
+
         //viewModel.getChainEvolution(poke, view.context, evolutionArray, lvChain)
         //viewModel.getVarieties(poke, view.context, varietiesArray, spVariations, evolutionArray, lvChain, tvName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed, lvTypes, lvAbilities)
 
@@ -70,14 +75,27 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
         viewModel.apply {
             this.stats.observe(viewLifecycleOwner, Observer {
                 if(it!=null){
-                initStats(it)
+                    initStats(it)
+
                 }
             })
+
+            this.chain.observe(viewLifecycleOwner, Observer {
+                if(it!=null){
+                    adapterChain.submitList(it)
+                }
+            })
+
+
         }
 
     }
 
-/*
+    private fun initChainEvolution(){
+        lvChain.adapter = adapterChain
+    }
+
+    /*
 
     private fun initType(){
         val adapterTypes = CustomTypeAdapter(context, item?.types!!)

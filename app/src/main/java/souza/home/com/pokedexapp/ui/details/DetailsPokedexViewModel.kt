@@ -41,13 +41,14 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
     val varieties : LiveData<PokeRootVarieties>
         get() = _varieties
 
-    private var _chain = MutableLiveData<PokeEvolutionChain>()
+    private var _chain = MutableLiveData<MutableList<PokeEvolution>>()
 
-    val chains : LiveData<PokeEvolutionChain>
+    val chain : LiveData<MutableList<PokeEvolution>>
         get() = _chain
 
     init{
         getStats(pokemon)
+        getChainEvolution(pokemon)
     }
 
     fun getStats(pokemon: String){
@@ -109,11 +110,8 @@ fun getChainEvolution(pokemon: String){
                 }
 
             }
+            _chain.value = evolutionArray
 
-          /*  val adapterChain = CustomChainAdapter(context, evolutionArray)
-
-
-            listViewChain.adapter = adapterChain*/
             _status.value = DetailsPokedexStatus.DONE
         }
 

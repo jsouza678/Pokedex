@@ -13,9 +13,17 @@ import souza.home.com.pokedexapp.network.model.stats.PokeAbilities
 import souza.home.com.pokedexapp.network.model.stats.PokeAbility
 import souza.home.com.pokedexapp.network.model.stats.PokeTypes
 
-class CustomChainAdapter (private val context: Context, private val dataList: List<PokeEvolution>) : BaseAdapter() {
+class CustomChainAdapter (private val context: Context, private val dataList: MutableList<PokeEvolution>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+    fun submitList(newData: MutableList<PokeEvolution>){
+        if(dataList.isNotEmpty()){
+            dataList.clear()
+        }
+        dataList.addAll(newData)
+        this.notifyDataSetChanged()
+    }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val dataItem = dataList[position]
