@@ -18,13 +18,14 @@ import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolutionChai
 import souza.home.com.pokedexapp.network.model.stats.PokeStats
 import souza.home.com.pokedexapp.network.model.stats.PokemonProperty
 import souza.home.com.pokedexapp.network.model.varieties.PokeRootVarieties
+import souza.home.com.pokedexapp.network.model.varieties.PokeVarieties
 import souza.home.com.pokedexapp.ui.home.HomePokedexStatus
 
 enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
 class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewModel(app) {
 
-    var check : Int = 0
+
 
     private var _status = MutableLiveData<DetailsPokedexStatus>()
 
@@ -36,9 +37,9 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
     val stats : LiveData<PokemonProperty>
         get() = _stats
 
-    private var _varieties = MutableLiveData<PokeRootVarieties>()
+    private var _varieties = MutableLiveData<MutableList<PokeVarieties>>()
 
-    val varieties : LiveData<PokeRootVarieties>
+    val varieties : LiveData<MutableList<PokeVarieties>>
         get() = _varieties
 
     private var _chain = MutableLiveData<MutableList<PokeEvolution>>()
@@ -49,6 +50,7 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
     init{
         getStats(pokemon)
         getChainEvolution(pokemon)
+        getVarieties(pokemon)
     }
 
     fun getStats(pokemon: String){
@@ -119,67 +121,46 @@ fun getChainEvolution(pokemon: String){
 
 }
 
-fun getVarieties(pokemon: String){
+
+fun getVarieties(pokemon: String) : MutableList<PokeVarieties>?{
 
     _status.value = DetailsPokedexStatus.LOADING
+
     PokeApi.retrofitService.getVariations(pokemon).enqueue(object: Callback<PokeRootVarieties> {
         override fun onFailure(call: Call<PokeRootVarieties>, t: Throwable) {
             _status.value = DetailsPokedexStatus.ERROR
         }
 
         override fun onResponse(call: Call<PokeRootVarieties>, response: Response<PokeRootVarieties>) {
-           /* //Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
+            val varietiesArray: ArrayList<String> = ArrayList()
             val items = response.body()
             val length = response.body()?.varieties?.size
-            //val svarietiesArray = response.body()?.varieties
 
-
+/*
             for(i in 0 until length!!) {
                 try {
                     varietiesArray.add(response.body()?.varieties!![i].pokemon.name.capitalize())
                 } catch (e: Exception) {
                     // varietiesArray.add("No varieties")
                 }
-            }
-
-
-            //val spinnerAdapter = CustomSpinnerAdapter(context, svarietiesArray)
-            val spinnerAdapter = ArrayAdapter(context, R.layout.simple_list_item_1, varietiesArray)
-
-
-            var urlChain = items?.evolution_chain?.url
-
-            // calling chain evoltuion at selection
-            var pokePath = urlChain?.substringAfterLast("n/")
-            //Toast.makeText(context, pokePath, Toast.LENGTH_SHORT).show()
-
-            getChainEvolution(pokePath!!, context, evolutionArray, listViewChain)
-
-            spVariations.adapter = spinnerAdapter
-
-            spVariations.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long){
-                    // Display the selected item text on text view
-                    check+=1
-                    if(check>1){
-                        urlChain = items!!.varieties[position].pokemon.url
-                        pokePath = urlChain?.substringAfterLast("n/")
-                        //Toast.makeText(context, pokePath, Toast.LENGTH_SHORT).show()
-
-                        getStats(pokePath!!, context, textViewName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed, lvTypes, lvAbilities)
-                        getChainEvolution(pokePath!!, context, evolutionArray, listViewChain)
-
-                        //Toast.makeText(context,"selected", Toast.LENGTH_SHORT).show()
-                    }
-
-                }
-                override fun onNothingSelected(parent: AdapterView<*>){
-                    getChainEvolution(pokePath!!, context, evolutionArray, listViewChain)
-                }
             }*/
 
+            _varieties.value = items?.varieties
+/*
+
+
+
+
+
+
+
+
+*/
             _status.value = DetailsPokedexStatus.DONE
+
         }
-    })
-}
+    }
+    )
+        return varieties.value
+    }
 }

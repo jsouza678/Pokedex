@@ -60,6 +60,7 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
         tvSpecialDefense = view.findViewById(R.id.tv_poke_special_deffense)
         tvSpeed = view.findViewById(R.id.tv_poke_speed)
 
+
         adapterChain = CustomChainAdapter(view.context, evolutionArray)
         initChainEvolution()
         initObservers(viewModel)
@@ -86,6 +87,14 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
                 }
             })
 
+            this.varieties.observe(viewLifecycleOwner, Observer {
+                if(it!=null){
+                    //adapterChain.submitList(it)
+                    val spinnerAdapter = ArrayAdapter(context!!, R.layout.support_simple_spinner_dropdown_item, it)
+                    //initSpinner()
+                    spVariations.adapter = spinnerAdapter
+                }
+            })
 
         }
 
@@ -128,6 +137,45 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
         }
         animator.duration = 600 // here you set the duration of the anim
         animator.start()
+    }
+
+    private fun initSpinner(){
+        var check : Int = 0
+       //spVariations.adapter = spinnerAdapter
+
+        spVariations.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long){
+                // Display the selected item text on text view
+                check+=1
+                if(check>1){
+                    //val urlChain = items!!.varieties[position].pokemon.url
+                    //var pokePath = urlChain?.substringAfterLast("n/")
+                    //Toast.makeText(context, pokePath, Toast.LENGTH_SHORT).show()
+
+                    //chama os 2
+                    //getStats(pokePath!!, context, textViewName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed, lvTypes, lvAbilities)
+                    //getChainEvolution(pokePath!!, context, evolutionArray, listViewChain)
+
+                    //Toast.makeText(context,"selected", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+            override fun onNothingSelected(parent: AdapterView<*>){
+                //faz nada
+                //getChainEvolution(pokePath!!, context, evolutionArray, listViewChain)
+            }
+        }
+
+
+
+        /*var urlChain = items?.evolution_chain?.url
+
+            // calling chain evoltuion at selection
+            var pokePath = urlChain?.substringAfterLast("n/")
+            //Toast.makeText(context, pokePath, Toast.LENGTH_SHORT).show()
+
+            getChainEvolution(pokePath!!, context, evolutionArray, listViewChain)*/
+
     }
 }
 
