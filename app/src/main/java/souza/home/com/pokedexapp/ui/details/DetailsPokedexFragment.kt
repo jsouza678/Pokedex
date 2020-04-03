@@ -7,15 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import souza.home.com.pokedexapp.network.model.stats.PokemonProperty
+import android.animation.ValueAnimator
 import souza.home.com.pokedexapp.R
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class DetailsPokedexFragment(var poke: String) : Fragment() {
-
 
     private lateinit var tvName : TextView
     private lateinit var tvHp : TextView
@@ -30,17 +28,22 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
     private lateinit var spVariations : Spinner
     private lateinit var evolutionArray: ArrayList<String>
     private lateinit var varietiesArray: ArrayList<String>
+    private lateinit var viewModel: DetailsPokedexViewModel
+    private lateinit var pokemon: String
 
-    private val viewModel: DetailsPokedexViewModel by lazy{
-        ViewModelProviders.of(this).get(DetailsPokedexViewModel::class.java)
-    }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
 
         val view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
-        //poke: String = "25"
+
+        this.pokemon = poke
+
+        viewModel = ViewModelProviders.of(this, DetailsPokedexViewModelFactory(pokemon, activity!!.application))
+            .get(DetailsPokedexViewModel::class.java)
+
+        initObservers(viewModel)
 
         evolutionArray = ArrayList()
         varietiesArray = ArrayList()
@@ -56,15 +59,57 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
         tvSpecialDefense = view.findViewById(R.id.tv_poke_special_deffense)
         tvSpeed = view.findViewById(R.id.tv_poke_speed)
 
-
-        //viewModel.getStats(poke, view.context, tvName, lvStats, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed)
-        viewModel.getStats(poke, view.context, tvName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed, lvTypes, lvAbilities)
-        viewModel.getChainEvolution(poke, view.context, evolutionArray, lvChain)
-        viewModel.getVarieties(poke, view.context, varietiesArray, spVariations, evolutionArray, lvChain, tvName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed, lvTypes, lvAbilities)
+        //viewModel.getStats(poke, view.context, tvName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed, lvTypes, lvAbilities)
+        //viewModel.getChainEvolution(poke, view.context, evolutionArray, lvChain)
+        //viewModel.getVarieties(poke, view.context, varietiesArray, spVariations, evolutionArray, lvChain, tvName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed, lvTypes, lvAbilities)
 
         return view
     }
 
+    private fun initObservers(viewModel:DetailsPokedexViewModel){
+        viewModel.apply {
+            this.stats.observe(viewLifecycleOwner, Observer {
+                if(it!=null){
+                initStats(it)
+                }
+            })
+        }
+
+    }
+
+/*
+
+    private fun initType(){
+        val adapterTypes = CustomTypeAdapter(context, item?.types!!)
+        lvTypes.adapter = adapterTypes
+    }
+
+    private fun initAbilities(){
+        val adapterAbilities = CustomAbilityAdapter(context, item?.abilities!!)
+
+        lvAbilities.adapter = adapterAbilities
+        textViewName.text = item?.name?.capitalize()
+    }
+*/
 
 
+    private fun initStats(item: PokemonProperty){
+        animateStats(Integer.valueOf(item.stats[5].base_stat), tvHp)
+        animateStats(Integer.valueOf(item.stats[4].base_stat), tvAttack)
+        animateStats(Integer.valueOf(item.stats[3].base_stat), tvDeffense)
+        animateStats(Integer.valueOf(item.stats[2].base_stat), tvSpecialAttack)
+        animateStats(Integer.valueOf(item.stats[1].base_stat), tvSpecialDefense)
+        animateStats(Integer.valueOf(item.stats[0].base_stat), tvSpeed)
 }
+
+    private fun animateStats(item: Int, tv: TextView){
+        val animator = ValueAnimator()
+        animator.setObjectValues(0, item)// here you set the range, from 0 to "count" value
+        animator.addUpdateListener {
+                animation -> tv.text = animation.animatedValue.toString()
+        }
+        animator.duration = 600 // here you set the duration of the anim
+        animator.start()
+    }
+}
+

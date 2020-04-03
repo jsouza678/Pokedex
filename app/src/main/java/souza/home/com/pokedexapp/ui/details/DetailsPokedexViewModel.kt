@@ -1,9 +1,13 @@
 package souza.home.com.pokedexapp.ui.details
 
 import android.R
+import android.app.Application
 import android.content.Context
 import android.view.View
 import android.widget.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -11,57 +15,55 @@ import retrofit2.Response
 import souza.home.com.pokedexapp.network.PokeApi
 import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolution
 import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolutionChain
+import souza.home.com.pokedexapp.network.model.stats.PokeStats
 import souza.home.com.pokedexapp.network.model.stats.PokemonProperty
 import souza.home.com.pokedexapp.network.model.varieties.PokeRootVarieties
+import souza.home.com.pokedexapp.ui.home.HomePokedexStatus
 
-class DetailsPokedexViewModel : ViewModel() {
+enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
+
+class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewModel(app) {
 
     var check : Int = 0
 
-fun getStats(
-    pokemon: String,
-    context: Context,
-    textViewName: TextView,
-    tvHp: TextView,
-    tvAttack: TextView,
-    tvDeffense: TextView,
-    tvSpecialAttack: TextView,
-    tvSpecialDefense: TextView,
-    tvSpeed: TextView,
-    lvTypes: ListView,
-    lvAbilities: ListView
-){
-    PokeApi.retrofitService.getPokeStats(pokemon).enqueue(object: Callback<PokemonProperty> {
+    private var _status = MutableLiveData<DetailsPokedexStatus>()
+
+    val status : LiveData<DetailsPokedexStatus>
+        get() = _status
+
+    private var _stats = MutableLiveData<PokemonProperty>()
+
+    val stats : LiveData<PokemonProperty>
+        get() = _stats
+
+    private var _varieties = MutableLiveData<PokeRootVarieties>()
+
+    val varieties : LiveData<PokeRootVarieties>
+        get() = _varieties
+
+    private var _chain = MutableLiveData<PokeEvolutionChain>()
+
+    val chains : LiveData<PokeEvolutionChain>
+        get() = _chain
+
+    init{
+        getStats(pokemon)
+    }
+
+    fun getStats(pokemon: String){
+
+        _status.value = DetailsPokedexStatus.LOADING
+
+        PokeApi.retrofitService.getPokeStats(pokemon).enqueue(object: Callback<PokemonProperty> {
         override fun onFailure(call: Call<PokemonProperty>, t: Throwable) {
-            Toast.makeText(context, "Failure on getting stats" + t.message, Toast.LENGTH_SHORT).show()
+            _status.value = DetailsPokedexStatus.ERROR
         }
 
         override fun onResponse(call: Call<PokemonProperty>, response: Response<PokemonProperty>) {
-            //  Toast.makeText(context, "Success 1", Toast.LENGTH_SHORT).show()
             val item = response.body()
 
-
-
-            val adapterTypes = CustomTypeAdapter(context, item?.types!!)
-            val adapterAbilities = CustomAbilityAdapter(context, item?.abilities!!)
-
-
-            lvTypes.adapter = adapterTypes
-            lvAbilities.adapter = adapterAbilities
-            textViewName.text = item?.name?.capitalize()
-
-            Toast.makeText(context, item?.abilities!![0].ability.name, Toast.LENGTH_LONG).show()
-
-            //Toast.makeText(context, item.name,Toast.LENGTH_SHORT).show()
-            tvHp.text = item.stats[5].base_stat
-            tvAttack.text = item.stats[4].base_stat
-            tvDeffense.text = item.stats[3].base_stat
-            tvSpecialAttack.text = item.stats[2].base_stat
-            tvSpecialDefense.text = item.stats[1].base_stat
-            tvSpeed.text = item.stats[0].base_stat
-            //lv_types.adapter = adapterTypes
-
-
+            _stats.value = item
+            _status.value = DetailsPokedexStatus.DONE
 
 
         }
@@ -72,16 +74,12 @@ fun getStats(
 
 }
 
-fun getChainEvolution(
-    pokemon: String,
-    context: Context,
-    evolutionArray: ArrayList<String>,
-    listViewChain: ListView
-){
+fun getChainEvolution(pokemon: String){
+    _status.value = DetailsPokedexStatus.LOADING
     PokeApi.retrofitService.getEvolutionChain(pokemon).enqueue(object:
         Callback<PokeEvolutionChain> {
         override fun onFailure(call: Call<PokeEvolutionChain>, t: Throwable) {
-            Toast.makeText(context, "Failure on getting Chain Evolution" + t.message, Toast.LENGTH_SHORT).show()
+            _status.value = DetailsPokedexStatus.ERROR
         }
 
         override fun onResponse(call: Call<PokeEvolutionChain>, response: Response<PokeEvolutionChain>) {
@@ -112,41 +110,27 @@ fun getChainEvolution(
 
             }
 
-            val adapterChain = CustomChainAdapter(context, evolutionArray)
+          /*  val adapterChain = CustomChainAdapter(context, evolutionArray)
 
 
-            listViewChain.adapter = adapterChain
+            listViewChain.adapter = adapterChain*/
+            _status.value = DetailsPokedexStatus.DONE
         }
 
     })
 
 }
 
-fun getVarieties(
-    pokemon: String,
-    context: Context,
-    varietiesArray: ArrayList<String>,
-    spVariations: Spinner,
-    evolutionArray: ArrayList<String>,
-    listViewChain: ListView,
-    textViewName: TextView,
-    tvHp: TextView,
-    tvAttack: TextView,
-    tvDeffense: TextView,
-    tvSpecialAttack: TextView,
-    tvSpecialDefense: TextView,
-    tvSpeed: TextView,
-    lvTypes: ListView,
-    lvAbilities: ListView
-){
+fun getVarieties(pokemon: String){
 
+    _status.value = DetailsPokedexStatus.LOADING
     PokeApi.retrofitService.getVariations(pokemon).enqueue(object: Callback<PokeRootVarieties> {
         override fun onFailure(call: Call<PokeRootVarieties>, t: Throwable) {
-            Toast.makeText(context, "FAILURE on getting varieties " + t.message, Toast.LENGTH_SHORT).show()
+            _status.value = DetailsPokedexStatus.ERROR
         }
 
         override fun onResponse(call: Call<PokeRootVarieties>, response: Response<PokeRootVarieties>) {
-            //Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
+           /* //Toast.makeText(context, "OK", Toast.LENGTH_SHORT).show()
             val items = response.body()
             val length = response.body()?.varieties?.size
             //val svarietiesArray = response.body()?.varieties
@@ -194,7 +178,9 @@ fun getVarieties(
                 override fun onNothingSelected(parent: AdapterView<*>){
                     getChainEvolution(pokePath!!, context, evolutionArray, listViewChain)
                 }
-            }
+            }*/
+
+            _status.value = DetailsPokedexStatus.DONE
         }
     })
 }
