@@ -37,9 +37,9 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
     val stats : LiveData<PokemonProperty>
         get() = _stats
 
-    private var _varieties = MutableLiveData<MutableList<PokeVarieties>>()
+    private var _varieties = MutableLiveData<PokeRootVarieties>()
 
-    val varieties : LiveData<MutableList<PokeVarieties>>
+    val varieties : LiveData<PokeRootVarieties>
         get() = _varieties
 
     private var _chain = MutableLiveData<MutableList<PokeEvolution>>()
@@ -136,27 +136,18 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
             val items = response.body()
             val length = response.body()?.varieties?.size
 
-/*
+
             for(i in 0 until length!!) {
                 try {
                     varietiesArray.add(response.body()?.varieties!![i].pokemon.name.capitalize())
+                    _status.value = DetailsPokedexStatus.DONE
                 } catch (e: Exception) {
                     // varietiesArray.add("No varieties")
+                    _status.value = DetailsPokedexStatus.EMPTY
                 }
-            }*/
+            }
 
-            _varieties.value = items?.varieties
-/*
-
-
-
-
-
-
-
-
-*/
-            _status.value = DetailsPokedexStatus.DONE
+            _varieties.value = items
 
         }
     }

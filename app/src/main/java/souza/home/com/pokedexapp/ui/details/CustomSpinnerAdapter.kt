@@ -15,6 +15,9 @@ import souza.home.com.pokedexapp.network.model.varieties.PokeVarieties
 
 class CustomSpinnerAdapter (private val context: Context, private val dataList: MutableList<PokeVarieties>) : BaseAdapter() {
 
+    var pokemon: Pokemon = Pokemon("Select one item", "http://")
+    var poke : PokeVarieties = PokeVarieties(pokemon)
+
     private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -30,6 +33,7 @@ class CustomSpinnerAdapter (private val context: Context, private val dataList: 
         if(dataList.isNotEmpty()){
             dataList.clear()
         }
+        dataList.add(0, poke)
         dataList.addAll(newData)
         this.notifyDataSetChanged()
     }

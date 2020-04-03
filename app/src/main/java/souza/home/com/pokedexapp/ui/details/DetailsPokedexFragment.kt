@@ -14,6 +14,7 @@ import android.animation.ValueAnimator
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolution
 import souza.home.com.pokedexapp.network.model.varieties.PokeVarieties
+import souza.home.com.pokedexapp.ui.home.HomePokedexStatus
 
 class DetailsPokedexFragment(var poke: String) : Fragment() {
 
@@ -35,6 +36,9 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
     private lateinit var pokemon: String
     private lateinit var adapterChain : CustomChainAdapter
     private lateinit var adapterSpinner : CustomSpinnerAdapter
+    private var pokePath : String = ""
+    private var urlChain : String = ""
+    private var spinnerSelected: Int = 0
 
 
 
@@ -70,7 +74,7 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
         adapterChain = CustomChainAdapter(view.context, evolutionArray)
         initSpinner()
         initChainEvolution()
-        initObservers(viewModel)
+        initObservers()
 
 
         //viewModel.getChainEvolution(poke, view.context, evolutionArray, lvChain)
@@ -79,7 +83,7 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
         return view
     }
 
-    private fun initObservers(viewModel:DetailsPokedexViewModel){
+    private fun initObservers(){
         viewModel.apply {
             this.stats.observe(viewLifecycleOwner, Observer {
                 if(it!=null){
@@ -97,10 +101,20 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
 
             this.varieties.observe(viewLifecycleOwner, Observer {
                 if(it!=null){
-                    adapterSpinner.submitList(it)
+                    adapterSpinner.submitList(it.varieties)
+
+                    pokemonsArray = it.varieties
+
                     //adapterChain.submitList(it)
 
                 }
+            })
+
+            this.status.observe(viewLifecycleOwner, Observer {
+                /*when(it){
+                    HomePokedexStatus.EMPTY -> Toast.makeText(context, "No variations", Toast.LENGTH_SHORT).show()
+                    else-> Toast.makeText(context, "Show", Toast.LENGTH_SHORT).show()
+                }*/
             })
 
         }
@@ -146,31 +160,42 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
         animator.start()
     }
 
-    private fun initSpinner(){
-        var check : Int = 0
+    private fun initSpinner() {
+        var check: Int = 0
+
         spVariations.adapter = adapterSpinner
 
-        spVariations.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long){
-                // Display the selected item text on text view
-                check+=1
-                if(check>1){
-                    //val urlChain = items!!.varieties[position].pokemon.url
-                    //var pokePath = urlChain?.substringAfterLast("n/")
-                    //Toast.makeText(context, pokePath, Toast.LENGTH_SHORT).show()
+        spVariations.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+                spinnerSelected = position-1
+                when(position){
+                    0 ->  {
 
-                    //chama os 2
-                    //getStats(pokePath!!, context, textViewName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed, lvTypes, lvAbilities)
-                    //getChainEvolution(pokePath!!, context, evolutionArray, listViewChain)
+                    }
+                    else-> {
+                            urlChain = pokemonsArray[spinnerSelected].pokemon.url
 
-                    //Toast.makeText(context,"selected", Toast.LENGTH_SHORT).show()
+                            pokePath = urlChain.substringAfterLast("n/").substringBeforeLast("/")
+
+                            //Toast.makeText(context, pokePath, Toast.LENGTH_SHORT).show()
+
+                            if(pokePath.trim() == pokemon.trim()){
+                                Toast.makeText(context, "Same poke", Toast.LENGTH_SHORT).show()
+                            }else{
+                                Toast.makeText(context, "ReloadScreen", Toast.LENGTH_SHORT).show()
+                                //reload the fragment
+                                //fragmentManager!!.beginTransaction().replace(R.id.nav_host_fragment, DetailsPokedexFragment(pokePath)).commit()
+                            }
+                    }
                 }
-
             }
-            override fun onNothingSelected(parent: AdapterView<*>){
+
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
                 //faz nada
                 //getChainEvolution(pokePath!!, context, evolutionArray, listViewChain)
             }
+
         }
 
 

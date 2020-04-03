@@ -122,7 +122,7 @@ class HomePokedexFragment : Fragment() {
         adapter.onItemClick = {
 
             val urlChain = it.url
-            val pokePath = urlChain.substringAfterLast("n/")
+            val pokePath = urlChain.substringAfterLast("n/").substringBeforeLast("/")
 
             val details = DetailsPokedexFragment(pokePath)
 
