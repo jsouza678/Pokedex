@@ -7,12 +7,22 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import souza.home.com.pokedexapp.R
+import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolution
 import souza.home.com.pokedexapp.network.model.stats.PokeAbilities
 import souza.home.com.pokedexapp.network.model.stats.PokeAbility
 
 class CustomAbilityAdapter (private val context: Context, private val dataList: MutableList<PokeAbilities>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+
+    fun submitList(newData: MutableList<PokeAbilities>){
+        if(dataList.isNotEmpty()){
+            dataList.clear()
+        }
+        dataList.addAll(newData)
+        this.notifyDataSetChanged()
+    }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val dataItem = dataList[position]

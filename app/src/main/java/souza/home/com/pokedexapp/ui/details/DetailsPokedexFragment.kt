@@ -13,8 +13,9 @@ import souza.home.com.pokedexapp.network.model.stats.PokemonProperty
 import android.animation.ValueAnimator
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolution
+import souza.home.com.pokedexapp.network.model.stats.PokeAbilities
+import souza.home.com.pokedexapp.network.model.stats.PokeTypes
 import souza.home.com.pokedexapp.network.model.varieties.PokeVarieties
-import souza.home.com.pokedexapp.ui.home.HomePokedexStatus
 
 class DetailsPokedexFragment(var poke: String) : Fragment() {
 
@@ -32,10 +33,14 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
     private lateinit var evolutionArray: MutableList<PokeEvolution>
     private lateinit var varietiesArray: MutableList<PokeVarieties>
     private lateinit var pokemonsArray: MutableList<PokeVarieties>
+    private lateinit var typesArray: MutableList<PokeTypes>
+    private lateinit var abilitiesArray: MutableList<PokeAbilities>
     private lateinit var viewModel: DetailsPokedexViewModel
     private lateinit var pokemon: String
     private lateinit var adapterChain : CustomChainAdapter
     private lateinit var adapterSpinner : CustomSpinnerAdapter
+    private lateinit var adapterTypes: CustomTypeAdapter
+    private lateinit var adapterAbilities: CustomAbilityAdapter
     private var pokePath : String = ""
     private var urlChain : String = ""
     private var spinnerSelected: Int = 0
@@ -44,7 +49,6 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-
         val view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
         this.pokemon = poke
 
@@ -52,7 +56,8 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
             .get(DetailsPokedexViewModel::class.java)
 
 
-
+        typesArray = ArrayList()
+        abilitiesArray = ArrayList()
         evolutionArray = ArrayList()
         varietiesArray = ArrayList()
         pokemonsArray = ArrayList()
@@ -70,15 +75,15 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
         tvSpeed = view.findViewById(R.id.tv_poke_speed)
 
 
+        adapterTypes = CustomTypeAdapter(view.context, typesArray)
+        adapterAbilities = CustomAbilityAdapter(view.context, abilitiesArray)
         adapterSpinner = CustomSpinnerAdapter(view.context, pokemonsArray)
         adapterChain = CustomChainAdapter(view.context, evolutionArray)
         initSpinner()
         initChainEvolution()
+        initType()
+        initAbilities()
         initObservers()
-
-
-        //viewModel.getChainEvolution(poke, view.context, evolutionArray, lvChain)
-        //viewModel.getVarieties(poke, view.context, varietiesArray, spVariations, evolutionArray, lvChain, tvName, tvHp, tvAttack, tvDeffense, tvSpecialAttack, tvSpecialDefense, tvSpeed, lvTypes, lvAbilities)
 
         return view
     }
@@ -89,6 +94,10 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
                 if(it!=null){
                     initStats(it)
 
+                    adapterTypes.submitList(it.types)
+                    adapterAbilities.submitList(it.abilities)
+
+                    tvName.text = it?.name?.capitalize()
                 }
             })
 
@@ -105,13 +114,12 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
 
                     pokemonsArray = it.varieties
 
-                    //adapterChain.submitList(it)
 
                 }
             })
 
             this.status.observe(viewLifecycleOwner, Observer {
-                /*when(it){
+                /*when(it){ // Show Everything. When not Done,
                     HomePokedexStatus.EMPTY -> Toast.makeText(context, "No variations", Toast.LENGTH_SHORT).show()
                     else-> Toast.makeText(context, "Show", Toast.LENGTH_SHORT).show()
                 }*/
@@ -125,20 +133,18 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
         lvChain.adapter = adapterChain
     }
 
-    /*
 
     private fun initType(){
-        val adapterTypes = CustomTypeAdapter(context, item?.types!!)
+
         lvTypes.adapter = adapterTypes
     }
 
     private fun initAbilities(){
-        val adapterAbilities = CustomAbilityAdapter(context, item?.abilities!!)
 
         lvAbilities.adapter = adapterAbilities
-        textViewName.text = item?.name?.capitalize()
+
     }
-*/
+
 
 
     private fun initStats(item: PokemonProperty){
@@ -161,7 +167,6 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
     }
 
     private fun initSpinner() {
-        var check: Int = 0
 
         spVariations.adapter = adapterSpinner
 
@@ -185,6 +190,8 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
                                 Toast.makeText(context, "ReloadScreen", Toast.LENGTH_SHORT).show()
                                 //reload the fragment
                                 //fragmentManager!!.beginTransaction().replace(R.id.nav_host_fragment, DetailsPokedexFragment(pokePath)).commit()
+
+                                //need to call everything at selection.
                             }
                     }
                 }
@@ -192,21 +199,10 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
 
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                //faz nada
-                //getChainEvolution(pokePath!!, context, evolutionArray, listViewChain)
+                // Do nothing when not selected. maybe a "
             }
 
         }
-
-
-
-        /*var urlChain = items?.evolution_chain?.url
-
-            // calling chain evoltuion at selection
-            var pokePath = urlChain?.substringAfterLast("n/")
-            //Toast.makeText(context, pokePath, Toast.LENGTH_SHORT).show()
-
-            getChainEvolution(pokePath!!, context, evolutionArray, listViewChain)*/
 
     }
 }
