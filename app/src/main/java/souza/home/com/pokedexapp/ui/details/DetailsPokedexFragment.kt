@@ -13,6 +13,7 @@ import souza.home.com.pokedexapp.network.model.stats.PokemonProperty
 import android.animation.ValueAnimator
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolution
+import souza.home.com.pokedexapp.network.model.varieties.PokeVarieties
 
 class DetailsPokedexFragment(var poke: String) : Fragment() {
 
@@ -28,10 +29,13 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
     private lateinit var lvChain : ListView
     private lateinit var spVariations : Spinner
     private lateinit var evolutionArray: MutableList<PokeEvolution>
-    private lateinit var varietiesArray: ArrayList<String>
+    private lateinit var varietiesArray: MutableList<PokeVarieties>
+    private lateinit var pokemonsArray: MutableList<PokeVarieties>
     private lateinit var viewModel: DetailsPokedexViewModel
     private lateinit var pokemon: String
     private lateinit var adapterChain : CustomChainAdapter
+    private lateinit var adapterSpinner : CustomSpinnerAdapter
+
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -47,6 +51,7 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
 
         evolutionArray = ArrayList()
         varietiesArray = ArrayList()
+        pokemonsArray = ArrayList()
 
         tvName = view.findViewById(R.id.tv_detail_name)
         lvTypes = view.findViewById(R.id.lv_types)
@@ -61,7 +66,9 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
         tvSpeed = view.findViewById(R.id.tv_poke_speed)
 
 
+        adapterSpinner = CustomSpinnerAdapter(view.context, pokemonsArray)
         adapterChain = CustomChainAdapter(view.context, evolutionArray)
+        initSpinner()
         initChainEvolution()
         initObservers(viewModel)
 
@@ -84,15 +91,15 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
             this.chain.observe(viewLifecycleOwner, Observer {
                 if(it!=null){
                     adapterChain.submitList(it)
+
                 }
             })
 
             this.varieties.observe(viewLifecycleOwner, Observer {
                 if(it!=null){
+                    adapterSpinner.submitList(it)
                     //adapterChain.submitList(it)
-                    val spinnerAdapter = ArrayAdapter(context!!, R.layout.support_simple_spinner_dropdown_item, it)
-                    //initSpinner()
-                    spVariations.adapter = spinnerAdapter
+
                 }
             })
 
@@ -141,7 +148,7 @@ class DetailsPokedexFragment(var poke: String) : Fragment() {
 
     private fun initSpinner(){
         var check : Int = 0
-       //spVariations.adapter = spinnerAdapter
+        spVariations.adapter = adapterSpinner
 
         spVariations.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long){

@@ -77,7 +77,7 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
 
 }
 
-fun getChainEvolution(pokemon: String){
+    private fun getChainEvolution(pokemon: String){
     _status.value = DetailsPokedexStatus.LOADING
     PokeApi.retrofitService.getEvolutionChain(pokemon).enqueue(object:
         Callback<PokeEvolutionChain> {
@@ -122,7 +122,7 @@ fun getChainEvolution(pokemon: String){
 }
 
 
-fun getVarieties(pokemon: String) : MutableList<PokeVarieties>?{
+    fun getVarieties(pokemon: String){
 
     _status.value = DetailsPokedexStatus.LOADING
 
@@ -161,6 +161,5 @@ fun getVarieties(pokemon: String) : MutableList<PokeVarieties>?{
         }
     }
     )
-        return varieties.value
     }
 }
