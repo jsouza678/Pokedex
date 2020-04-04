@@ -43,8 +43,15 @@ class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(a
             ) {
                 val item = response.body()
 
-                _other.value = item
-                _status.value = DetailsPokedexStatus.DONE
+
+
+                try {
+                    _other.value = item
+                    _status.value = DetailsPokedexStatus.DONE
+                } catch (e: Exception) {
+                    // varietiesArray.add("No varieties")
+                    _status.value = DetailsPokedexStatus.EMPTY
+                }
             }
 
         })

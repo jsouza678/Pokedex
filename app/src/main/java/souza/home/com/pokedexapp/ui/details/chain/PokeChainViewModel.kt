@@ -42,9 +42,13 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
 
             override fun onResponse(call: Call<PokeRootVarieties>, response: Response<PokeRootVarieties>) {
                 val items = response.body()
-
                 val pokeId = items?.evolution_chain?.url?.substringAfterLast("n/")?.substringBeforeLast("/")
-                getChainEvolution(pokeId!!)
+                try {
+                    getChainEvolution(pokeId!!)
+                } catch (e: Exception) {
+                    // varietiesArray.add("No varieties")
+                    _status.value = DetailsPokedexStatus.EMPTY
+                }
 
             }
         }
@@ -85,9 +89,16 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
                     }
 
                 }
-                _chain.value = evolutionArray
 
-                _status.value = DetailsPokedexStatus.DONE
+                try {
+                    _chain.value = evolutionArray
+
+                    _status.value = DetailsPokedexStatus.DONE
+                } catch (e: Exception) {
+                    // varietiesArray.add("No varieties")
+                    _status.value = DetailsPokedexStatus.EMPTY
+                }
+
             }
 
         })

@@ -37,15 +37,16 @@ class PokeStatsViewModel(pokemon: String, app: Application): AndroidViewModel(ap
                 _status.value = DetailsPokedexStatus.ERROR
             }
 
-            override fun onResponse(
-                call: Call<PokemonProperty>,
-                response: Response<PokemonProperty>
-            ) {
+            override fun onResponse(call: Call<PokemonProperty>, response: Response<PokemonProperty>) {
                 val item = response.body()
 
-                _stats.value = item
-                _status.value = DetailsPokedexStatus.DONE
-
+                try {
+                    _stats.value = item
+                    _status.value = DetailsPokedexStatus.DONE
+                } catch (e: Exception) {
+                    // varietiesArray.add("No varieties")
+                    _status.value = DetailsPokedexStatus.EMPTY
+                }
 
             }
 

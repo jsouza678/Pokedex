@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.network.model.varieties.PokeVarieties
+import souza.home.com.pokedexapp.ui.details.DetailsPokedexFragment
 import souza.home.com.pokedexapp.ui.details.PokedexViewModelFactory
 
 /**
@@ -101,20 +102,22 @@ class PokeAboutFragment(var pokemon: String) : Fragment() {
 
                     }
                     else-> {
+                        //Reload Fragment
                         urlChain = pokemonsArray[spinnerSelected].pokemon.url
 
                         pokePath = urlChain.substringAfterLast("n/").substringBeforeLast("/")
-
-                        //Toast.makeText(context, pokePath, Toast.LENGTH_SHORT).show()
 
                         if(pokePath.trim() == pokemon.trim()){
                             Toast.makeText(context, "Same poke", Toast.LENGTH_SHORT).show()
                         }else{
                             Toast.makeText(context, "ReloadScreen", Toast.LENGTH_SHORT).show()
-                            //reload the fragment
-                            //fragmentManager!!.beginTransaction().replace(R.id.nav_host_fragment, DetailsPokedexFragment(pokePath)).commit()
 
-                            //need to call everything at selection.
+                            val newPoke = pokemonsArray[spinnerSelected].pokemon.name
+
+                            val details = DetailsPokedexFragment(pokePath, newPoke)
+
+                            fragmentManager!!.beginTransaction().replace(R.id.nav_host_fragment, details).addToBackStack(null).commit()
+
                         }
                     }
                 }

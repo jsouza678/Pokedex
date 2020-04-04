@@ -40,22 +40,16 @@ class PokeAboutViewModel(pokemon: String, app: Application): AndroidViewModel(ap
             }
 
             override fun onResponse(call: Call<PokeRootVarieties>, response: Response<PokeRootVarieties>) {
-                val varietiesArray: ArrayList<String> = ArrayList()
                 val items = response.body()
-                val length = response.body()?.varieties?.size
 
-
-                for(i in 0 until length!!) {
-                    try {
-                        varietiesArray.add(response.body()?.varieties!![i].pokemon.name.capitalize())
-                        _status.value = DetailsPokedexStatus.DONE
-                    } catch (e: Exception) {
-                        // varietiesArray.add("No varieties")
-                        _status.value = DetailsPokedexStatus.EMPTY
-                    }
+                try {
+                    _varieties.value = items
+                    _status.value = DetailsPokedexStatus.DONE
+                } catch (e: Exception) {
+                    // varietiesArray.add("No varieties")
+                    _status.value = DetailsPokedexStatus.EMPTY
                 }
 
-                _varieties.value = items
 
             }
         }
