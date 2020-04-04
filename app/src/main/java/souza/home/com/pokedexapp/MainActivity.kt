@@ -11,8 +11,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val textFragment = DetailsPokedexFragment("25", "pikachu")
-        //al textFragment = HomePokedexFragment()
+        //val textFragment = DetailsPokedexFragment("25", "pikachu")
+        val textFragment = HomePokedexFragment()
         supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, textFragment).commit()
 
     }

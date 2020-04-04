@@ -10,6 +10,9 @@ import souza.home.com.pokedexapp.network.PokeApi
 import souza.home.com.pokedexapp.network.PokeRootProperty
 import souza.home.com.pokedexapp.network.model.main_model.Pokemon
 import androidx.lifecycle.LiveData
+import souza.home.com.pokedexapp.network.model.varieties.PokeColor
+import souza.home.com.pokedexapp.network.model.varieties.PokeRootVarieties
+import souza.home.com.pokedexapp.ui.details.about.DetailsPokedexStatus
 
 enum class HomePokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
@@ -91,5 +94,8 @@ class HomePokedexViewModel : ViewModel(){
             })
         return _poke.value!!
     }
+
+
+
 
 }

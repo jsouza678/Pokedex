@@ -63,7 +63,6 @@ class HomePokedexFragment : Fragment() {
                     initRecyclerView(viewModel)
                     pokesList = viewModel.poke.value!!
                     adapter.submitList(pokesList)
-
                   /*  if(pokesList.size == 0){
                         //set empty screen after
                     }else{

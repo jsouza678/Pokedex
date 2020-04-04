@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.poke_item_view.view.*
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.network.model.main_model.Pokemon
-
+import souza.home.com.pokedexapp.network.model.varieties.PokeColor
+import souza.home.com.pokedexapp.network.model.varieties.PokeRootVarieties
+import souza.home.com.pokedexapp.network.model.varieties.PokeVarieties
 
 
 class PokesAdapter(private val pokes: MutableList<Pokemon>?, private val context: Context) : RecyclerView.Adapter<PokesAdapter.ViewHolder>() {
@@ -43,7 +46,6 @@ class PokesAdapter(private val pokes: MutableList<Pokemon>?, private val context
         val imageUri = url?.substringAfter("n/")?.substringBefore('/')
 
         holder.pokeName.text = name
-
         holder.pokeImage.loadImage("$imageResourceUrl$imageUri.png")
 
     }
@@ -64,7 +66,6 @@ class PokesAdapter(private val pokes: MutableList<Pokemon>?, private val context
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val pokeName: TextView = itemView.tv_name_poke
         val pokeImage: ImageView = itemView.iv_poke_sprite
-
 
     init{
         itemView.setOnClickListener{

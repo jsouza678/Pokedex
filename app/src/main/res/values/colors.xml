@@ -7,4 +7,16 @@
 
     <color name="yellow_poke">#F8C406</color>
     <color name="blue_poke">#375CA7</color>
+
+    <color name="poke_red">#F7786B</color>
+    <color name="poke_blue">#58ABF6</color>
+    <color name="poke_green">#2CDAB1</color>
+    <color name="poke_grey">#A8A8A8</color>
+    <color name="poke_black">#3E4650</color>
+    <color name="poke_yellow">#FFD76F</color>
+    <color name="poke_white">#FFFAF0</color>
+    <color name="poke_purple">#FFD76F</color>
+    <color name="poke_pink">#FA6FFF</color>
+    <color name="poke_brown">#C47C55</color>
+
 </resources>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_details"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFD76F"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -53,31 +53,31 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                tools:text="@string/mock_poke_name_details"
                 android:textColor="#000"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/mock_poke_name_details" />
 
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tabs"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
-                        app:tabSelectedTextColor="#000"
-                        app:layout_constraintTop_toBottomOf="@id/tv_poke_name_detail"
-                        app:tabTextAppearance="@style/custom_text"
-                        app:tabTextColor="#CBCDCF" />
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                app:layout_constraintTop_toBottomOf="@id/tv_poke_name_detail"
+                app:tabSelectedTextColor="#000"
+                app:tabTextAppearance="@style/custom_text"
+                app:tabTextColor="#CBCDCF" />
 
-                <souza.home.com.pokedexapp.ui.details.DynamicHeightViewPager
-                    android:id="@+id/view_pager"
-                    app:layout_constraintTop_toBottomOf="@id/tabs"
-                    app:layout_anchorGravity="bottom"
-                    app:layout_anchor="@id/tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:background="#FFFFFF" />
+            <souza.home.com.pokedexapp.ui.details.DynamicHeightViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="#FFFFFF"
+                app:layout_anchor="@id/tabs"
+                app:layout_anchorGravity="bottom"
+                app:layout_constraintTop_toBottomOf="@id/tabs" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
