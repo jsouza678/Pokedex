@@ -4,13 +4,14 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import souza.home.com.pokedexapp.ui.details.about.PokeAboutFragment
 import souza.home.com.pokedexapp.ui.details.chain.PokeChainFragment
 import souza.home.com.pokedexapp.ui.details.other.PokeOthersFragment
 import souza.home.com.pokedexapp.ui.details.stats.PokeStatsFragment
 
 internal class SectionsPagerAdapter(private val context: Context, fm: FragmentManager, private val poke: String) :
-    FragmentPagerAdapter(fm) {
+    FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT ) {
 
     private val TAB_FRAGMENTS = arrayOf(
         PokeAboutFragment(poke),

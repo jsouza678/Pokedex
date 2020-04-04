@@ -13,13 +13,13 @@ import com.google.android.material.tabs.TabLayout
 import com.synnapps.carouselview.CarouselView
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.ui.details.viewpager.SectionsPagerAdapter
-import souza.home.com.pokedexapp.ui.util.IOnBackPressed
 
-class DetailsPokedexFragment(var poke: String) : Fragment(), IOnBackPressed {
+class DetailsPokedexFragment(var poke: String) : Fragment(){
 
     private lateinit var tvName : TextView
 
     private lateinit var viewModel: DetailsPokedexViewModel
+    private lateinit var tvPoke: TextView
 
 
     private lateinit var pokemon: String
@@ -40,7 +40,11 @@ class DetailsPokedexFragment(var poke: String) : Fragment(), IOnBackPressed {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
 
+        tvPoke = view.findViewById(R.id.tv_poke_name_detail)
+
         pokemon = poke
+
+        tvPoke.text = pokemon
 
         viewModel = ViewModelProviders.of(this,
             DetailsPokedexViewModelFactory(
@@ -74,6 +78,7 @@ class DetailsPokedexFragment(var poke: String) : Fragment(), IOnBackPressed {
         return view
     }
 
+/*
     override fun onBackPressed(): Boolean {
         val count: Int = fragmentManager!!.backStackEntryCount
 
@@ -86,6 +91,7 @@ class DetailsPokedexFragment(var poke: String) : Fragment(), IOnBackPressed {
         }
     }
 
+*/
 
 }
 

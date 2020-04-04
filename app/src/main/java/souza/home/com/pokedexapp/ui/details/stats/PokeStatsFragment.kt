@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.network.model.stats.PokemonProperty
 import souza.home.com.pokedexapp.ui.details.PokedexViewModelFactory
@@ -44,6 +43,9 @@ class PokeStatsFragment(var pokemon: String) : Fragment() {
         tvSpecialAttack = view.findViewById(R.id.tv_poke_special_attack)
         tvSpecialDefense = view.findViewById(R.id.tv_poke_special_deffense)
         tvSpeed = view.findViewById(R.id.tv_poke_speed)
+
+        initObservers()
+
 
         return view
     }
@@ -80,10 +82,10 @@ class PokeStatsFragment(var pokemon: String) : Fragment() {
     override fun setMenuVisibility(visible: Boolean){
         super.setMenuVisibility(visible)
         if (visible) {
-            if(count==0){ // this prevents Observer to be called everytime the fragment is visible
-                initObservers()
-                count=1
-            }
+        //    if(count==0){ // this prevents Observer to be called everytime the fragment is visible
+
+/*                count=1
+            }*/
         } else {
             menuVisible = false
         }
