@@ -39,6 +39,10 @@ interface PokeService{
     @GET("pokemon-species/{id}")
     fun getVariations(@Path("id") id : String?):
             Call<PokeRootVarieties>
+
+    @GET("pokemon-species/{id}")
+    fun getAbout(@Path("id") id : String?):
+            Call<PokeRootVarieties>
 }
 
 object PokeApi{

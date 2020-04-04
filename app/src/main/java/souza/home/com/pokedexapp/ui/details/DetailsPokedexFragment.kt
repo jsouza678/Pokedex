@@ -19,8 +19,6 @@ import souza.home.com.pokedexapp.ui.details.viewpager.SectionsPagerAdapter
 
 class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragment(){
 
-    private lateinit var tvName : TextView
-
     private lateinit var viewModel: DetailsPokedexViewModel
     private lateinit var tvPoke: TextView
 

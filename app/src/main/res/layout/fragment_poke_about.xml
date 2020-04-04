@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.details.about.PokeAboutFragment">
 
-    <!--Need to declare this as tools  -->
     <TextView
         android:id="@+id/tv_poke_desc"
         android:layout_width="0dp"
@@ -14,11 +13,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/mock_body_desc"
+        tools:text="@string/mock_body_desc"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:ellipsize="end"
+        android:maxLines="3"/>
 
     <TextView
         android:id="@+id/tv_variations"
@@ -42,11 +44,11 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:entries="@array/poke_spinner_mock"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_variations" />
+        app:layout_constraintTop_toBottomOf="@id/tv_variations"
+        tools:listitem="@tools:sample/cities[0]"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,6 @@ import retrofit2.Response
 import souza.home.com.pokedexapp.network.PokeApi
 import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolution
 import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolutionChain
-import souza.home.com.pokedexapp.network.model.stats.PokemonProperty
 import souza.home.com.pokedexapp.network.model.varieties.PokeRootVarieties
 
 enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
@@ -42,9 +41,7 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
             }
 
             override fun onResponse(call: Call<PokeRootVarieties>, response: Response<PokeRootVarieties>) {
-                val varietiesArray: ArrayList<String> = ArrayList()
                 val items = response.body()
-                val length = response.body()?.varieties?.size
 
                 val pokeId = items?.evolution_chain?.url?.substringAfterLast("n/")?.substringBeforeLast("/")
                 getChainEvolution(pokeId!!)
@@ -63,7 +60,6 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
             }
 
             override fun onResponse(call: Call<PokeEvolutionChain>, response: Response<PokeEvolutionChain>) {
-                //Toast.makeText(context, "Success 2", Toast.LENGTH_LONG).show()
                 val item = response.body()
                 val evolutionArray : List<PokeEvolution>
 

@@ -2,6 +2,7 @@ package souza.home.com.pokedexapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import souza.home.com.pokedexapp.ui.details.DetailsPokedexFragment
 import souza.home.com.pokedexapp.ui.home.HomePokedexFragment
 
 class MainActivity : AppCompatActivity() {
@@ -10,8 +11,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //val textFragment = HomePokedexFragment()
-        val textFragment = HomePokedexFragment()
+        val textFragment = DetailsPokedexFragment("1", "bulbasaur")
+        //al textFragment = HomePokedexFragment()
         supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, textFragment).commit()
 
     }

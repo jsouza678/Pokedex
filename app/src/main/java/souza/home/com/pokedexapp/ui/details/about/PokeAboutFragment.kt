@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -23,10 +24,11 @@ class PokeAboutFragment(var pokemon: String) : Fragment() {
     private lateinit var viewModel: PokeAboutViewModel
     private lateinit var poke: String
     private lateinit var spVariations : Spinner
+    private lateinit var tvDesc : TextView
 
     private lateinit var varietiesArray: MutableList<PokeVarieties>
     private lateinit var pokemonsArray: MutableList<PokeVarieties>
-
+    private var language : String = "en"
 
 
     private lateinit var adapterSpinner : CustomSpinnerAdapter
@@ -47,7 +49,7 @@ class PokeAboutFragment(var pokemon: String) : Fragment() {
         viewModel = ViewModelProviders.of(this, PokedexViewModelFactory(pokemon, activity!!.application))
             .get(PokeAboutViewModel::class.java)
 
-
+        tvDesc = view.findViewById(R.id.tv_poke_desc)
         spVariations = view.findViewById(R.id.spinner_variations)
 
 
@@ -75,6 +77,13 @@ class PokeAboutFragment(var pokemon: String) : Fragment() {
                     initSpinner()
                     adapterSpinner.submitList(it.varieties)
                     pokemonsArray = it.varieties
+                    var description : String = ""
+                    for(i in 0 until it.description.size) {
+                        if (it.description[i].language.name == language) {
+                            description += it.description[i].flavor_text + "\n "
+                        }
+                    }
+                    tvDesc.text = description
                 }
             })}
     }
