@@ -18,7 +18,6 @@
         android:clipToPadding="false"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +54,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_empty"
+        app:layout_constraintTop_toBottomOf="@id/iv_empty"
         app:layout_constraintVertical_bias="0.026" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -96,6 +95,7 @@
                 android:id="@+id/poke_ball"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:tint="@null"
                 android:src="@drawable/poke_ball"
                 android:layout_centerInParent="true"
                 app:maxImageSize="56dp" />

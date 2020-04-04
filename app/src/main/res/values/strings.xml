@@ -26,4 +26,14 @@
     <string name="cd_iv_empty_pokes_list">Empty Pokes List Image</string>
     <string name="text_no_pokes">No pokes!</string>
     <string name="mock_poke_name_details">Pikachu</string>
+    <string name="mock_body_desc">Lorem ipsum sit dolor amet gravida sit dolor amet bloco sit dolor amet gravida sit dolor amet blocd sit dolor amet gravida sit dolor amet bloc</string>
+    <string name="tv_poke_variations">Poke Variations</string>
+    <string name="tv_evolution_chain_title">Evolution Chain</string>
+
+    <string-array name="poke_spinner_mock">
+        <item>None</item>
+        <item>Pikachu</item>
+        <item>Charmander</item>
+    </string-array>
+
 </resources>

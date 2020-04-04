@@ -11,6 +11,7 @@ import souza.home.com.pokedexapp.network.PokeApi
 import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolution
 import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolutionChain
 import souza.home.com.pokedexapp.network.model.stats.PokemonProperty
+import souza.home.com.pokedexapp.network.model.varieties.PokeRootVarieties
 
 enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
@@ -28,7 +29,29 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
 
 
     init {
-        getChainEvolution(pokemon)
+        getPokeChainUrl(pokemon)
+    }
+
+    private fun getPokeChainUrl(pokemon: String){
+
+        _status.value = DetailsPokedexStatus.LOADING
+
+        PokeApi.retrofitService.getVariations(pokemon).enqueue(object: Callback<PokeRootVarieties> {
+            override fun onFailure(call: Call<PokeRootVarieties>, t: Throwable) {
+                _status.value = DetailsPokedexStatus.ERROR
+            }
+
+            override fun onResponse(call: Call<PokeRootVarieties>, response: Response<PokeRootVarieties>) {
+                val varietiesArray: ArrayList<String> = ArrayList()
+                val items = response.body()
+                val length = response.body()?.varieties?.size
+
+                val pokeId = items?.evolution_chain?.url?.substringAfterLast("n/")?.substringBeforeLast("/")
+                getChainEvolution(pokeId!!)
+
+            }
+        }
+        )
     }
 
     private fun getChainEvolution(pokemon: String){

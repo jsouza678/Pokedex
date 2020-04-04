@@ -53,7 +53,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="@string/mock_poke_name_details"
+                tools:text="@string/mock_poke_name_details"
                 android:textColor="#000"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -69,7 +69,6 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_poke_name_detail"
                         app:tabTextAppearance="@style/custom_text"
                         app:tabTextColor="#CBCDCF" />
-
 
                 <souza.home.com.pokedexapp.ui.details.DynamicHeightViewPager
                     android:id="@+id/view_pager"

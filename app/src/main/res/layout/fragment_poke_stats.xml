@@ -20,9 +20,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/mock_hp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_hp"
-        app:layout_constraintStart_toEndOf="@+id/tv_detail_hp" />
+        tools:text="@string/mock_hp"
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_hp"
+        app:layout_constraintStart_toEndOf="@id/tv_detail_hp" />
 
     <TextView
         android:id="@+id/tv_detail_attack"
@@ -41,8 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/mock_attack"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_attack"
-        app:layout_constraintStart_toEndOf="@+id/tv_detail_attack" />
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_attack"
+        app:layout_constraintStart_toEndOf="@id/tv_detail_attack" />
 
     <TextView
         android:id="@+id/tv_detail_deffense"
@@ -60,9 +60,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/mock_deffense"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_deffense"
-        app:layout_constraintStart_toEndOf="@+id/tv_detail_deffense" />
+        tools:text="@string/mock_deffense"
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_deffense"
+        app:layout_constraintStart_toEndOf="@id/tv_detail_deffense" />
 
     <TextView
         android:id="@+id/tv_detail_special_attack"
@@ -81,8 +81,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="@string/mock_special_attack"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_special_attack"
-        app:layout_constraintStart_toEndOf="@+id/tv_detail_special_attack" />
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_special_attack"
+        app:layout_constraintStart_toEndOf="@id/tv_detail_special_attack" />
 
     <TextView
         android:id="@+id/tv_detail_special_deffense"
@@ -100,9 +100,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/mock_special_deffense"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_special_deffense"
-        app:layout_constraintStart_toEndOf="@+id/tv_detail_special_deffense" />
+        tools:text="@string/mock_special_deffense"
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_special_deffense"
+        app:layout_constraintStart_toEndOf="@id/tv_detail_special_deffense" />
 
     <TextView
         android:id="@+id/tv_detail_speed"
@@ -122,68 +122,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/mock_speed"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_speed"
-        app:layout_constraintStart_toEndOf="@+id/tv_detail_speed" />
+        tools:text="@string/mock_speed"
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_speed"
+        app:layout_constraintStart_toEndOf="@id/tv_detail_speed" />
 
     <ProgressBar
-        android:id="@+id/progressBar6"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:max="200"
-        android:progress="190"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_poke_speed"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_poke_speed"
-        app:layout_constraintTop_toTopOf="@+id/tv_poke_speed" />
-
-    <ProgressBar
-        android:id="@+id/progressBar7"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:max="200"
-        android:progress="120"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_detail_special_attack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_poke_special_attack"
-        app:layout_constraintTop_toTopOf="@+id/tv_detail_special_attack" />
-
-    <ProgressBar
-        android:id="@+id/progressBar5"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:max="100"
-        android:progress="50"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_detail_deffense"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_poke_deffense"
-        app:layout_constraintTop_toTopOf="@+id/tv_detail_deffense" />
-
-    <ProgressBar
-        android:id="@+id/progressBar2"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:max="100"
-        android:progress="40"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_detail_attack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_poke_attack"
-        app:layout_constraintTop_toTopOf="@+id/tv_detail_attack" />
-
-    <ProgressBar
-        android:id="@+id/progressBar8"
+        android:id="@+id/progress_bar_hp"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -192,13 +136,56 @@
         android:indeterminate="false"
         android:max="100"
         android:progress="85"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_poke_hp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_poke_hp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_poke_hp"
-        app:layout_constraintTop_toTopOf="@+id/tv_detail_hp" />
+        app:layout_constraintStart_toEndOf="@id/tv_poke_hp"
+        app:layout_constraintTop_toTopOf="@id/tv_detail_hp" />
 
     <ProgressBar
-        android:id="@+id/progressBar3"
+        android:id="@+id/progress_bar_attack"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:max="100"
+        android:progress="40"
+        app:layout_constraintBottom_toBottomOf="@id/tv_detail_attack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_poke_attack"
+        app:layout_constraintTop_toTopOf="@id/tv_detail_attack" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_deffense"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:max="100"
+        android:progress="50"
+        app:layout_constraintBottom_toBottomOf="@id/tv_detail_deffense"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_poke_deffense"
+        app:layout_constraintTop_toTopOf="@id/tv_detail_deffense" />
+
+
+    <ProgressBar
+        android:id="@+id/progress_bar_special_attack"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:max="200"
+        android:progress="120"
+        app:layout_constraintBottom_toBottomOf="@id/tv_detail_special_attack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_poke_special_attack"
+        app:layout_constraintTop_toTopOf="@id/tv_detail_special_attack" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_special_deffense"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -206,11 +193,25 @@
         android:layout_marginEnd="16dp"
         android:max="200"
         android:progress="80"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_poke_special_deffense"
+        app:layout_constraintBottom_toBottomOf="@id/tv_poke_special_deffense"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_poke_special_deffense"
-        app:layout_constraintTop_toTopOf="@+id/tv_detail_special_deffense" />
+        app:layout_constraintStart_toEndOf="@id/tv_poke_special_deffense"
+        app:layout_constraintTop_toTopOf="@id/tv_detail_special_deffense" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar_speed"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:max="200"
+        android:progress="190"
+        app:layout_constraintBottom_toBottomOf="@id/tv_poke_speed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_poke_speed"
+        app:layout_constraintTop_toTopOf="@id/tv_poke_speed" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
