@@ -1,11 +1,14 @@
 package souza.home.com.pokedexapp.ui.details
 
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
@@ -46,7 +49,7 @@ class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragm
         pokeId = pokeIdP
         pokeName = pokeNameP
 
-        tvPoke.text = pokeName
+        tvPoke.text = pokeName.capitalize()
 
         viewModel = ViewModelProviders.of(this,
             DetailsPokedexViewModelFactory(
@@ -63,7 +66,8 @@ class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragm
                 pokeId
             )
 
-        val viewPager: ViewPager = view.findViewById(R.id.view_pager)
+        val viewPager: DynamicHeightViewPager = view.findViewById(R.id.view_pager)
+
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = view.findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
@@ -96,4 +100,24 @@ class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragm
 */
 
 }
+
+class DynamicHeightViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : ViewPager(context, attrs) {
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        var heightMeasureSpec = heightMeasureSpec
+
+        var height = 0
+        for (i in 0 until childCount) {
+            val child = getChildAt(i)
+            child.measure(widthMeasureSpec, View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED))
+            val h = child.measuredHeight
+            if (h > height) height = h
+        }
+
+        if (height != 0) {
+            heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY)
+        }
+
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+    }}
 

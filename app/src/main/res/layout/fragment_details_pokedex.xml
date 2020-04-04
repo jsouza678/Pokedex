@@ -14,76 +14,75 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_poke_name_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/mock_poke_name_details"
-            android:textColor="#000"
-            android:textSize="24sp"
-            tools:layout_editor_absoluteX="164dp"
-            tools:layout_editor_absoluteY="12dp" />
     </androidx.appcompat.widget.Toolbar>
 
     <com.synnapps.carouselview.CarouselView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:pageColor="#00000000"
-        app:fillColor="#FFFFFFFF"
-        app:slideInterval="3000"
-        app:radius="3dp"
-        app:strokeColor="#FF777777"
-        app:strokeWidth="1dp"
         android:id="@+id/carousel"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:fillColor="#00000000"
         app:layout_constraintBottom_toTopOf="@id/coordinator_cv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/coordinator_cv"
         style="@style/CustomCardViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/coordinatorLayout"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            tools:context=".MainActivity">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:layout_width="match_parent"
+
+            <TextView
+                android:id="@+id/tv_poke_name_detail"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:theme="@style/AppTheme.AppBarOverlay">
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/mock_poke_name_details"
+                android:textColor="#000"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabs"
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        app:tabSelectedTextColor="#000"
+                        app:layout_constraintTop_toBottomOf="@id/tv_poke_name_detail"
+                        app:tabTextAppearance="@style/custom_text"
+                        app:tabTextColor="#CBCDCF" />
+
+
+                <souza.home.com.pokedexapp.ui.details.DynamicHeightViewPager
+                    android:id="@+id/view_pager"
+                    app:layout_constraintTop_toBottomOf="@id/tabs"
+                    app:layout_anchorGravity="bottom"
+                    app:layout_anchor="@id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#FFFFFF"
-                    app:tabSelectedTextColor="#000"
-                    app:tabTextAppearance="@style/custom_text"
-                    app:tabTextColor="#CBCDCF" />
+                    android:layout_height="250dp"
+                    android:background="#FFFFFF" />
 
-            </com.google.android.material.appbar.AppBarLayout>
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FFFFFF"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
