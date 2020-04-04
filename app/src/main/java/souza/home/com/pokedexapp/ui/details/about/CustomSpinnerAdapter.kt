@@ -1,4 +1,4 @@
-package souza.home.com.pokedexapp.ui.details
+package souza.home.com.pokedexapp.ui.details.about
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,10 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolution
 import souza.home.com.pokedexapp.network.model.main_model.Pokemon
-import souza.home.com.pokedexapp.network.model.stats.PokeAbilities
-import souza.home.com.pokedexapp.network.model.stats.PokeAbility
 import souza.home.com.pokedexapp.network.model.varieties.PokeVarieties
 
 class CustomSpinnerAdapter (private val context: Context, private val dataList: MutableList<PokeVarieties>) : BaseAdapter() {

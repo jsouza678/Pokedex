@@ -25,17 +25,11 @@ enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
 class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewModel(app) {
 
-
-
     private var _status = MutableLiveData<DetailsPokedexStatus>()
 
     val status : LiveData<DetailsPokedexStatus>
         get() = _status
 
-    private var _stats = MutableLiveData<PokemonProperty>()
-
-    val stats : LiveData<PokemonProperty>
-        get() = _stats
 
     private var _varieties = MutableLiveData<PokeRootVarieties>()
 
@@ -48,109 +42,7 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
         get() = _chain
 
     init{
-        getStats(pokemon)
-        getChainEvolution(pokemon)
-        getVarieties(pokemon)
+
     }
 
-    fun getStats(pokemon: String){
-
-        _status.value = DetailsPokedexStatus.LOADING
-
-        PokeApi.retrofitService.getPokeStats(pokemon).enqueue(object: Callback<PokemonProperty> {
-        override fun onFailure(call: Call<PokemonProperty>, t: Throwable) {
-            _status.value = DetailsPokedexStatus.ERROR
-        }
-
-        override fun onResponse(call: Call<PokemonProperty>, response: Response<PokemonProperty>) {
-            val item = response.body()
-
-            _stats.value = item
-            _status.value = DetailsPokedexStatus.DONE
-
-
-        }
-
-    })
-
-
-
-}
-
-    private fun getChainEvolution(pokemon: String){
-    _status.value = DetailsPokedexStatus.LOADING
-    PokeApi.retrofitService.getEvolutionChain(pokemon).enqueue(object:
-        Callback<PokeEvolutionChain> {
-        override fun onFailure(call: Call<PokeEvolutionChain>, t: Throwable) {
-            _status.value = DetailsPokedexStatus.ERROR
-        }
-
-        override fun onResponse(call: Call<PokeEvolutionChain>, response: Response<PokeEvolutionChain>) {
-            //Toast.makeText(context, "Success 2", Toast.LENGTH_LONG).show()
-            val item = response.body()
-            val evolutionArray : List<PokeEvolution>
-
-            evolutionArray = ArrayList()
-            evolutionArray.clear()
-
-
-            if(item?.chain?.species?.name != null){  //// 1 CHAIN
-
-                evolutionArray.add(item.chain)
-
-                try{
-                    evolutionArray.add(item.chain.evolves_to!![0])
-                    try {
-                        evolutionArray.add(item.chain.evolves_to!![0].evolves_to!![0])
-
-                    }catch (e: Exception){
-
-                    }
-                }
-                catch (e: Exception) {
-
-                }
-
-            }
-            _chain.value = evolutionArray
-
-            _status.value = DetailsPokedexStatus.DONE
-        }
-
-    })
-
-}
-
-
-    fun getVarieties(pokemon: String){
-
-    _status.value = DetailsPokedexStatus.LOADING
-
-    PokeApi.retrofitService.getVariations(pokemon).enqueue(object: Callback<PokeRootVarieties> {
-        override fun onFailure(call: Call<PokeRootVarieties>, t: Throwable) {
-            _status.value = DetailsPokedexStatus.ERROR
-        }
-
-        override fun onResponse(call: Call<PokeRootVarieties>, response: Response<PokeRootVarieties>) {
-            val varietiesArray: ArrayList<String> = ArrayList()
-            val items = response.body()
-            val length = response.body()?.varieties?.size
-
-
-            for(i in 0 until length!!) {
-                try {
-                    varietiesArray.add(response.body()?.varieties!![i].pokemon.name.capitalize())
-                    _status.value = DetailsPokedexStatus.DONE
-                } catch (e: Exception) {
-                    // varietiesArray.add("No varieties")
-                    _status.value = DetailsPokedexStatus.EMPTY
-                }
-            }
-
-            _varieties.value = items
-
-        }
-    }
-    )
-    }
 }

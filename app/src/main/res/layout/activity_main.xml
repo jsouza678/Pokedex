@@ -9,29 +9,9 @@
     tools:context=".MainActivity">
 
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/blue_poke"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    <FrameLayout
+        android:id="@+id/nav_host_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-            <TextView
-                android:id="@+id/tv_app"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:fontFamily="@font/open_sans"
-                android:textStyle="bold"
-                android:textColor="@color/yellow_poke"
-                android:textSize="24sp"
-                android:layout_gravity="center" />
-
-        </androidx.appcompat.widget.Toolbar>
-
-        <FrameLayout
-            android:id="@+id/nav_host_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
+</LinearLayout>
