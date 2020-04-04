@@ -122,9 +122,10 @@ class HomePokedexFragment : Fragment() {
         adapter.onItemClick = {
 
             val urlChain = it.url
+            val pokeName = it.name
             val pokePath = urlChain.substringAfterLast("n/").substringBeforeLast("/")
 
-            val details = DetailsPokedexFragment(pokePath)
+            val details = DetailsPokedexFragment(pokePath, pokeName)
 
             manager.beginTransaction().replace(R.id.nav_host_fragment, details).addToBackStack(null).commit()
 

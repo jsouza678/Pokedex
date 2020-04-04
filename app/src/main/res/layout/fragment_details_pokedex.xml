@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFD76F"
+        android:background="#00000000"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,10 +21,12 @@
             android:id="@+id/tv_poke_name_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pikachu"
-            android:textSize="24sp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/mock_poke_name_details"
             android:textColor="#000"
-            android:layout_gravity="center_horizontal"/>
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="164dp"
+            tools:layout_editor_absoluteY="12dp" />
     </androidx.appcompat.widget.Toolbar>
 
     <com.synnapps.carouselview.CarouselView
@@ -55,7 +57,7 @@
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/coordinatorLayout"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="250dp"
             tools:context=".MainActivity">
 
             <com.google.android.material.appbar.AppBarLayout
@@ -76,9 +78,9 @@
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/view_pager"
-                android:background="#FFFFFF"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#FFFFFF"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -25,4 +25,5 @@
     <string name="cd_iv_poke_sprite">Pokemon Sprite, Home Screen</string>
     <string name="cd_iv_empty_pokes_list">Empty Pokes List Image</string>
     <string name="text_no_pokes">No pokes!</string>
+    <string name="mock_poke_name_details">Pikachu</string>
 </resources>

@@ -14,7 +14,7 @@ import com.synnapps.carouselview.CarouselView
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.ui.details.viewpager.SectionsPagerAdapter
 
-class DetailsPokedexFragment(var poke: String) : Fragment(){
+class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragment(){
 
     private lateinit var tvName : TextView
 
@@ -22,7 +22,8 @@ class DetailsPokedexFragment(var poke: String) : Fragment(){
     private lateinit var tvPoke: TextView
 
 
-    private lateinit var pokemon: String
+    private var pokeId: String = ""
+    private var pokeName = ""
 
 
     private val mImages = intArrayOf(
@@ -42,13 +43,14 @@ class DetailsPokedexFragment(var poke: String) : Fragment(){
 
         tvPoke = view.findViewById(R.id.tv_poke_name_detail)
 
-        pokemon = poke
+        pokeId = pokeIdP
+        pokeName = pokeNameP
 
-        tvPoke.text = pokemon
+        tvPoke.text = pokeName
 
         viewModel = ViewModelProviders.of(this,
             DetailsPokedexViewModelFactory(
-                pokemon,
+                pokeId,
                 activity!!.application
             )
         )
@@ -58,7 +60,7 @@ class DetailsPokedexFragment(var poke: String) : Fragment(){
             SectionsPagerAdapter(
                 view.context,
                 fragmentManager!!,
-                pokemon
+                pokeId
             )
 
         val viewPager: ViewPager = view.findViewById(R.id.view_pager)
