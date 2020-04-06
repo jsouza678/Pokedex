@@ -28,7 +28,7 @@ class PokeStatsViewModel(pokemon: String, app: Application): AndroidViewModel(ap
         getStats(pokemon)
     }
 
-    fun getStats(pokemon: String) {
+    private fun getStats(pokemon: String) {
 
         _status.value = DetailsPokedexStatus.LOADING
 
@@ -44,7 +44,6 @@ class PokeStatsViewModel(pokemon: String, app: Application): AndroidViewModel(ap
                     _stats.value = item
                     _status.value = DetailsPokedexStatus.DONE
                 } catch (e: Exception) {
-                    // varietiesArray.add("No varieties")
                     _status.value = DetailsPokedexStatus.EMPTY
                 }
 

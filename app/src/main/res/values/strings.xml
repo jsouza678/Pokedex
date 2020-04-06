@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">PokedexApp</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="mock_header_text">Pokedex Nav</string>
     <string name="cd_iv_header" />
@@ -11,6 +10,8 @@
     <string name="poke_deffense">DEFFENSE:</string>
     <string name="poke_special_attack">SPECIAL ATTACK:</string>
     <string name="poke_special_deffense">SPECIAL DEFFENSE:</string>
+    <string name="poke_weight">WEIGHT:</string>
+    <string name="poke_height">HEIGHT:</string>
     <string name="poke_speed">SPEED:</string>
     <string name="mock_hp">85</string>
     <string name="mock_attack">40</string>
@@ -30,7 +31,8 @@
     <string name="tv_poke_variations">Poke Variations</string>
     <string name="tv_evolution_chain_title">Evolution Chain</string>
     <string name="placeholder_tv_id">#%1$s</string >
-
+    <string name="mock_weight">120</string>
+    <string name="mock_height">80</string>
     <string-array name="poke_spinner_mock">
         <item>None</item>
         <item>Pikachu</item>

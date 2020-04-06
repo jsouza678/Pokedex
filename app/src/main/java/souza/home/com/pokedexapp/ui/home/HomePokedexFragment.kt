@@ -13,10 +13,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomappbar.BottomAppBar
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.network.model.main_model.Pokemon
 import souza.home.com.pokedexapp.ui.details.DetailsPokedexFragment
+import souza.home.com.pokedexapp.ui.extensions.gone
+import souza.home.com.pokedexapp.ui.extensions.visible
 
 
 class HomePokedexFragment : Fragment() {
@@ -27,7 +28,6 @@ class HomePokedexFragment : Fragment() {
     private lateinit var progressBar : ProgressBar
     private lateinit var recyclerView : RecyclerView
     private lateinit var adapter: PokesAdapter
-    private var page = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,13 +45,8 @@ class HomePokedexFragment : Fragment() {
         val viewModel =  ViewModelProviders.of(this)
             .get(HomePokedexViewModel::class.java)
 
-
         initObservers(viewModel)
 
-      /*  bottomAppBar.replaceMenu(R.menu.menu_wallpaper)
-        bottomAppBar.setNavigationOnClickListener {
-            // do something interesting on navigation click
-        }*/
 
         return view
     }
@@ -59,29 +54,23 @@ class HomePokedexFragment : Fragment() {
     private fun initObservers(viewModel: HomePokedexViewModel){
         viewModel.apply {
             this.poke.observe(viewLifecycleOwner, Observer {
-                if(it!=null){
                     initRecyclerView(viewModel)
                     pokesList = viewModel.poke.value!!
-                    adapter.submitList(pokesList)
-                  /*  if(pokesList.size == 0){
-                        //set empty screen after
-                    }else{
-
-                    }*/
-                }
+                    //adapter.submitList(pokesList)
             })
 
             this.status.observe(viewLifecycleOwner, Observer {
                 when(it){
-                    HomePokedexStatus.DONE->
-                        progressBar.visibility = View.GONE
+                    HomePokedexStatus.DONE->{
+                        adapter.submitList(pokesList)
+                        turnOffProgressBar()
+                    }
                     HomePokedexStatus.LOADING->
-                        progressBar.visibility = View.VISIBLE
+                        turnOnProgressBar()
                     HomePokedexStatus.ERROR->
                         Toast.makeText(context, "No conectivity", Toast.LENGTH_SHORT).show()
                     else->
-                        progressBar.visibility = View.GONE
-
+                        turnOffProgressBar()
                 }
             })
         }
@@ -92,27 +81,14 @@ class HomePokedexFragment : Fragment() {
         layoutManager = GridLayoutManager(context, 2)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
-
-       setTransitionToPokeDetails()
+        setTransitionToPokeDetails()
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val visibleItemCount = layoutManager.childCount
-                val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
-                val total = adapter.itemCount
-
-                if (!viewModel.isLoading) {
-
-                    if ((visibleItemCount + pastVisibleItem) >= total) {
-                        page+=20
-                        val auxList = viewModel.getPage(page)
-                        adapter.submitList(auxList)
-                        //////////////////////
-                    }
-
-                }
-                super.onScrolled(recyclerView, dx, dy)
+                viewModel.onRecyclerViewScrolled(
+                    dy = dy,
+                    layoutManager = layoutManager
+                )
             }
         })
     }
@@ -123,13 +99,17 @@ class HomePokedexFragment : Fragment() {
             val urlChain = it.url
             val pokeName = it.name
             val pokePath = urlChain.substringAfterLast("n/").substringBeforeLast("/")
-
             val details = DetailsPokedexFragment(pokePath, pokeName)
 
             manager.beginTransaction().replace(R.id.nav_host_fragment, details).addToBackStack(null).commit()
-
         }
-
     }
 
+    private fun turnOnProgressBar(){
+        progressBar.visible()
+    }
+
+    private fun turnOffProgressBar(){
+        progressBar.gone()
+    }
 }

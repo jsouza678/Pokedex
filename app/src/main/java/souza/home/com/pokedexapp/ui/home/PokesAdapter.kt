@@ -40,8 +40,6 @@ class PokesAdapter(private val pokes: MutableList<Pokemon>?, private val context
         return pokes!!.size
     }
 
-
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.itemBind(pokes!![position])

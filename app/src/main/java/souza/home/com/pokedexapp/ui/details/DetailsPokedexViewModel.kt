@@ -1,26 +1,20 @@
 package souza.home.com.pokedexapp.ui.details
 
-import android.R
 import android.app.Application
-import android.content.Context
-import android.view.View
-import android.widget.*
+import android.widget.ImageView
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.bumptech.glide.request.RequestOptions
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.network.PokeApi
-import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolution
-import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolutionChain
-import souza.home.com.pokedexapp.network.model.stats.PokeStats
+import souza.home.com.pokedexapp.network.model.stats.PokeSprites
 import souza.home.com.pokedexapp.network.model.stats.PokemonProperty
 import souza.home.com.pokedexapp.network.model.varieties.PokeColor
 import souza.home.com.pokedexapp.network.model.varieties.PokeRootVarieties
-import souza.home.com.pokedexapp.network.model.varieties.PokeVarieties
-import souza.home.com.pokedexapp.ui.home.HomePokedexStatus
 
 enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
@@ -31,16 +25,23 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
     val status : LiveData<DetailsPokedexStatus>
         get() = _status
 
-    private var _color = MutableLiveData<PokeColor>()
+    private var _color = MutableLiveData<PokeRootVarieties>()
 
-    val color : LiveData<PokeColor>
+    val color : LiveData<PokeRootVarieties>
         get() = _color
+
+    private var _poke = MutableLiveData<MutableList<String>>()
+
+    val poke : LiveData<MutableList<String>>
+        get() = _poke
+
 
     init{
         getColor(pokemon)
+        getSprites(pokemon)
     }
 
-    fun getColor(pokemon: String){
+    private fun getColor(pokemon: String){
 
         _status.value = DetailsPokedexStatus.LOADING
 
@@ -53,15 +54,57 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
                 val items = response.body()
 
                 try {
-                    _color.value = items?.color
-                    _status.value = DetailsPokedexStatus.DONE
+                    _color.value = items
+                    //_status.value = DetailsPokedexStatus.DONE
                 } catch (e: Exception) {
                     // varietiesArray.add("No varieties")
-                    _status.value = DetailsPokedexStatus.EMPTY
+                   // _status.value = DetailsPokedexStatus.EMPTY
                 }
             }
-        }
-        )
+        })
+    }
+
+    fun getSprites(pokemon: String){
+        _status.value = DetailsPokedexStatus.LOADING
+
+        PokeApi.retrofitService.getPokeStats(pokemon).enqueue(object : Callback<PokemonProperty> {
+            override fun onFailure(call: Call<PokemonProperty>, t: Throwable) {
+                _status.value = DetailsPokedexStatus.ERROR
+            }
+
+            override fun onResponse(call: Call<PokemonProperty>, response: Response<PokemonProperty>) {
+
+                val items = response.body()
+                var auxList2 = mutableListOf<String>()
+
+                items?.sprites?.front_default?.let { auxList2.add(it) }
+                items?.sprites?.back_default?.let { auxList2.add(it) }
+                items?.sprites?.front_female?.let { auxList2.add(it) }
+                items?.sprites?.back_female?.let { auxList2.add(it) }
+                items?.sprites?.front_shiny?.let { auxList2.add(it) }
+                items?.sprites?.back_shiny?.let { auxList2.add(it) }
+                items?.sprites?.front_shiny_female?.let { auxList2.add(it) }
+                items?.sprites?.back_shiny_female?.let { auxList2.add(it) }
+/*
+
+
+                var auxList = mutableListOf(
+                    items?.sprites?.front_default,
+                    items?.sprites?.back_default,
+                    items?.sprites?.front_female,
+                    items?.sprites?.back_female,
+                    items?.sprites?.front_shiny,
+                    items?.sprites?.back_shiny,
+                    items?.sprites?.front_shiny_female,
+                    items?.sprites?.back_shiny_female)
+*/
+
+
+                    _poke.value = auxList2
+                    _status.value = DetailsPokedexStatus.DONE
+
+            }
+        })
     }
 
 }

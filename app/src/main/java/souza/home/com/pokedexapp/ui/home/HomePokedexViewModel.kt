@@ -10,17 +10,15 @@ import souza.home.com.pokedexapp.network.PokeApi
 import souza.home.com.pokedexapp.network.PokeRootProperty
 import souza.home.com.pokedexapp.network.model.main_model.Pokemon
 import androidx.lifecycle.LiveData
-import souza.home.com.pokedexapp.network.model.varieties.PokeColor
-import souza.home.com.pokedexapp.network.model.varieties.PokeRootVarieties
-import souza.home.com.pokedexapp.ui.details.about.DetailsPokedexStatus
+import androidx.recyclerview.widget.GridLayoutManager
 
 enum class HomePokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
 class HomePokedexViewModel : ViewModel(){
 
-    var isLoading = false
+    private var isLoading : Boolean = false
 
-    private var page = 0
+    private var page : Int = 0
 
     private val _poke = MutableLiveData<MutableList<Pokemon>>()
 
@@ -63,7 +61,7 @@ class HomePokedexViewModel : ViewModel(){
             })
     }
 
-    fun getPage(page: Int) : MutableList<Pokemon>{
+    fun getPage(page: Int){
         isLoading = true
         _status.value = HomePokedexStatus.LOADING
 
@@ -84,18 +82,30 @@ class HomePokedexViewModel : ViewModel(){
                         _poke.value?.add((response.body()?.results!![i]))
                     }
 
+                    isLoading = false
                     val r = Runnable {
                         _status.value = HomePokedexStatus.DONE
-                        isLoading = false
                     }
                     Handler().postDelayed(r, 500)
                 }
-
             })
-        return _poke.value!!
     }
 
+    fun onRecyclerViewScrolled(dy: Int, layoutManager: GridLayoutManager){
+        if(dy>0){
+            val isItTheListEnd = itIsTheListEnd(layoutManager = layoutManager)
+            if(isLoading.not() && isItTheListEnd){
+                page+=20
+                getPage(page)
+            }
+        }
+    }
 
+    fun itIsTheListEnd(layoutManager: GridLayoutManager) : Boolean{
+        val visibleItemCount = layoutManager.childCount
+        val totalItemCount = layoutManager.itemCount
+        val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
-
+        return visibleItemCount + firstVisibleItemPosition >= totalItemCount
+    }
 }

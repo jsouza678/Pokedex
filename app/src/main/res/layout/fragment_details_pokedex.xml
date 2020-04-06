@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/main_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#00000000"
@@ -20,15 +20,15 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <com.synnapps.carouselview.CarouselView
-        android:id="@+id/carousel"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/gallery_travel_detail_activity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:fillColor="#00000000"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar"
         app:layout_constraintBottom_toTopOf="@id/coordinator_cv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/coordinator_cv"
