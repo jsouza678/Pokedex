@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -17,6 +18,8 @@ import com.google.android.material.tabs.TabLayout
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.presenter.details.viewpager.GalleryViewPagerAdapter
 import souza.home.com.pokedexapp.presenter.details.viewpager.SectionsPagerAdapter
+
+
 
 class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragment(){
 
@@ -70,8 +73,13 @@ class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragm
 
         initObservers()
 
+        val toolbar = view.findViewById<Toolbar>(R.id.main_toolbar)
+        toolbar.setNavigationOnClickListener(View.OnClickListener { activity!!.onBackPressed() })
+
         return view
     }
+
+
 
     private fun initObservers(){
         viewModel.apply {
@@ -121,6 +129,12 @@ class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragm
         gallery.adapter = galleryViewPager
     }
 
+    override fun onStop() {
+        super.onStop()
+        this.viewModel.status.removeObservers(viewLifecycleOwner)
+        this.viewModel.poke.removeObservers(viewLifecycleOwner)
+        this.viewModel.color.removeObservers(viewLifecycleOwner)
+    }
 }
 
 internal class DynamicHeightViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : ViewPager(context, attrs) {
@@ -143,5 +157,6 @@ internal class DynamicHeightViewPager @JvmOverloads constructor(context: Context
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
+
 }
 
