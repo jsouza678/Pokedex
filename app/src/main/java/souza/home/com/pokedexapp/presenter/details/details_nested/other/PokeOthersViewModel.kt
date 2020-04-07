@@ -34,12 +34,18 @@ class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(a
     val abilityDesc : LiveData<String>
         get() = _abilityDesc
 
+    private var _pokeTypes = MutableLiveData<MutableList<PokemonNested>>()
+
+    val pokeTypes : LiveData<MutableList<PokemonNested>>
+        get() = _pokeTypes
+
     private var _other = MutableLiveData<PokemonProperty>()
 
     val other : LiveData<PokemonProperty>
         get() = _other
 
     init {
+        _pokeTypes.value = mutableListOf()
         getOtherProperties(pokemon)
     }
 
@@ -74,20 +80,16 @@ class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(a
 
     }
 
-/*
-    fun getAbilityDesc(abId: String): String{
-        val desc : String = getAbilityData(abId)
 
-        return desc
+    fun getAbilityDesc(abId: String){
+        getAbilityData(abId)
     }
-*/
 
-/*
-    fun getPokesInTypes(typeId: String): MutableList<PokemonNested>{
-        val desc = getPokesFromTypes(typeId)
 
-        return desc
-    }*/
+
+    fun getPokesInTypes(typeId: String){
+        getPokesFromTypes(typeId)
+    }
 
 
     fun getAbilityData(abId: String){
@@ -110,10 +112,9 @@ class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(a
         })
     }
 
-    private fun getPokesFromTypes(typeId: String) : MutableList<PokemonNested>{
+    private fun getPokesFromTypes(typeId: String){
 
         _statusAb.value = AbilityPokedexStatus.LOADING
-        var itemsD : MutableList<PokemonNested> = mutableListOf()
 
         PokeApi.retrofitService.getTypeData(typeId).enqueue(object : Callback<PokeTypeRoot> {
             override fun onFailure(call: Call<PokeTypeRoot>, t: Throwable) {
@@ -121,13 +122,12 @@ class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(a
             }
 
             override fun onResponse(call: Call<PokeTypeRoot>, response: Response<PokeTypeRoot>) {
-                itemsD = response.body()?.pokemon!!
+
+                _pokeTypes.value = response.body()?.pokemon!!
 
                 _statusAb.value = AbilityPokedexStatus.DONE
             }
 
         })
-
-        return itemsD
     }
 }

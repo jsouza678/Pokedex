@@ -68,7 +68,6 @@ class PokeOthersFragment(var pokemon: String) : Fragment() {
 
 
     private fun initObservers(){
-        var descList : ArrayList<String> = arrayListOf()
 
         viewModel.apply {
             this.other.observe(viewLifecycleOwner, Observer {
@@ -80,7 +79,7 @@ class PokeOthersFragment(var pokemon: String) : Fragment() {
             })}
     }
 
-    private fun initOutsideObserver(){
+    private fun initOutsideObserverAbilities(){
 
         viewModel.apply {
             viewModel.apply {
@@ -92,6 +91,22 @@ class PokeOthersFragment(var pokemon: String) : Fragment() {
                 })
             }
         }
+
+    }
+
+    private fun initOutsideObserverTypes(){
+
+        viewModel.apply {
+            viewModel.apply {
+                this.statusAb.observe(viewLifecycleOwner, Observer {
+                    when(it){
+                        AbilityPokedexStatus.DONE-> Toast.makeText(context, "${viewModel.pokeTypes.value}", Toast.LENGTH_SHORT).show()
+                        else-> Toast.makeText(context, "no", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+        }
+
     }
 
 
@@ -99,10 +114,12 @@ class PokeOthersFragment(var pokemon: String) : Fragment() {
         lvTypes.adapter = adapterTypes
 
         lvTypes.setOnItemClickListener { parent, view, position, id ->
-            val element = adapterTypes.getItem(position)// The item that was clicked
+            var elementId = adapterTypes.getItem(position).type.url// The item that was clicked
+            elementId = elementId?.substringAfterLast("e/")?.substringBeforeLast("/")
 
-            Toast.makeText(context, "${element.type.name}", Toast.LENGTH_SHORT).show()
+            viewModel.getPokesInTypes(elementId!!)
 
+            initOutsideObserverTypes()
         }
     }
 
@@ -115,9 +132,9 @@ class PokeOthersFragment(var pokemon: String) : Fragment() {
             elementId = elementId.substringAfterLast("y/").substringBeforeLast("/")
 
             //var desc = viewModel.getAbilityData(elementId)
-            viewModel.getAbilityData(elementId)
+            viewModel.getAbilityDesc(elementId)
 
-            initOutsideObserver()
+            initOutsideObserverAbilities()
 
     }
     }
