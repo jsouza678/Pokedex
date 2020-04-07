@@ -54,10 +54,6 @@ class HomePokedexViewModel : ViewModel(){
 
                 _poke.value?.addAll(listResult.results!!)
 
-              /*  for (i in 0 until length!!) {
-                    _poke.value?.add((response.body()?.results!![i]))
-                }*/
-
                 if(_poke.value.isNullOrEmpty()){
                     _status.value = HomePokedexStatus.EMPTY
                 }else{

@@ -4,6 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,6 +48,10 @@ class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(a
     val other : LiveData<PokemonProperty>
         get() = _other
 
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+
     init {
         _pokeTypes.value = mutableListOf()
         getOtherProperties(pokemon)
@@ -53,29 +61,18 @@ class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(a
 
         _status.value = DetailsPokedexStatus.LOADING
 
-        PokeApi.retrofitService.getPokeStats(pokemon).enqueue(object : Callback<PokemonProperty> {
-            override fun onFailure(call: Call<PokemonProperty>, t: Throwable) {
+        coroutineScope.launch {
+            val getStatsDeferred = PokeApi.retrofitService.getPokeStats(pokemon)
+            try{
+                val listResult = getStatsDeferred.await()
+
+                _other.value = listResult
+                _status.value = DetailsPokedexStatus.DONE
+
+            }catch(t: Throwable){
                 _status.value = DetailsPokedexStatus.ERROR
             }
-
-            override fun onResponse(
-                call: Call<PokemonProperty>,
-                response: Response<PokemonProperty>
-            ) {
-                val item = response.body()
-
-                try {
-                    _other.value = item
-                    _status.value = DetailsPokedexStatus.DONE
-
-                } catch (e: Exception) {
-                    // varietiesArray.add("No varieties")
-                    _status.value = DetailsPokedexStatus.EMPTY
-                }
-            }
-
-        })
-
+        }
     }
 
 
@@ -91,7 +88,6 @@ class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(a
 
 
     private fun getAbilityData(abId: String){
-        var desc : String = ""
         _statusAb.value = AbilityPokedexStatus.LOADING
 
         PokeApi.retrofitService.getAbilityData(abId).enqueue(object : Callback<PokeAbilityRoot> {

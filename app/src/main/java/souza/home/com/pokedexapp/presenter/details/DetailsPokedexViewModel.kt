@@ -4,12 +4,17 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import souza.home.com.pokedexapp.network.PokeApi
 import souza.home.com.pokedexapp.network.model.stats.PokemonProperty
 import souza.home.com.pokedexapp.network.model.varieties.PokeRootVarieties
+import souza.home.com.pokedexapp.presenter.home.HomePokedexStatus
 
 enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
@@ -30,6 +35,8 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
     val poke : LiveData<MutableList<String>>
         get() = _poke
 
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init{
         getColor(pokemon)
@@ -59,32 +66,31 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
     }
 
     private fun getSprites(pokemon: String){
+
         _status.value = DetailsPokedexStatus.LOADING
 
-        PokeApi.retrofitService.getPokeStats(pokemon).enqueue(object : Callback<PokemonProperty> {
-            override fun onFailure(call: Call<PokemonProperty>, t: Throwable) {
-                _status.value = DetailsPokedexStatus.ERROR
-            }
-
-            override fun onResponse(call: Call<PokemonProperty>, response: Response<PokemonProperty>) {
-
-                val items = response.body()
+        coroutineScope.launch {
+            val getSpritesDeferred = PokeApi.retrofitService.getPokeStats(pokemon)
+            try{
+                val listResult = getSpritesDeferred.await()
                 val auxList = mutableListOf<String>()
 
-                items?.sprites?.front_default?.let { auxList.add(it) }
-                items?.sprites?.back_default?.let { auxList.add(it) }
-                items?.sprites?.front_female?.let { auxList.add(it) }
-                items?.sprites?.back_female?.let { auxList.add(it) }
-                items?.sprites?.front_shiny?.let { auxList.add(it) }
-                items?.sprites?.back_shiny?.let { auxList.add(it) }
-                items?.sprites?.front_shiny_female?.let { auxList.add(it) }
-                items?.sprites?.back_shiny_female?.let { auxList.add(it) }
+                listResult.sprites.front_default?.let { auxList.add(it) }
+                listResult.sprites.back_default?.let { auxList.add(it) }
+                listResult.sprites.front_female?.let { auxList.add(it) }
+                listResult.sprites.back_female?.let { auxList.add(it) }
+                listResult.sprites.front_shiny?.let { auxList.add(it) }
+                listResult.sprites.back_shiny?.let { auxList.add(it) }
+                listResult.sprites.front_shiny_female?.let { auxList.add(it) }
+                listResult.sprites.back_shiny_female?.let { auxList.add(it) }
 
-                    _poke.value = auxList
-                    _status.value = DetailsPokedexStatus.DONE
+                _poke.value = auxList
+                _status.value = DetailsPokedexStatus.DONE
 
+            }catch(t: Throwable){
+                _status.value = DetailsPokedexStatus.ERROR
             }
-        })
+        }
     }
 
 }

@@ -35,7 +35,7 @@ interface PokeService{
 
     @GET("pokemon/{poke}")
     fun getPokeStats(@Path("poke") poke: String?):
-            Call<PokemonProperty>
+            Deferred<PokemonProperty>
 
     @GET("evolution-chain/{id}")
     fun getEvolutionChain(@Path("id") id : String?):
