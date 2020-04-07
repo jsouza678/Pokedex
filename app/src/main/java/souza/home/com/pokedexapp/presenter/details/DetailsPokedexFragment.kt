@@ -1,8 +1,6 @@
 package souza.home.com.pokedexapp.presenter.details
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +16,9 @@ import com.google.android.material.tabs.TabLayout
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.presenter.details.viewpager.GalleryViewPagerAdapter
 import souza.home.com.pokedexapp.presenter.details.viewpager.SectionsPagerAdapter
-
+import android.animation.ObjectAnimator
+import android.animation.ArgbEvaluator
+import souza.home.com.pokedexapp.presenter.details.viewpager.DynamicHeightViewPager
 
 
 class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragment(){
@@ -116,8 +116,15 @@ class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragm
             else-> R.color.poke_grey
         }
 
-        val colorValue = ContextCompat.getColor(context!!, colorV)
-        constraintLayout.setBackgroundColor(colorValue)
+        val backgroundColorAnimator = ObjectAnimator.ofObject(
+            constraintLayout,
+            "backgroundColor",
+            ArgbEvaluator(),
+            ContextCompat.getColor(context!!, R.color.blue_poke),
+            ContextCompat.getColor(context!!, colorV))
+
+        backgroundColorAnimator.duration = 300
+        backgroundColorAnimator.start()
     }
 
     private fun initGalleryViewPager(travelGallery: MutableList<String>) {
@@ -136,27 +143,3 @@ class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragm
         this.viewModel.color.removeObservers(viewLifecycleOwner)
     }
 }
-
-internal class DynamicHeightViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : ViewPager(context, attrs) {
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        var heightMeasureSpec = heightMeasureSpec
-
-
-        var height = 0
-        for (i in 0 until childCount) {
-            val child = getChildAt(i)
-            child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
-            val h = child.measuredHeight
-            if (h > height) height = h
-        }
-
-        if (height != 0) {
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
-        }
-
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-    }
-
-}
-

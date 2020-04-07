@@ -53,10 +53,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 android:textColor="#000"
                 android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/tabs"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -66,13 +67,14 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:background="#FFFFFF"
-                app:layout_constraintTop_toBottomOf="@id/tv_poke_name_detail"
+                app:layout_constraintTop_toBottomOf="@id/tv_poke_id_detail"
                 app:tabSelectedTextColor="#000"
                 app:tabTextAppearance="@style/custom_text"
                 app:tabTextColor="#CBCDCF" />
 
-            <souza.home.com.pokedexapp.presenter.details.DynamicHeightViewPager
+            <souza.home.com.pokedexapp.presenter.details.viewpager.DynamicHeightViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
@@ -80,6 +82,19 @@
                 app:layout_anchor="@id/tabs"
                 app:layout_anchorGravity="bottom"
                 app:layout_constraintTop_toBottomOf="@id/tabs" />
+
+            <TextView
+                android:id="@+id/tv_poke_id_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:text="#001"
+                app:layout_constraintBottom_toTopOf="@+id/tabs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_poke_name_detail" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
