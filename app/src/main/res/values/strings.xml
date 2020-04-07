@@ -30,10 +30,12 @@
     <string name="mock_body_desc">Lorem ipsum sit dolor amet gravida sit dolor amet bloco sit dolor amet gravida sit dolor amet blocd sit dolor amet gravida sit dolor amet bloc bloco sit dolor amet</string>
     <string name="tv_poke_variations">Poke Variations</string>
     <string name="tv_evolution_chain_title">Evolution Chain</string>
-    <string name="placeholder_tv_id">#%1$s</string >
+    <string name="placeholder_tv_id">#%1$s</string>
     <string name="mock_weight">120</string>
     <string name="mock_height">80</string>
     <string name="no_poke_evolution">This Poke does not evolutes</string>
+    <string name="button_text_dismiss">Dismiss</string>
+    <string name="tv_custom_alert_dialog_types">We\'ve found 12 pokemons with this type</string>
     <string-array name="poke_spinner_mock">
         <item>None</item>
         <item>Pikachu</item>

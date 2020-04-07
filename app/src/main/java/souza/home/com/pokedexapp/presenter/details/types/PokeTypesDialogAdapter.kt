@@ -1,4 +1,4 @@
-package souza.home.com.pokedexapp.presenter.home
+package souza.home.com.pokedexapp.presenter.details.types
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,17 +7,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.poke_item_view.view.*
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.network.model.main_model.Pokemon
 import souza.home.com.pokedexapp.extensions.loadUrl
+import souza.home.com.pokedexapp.network.model.types.PokemonNested
 
 
-class PokesAdapter(private val pokes: MutableList<Pokemon>?, private val context: Context) : RecyclerView.Adapter<PokesAdapter.ViewHolder>() {
+class PokesTypesDialogAdapter(private val pokes: MutableList<PokemonNested>?, private val context: Context) : RecyclerView.Adapter<PokesTypesDialogAdapter.ViewHolder>() {
 
-    var onItemClick: ((Pokemon) -> Unit)? = null
+    var onItemClick: ((PokemonNested) -> Unit)? = null
     private val imageResourceUrl = "https://pokeres.bastionbot.org/images/pokemon/"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,7 +24,7 @@ class PokesAdapter(private val pokes: MutableList<Pokemon>?, private val context
         return ViewHolder(view)
     }
 
-    fun submitList(newData: MutableList<Pokemon>) {
+    fun submitList(newData: MutableList<PokemonNested>) {
         if (pokes!!.isNotEmpty()) {
             pokes.clear()
         }
@@ -50,17 +49,17 @@ class PokesAdapter(private val pokes: MutableList<Pokemon>?, private val context
         private var formatedNumber: String = ""
         private var pokemonId : String = ""
 
-        fun itemBind(pokes: Pokemon){
-            pokeName.text = pokes.name
-            pokemonId = pokes.url.substringAfter("n/").substringBefore('/')
+        fun itemBind(pokes: PokemonNested){
+            pokeName.text = pokes.pokemon.name
+            pokemonId = pokes.pokemon.url.substringAfter("n/").substringBefore('/')
             formatedNumber= "%03d".format(Integer.parseInt(pokemonId))
             pokeId.text = context.resources.getString(R.string.placeholder_tv_id, formatedNumber)
             pokeImage.loadUrl("$imageResourceUrl$pokemonId.png")
         }
 
-    init{
-        itemView.setOnClickListener{
-            onItemClick?.invoke(pokes!![adapterPosition])
+        init{
+            itemView.setOnClickListener{
+                onItemClick?.invoke(pokes!![adapterPosition])
             }
         }
 

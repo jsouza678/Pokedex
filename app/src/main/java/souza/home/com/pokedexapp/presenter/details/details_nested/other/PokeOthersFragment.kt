@@ -12,8 +12,11 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.network.model.ability.PokeAbilities
+import souza.home.com.pokedexapp.network.model.main_model.Pokemon
 import souza.home.com.pokedexapp.network.model.types.PokeTypes
+import souza.home.com.pokedexapp.network.model.types.PokemonNested
 import souza.home.com.pokedexapp.presenter.details.details_nested.PokedexViewModelFactory
+import souza.home.com.pokedexapp.presenter.details.types.PokeTypesDialog
 
 
 class PokeOthersFragment(var pokemon: String) : Fragment() {
@@ -65,8 +68,6 @@ class PokeOthersFragment(var pokemon: String) : Fragment() {
         initAbilities()
         initObservers()
 
-    //   openDialog("test")
-
         return view
     }
 
@@ -99,8 +100,9 @@ class PokeOthersFragment(var pokemon: String) : Fragment() {
 
             viewModel.apply {
                 this.statusAb.observe(viewLifecycleOwner, Observer {
-                 // if (it == AbilityPokedexStatus.DONE) Toast.makeText(context, "${viewModel.pokeTypes.value}", Toast.LENGTH_SHORT).show()
-                    this.statusAb.removeObservers(viewLifecycleOwner)
+                  if (it == AbilityPokedexStatus.DONE){ //Toast.makeText(context, "${viewModel.pokeTypes.value}", Toast.LENGTH_SHORT).show()
+                    showCustomTypesDialog(viewModel.pokeTypes.value!!)
+                    this.statusAb.removeObservers(viewLifecycleOwner)}
                 })
             }
     }
@@ -132,11 +134,16 @@ class PokeOthersFragment(var pokemon: String) : Fragment() {
                 adapterAbilities.getItem(position).ability.url// The item that was clicked
             elementId = elementId.substringAfterLast("y/").substringBeforeLast("/")
 
-            //var desc = viewModel.getAbilityData(elementId)
             viewModel.getAbilityDesc(elementId)
 
             initOutsideObserverAbilities()
 
         }
+    }
+
+    private fun showCustomTypesDialog(list: MutableList<PokemonNested>){
+        val pokeTypesDialog: PokeTypesDialog = PokeTypesDialog(list)
+
+        pokeTypesDialog.show(fragmentManager!!, "my_fragment")
     }
 }
