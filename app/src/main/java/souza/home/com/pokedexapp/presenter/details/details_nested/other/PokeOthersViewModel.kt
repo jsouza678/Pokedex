@@ -15,7 +15,7 @@ import souza.home.com.pokedexapp.network.model.types.PokemonNested
 
 enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
-enum class AbilityPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
+enum class AbilityPokedexStatus{ LOADING, ERROR, DONE}
 
 class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(app) {
 
@@ -64,8 +64,6 @@ class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(a
             ) {
                 val item = response.body()
 
-
-
                 try {
                     _other.value = item
                     _status.value = DetailsPokedexStatus.DONE
@@ -92,7 +90,7 @@ class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(a
     }
 
 
-    fun getAbilityData(abId: String){
+    private fun getAbilityData(abId: String){
         var desc : String = ""
         _statusAb.value = AbilityPokedexStatus.LOADING
 

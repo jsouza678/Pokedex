@@ -9,6 +9,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.network.model.ability.PokeAbilities
 import souza.home.com.pokedexapp.network.model.types.PokeTypes
@@ -25,6 +26,7 @@ class PokeOthersFragment(var pokemon: String) : Fragment() {
     private lateinit var adapterAbilities: CustomAbilityAdapter
     private lateinit var typesArray: MutableList<PokeTypes>
     private lateinit var abilitiesArray: MutableList<PokeAbilities>
+    private lateinit var material : MaterialAlertDialogBuilder
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +53,7 @@ class PokeOthersFragment(var pokemon: String) : Fragment() {
             )
 
 
-        viewModel = ViewModelProviders.of(this,
+        viewModel = ViewModelProviders.of(activity!!,
             PokedexViewModelFactory(
                 pokemon,
                 activity!!.application
@@ -63,6 +65,8 @@ class PokeOthersFragment(var pokemon: String) : Fragment() {
         initAbilities()
         initObservers()
 
+    //   openDialog("test")
+
         return view
     }
 
@@ -70,45 +74,42 @@ class PokeOthersFragment(var pokemon: String) : Fragment() {
     private fun initObservers(){
 
         viewModel.apply {
-            this.other.observe(viewLifecycleOwner, Observer {
-                if(it!=null){
 
-                    adapterTypes.submitList(it.types)
-                    adapterAbilities.submitList(it.abilities)
+            this.status.observe(viewLifecycleOwner, Observer {
+                if (it == DetailsPokedexStatus.DONE) {
+                    adapterTypes.submitList(viewModel.other.value?.types!!)
+                    adapterAbilities.submitList(viewModel.other.value?.abilities!!)
                 }
             })}
     }
 
     private fun initOutsideObserverAbilities(){
 
-        viewModel.apply {
             viewModel.apply {
                 this.statusAb.observe(viewLifecycleOwner, Observer {
-                    when(it){
-                        AbilityPokedexStatus.DONE-> Toast.makeText(context, viewModel.abilityDesc.value, Toast.LENGTH_SHORT).show()
-                        else-> Toast.makeText(context, "no", Toast.LENGTH_SHORT).show()
+                    if (it == AbilityPokedexStatus.DONE) {
+                        openDialog(viewModel.abilityDesc.value)
+                        this.statusAb.removeObservers(viewLifecycleOwner)
                     }
                 })
             }
-        }
-
     }
 
     private fun initOutsideObserverTypes(){
 
-        viewModel.apply {
             viewModel.apply {
                 this.statusAb.observe(viewLifecycleOwner, Observer {
-                    when(it){
-                        AbilityPokedexStatus.DONE-> Toast.makeText(context, "${viewModel.pokeTypes.value}", Toast.LENGTH_SHORT).show()
-                        else-> Toast.makeText(context, "no", Toast.LENGTH_SHORT).show()
-                    }
+                 // if (it == AbilityPokedexStatus.DONE) Toast.makeText(context, "${viewModel.pokeTypes.value}", Toast.LENGTH_SHORT).show()
+                    this.statusAb.removeObservers(viewLifecycleOwner)
                 })
             }
-        }
-
     }
 
+    private fun openDialog(message: String?){
+        material = MaterialAlertDialogBuilder(context).setTitle("Ability Description").setPositiveButton("Dismiss", null)
+        material.setMessage(message)
+        material.show()
+    }
 
     private fun initType(){
         lvTypes.adapter = adapterTypes
@@ -136,7 +137,6 @@ class PokeOthersFragment(var pokemon: String) : Fragment() {
 
             initOutsideObserverAbilities()
 
+        }
     }
-    }
-
 }
