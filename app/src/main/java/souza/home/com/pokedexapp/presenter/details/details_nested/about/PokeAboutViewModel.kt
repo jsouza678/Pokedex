@@ -4,6 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,6 +29,9 @@ class PokeAboutViewModel(pokemon: String, app: Application): AndroidViewModel(ap
     val varieties : LiveData<PokeRootVarieties>
         get() = _varieties
 
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
     init {
         getVarieties(pokemon)
     }
@@ -33,25 +40,22 @@ class PokeAboutViewModel(pokemon: String, app: Application): AndroidViewModel(ap
 
         _status.value = DetailsPokedexStatus.LOADING
 
-        PokeApi.retrofitService.getVariations(pokemon).enqueue(object: Callback<PokeRootVarieties> {
-            override fun onFailure(call: Call<PokeRootVarieties>, t: Throwable) {
-                _status.value = DetailsPokedexStatus.ERROR
-            }
-
-            override fun onResponse(call: Call<PokeRootVarieties>, response: Response<PokeRootVarieties>) {
-                val items = response.body()
+        coroutineScope.launch {
+        val getVarietiesDeferred = PokeApi.retrofitService.getVariations(pokemon)
+            try{
+                val listResult = getVarietiesDeferred.await()
 
                 try {
-                    _varieties.value = items
+                    _varieties.value = listResult
                     _status.value = DetailsPokedexStatus.DONE
                 } catch (e: Exception) {
                     // varietiesArray.add("No varieties")
                     _status.value = DetailsPokedexStatus.EMPTY
                 }
-
+            }catch(t: Throwable){
+                _status.value = DetailsPokedexStatus.ERROR
             }
-        }
-        )
-    }
 
+        }
+    }
 }

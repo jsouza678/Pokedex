@@ -43,7 +43,7 @@ interface PokeService{
 
     @GET("pokemon-species/{id}")
     fun getVariations(@Path("id") id : String?):
-            Call<PokeRootVarieties>
+            Deferred<PokeRootVarieties>
 
     @GET("type/{id}")
     fun getTypeData(@Path("id") id: String?):

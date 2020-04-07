@@ -8,12 +8,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import souza.home.com.pokedexapp.network.PokeApi
 import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolution
-import souza.home.com.pokedexapp.network.model.varieties.PokeRootVarieties
 
 enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
@@ -40,24 +36,23 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
 
         _status.value = DetailsPokedexStatus.LOADING
 
-        PokeApi.retrofitService.getVariations(pokemon).enqueue(object: Callback<PokeRootVarieties> {
-            override fun onFailure(call: Call<PokeRootVarieties>, t: Throwable) {
-                _status.value = DetailsPokedexStatus.ERROR
-            }
+        coroutineScope.launch {
+            val getPokeChainUrlDeferred = PokeApi.retrofitService.getVariations(pokemon)
 
-            override fun onResponse(call: Call<PokeRootVarieties>, response: Response<PokeRootVarieties>) {
-                val items = response.body()
-                val pokeId = items?.evolution_chain?.url?.substringAfterLast("n/")?.substringBeforeLast("/")
+            try{
+                val result = getPokeChainUrlDeferred.await()
+
+                val pokeId = result.evolution_chain.url?.substringAfterLast("n/")?.substringBeforeLast("/")
                 try {
                     getChainEvolution(pokeId!!)
                 } catch (e: Exception) {
                     // varietiesArray.add("No varieties")
                     _status.value = DetailsPokedexStatus.EMPTY
                 }
-
+            }catch(t: Throwable){
+                _status.value = DetailsPokedexStatus.ERROR
             }
         }
-        )
     }
 
     private fun getChainEvolution(pokemon: String){

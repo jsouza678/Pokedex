@@ -47,22 +47,22 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
 
         _status.value = DetailsPokedexStatus.LOADING
 
-        PokeApi.retrofitService.getVariations(pokemon).enqueue(object: Callback<PokeRootVarieties> {
-            override fun onFailure(call: Call<PokeRootVarieties>, t: Throwable) {
-                _status.value = DetailsPokedexStatus.ERROR
-            }
+        coroutineScope.launch {
+            val getColorDeferred = PokeApi.retrofitService.getVariations(pokemon)
 
-            override fun onResponse(call: Call<PokeRootVarieties>, response: Response<PokeRootVarieties>) {
-                val items = response.body()
+            try{
+                val item = getColorDeferred.await()
 
                 try {
-                    _color.value = items
+                    _color.value = item
                     _status.value = DetailsPokedexStatus.DONE
                 } catch (e: Exception) {
                     _status.value = DetailsPokedexStatus.EMPTY
                 }
+            }catch(t: Throwable){
+                _status.value = DetailsPokedexStatus.ERROR
             }
-        })
+        }
     }
 
     private fun getSprites(pokemon: String){
