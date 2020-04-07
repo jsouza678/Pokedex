@@ -24,7 +24,8 @@ import souza.home.com.pokedexapp.presenter.details.viewpager.DynamicHeightViewPa
 class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragment(){
 
     private lateinit var viewModel: DetailsPokedexViewModel
-    private lateinit var tvPoke: TextView
+    private lateinit var tvPokeName: TextView
+    private lateinit var tvPokeId: TextView
     private lateinit var constraintLayout: ConstraintLayout
     private lateinit var galleryViewPager: GalleryViewPagerAdapter
     private lateinit var gallery : ViewPager
@@ -37,16 +38,20 @@ class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragm
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
 
-        tvPoke = view.findViewById(R.id.tv_poke_name_detail)
+        tvPokeName = view.findViewById(R.id.tv_poke_name_detail)
+        tvPokeId = view.findViewById(R.id.tv_poke_id_detail)
 
         constraintLayout = view.findViewById(R.id.cl_details)
         gallery = view.findViewById(R.id.gallery_travel_detail_activity)
+
 
         mImages = ArrayList()
         pokeId = pokeIdP
         pokeName = pokeNameP
 
-        tvPoke.text = pokeName.capitalize()
+        tvPokeName.text = pokeName.capitalize()
+        var textId = "%03d".format(Integer.parseInt(pokeId))
+        tvPokeId.text = context?.resources?.getString(R.string.placeholder_tv_id, textId)
 
         viewModel = ViewModelProviders.of(this,
             DetailsPokedexViewModelFactory(
