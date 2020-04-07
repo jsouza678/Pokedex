@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/real_white"
-    tools:context=".ui.home.HomePokedexFragment">
+    tools:context=".presenter.home.HomePokedexFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/pokedex_toolbar"

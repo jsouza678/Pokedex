@@ -1,0 +1,147 @@
+package souza.home.com.pokedexapp.presenter.details
+
+import android.content.Context
+import android.os.Bundle
+import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
+import souza.home.com.pokedexapp.R
+import souza.home.com.pokedexapp.presenter.details.viewpager.GalleryViewPagerAdapter
+import souza.home.com.pokedexapp.presenter.details.viewpager.SectionsPagerAdapter
+
+class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragment(){
+
+    private lateinit var viewModel: DetailsPokedexViewModel
+    private lateinit var tvPoke: TextView
+    private lateinit var constraintLayout: ConstraintLayout
+    private lateinit var galleryViewPager: GalleryViewPagerAdapter
+    private lateinit var gallery : ViewPager
+
+    private var pokeId: String = ""
+    private var pokeName = ""
+    private lateinit var mImages : MutableList<String>
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
+
+        tvPoke = view.findViewById(R.id.tv_poke_name_detail)
+
+        constraintLayout = view.findViewById(R.id.cl_details)
+        gallery = view.findViewById(R.id.gallery_travel_detail_activity)
+
+        mImages = ArrayList()
+        pokeId = pokeIdP
+        pokeName = pokeNameP
+
+        tvPoke.text = pokeName.capitalize()
+
+        viewModel = ViewModelProviders.of(this,
+            DetailsPokedexViewModelFactory(
+                pokeId,
+                activity!!.application
+            )
+        )
+            .get(DetailsPokedexViewModel::class.java)
+
+
+        val sectionsPagerAdapter =
+            SectionsPagerAdapter(
+                view.context,
+                fragmentManager!!,
+                pokeId
+            )
+
+        val viewPager: DynamicHeightViewPager = view.findViewById(R.id.view_pager)
+
+        viewPager.adapter = sectionsPagerAdapter
+        val tabs: TabLayout = view.findViewById(R.id.tabs)
+        tabs.setupWithViewPager(viewPager)
+
+
+        initObservers()
+
+        return view
+    }
+
+    private fun initObservers(){
+        viewModel.apply {
+            this.color.observe(viewLifecycleOwner, Observer {
+                setColor(it.color.name)
+
+            })
+
+           this.poke.observe(viewLifecycleOwner, Observer {
+                addImagesToList(it)
+                initGalleryViewPager(mImages)
+
+            })
+        }
+    }
+
+    private fun addImagesToList(it: MutableList<String>){
+        mImages.addAll(it)
+    }
+
+    private fun setColor(color: String){
+
+        val colorV = when(color){
+            "red"-> R.color.poke_red
+            "green"-> R.color.poke_green
+            "blue"-> R.color.poke_blue
+            "grey"-> R.color.poke_grey
+            "black"-> R.color.poke_black
+            "yellow"-> R.color.poke_yellow
+            "white"-> R.color.poke_white
+            "purple"-> R.color.poke_purple
+            "pink"-> R.color.poke_pink
+            "brown"-> R.color.poke_brown
+            else-> R.color.poke_grey
+        }
+
+        val colorValue = ContextCompat.getColor(context!!, colorV)
+        constraintLayout.setBackgroundColor(colorValue)
+    }
+
+    private fun initGalleryViewPager(travelGallery: MutableList<String>) {
+        galleryViewPager =
+            GalleryViewPagerAdapter(
+                context!!,
+                travelGallery
+            )
+        gallery.adapter = galleryViewPager
+    }
+
+}
+
+internal class DynamicHeightViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : ViewPager(context, attrs) {
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        var heightMeasureSpec = heightMeasureSpec
+
+
+        var height = 0
+        for (i in 0 until childCount) {
+            val child = getChildAt(i)
+            child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
+            val h = child.measuredHeight
+            if (h > height) height = h
+        }
+
+        if (height != 0) {
+            heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
+        }
+
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+    }
+}
+

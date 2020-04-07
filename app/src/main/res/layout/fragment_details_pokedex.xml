@@ -70,7 +70,7 @@
                 app:tabTextAppearance="@style/custom_text"
                 app:tabTextColor="#CBCDCF" />
 
-            <souza.home.com.pokedexapp.ui.details.DynamicHeightViewPager
+            <souza.home.com.pokedexapp.presenter.details.DynamicHeightViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"

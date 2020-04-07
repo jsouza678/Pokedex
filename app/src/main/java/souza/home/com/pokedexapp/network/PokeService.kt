@@ -8,8 +8,10 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import souza.home.com.pokedexapp.network.model.ability.PokeAbilityRoot
 import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolutionChain
 import souza.home.com.pokedexapp.network.model.stats.PokemonProperty
+import souza.home.com.pokedexapp.network.model.types.PokeTypeRoot
 import souza.home.com.pokedexapp.network.model.varieties.PokeRootVarieties
 
 private const val BASE_URL = "https://pokeapi.co/api/v2/"
@@ -40,6 +42,13 @@ interface PokeService{
     fun getVariations(@Path("id") id : String?):
             Call<PokeRootVarieties>
 
+    @GET("type/{id}")
+    fun getTypeData(@Path("id") id: String?):
+        Call<PokeTypeRoot>
+
+    @GET("ability/{id}")
+    fun getAbilityData(@Path("id") id: String?):
+            Call<PokeAbilityRoot>
 }
 
 object PokeApi{

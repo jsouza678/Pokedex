@@ -1,5 +1,8 @@
 package souza.home.com.pokedexapp.network.model.stats
 
+import souza.home.com.pokedexapp.network.model.ability.PokeAbilities
+import souza.home.com.pokedexapp.network.model.types.PokeTypes
+
 data class PokemonProperty(
     var abilities : MutableList<PokeAbilities>,
     var id : Int = 0,

@@ -33,6 +33,7 @@
     <string name="placeholder_tv_id">#%1$s</string >
     <string name="mock_weight">120</string>
     <string name="mock_height">80</string>
+    <string name="no_poke_evolution">This Poke does not evolutes</string>
     <string-array name="poke_spinner_mock">
         <item>None</item>
         <item>Pikachu</item>
