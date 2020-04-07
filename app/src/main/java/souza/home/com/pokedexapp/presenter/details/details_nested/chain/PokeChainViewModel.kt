@@ -4,12 +4,15 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import souza.home.com.pokedexapp.network.PokeApi
 import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolution
-import souza.home.com.pokedexapp.network.model.evolution_chain.PokeEvolutionChain
 import souza.home.com.pokedexapp.network.model.varieties.PokeRootVarieties
 
 enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
@@ -26,6 +29,8 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
     val chain : LiveData<MutableList<PokeEvolution>>
         get() = _chain
 
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
         getPokeChainUrl(pokemon)
@@ -57,38 +62,35 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
 
     private fun getChainEvolution(pokemon: String){
         _status.value = DetailsPokedexStatus.LOADING
-        PokeApi.retrofitService.getEvolutionChain(pokemon).enqueue(object:
-            Callback<PokeEvolutionChain> {
-            override fun onFailure(call: Call<PokeEvolutionChain>, t: Throwable) {
-                _status.value = DetailsPokedexStatus.ERROR
-            }
 
-            override fun onResponse(call: Call<PokeEvolutionChain>, response: Response<PokeEvolutionChain>) {
-                val item = response.body()
+        coroutineScope.launch {
+            val getChainDeferred = PokeApi.retrofitService.getEvolutionChain(pokemon)
+            try {
+                val item = getChainDeferred.await()
+
                 val evolutionArray : List<PokeEvolution>
 
                 evolutionArray = ArrayList()
                 evolutionArray.clear()
 
 
-                if(item?.chain?.species?.name != null){  //// 1 CHAIN
+                if(item.chain.species?.name != null){ // 1 If poke has one evolution
 
                     evolutionArray.add(item.chain)
 
                     try{
-                        evolutionArray.add(item.chain.evolves_to!![0])
+                        evolutionArray.add(item.chain.evolves_to!![0]) // 2 If poke has the second evolution
                         try {
-                            evolutionArray.add(item.chain.evolves_to!![0].evolves_to!![0])
+                            evolutionArray.add(item.chain.evolves_to!![0].evolves_to!![0]) // 3 If poke has the third evolution
 
                         }catch (e: Exception){
 
                         }
-                        }
-                        catch (e: Exception) {
-
-                        }
+                    }
+                    catch (e: Exception) {
 
                     }
+                }
 
                 try {
                     _chain.value = evolutionArray
@@ -98,9 +100,9 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
                     _status.value = DetailsPokedexStatus.EMPTY
                 }
 
-            }
-
-        })
+            }catch(t: Throwable){
+                _status.value = DetailsPokedexStatus.ERROR
+            }}
 
     }
 }

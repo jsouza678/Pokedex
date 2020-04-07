@@ -39,7 +39,7 @@ interface PokeService{
 
     @GET("evolution-chain/{id}")
     fun getEvolutionChain(@Path("id") id : String?):
-            Call<PokeEvolutionChain>
+            Deferred<PokeEvolutionChain>
 
     @GET("pokemon-species/{id}")
     fun getVariations(@Path("id") id : String?):
