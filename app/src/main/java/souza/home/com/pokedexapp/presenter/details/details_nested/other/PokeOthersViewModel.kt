@@ -8,13 +8,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import souza.home.com.pokedexapp.network.PokeApi
-import souza.home.com.pokedexapp.network.model.ability.PokeAbilityRoot
 import souza.home.com.pokedexapp.network.model.stats.PokemonProperty
-import souza.home.com.pokedexapp.network.model.types.PokeTypeRoot
 import souza.home.com.pokedexapp.network.model.types.PokemonNested
 
 enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
@@ -90,38 +85,38 @@ class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(a
     private fun getAbilityData(abId: String){
         _statusAb.value = AbilityPokedexStatus.LOADING
 
-        PokeApi.retrofitService.getAbilityData(abId).enqueue(object : Callback<PokeAbilityRoot> {
-            override fun onFailure(call: Call<PokeAbilityRoot>, t: Throwable) {
-                _statusAb.value = AbilityPokedexStatus.ERROR
-            }
-            override fun onResponse(
-                call: Call<PokeAbilityRoot>,
-                response: Response<PokeAbilityRoot>
-            ) {
-                //desc = response.body()?.effect?.get(0)?.effect!!
-                _abilityDesc.value = response.body()?.effect?.get(0)?.effect
+        coroutineScope.launch {
+            val getAbilityDeferred = PokeApi.retrofitService.getAbilityData(abId)
+
+            try{
+                val abilityData = getAbilityDeferred.await()
+
+                _abilityDesc.value = abilityData.effect[0].effect
 
                 _statusAb.value = AbilityPokedexStatus.DONE
+
+            }catch(t: Throwable){
+                _statusAb.value = AbilityPokedexStatus.ERROR
             }
-        })
+        }
     }
 
     private fun getPokesFromTypes(typeId: String){
 
         _statusAb.value = AbilityPokedexStatus.LOADING
 
-        PokeApi.retrofitService.getTypeData(typeId).enqueue(object : Callback<PokeTypeRoot> {
-            override fun onFailure(call: Call<PokeTypeRoot>, t: Throwable) {
-                _statusAb.value = AbilityPokedexStatus.ERROR
-            }
+        coroutineScope.launch {
+            val getTypesDeferred = PokeApi.retrofitService.getTypeData(typeId)
 
-            override fun onResponse(call: Call<PokeTypeRoot>, response: Response<PokeTypeRoot>) {
+            try{
+                val typesData = getTypesDeferred.await()
 
-                _pokeTypes.value = response.body()?.pokemon!!
+                _pokeTypes.value = typesData.pokemon
 
                 _statusAb.value = AbilityPokedexStatus.DONE
+            }catch(t: Throwable){
+                _statusAb.value = AbilityPokedexStatus.ERROR
             }
-
-        })
+        }
     }
 }

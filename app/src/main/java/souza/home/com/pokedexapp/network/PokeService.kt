@@ -47,11 +47,11 @@ interface PokeService{
 
     @GET("type/{id}")
     fun getTypeData(@Path("id") id: String?):
-        Call<PokeTypeRoot>
+            Deferred<PokeTypeRoot>
 
     @GET("ability/{id}")
     fun getAbilityData(@Path("id") id: String?):
-            Call<PokeAbilityRoot>
+            Deferred<PokeAbilityRoot>
 }
 
 object PokeApi{
