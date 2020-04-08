@@ -92,4 +92,5 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
             throw IllegalArgumentException("Viewmodel unknown")
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package souza.home.com.pokedexapp.presentation.details.types
+package souza.home.com.pokedexapp.presentation.details.details_nested.other.types
 
 
 import android.app.AlertDialog
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.types.PokemonNested
+import souza.home.com.pokedexapp.presentation.details.DetailsPokedexFragment
 
 class PokeTypesDialog(private val pList: MutableList<PokemonNested>) : DialogFragment() {
 
@@ -36,6 +37,8 @@ class PokeTypesDialog(private val pList: MutableList<PokemonNested>) : DialogFra
 
         recyclerView.adapter = adapter
 
+        setTransitionToPokeDetails()
+
         buttonDismiss.setOnClickListener {
             dismiss()
         }
@@ -46,5 +49,17 @@ class PokeTypesDialog(private val pList: MutableList<PokemonNested>) : DialogFra
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    private fun setTransitionToPokeDetails(){
+        adapter.onItemClick = {
+            val urlChain = it.pokemon.url
+            val pokeName = it.pokemon.name
+            val pokePath = urlChain.substringAfterLast("n/").substringBeforeLast("/")
+            val details = DetailsPokedexFragment(pokePath, pokeName)
+
+            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment, details)?.commit()
+            dismiss()
+        }
     }
 }

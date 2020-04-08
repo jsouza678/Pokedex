@@ -50,4 +50,9 @@ class PokeStatsViewModel(pokemon: String, app: Application): AndroidViewModel(ap
             }
         }
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        Job().cancel()
+    }
 }

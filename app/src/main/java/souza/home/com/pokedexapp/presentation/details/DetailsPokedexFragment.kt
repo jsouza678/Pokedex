@@ -17,6 +17,7 @@ import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.presentation.details.viewpager.SectionsPagerAdapter
 import android.animation.ObjectAnimator
 import android.animation.ArgbEvaluator
+import android.widget.Toast
 import souza.home.com.pokedexapp.presentation.utils.DynamicHeightViewPager
 
 
@@ -89,13 +90,11 @@ class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragm
         viewModel.apply {
             this.color.observe(viewLifecycleOwner, Observer {
                 setColor(it.color.name)
-
             })
 
            this.poke.observe(viewLifecycleOwner, Observer {
                 addImagesToList(it)
                 initGalleryViewPager(mImages)
-
             })
         }
     }

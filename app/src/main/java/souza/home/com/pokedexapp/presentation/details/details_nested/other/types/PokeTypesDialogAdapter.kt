@@ -1,4 +1,4 @@
-package souza.home.com.pokedexapp.presentation.details.types
+package souza.home.com.pokedexapp.presentation.details.details_nested.other.types
 
 import android.content.Context
 import android.view.LayoutInflater

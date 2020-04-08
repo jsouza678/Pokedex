@@ -88,4 +88,9 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
         }
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        Job().cancel()
+    }
+
 }

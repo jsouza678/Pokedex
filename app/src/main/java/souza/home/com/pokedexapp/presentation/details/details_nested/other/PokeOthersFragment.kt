@@ -14,7 +14,7 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.PokeAbilities
 import souza.home.com.pokedexapp.data.pokedex.remote.model.types.PokeTypes
 import souza.home.com.pokedexapp.data.pokedex.remote.model.types.PokemonNested
 import souza.home.com.pokedexapp.presentation.details.details_nested.PokedexViewModelFactory
-import souza.home.com.pokedexapp.presentation.details.types.PokeTypesDialog
+import souza.home.com.pokedexapp.presentation.details.details_nested.other.types.PokeTypesDialog
 
 
 class PokeOthersFragment(var pokemon: String) : Fragment() {

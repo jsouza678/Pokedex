@@ -119,4 +119,9 @@ class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(a
             }
         }
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        Job().cancel()
+    }
 }
