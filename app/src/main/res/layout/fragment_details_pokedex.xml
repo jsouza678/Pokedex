@@ -7,6 +7,14 @@
     android:background="@color/blue_poke"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@color/translucent"
+        android:src="@drawable/background_sprite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/main_toolbar"
         android:layout_width="match_parent"
@@ -26,11 +34,13 @@
         android:id="@+id/gallery_travel_detail_activity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar"
         app:layout_constraintBottom_toTopOf="@id/coordinator_cv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/coordinator_cv"

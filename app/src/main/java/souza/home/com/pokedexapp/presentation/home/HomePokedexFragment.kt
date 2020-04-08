@@ -47,7 +47,6 @@ class HomePokedexFragment : Fragment() {
         )
             .get(HomePokedexViewModel::class.java)
 
-        initRecyclerView(viewModel)
         initObservers(viewModel)
 
 
@@ -58,7 +57,7 @@ class HomePokedexFragment : Fragment() {
         viewModel.apply {
 
             this.updatePokeslListOnViewLiveData().observe(this@HomePokedexFragment, Observer {
-
+                initRecyclerView(viewModel)
                 adapter.submitList(it.toMutableList())
             })
 
