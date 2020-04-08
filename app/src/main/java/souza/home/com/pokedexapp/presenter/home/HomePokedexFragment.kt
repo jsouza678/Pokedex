@@ -3,6 +3,7 @@ package souza.home.com.pokedexapp.presenter.home
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,8 @@ import souza.home.com.pokedexapp.network.model.main_model.Pokemon
 import souza.home.com.pokedexapp.presenter.details.DetailsPokedexFragment
 import souza.home.com.pokedexapp.extensions.gone
 import souza.home.com.pokedexapp.extensions.visible
+import souza.home.com.pokedexapp.presenter.details.DetailsPokedexViewModel
+import souza.home.com.pokedexapp.presenter.details.DetailsPokedexViewModelFactory
 
 
 class HomePokedexFragment : Fragment() {
@@ -35,7 +38,7 @@ class HomePokedexFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        pokesList = ArrayList()
+        pokesList = mutableListOf()
 
         val view = inflater.inflate(R.layout.fragment_home_pokedex, container, false)
         progressBar = view.findViewById(R.id.progressBar)
@@ -44,9 +47,14 @@ class HomePokedexFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.poke_recycler_view)
 
-        val viewModel =  ViewModelProviders.of(this)
+       val  viewModel = ViewModelProviders.of(this,
+           HomePokedexViewModel.Factory(
+               activity!!.application
+           )
+        )
             .get(HomePokedexViewModel::class.java)
 
+        initRecyclerView(viewModel)
         initObservers(viewModel)
 
 
@@ -55,15 +63,15 @@ class HomePokedexFragment : Fragment() {
 
     private fun initObservers(viewModel: HomePokedexViewModel){
         viewModel.apply {
-            this.poke.observe(viewLifecycleOwner, Observer {
-                    initRecyclerView(viewModel)
-                    pokesList = viewModel.poke.value!!
+
+            this.updatePokeslListOnViewLiveData().observe(this@HomePokedexFragment, Observer {
+
+                adapter.submitList(it.toMutableList())
             })
 
             this.status.observe(viewLifecycleOwner, Observer {
                 when(it){
                     HomePokedexStatus.DONE->{
-                        adapter.submitList(pokesList)
                         turnOffProgressBar()
                     }
                     HomePokedexStatus.LOADING->

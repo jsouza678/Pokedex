@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: "kotlin-kapt"
+
 android {
 
 
@@ -66,12 +68,18 @@ dependencies {
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
 
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
     // MaterialDesign
     implementation 'com.google.android.material:material:1.1.0'
 
 
     // Carousel view
     implementation 'com.synnapps:carouselview:0.1.5'
+
+    // Room
+    implementation "androidx.room:room-runtime:$version_room"
+    kapt "androidx.room:room-compiler:$version_room"
 
 
 }
