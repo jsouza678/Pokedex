@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".presenter.details.details_nested.stats.PokeStatsFragment">
+    tools:context=".presentation.details.details_nested.stats.PokeStatsFragment">
 
     <TextView
         android:id="@+id/tv_detail_hp_label"
@@ -55,7 +55,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/mock_attack"
+        tools:text="@string/mock_attack"
         app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_attack_label"
         app:layout_constraintStart_toEndOf="@id/tv_detail_attack_label" />
 
@@ -123,7 +123,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/mock_special_attack"
+        tools:text="@string/mock_special_attack"
         app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_special_attack_label"
         app:layout_constraintStart_toEndOf="@id/tv_detail_special_attack_label" />
 
@@ -227,7 +227,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/mock_weight"
+        tools:text="@string/mock_weight"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_weight_label"
         app:layout_constraintStart_toEndOf="@+id/tv_detail_weight_label" />
 
@@ -249,7 +249,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/mock_height"
+        tools:text="@string/mock_height"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_height_label"
         app:layout_constraintStart_toEndOf="@+id/tv_detail_height_label" />
 

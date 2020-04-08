@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/blue_poke"
-    tools:context=".presenter.details.types.PokeTypesDialog">
+    tools:context=".presentation.details.types.PokeTypesDialog">
 
 
     <com.google.android.material.card.MaterialCardView
@@ -25,7 +25,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="420dp"
-            tools:context=".presenter.details.types.PokeTypesDialog">
+            tools:context=".presentation.details.types.PokeTypesDialog">
 
             <TextView
                 android:id="@+id/tv_custom_alert_dialog_label"

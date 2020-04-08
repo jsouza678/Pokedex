@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presenter.details.details_nested.about.PokeAboutFragment">
+    tools:context=".presentation.details.details_nested.about.PokeAboutFragment">
 
     <TextView
         android:id="@+id/tv_poke_desc"

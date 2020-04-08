@@ -2,7 +2,7 @@ package souza.home.com.pokedexapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import souza.home.com.pokedexapp.presenter.home.HomePokedexFragment
+import souza.home.com.pokedexapp.presentation.home.HomePokedexFragment
 
 class MainActivity : AppCompatActivity() {
 

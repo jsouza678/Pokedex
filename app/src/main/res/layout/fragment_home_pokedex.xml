@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/rsz_background_poke"
-    tools:context=".presenter.home.HomePokedexFragment">
+    tools:context=".presentation.home.HomePokedexFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/pokedex_toolbar"
