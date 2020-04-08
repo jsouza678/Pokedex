@@ -220,7 +220,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/poke_weight"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_detail_speed_label" />
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_speed_label" />
 
     <TextView
         android:id="@+id/tv_detail_weight"
@@ -228,8 +228,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         tools:text="@string/mock_weight"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_weight_label"
-        app:layout_constraintStart_toEndOf="@+id/tv_detail_weight_label" />
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_weight_label"
+        app:layout_constraintStart_toEndOf="@id/tv_detail_weight_label" />
 
     <TextView
         android:id="@+id/tv_detail_height_label"
@@ -242,7 +242,7 @@
         android:text="@string/poke_height"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_detail_weight_label" />
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_weight_label" />
 
     <TextView
         android:id="@+id/tv_detail_height"
@@ -250,8 +250,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         tools:text="@string/mock_height"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tv_detail_height_label"
-        app:layout_constraintStart_toEndOf="@+id/tv_detail_height_label" />
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_height_label"
+        app:layout_constraintStart_toEndOf="@id/tv_detail_height_label" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

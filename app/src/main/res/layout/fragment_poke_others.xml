@@ -31,7 +31,7 @@
         android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_type"
+        app:layout_constraintTop_toBottomOf="@id/tv_type"
         tools:listitem="@tools:sample/cities[0]" />
 
 
@@ -47,7 +47,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lv_types" />
+        app:layout_constraintTop_toBottomOf="@id/lv_types" />
 
     <ListView
         android:id="@+id/lv_abilities"
@@ -59,7 +59,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_ability"
+        app:layout_constraintTop_toBottomOf="@id/tv_ability"
         tools:listitem="@tools:sample/cities[0]" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
