@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.poke_item_view.view.*
 import souza.home.com.pokedexapp.R
 import souza.home.com.extensions.loadUrl
-import souza.home.com.pokedexapp.data.remote.model.PokemonResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.model.Poke
 import kotlin.random.Random
 
 
-class HomePokedexAdapter(private val pokes: MutableList<PokemonResponse>?, private val context: Context) : RecyclerView.Adapter<HomePokedexAdapter.ViewHolder>() {
+class HomePokedexAdapter(private val pokes: MutableList<Poke>?, private val context: Context) : RecyclerView.Adapter<HomePokedexAdapter.ViewHolder>() {
 
-    var onItemClick: ((PokemonResponse) -> Unit)? = null
+    var onItemClick: ((Poke) -> Unit)? = null
     private val imageResourceUrl = "https://pokeres.bastionbot.org/images/pokemon/"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,7 +26,7 @@ class HomePokedexAdapter(private val pokes: MutableList<PokemonResponse>?, priva
         return ViewHolder(view)
     }
 
-    fun submitList(newData: MutableList<PokemonResponse>) {
+    fun submitList(newData: MutableList<Poke>) {
         if (pokes!!.isNotEmpty()) {
             pokes.clear()
         }
@@ -74,7 +74,7 @@ class HomePokedexAdapter(private val pokes: MutableList<PokemonResponse>?, priva
         private var formatedNumber: String = ""
         private var pokemonId : String = ""
 
-        fun itemBind(pokes: PokemonResponse){
+        fun itemBind(pokes: Poke){
             pokeName.text = pokes.name
             pokemonId = pokes.url.substringAfter("n/").substringBefore('/')
             formatedNumber= "%03d".format(Integer.parseInt(pokemonId))

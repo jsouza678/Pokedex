@@ -14,7 +14,7 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.PokeAbilityRo
 import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.PokeEvolutionChain
 import souza.home.com.pokedexapp.data.pokedex.remote.model.stats.PokemonProperty
 import souza.home.com.pokedexapp.data.pokedex.remote.model.types.PokeTypeRoot
-import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeRootVarieties
+import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeVarietiesResponse
 
 private const val BASE_URL = "https://pokeapi.co/api/v2/"
 
@@ -43,7 +43,7 @@ interface PokeService{
 
     @GET("pokemon-species/{id}")
     fun getVariations(@Path("id") id : String?):
-            Deferred<PokeRootVarieties>
+            Deferred<PokeVarietiesResponse>
 
     @GET("type/{id}")
     fun getTypeData(@Path("id") id: String?):

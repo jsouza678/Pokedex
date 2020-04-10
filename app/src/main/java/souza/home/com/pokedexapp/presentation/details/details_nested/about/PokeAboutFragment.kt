@@ -76,7 +76,22 @@ class PokeAboutFragment(var pokemon: String) : Fragment() {
 
     private fun initObservers(){
         viewModel.apply {
-            this.varieties.observe(viewLifecycleOwner, Observer {
+/*            this.updateVariationsOnViewLiveData().observe(viewLifecycleOwner, Observer {
+                *//*if(it!=null){
+                    initSpinner()
+                    adapterSpinner.submitList(it.varieties)
+                    pokemonsArray = it.varieties!!
+                    var description : String = ""
+                    for(i in 0 until it.description?.size!!) {
+                        if (it.description?.get(i)?.language?.name == language) {
+                            description += it.description!![i].flavor_text + "\n "
+                        }
+                    }
+                    tvDesc.text = description
+                }*//*
+
+            })*/
+           /* this.varietiesResponse.observe(viewLifecycleOwner, Observer {
                     initSpinner()
                     adapterSpinner.submitList(it.varieties)
                     pokemonsArray = it.varieties
@@ -84,12 +99,11 @@ class PokeAboutFragment(var pokemon: String) : Fragment() {
                     for(i in 0 until it.description.size) {
                         if (it.description[i].language.name == language) {
                             description += it.description[i].flavor_text + "\n "
-                        }/*else{
-                            //description += "This poke is an evolution, so its description still misterious!"
-                        }*/
+                        }
                     }
                     tvDesc.text = description
-            })}
+            })*/
+        }
     }
 
 

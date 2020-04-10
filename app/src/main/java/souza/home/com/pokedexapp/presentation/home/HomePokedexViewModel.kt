@@ -11,8 +11,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.data.pokedex.PokemonRepositoryImpl
-import souza.home.com.pokedexapp.data.remote.model.PokemonResponse
 import souza.home.com.pokedexapp.data.pokedex.local.getDatabase
+import souza.home.com.pokedexapp.data.pokedex.remote.model.Poke
 import java.lang.IllegalArgumentException
 
 enum class HomePokedexStatus{ LOADING, ERROR, DONE, EMPTY}
@@ -28,13 +28,13 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
     val status : LiveData<HomePokedexStatus>
     get() = _status
 
-    fun updatePokeslListOnViewLiveData(): LiveData<List<PokemonResponse>> = pokesRepository.pokes
+    fun updatePokeslListOnViewLiveData(): LiveData<List<Poke>> = pokesRepository.pokes
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     private val database =
-        getDatabase(app)
+        getDatabase(app.applicationContext)
     private val pokesRepository =
         PokemonRepositoryImpl(database)
 

@@ -16,11 +16,11 @@ import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.presentation.details.DetailsPokedexFragment
 import souza.home.com.extensions.gone
 import souza.home.com.extensions.visible
-import souza.home.com.pokedexapp.data.remote.model.PokemonResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.model.Poke
 
 class HomePokedexFragment : Fragment() {
 
-    private lateinit var pokesList : MutableList<PokemonResponse>
+    private lateinit var pokesList : MutableList<Poke>
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var manager : FragmentManager
     private lateinit var progressBar : ProgressBar
@@ -37,7 +37,6 @@ class HomePokedexFragment : Fragment() {
         progressBar = view.findViewById(R.id.progressBar)
         manager = activity!!.supportFragmentManager
         adapter = HomePokedexAdapter(pokesList, view.context)
-
         recyclerView = view.findViewById(R.id.poke_recycler_view)
 
        val  viewModel = ViewModelProviders.of(this,
@@ -47,6 +46,7 @@ class HomePokedexFragment : Fragment() {
         )
             .get(HomePokedexViewModel::class.java)
 
+        initRecyclerView(viewModel)
         initObservers(viewModel)
 
 
@@ -57,7 +57,6 @@ class HomePokedexFragment : Fragment() {
         viewModel.apply {
 
             this.updatePokeslListOnViewLiveData().observe(this@HomePokedexFragment, Observer {
-                initRecyclerView(viewModel)
                 adapter.submitList(it.toMutableList())
             })
 

@@ -8,10 +8,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import souza.home.com.pokedexapp.R
+
+private var placeHolderId: Int = R.drawable.place_holder
+private var errorImageId: Int = R.drawable.error_image
 
 fun ImageView.loadUrl(
     url: String? = null,
-    placeHolderId: Int? = null,
     onLoadCompleted: () -> Unit = {},
     onError: () -> Unit = {}
 ) {
@@ -41,10 +44,10 @@ fun ImageView.loadUrl(
             }
         })
 
-    placeHolderId?.let {
+    placeHolderId.let {
         requestBuilder
             .placeholder(placeHolderId)
-            .error(placeHolderId)
+            .error(errorImageId)
     }
 
     requestBuilder

@@ -6,13 +6,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import souza.home.com.pokedexapp.domain.model.asDomainModel
 import souza.home.com.pokedexapp.data.remote.PokeApi
-import souza.home.com.pokedexapp.data.remote.model.PokemonResponse
 import souza.home.com.pokedexapp.data.remote.model.asDatabaseModel
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonsDatabase
+import souza.home.com.pokedexapp.data.pokedex.remote.model.Poke
 
 class PokemonRepositoryImpl(private val database: PokemonsDatabase) {
 
-    val pokes: LiveData<List<PokemonResponse>> = Transformations.map(database.pokemonDao.getPokes()){
+    val pokes: LiveData<List<Poke>> = Transformations.map(database.pokemonDao.getPokes()){
         it.asDomainModel()
     }
 

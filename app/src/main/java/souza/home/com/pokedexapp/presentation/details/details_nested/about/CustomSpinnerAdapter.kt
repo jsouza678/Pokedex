@@ -32,12 +32,12 @@ class CustomSpinnerAdapter (private val context: Context, private val dataList: 
         return rowView!!
     }
 
-    fun submitList(newData: MutableList<PokeVarieties>){
+    fun submitList(newData: MutableList<PokeVarieties>?){
         if(dataList.isNotEmpty()){
             dataList.clear()
         }
         dataList.add(0, poke)
-        dataList.addAll(newData)
+        newData?.let { dataList.addAll(it) }
         this.notifyDataSetChanged()
     }
 

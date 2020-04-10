@@ -1,7 +1,6 @@
 package souza.home.com.pokedexapp.data.pokedex.local
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import souza.home.com.pokedexapp.domain.model.Pokemon
@@ -23,7 +22,7 @@ fun getDatabase(context: Context): PokemonsDatabase {
         if(!::INSTANCE.isInitialized){
             INSTANCE = Room.databaseBuilder(context.applicationContext,
                 PokemonsDatabase::class.java,
-                "pokemon").allowMainThreadQueries().build() // name
+                "pokses.db").build() // name
         }
     }
     return INSTANCE

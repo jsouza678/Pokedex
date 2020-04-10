@@ -17,7 +17,6 @@ import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.presentation.details.viewpager.SectionsPagerAdapter
 import android.animation.ObjectAnimator
 import android.animation.ArgbEvaluator
-import android.widget.Toast
 import souza.home.com.pokedexapp.presentation.utils.DynamicHeightViewPager
 
 
@@ -56,7 +55,7 @@ class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragm
         viewModel = ViewModelProviders.of(this,
             DetailsPokedexViewModelFactory(
                 pokeId,
-                activity!!.application
+                activity?.application!!
             )
         )
             .get(DetailsPokedexViewModel::class.java)
@@ -88,13 +87,17 @@ class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragm
 
     private fun initObservers(){
         viewModel.apply {
-            this.color.observe(viewLifecycleOwner, Observer {
-                setColor(it.color.name)
-            })
+            this.updateVariationsOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
+                if(it!=null){
+                setColor(it.color?.name)
+            }
+            }
+            )
+
 
            this.poke.observe(viewLifecycleOwner, Observer {
-                addImagesToList(it)
-                initGalleryViewPager(mImages)
+                //addImagesToList(it)
+                //initGalleryViewPager(mImages)
             })
         }
     }
@@ -103,7 +106,7 @@ class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragm
         mImages.addAll(it)
     }
 
-    private fun setColor(color: String){
+    private fun setColor(color: String?){
 
         val colorV = when(color){
             "red"-> R.color.poke_red

@@ -46,7 +46,6 @@ class PokeChainFragment(var pokemon: String) : Fragment() {
                 evolutionArray
             )
 
-        initChainEvolution()
         initObservers()
 
         return view
@@ -55,10 +54,15 @@ class PokeChainFragment(var pokemon: String) : Fragment() {
     private fun initObservers(){
         viewModel.apply {
             this.chain.observe(viewLifecycleOwner, Observer {
-                if(it!=null){
-                    adapterChain.submitList(it)
+                    initChainEvolution()
+            })
+
+          /*  this.updateVariationsOnViewLiveData().observe(this@PokeChainFragment, Observer {
+                if(it!= null) {
+                    adapterChain.submitList(viewModel.chain.value!!)
                 }
-            })}
+            })*/
+        }
     }
 
     private fun initChainEvolution(){

@@ -1,15 +1,25 @@
 package souza.home.com.pokedexapp.presentation.details
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.local.getVarietiesDatabase
 import souza.home.com.pokedexapp.data.remote.PokeApi
-import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeRootVarieties
+import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeVarietiesResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.model.PokeVariety
+import souza.home.com.pokedexapp.domain.model.asDomainModelFromVariations
+import java.lang.Exception
 
 enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
@@ -20,9 +30,9 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
     val status : LiveData<DetailsPokedexStatus>
         get() = _status
 
-    private var _color = MutableLiveData<PokeRootVarieties>()
+    private var _color = MutableLiveData<PokeVariety>()
 
-    val color : LiveData<PokeRootVarieties>
+    val color : LiveData<PokeVariety>
         get() = _color
 
     private var _poke = MutableLiveData<MutableList<String>>()
@@ -30,15 +40,50 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
     val poke : LiveData<MutableList<String>>
         get() = _poke
 
+
+
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
+
+    private val database =
+        getVarietiesDatabase(app.applicationContext)
+    private val varietiesRepository =
+        VarietiesRepositoryImpl(database, Integer.parseInt(pokemon))
+
+    private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo
+    private val isConnected : Boolean = activeNetwork?.isConnected == true
+
+
+    fun updateVariationsOnViewLiveData(): LiveData<PokeVariety>? = varietiesRepository.varieties
+
+//    private var liveDataMediator = MediatorLiveData<PokeVariety>()
+
+
+
     init{
-        getColor(pokemon)
-        getSprites(pokemon)
+        if(isConnected){
+            getColor(pokemon)
+        }
+        //getSprites(pokemon)
     }
 
     private fun getColor(pokemon: String){
+        coroutineScope.launch {
+            varietiesRepository.refreshVarieties(pokemon)
+        }
+
+
+        //try{
+            //_color.value = database.varietiesDao.getVar(Integer.parseInt(pokemon))?.asDomainModelFromVariations()
+        //}catch (e: Exception){
+       //    Log.i("error", "message " + e.message!!)
+       // }
+
+    }
+
+    /*private fun getColor(pokemon: String){
 
         _status.value = DetailsPokedexStatus.LOADING
 
@@ -58,7 +103,8 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
                 _status.value = DetailsPokedexStatus.ERROR
             }
         }
-    }
+    }*/
+/*
 
     private fun getSprites(pokemon: String){
 
@@ -87,6 +133,7 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
             }
         }
     }
+*/
 
     override fun onCleared() {
         super.onCleared()

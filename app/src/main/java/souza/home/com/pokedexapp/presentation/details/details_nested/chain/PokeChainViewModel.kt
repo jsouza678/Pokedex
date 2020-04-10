@@ -1,15 +1,24 @@
 package souza.home.com.pokedexapp.presentation.details.details_nested.chain
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.local.getVarietiesDatabase
 import souza.home.com.pokedexapp.data.remote.PokeApi
 import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.PokeEvolution
+import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeVarietiesResponse
+
+
 
 enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
@@ -25,14 +34,48 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
     val chain : LiveData<MutableList<PokeEvolution>>
         get() = _chain
 
+    val pokeId : String = ""
+
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
+    /*fun updateVariationsOnViewLiveData(): LiveData<PokeVarietiesResponse> = varietiesRepository.varieties*/
+
+    //fun updateVariationsOnViewLiveData(): LiveData<PokeVarietiesResponse> = varietiesRepository.varieties
+
+
+    private val database =
+        getVarietiesDatabase(app)
+    private val varietiesRepository =
+        VarietiesRepositoryImpl(database, Integer.parseInt(pokemon))
+
+
+
+    private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo
+    private val isConnected : Boolean = activeNetwork?.isConnected == true
+
     init {
-        getPokeChainUrl(pokemon)
+        if(isConnected){
+            getPokeChainUrl(pokemon)
+        }
+
     }
 
+    private fun callChainOnLiveDataLoads(pokemon: String) = getChainEvolution(pokemon)
+
+
+
     private fun getPokeChainUrl(pokemon: String){
+        coroutineScope.launch {
+            varietiesRepository.refreshVarieties(pokemon)
+        }
+       // _chain.value = database.varietiesDao.getVarieties(pokemon)
+    }
+
+
+
+   /* private fun getPokeChainUrl(pokemon: String){
 
         _status.value = DetailsPokedexStatus.LOADING
 
@@ -46,14 +89,14 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
                 try {
                     getChainEvolution(pokeId!!)
                 } catch (e: Exception) {
-                    // varietiesArray.add("No varieties")
+                    // varietiesArray.add("No varietiesResponse")
                     _status.value = DetailsPokedexStatus.EMPTY
                 }
             }catch(t: Throwable){
                 _status.value = DetailsPokedexStatus.ERROR
             }
         }
-    }
+    }*/
 
     private fun getChainEvolution(pokemon: String){
         _status.value = DetailsPokedexStatus.LOADING

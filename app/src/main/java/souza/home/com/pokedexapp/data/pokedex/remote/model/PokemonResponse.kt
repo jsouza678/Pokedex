@@ -1,5 +1,6 @@
 package souza.home.com.pokedexapp.data.remote.model
 
+import android.util.Log
 import com.squareup.moshi.JsonClass
 import souza.home.com.pokedexapp.domain.model.Pokemon
 import souza.home.com.pokedexapp.data.pokedex.remote.model.PokeRootProperty
@@ -20,6 +21,7 @@ fun PokeRootProperty.asDomainModel() : MutableList<PokemonResponse>? {
 }
 
 fun PokeRootProperty.asDatabaseModel() : Array<Pokemon>? {
+    Log.i("teste" , "data converted! to DB1")
     return results?.map {
         Pokemon(
             url = it.url,
