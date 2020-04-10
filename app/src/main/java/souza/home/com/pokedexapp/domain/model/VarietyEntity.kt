@@ -10,10 +10,11 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeVarieti
 import souza.home.com.pokedexapp.utils.Constants.Companion.VARIETY_TABLE_NAME
 
 
-@Entity (tableName = VARIETY_TABLE_NAME, foreignKeys = [ForeignKey(entity = PokemonEntity::class,
+@Entity (tableName = VARIETY_TABLE_NAME/*, foreignKeys = [ForeignKey(entity = PokemonEntity::class,
                                     parentColumns = [ "_id" ],
                                     childColumns = [ "_poke_variety_id" ],
-                                    onDelete = ForeignKey.CASCADE )])
+                                    onDelete = ForeignKey.CASCADE,
+    onUpdate = ForeignKey.NO_ACTION)]*/)
 data class PokeVariationsEntity constructor(
     @PrimaryKey
     val _poke_variety_id: String,

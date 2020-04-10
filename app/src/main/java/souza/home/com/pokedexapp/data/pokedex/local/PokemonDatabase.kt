@@ -21,7 +21,7 @@ abstract class PokemonsDatabase: RoomDatabase() {
                 if(!::INSTANCE.isInitialized){
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
                         PokemonsDatabase::class.java,
-                        "pokess.db").build() // name
+                        "psssokess.db").build() // name
                 }
             }
             return INSTANCE
