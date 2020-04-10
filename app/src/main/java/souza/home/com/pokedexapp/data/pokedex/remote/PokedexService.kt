@@ -33,7 +33,7 @@ interface PokeService{
             Deferred<PokeRootProperty>   // Cached
 
     @GET("pokemon/{poke}")
-    fun getPokeStats(@Path("poke") poke: String?):
+    fun getPokeStats(@Path("poke") poke: String?):  // Needs to be cached
             Deferred<PokemonProperty>
 
     @GET("evolution-chain/{id}")
