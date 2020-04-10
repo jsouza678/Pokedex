@@ -27,10 +27,12 @@ class HomePokedexAdapter(private val pokes: MutableList<Poke>?, private val cont
     }
 
     fun submitList(newData: MutableList<Poke>) {
-        if (pokes!!.isNotEmpty()) {
-            pokes.clear()
+        if (pokes != null) {
+            if (pokes.isNotEmpty()) {
+                pokes.clear()
+            }
         }
-        pokes.addAll(newData)
+        pokes?.addAll(newData)
         notifyDataSetChanged()
     }
 
@@ -76,7 +78,7 @@ class HomePokedexAdapter(private val pokes: MutableList<Poke>?, private val cont
 
         fun itemBind(pokes: Poke){
             pokeName.text = pokes.name
-            pokemonId = pokes.url.substringAfter("n/").substringBefore('/')
+            pokemonId = pokes.url//.substringAfter("n/").substringBefore('/')
             formatedNumber= "%03d".format(Integer.parseInt(pokemonId))
             pokeId.text = context.resources.getString(R.string.placeholder_tv_id, formatedNumber)
             pokeImage.loadUrl("$imageResourceUrl$pokemonId.png")

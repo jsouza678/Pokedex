@@ -11,17 +11,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.data.pokedex.PokemonRepositoryImpl
-import souza.home.com.pokedexapp.data.pokedex.local.getDatabase
 import souza.home.com.pokedexapp.data.pokedex.remote.model.Poke
+import souza.home.com.pokedexapp.utils.Constants.Companion.POKE_LIMIT
 import java.lang.IllegalArgumentException
-
-enum class HomePokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
 class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
 
+    init{
+        getPokes()
+    }
+
     private var isLoading : Boolean = false
 
-    private var page : Int = 0
+    private var element : Int = 0
 
     private val _status = MutableLiveData<HomePokedexStatus>()
 
@@ -33,25 +35,18 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    private val database =
-        getDatabase(app.applicationContext)
-    private val pokesRepository =
-        PokemonRepositoryImpl(database)
+    private val pokesRepository = PokemonRepositoryImpl(app.applicationContext)
 
     private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo
     private val isConnected : Boolean = activeNetwork?.isConnected == true
-
-    init{
-        getPokes()
-    }
 
     fun getPokes(){
         _status.value = HomePokedexStatus.LOADING
         if(isConnected)(
                 try{
                     coroutineScope.launch {
-                        pokesRepository.refreshPokes(page)
+                        pokesRepository.refreshPokes(element)
                     }
                     _status.value = HomePokedexStatus.DONE
                 }catch(e: Exception){
@@ -63,8 +58,7 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
         if(dy>0){
             val isItTheListEnd = itIsTheListEnd(layoutManager = layoutManager)
             if(isLoading.not() && isItTheListEnd){
-                page+=20
-                //getPage(page)
+                element + POKE_LIMIT // this will increase the elements and show the next page on API.
                 getPokes()
             }
         }
@@ -94,3 +88,5 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
     }
 
 }
+
+enum class HomePokedexStatus{ LOADING, ERROR, DONE, EMPTY}

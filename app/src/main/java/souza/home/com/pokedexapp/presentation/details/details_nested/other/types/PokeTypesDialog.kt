@@ -53,7 +53,7 @@ class PokeTypesDialog(private val pList: MutableList<PokemonNested>) : DialogFra
 
     private fun setTransitionToPokeDetails(){
         adapter.onItemClick = {
-            val urlChain = it.pokemon.url
+            val urlChain = it.pokemon._id
             val pokeName = it.pokemon.name
             val pokePath = urlChain.substringAfterLast("n/").substringBeforeLast("/")
             val details = DetailsPokedexFragment(pokePath, pokeName)

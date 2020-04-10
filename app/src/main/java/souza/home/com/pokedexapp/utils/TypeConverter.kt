@@ -1,9 +1,8 @@
-package souza.home.com.pokedexapp.data.pokedex.utils
+package souza.home.com.pokedexapp.utils
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.PokeEvolutionChain
 import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeColor
 import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeEvolutionPath
 import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeFlavorDescription

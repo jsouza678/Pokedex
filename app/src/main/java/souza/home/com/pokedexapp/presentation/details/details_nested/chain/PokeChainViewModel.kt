@@ -13,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
-import souza.home.com.pokedexapp.data.pokedex.local.getVarietiesDatabase
 import souza.home.com.pokedexapp.data.remote.PokeApi
 import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.PokeEvolution
 import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeVarietiesResponse
@@ -36,18 +35,15 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
 
     val pokeId : String = ""
 
+    // tirar o job
     private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
     /*fun updateVariationsOnViewLiveData(): LiveData<PokeVarietiesResponse> = varietiesRepository.varieties*/
 
     //fun updateVariationsOnViewLiveData(): LiveData<PokeVarietiesResponse> = varietiesRepository.varieties
 
-
-    private val database =
-        getVarietiesDatabase(app)
-    private val varietiesRepository =
-        VarietiesRepositoryImpl(database, Integer.parseInt(pokemon))
+    private val varietiesRepository = VarietiesRepositoryImpl(pokemon, app.applicationContext)
 
 
 
@@ -85,7 +81,7 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
             try{
                 val result = getPokeChainUrlDeferred.await()
 
-                val pokeId = result.evolution_chain.url?.substringAfterLast("n/")?.substringBeforeLast("/")
+                val pokeId = result.evolution_chain._poke_variety_id?.substringAfterLast("n/")?.substringBeforeLast("/")
                 try {
                     getChainEvolution(pokeId!!)
                 } catch (e: Exception) {

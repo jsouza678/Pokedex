@@ -13,7 +13,7 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeVarieti
 class CustomSpinnerAdapter (private val context: Context, private val dataList: MutableList<PokeVarieties>) : BaseAdapter() {
 
     var pokemon: PokemonResponse =
-        PokemonResponse("Select one item", "http://")
+        PokemonResponse("http://", "Select one item")
     var poke : PokeVarieties =
         PokeVarieties(pokemon)
 

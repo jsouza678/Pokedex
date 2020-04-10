@@ -14,7 +14,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
-import souza.home.com.pokedexapp.data.pokedex.local.getVarietiesDatabase
 import souza.home.com.pokedexapp.data.remote.PokeApi
 import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeVarietiesResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.model.PokeVariety
@@ -41,15 +40,12 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
         get() = _poke
 
 
-
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
 
-    private val database =
-        getVarietiesDatabase(app.applicationContext)
     private val varietiesRepository =
-        VarietiesRepositoryImpl(database, Integer.parseInt(pokemon))
+        VarietiesRepositoryImpl(pokemon, app.applicationContext)
 
     private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo
@@ -57,10 +53,6 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
 
 
     fun updateVariationsOnViewLiveData(): LiveData<PokeVariety>? = varietiesRepository.varieties
-
-//    private var liveDataMediator = MediatorLiveData<PokeVariety>()
-
-
 
     init{
         if(isConnected){

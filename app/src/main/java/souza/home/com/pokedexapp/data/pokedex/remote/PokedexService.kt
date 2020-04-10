@@ -15,8 +15,7 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.PokeE
 import souza.home.com.pokedexapp.data.pokedex.remote.model.stats.PokemonProperty
 import souza.home.com.pokedexapp.data.pokedex.remote.model.types.PokeTypeRoot
 import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeVarietiesResponse
-
-private const val BASE_URL = "https://pokeapi.co/api/v2/"
+import souza.home.com.pokedexapp.utils.Constants.Companion.POKE_API_BASE_URL
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -25,7 +24,7 @@ private val moshi = Moshi.Builder()
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .addCallAdapterFactory(CoroutineCallAdapterFactory())
-    .baseUrl(BASE_URL)
+    .baseUrl(POKE_API_BASE_URL)
     .build()
 
 interface PokeService{

@@ -13,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
-import souza.home.com.pokedexapp.data.pokedex.local.getVarietiesDatabase
 import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeVarietiesResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.model.PokeVariety
 import souza.home.com.pokedexapp.domain.model.asDomainModelFromVariations
@@ -39,10 +38,8 @@ class PokeAboutViewModel(pokemon: String, app: Application): AndroidViewModel(ap
 
     fun updateVariationsOnViewLiveData(): LiveData<PokeVariety>? = varietiesRepository.varieties
 
-    private val database =
-        getVarietiesDatabase(app)
     private val varietiesRepository =
-        VarietiesRepositoryImpl(database, Integer.parseInt(pokemon))
+        VarietiesRepositoryImpl(pokemon, app.applicationContext)
 
     private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo

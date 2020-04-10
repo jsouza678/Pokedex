@@ -50,7 +50,7 @@ class PokesTypesDialogAdapter(private val pokes: MutableList<PokemonNested>?, pr
 
         fun itemBind(pokes: PokemonNested){
             pokeName.text = pokes.pokemon.name
-            pokemonId = pokes.pokemon.url.substringAfter("n/").substringBefore('/')
+            pokemonId = pokes.pokemon._id.substringAfter("n/").substringBefore('/')
             formatedNumber= "%03d".format(Integer.parseInt(pokemonId))
             pokeId.text = context.resources.getString(R.string.placeholder_tv_id, formatedNumber)
             pokeImage.loadUrl("$imageResourceUrl$pokemonId.png")

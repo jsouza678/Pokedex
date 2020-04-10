@@ -76,8 +76,8 @@ class PokeAboutFragment(var pokemon: String) : Fragment() {
 
     private fun initObservers(){
         viewModel.apply {
-/*            this.updateVariationsOnViewLiveData().observe(viewLifecycleOwner, Observer {
-                *//*if(it!=null){
+            this.updateVariationsOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
+                if(it!=null){
                     initSpinner()
                     adapterSpinner.submitList(it.varieties)
                     pokemonsArray = it.varieties!!
@@ -88,9 +88,9 @@ class PokeAboutFragment(var pokemon: String) : Fragment() {
                         }
                     }
                     tvDesc.text = description
-                }*//*
+                }
 
-            })*/
+            })
            /* this.varietiesResponse.observe(viewLifecycleOwner, Observer {
                     initSpinner()
                     adapterSpinner.submitList(it.varieties)
@@ -119,7 +119,7 @@ class PokeAboutFragment(var pokemon: String) : Fragment() {
                     }
                     else-> {
                         //Reload Fragment
-                        urlChain = pokemonsArray[spinnerSelected].pokemon.url
+                        urlChain = pokemonsArray[spinnerSelected].pokemon._id
 
                         pokePath = urlChain.substringAfterLast("n/").substringBeforeLast("/")
 

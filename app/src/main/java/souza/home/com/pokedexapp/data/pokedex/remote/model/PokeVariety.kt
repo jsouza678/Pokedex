@@ -7,7 +7,7 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeFlavorD
 import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeVarieties
 
 data class PokeVariety(
-    var id: Int?,
+    var _id: String?,
     var evolution_chain: PokeEvolutionPath?,
     var varieties: MutableList<PokeVarieties>?,
     var color: PokeColor?,

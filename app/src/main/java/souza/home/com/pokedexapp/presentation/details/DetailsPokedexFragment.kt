@@ -90,8 +90,8 @@ class DetailsPokedexFragment(var pokeIdP: String, var pokeNameP: String) : Fragm
             this.updateVariationsOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
                 if(it!=null){
                 setColor(it.color?.name)
-            }
-            }
+                }
+                }
             )
 
 

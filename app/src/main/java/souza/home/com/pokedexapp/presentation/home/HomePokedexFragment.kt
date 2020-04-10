@@ -49,7 +49,6 @@ class HomePokedexFragment : Fragment() {
         initRecyclerView(viewModel)
         initObservers(viewModel)
 
-
         return view
     }
 
