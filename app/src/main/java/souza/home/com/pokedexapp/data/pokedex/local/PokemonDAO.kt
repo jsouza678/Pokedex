@@ -8,7 +8,7 @@ import souza.home.com.pokedexapp.data.remote.model.PokemonResponse
 
 @Dao
 interface PokemonDao{
-    @Query("select * from $POKE_TABLE_NAME")
+    @Query("select * from pokemon")
     fun getPokes(): LiveData<List<PokemonResponse>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

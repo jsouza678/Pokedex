@@ -30,7 +30,7 @@ private val retrofit = Retrofit.Builder()
 interface PokeService{
     @GET("pokemon/?")
     fun getPokes(@Query("offset") page: Int?):
-            Deferred<PokeRootProperty>
+            Deferred<PokeRootProperty>   // Cached
 
     @GET("pokemon/{poke}")
     fun getPokeStats(@Path("poke") poke: String?):
@@ -42,7 +42,7 @@ interface PokeService{
 
     @GET("pokemon-species/{id}")
     fun getVariations(@Path("id") id : String?):
-            Deferred<PokeVarietiesResponse>
+            Deferred<PokeVarietiesResponse>  // Cached
 
     @GET("type/{id}")
     fun getTypeData(@Path("id") id: String?):

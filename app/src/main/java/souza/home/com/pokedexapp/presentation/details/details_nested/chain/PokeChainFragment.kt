@@ -20,6 +20,7 @@ class PokeChainFragment(var pokemon: String) : Fragment() {
     private lateinit var lvChain : ListView
     private lateinit var adapterChain : CustomChainAdapter
     private lateinit var evolutionArray: MutableList<PokeEvolution>
+    private var evolutionPath: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,15 +54,21 @@ class PokeChainFragment(var pokemon: String) : Fragment() {
 
     private fun initObservers(){
         viewModel.apply {
+
+            this.updateVariationsOnViewLiveData()?.observe(this@PokeChainFragment, Observer {
+                evolutionPath = it.evolution_chain?.url
+                evolutionPath?.let { it1 -> loadEvolutionChain(it1) }
+            })
             this.chain.observe(viewLifecycleOwner, Observer {
-                    initChainEvolution()
+                initChainEvolution()
+                adapterChain.submitList(it)
             })
 
-          /*  this.updateVariationsOnViewLiveData().observe(this@PokeChainFragment, Observer {
-                if(it!= null) {
-                    adapterChain.submitList(viewModel.chain.value!!)
+            this.status.observe(this@PokeChainFragment, Observer {
+                if(it == DetailsPokedexStatus.DONE){
+
                 }
-            })*/
+            })
         }
     }
 

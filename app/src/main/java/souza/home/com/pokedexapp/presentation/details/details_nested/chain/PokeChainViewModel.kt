@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.remote.model.PokeVariety
 import souza.home.com.pokedexapp.data.remote.PokeApi
 import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.PokeEvolution
 import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeVarietiesResponse
@@ -24,6 +25,8 @@ enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(app) {
 
     private var _status = MutableLiveData<DetailsPokedexStatus>()
+
+    private var pokeChainUrl : String? = ""
 
     val status : LiveData<DetailsPokedexStatus>
         get() = _status
@@ -39,7 +42,7 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
-    /*fun updateVariationsOnViewLiveData(): LiveData<PokeVarietiesResponse> = varietiesRepository.varieties*/
+    fun updateVariationsOnViewLiveData(): LiveData<PokeVariety>? = varietiesRepository.varieties
 
     //fun updateVariationsOnViewLiveData(): LiveData<PokeVarietiesResponse> = varietiesRepository.varieties
 
@@ -55,7 +58,6 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
         if(isConnected){
             getPokeChainUrl(pokemon)
         }
-
     }
 
     private fun callChainOnLiveDataLoads(pokemon: String) = getChainEvolution(pokemon)
@@ -66,10 +68,14 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
         coroutineScope.launch {
             varietiesRepository.refreshVarieties(pokemon)
         }
-       // _chain.value = database.varietiesDao.getVarieties(pokemon)
+/*        updateVariationsOnViewLiveData()?.value?.evolution_chain?.url?.substringAfterLast("n/")?.substringBeforeLast("/")
+            ?.let { getChainEvolution(it) }*/
     }
 
 
+    fun loadEvolutionChain(chainId: String){
+        getChainEvolution(chainId)
+    }
 
    /* private fun getPokeChainUrl(pokemon: String){
 
@@ -94,11 +100,13 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
         }
     }*/
 
-    private fun getChainEvolution(pokemon: String){
+    private fun getChainEvolution(chainID: String){
+
+        val evolutionChainID = chainID.substringAfterLast("n/").substringBeforeLast("/")
         _status.value = DetailsPokedexStatus.LOADING
 
         coroutineScope.launch {
-            val getChainDeferred = PokeApi.retrofitService.getEvolutionChain(pokemon)
+            val getChainDeferred = PokeApi.retrofitService.getEvolutionChain(evolutionChainID)
             try {
                 val item = getChainDeferred.await()
 

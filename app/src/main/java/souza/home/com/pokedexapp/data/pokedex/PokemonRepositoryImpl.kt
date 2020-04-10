@@ -1,6 +1,7 @@
 package souza.home.com.pokedexapp.data.pokedex
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import kotlinx.coroutines.Dispatchers
@@ -16,13 +17,20 @@ class PokemonRepositoryImpl(context: Context) : PokemonRepository{
     val DB_INSTANCE = PokemonsDatabase.getDatabase(context)
 
     override val pokes: LiveData<List<Poke>> = Transformations.map(DB_INSTANCE.pokemonDao.getPokes()){
-        it.asDomainModel()
+        it?.asDomainModel()
     }
 
     override suspend fun refreshPokes(page: Int) {
         withContext(Dispatchers.IO){
+            try{
                 val pokeList = PokeApi.retrofitService.getPokes(page).await()
+                Log.i("teste" , "test " + pokeList)
                 DB_INSTANCE.pokemonDao.insertAll(*pokeList.asDatabaseModel()!!)
+            }catch(e: Exception){
+                Log.i("teste" , "Message From Api " + e.message)
+            }
+
+
         }
     }
 }

@@ -17,10 +17,6 @@ import java.lang.IllegalArgumentException
 
 class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
 
-    init{
-        getPokes()
-    }
-
     private var isLoading : Boolean = false
 
     private var element : Int = 0
@@ -33,13 +29,17 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
     fun updatePokeslListOnViewLiveData(): LiveData<List<Poke>> = pokesRepository.pokes
 
     private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.IO)
 
     private val pokesRepository = PokemonRepositoryImpl(app.applicationContext)
 
     private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo
     private val isConnected : Boolean = activeNetwork?.isConnected == true
+
+    init{
+        getPokes()
+    }
 
     fun getPokes(){
         _status.value = HomePokedexStatus.LOADING
@@ -58,7 +58,7 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
         if(dy>0){
             val isItTheListEnd = itIsTheListEnd(layoutManager = layoutManager)
             if(isLoading.not() && isItTheListEnd){
-                element + POKE_LIMIT // this will increase the elements and show the next page on API.
+                element += POKE_LIMIT // this will increase the elements and show the next page on API.
                 getPokes()
             }
         }

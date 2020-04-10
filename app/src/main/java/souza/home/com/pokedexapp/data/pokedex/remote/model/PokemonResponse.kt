@@ -23,8 +23,8 @@ fun PokeRootProperty.asDomainModel() : MutableList<PokemonResponse>? {
     }?.toMutableList()
 }
 
+// Here the data fetched from API passes thru a transformation to store only poke id contained on pokeapi url.
 fun PokeRootProperty.asDatabaseModel() : Array<PokemonEntity>? {
-    Log.i("teste" , "data converted! to DB1")
     return results?.map {
         PokemonEntity(
             _id = cropPokeUrl(it._id),
