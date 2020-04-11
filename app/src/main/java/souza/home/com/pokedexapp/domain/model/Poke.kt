@@ -1,6 +1,6 @@
 package souza.home.com.pokedexapp.domain.model
 
 data class Poke (
-    val url: String,
+    val _id: Int,
     val name: String
 )

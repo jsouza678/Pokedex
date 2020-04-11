@@ -13,7 +13,7 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.PokemonProperty
 
 enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
-class PokeStatsViewModel(pokemon: String, app: Application): AndroidViewModel(app) {
+class PokeStatsViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
 
     private var _status = MutableLiveData<DetailsPokedexStatus>()
 
@@ -33,7 +33,7 @@ class PokeStatsViewModel(pokemon: String, app: Application): AndroidViewModel(ap
         getStats(pokemon)
     }
 
-    private fun getStats(pokemon: String) {
+    private fun getStats(pokemon: Int) {
 
         _status.value = DetailsPokedexStatus.LOADING
 

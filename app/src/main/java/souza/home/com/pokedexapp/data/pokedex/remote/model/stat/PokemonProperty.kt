@@ -5,7 +5,7 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.type.PokeTypes
 import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 
 data class PokemonProperty(
-    var id : Int = 0, // change to string
+    var id : Int = 0,
     var abilities : MutableList<PokeAbilities>,
     var name: String = EMPTY_STRING,
     var height: Int = 0,

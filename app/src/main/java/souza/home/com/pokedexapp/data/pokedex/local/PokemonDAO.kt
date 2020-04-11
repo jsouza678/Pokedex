@@ -12,7 +12,7 @@ interface PokemonDao{
     fun getPokes(): LiveData<List<PokemonResponse>?>
 
     @Query("SELECT * FROM $POKE_TABLE_NAME WHERE $POKE_TABLE_NAME._id = :pokeId")
-    fun getPokesById(pokeId: String): LiveData<List<PokemonResponse>?>
+    fun getPokesById(pokeId: Int): LiveData<List<PokemonResponse>?>
 
     @Query("SELECT * FROM $POKE_TABLE_NAME WHERE $POKE_TABLE_NAME.name = :pokeName")
     fun getPokesByName(pokeName: String): LiveData<List<PokemonResponse>?>

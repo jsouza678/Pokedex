@@ -7,7 +7,7 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.VARIETY_TABLE_NAME
 @Entity (tableName = VARIETY_TABLE_NAME)
 data class PokeVariationsEntity constructor(
     @PrimaryKey
-    val _poke_variety_id: String,
+    val _poke_variety_id: Int,
     val evolution_chain: String,
     val varieties: String,
     val color: String,

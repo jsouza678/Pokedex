@@ -14,7 +14,7 @@ import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
 import souza.home.com.pokedexapp.data.remote.PokeApi
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 
-class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewModel(app) {
+class DetailsPokedexViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
 
     private var _status = MutableLiveData<DetailsPokedexStatus>()
 
@@ -49,13 +49,13 @@ class DetailsPokedexViewModel(pokemon: String, app: Application): AndroidViewMod
         getSprites(pokemon)
     }
 
-    private fun getColor(pokemon: String){
+    private fun getColor(pokemon: Int){
         coroutineScope.launch {
             varietiesRepository.refreshVarieties(pokemon)
         }
     }
 
-    private fun getSprites(pokemon: String){
+    private fun getSprites(pokemon: Int){
 
         _status.value = DetailsPokedexStatus.LOADING
 

@@ -96,10 +96,9 @@ class HomeFragment : Fragment() {
     private fun setTransitionToPokeDetails(){
         adapter.onItemClick = {
 
-            val urlChain = it.url
+            val pokeId = it._id
             val pokeName = it.name
-            val pokePath = cropPokeUrl(urlChain)
-            val details = DetailsFragment(pokePath, pokeName)
+            val details = DetailsFragment(pokeId, pokeName)
 
             manager.beginTransaction().replace(R.id.nav_host_fragment, details).addToBackStack(null).commit()
         }

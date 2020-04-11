@@ -13,7 +13,7 @@ import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.PokeEvolution
 import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewModelFactory
 
-class EvolutionChainFragment(var pokemon: String) : Fragment() {
+class EvolutionChainFragment(var pokemon: Int) : Fragment() {
 
     private lateinit var viewModel: PokeChainViewModel
     private lateinit var poke: String
@@ -28,7 +28,6 @@ class EvolutionChainFragment(var pokemon: String) : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_chain, container, false)
-        poke = pokemon
 
         viewModel = ViewModelProviders.of(this,
             NestedViewModelFactory(

@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 
-class PokeAboutViewModel(pokemon: String, app: Application): AndroidViewModel(app) {
+class PokeAboutViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
 
     private var _status = MutableLiveData<DetailsPokedexStatus>()
 
@@ -39,7 +39,7 @@ class PokeAboutViewModel(pokemon: String, app: Application): AndroidViewModel(ap
         }
     }
 
-    fun getVarieties(pokemon: String){
+    fun getVarieties(pokemon: Int){
 
         _status.value = DetailsPokedexStatus.LOADING
 

@@ -15,8 +15,9 @@ import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 import souza.home.com.pokedexapp.data.remote.PokeApi
 import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.PokeEvolution
+import souza.home.com.pokedexapp.utils.cropPokeUrl
 
-class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(app) {
+class PokeChainViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
 
     private var _status = MutableLiveData<DetailsPokedexStatus>()
     val status : LiveData<DetailsPokedexStatus>
@@ -37,7 +38,7 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
         }
     }
 
-    private fun getPokeChainUrl(pokemon: String){
+    private fun getPokeChainUrl(pokemon: Int){
         coroutineScope.launch {
             varietiesRepository.refreshVarieties(pokemon)
         }
@@ -49,7 +50,7 @@ class PokeChainViewModel(pokemon: String, app: Application): AndroidViewModel(ap
 
     private fun getChainEvolution(chainID: String){
 
-        val evolutionChainID = chainID.substringAfterLast("n/").substringBeforeLast("/")
+        val evolutionChainID = Integer.parseInt(cropPokeUrl(chainID))
         _status.value = DetailsPokedexStatus.LOADING
 
         coroutineScope.launch {

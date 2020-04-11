@@ -20,16 +20,15 @@ import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewM
 import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 import souza.home.com.pokedexapp.utils.cropPokeUrl
 
-class AboutFragment(var pokemon: String) : Fragment() {
+class AboutFragment(var pokemon: Int) : Fragment() {
 
     private lateinit var viewModel: PokeAboutViewModel
-    private lateinit var poke: String
     private lateinit var spVariations : Spinner
     private lateinit var tvDesc : TextView
     private lateinit var varietiesArray: MutableList<PokeVarieties>
     private lateinit var pokemonsArray: MutableList<PokeVarieties>
     private lateinit var adapterSpinner : SpinnerAdapter
-    private var pokePath : String = EMPTY_STRING
+    private var pokePath : Int = 0
     private var urlChain : String = EMPTY_STRING
     private var spinnerSelected: Int = 0
 
@@ -42,7 +41,6 @@ class AboutFragment(var pokemon: String) : Fragment() {
         tvDesc = view.findViewById(R.id.tv_poke_desc)
         spVariations = view.findViewById(R.id.spinner_variations)
 
-        poke = pokemon
         viewModel = ViewModelProviders.of(this,
             NestedViewModelFactory(
                 pokemon,
@@ -93,7 +91,7 @@ class AboutFragment(var pokemon: String) : Fragment() {
                         //Reload Fragment
                         urlChain = pokemonsArray[spinnerSelected].pokemon._id
 
-                        pokePath = cropPokeUrl(urlChain)
+                        pokePath = Integer.parseInt(cropPokeUrl(urlChain))
 
                         if(pokePath == pokemon){
                             Toast.makeText(context, "Same poke", Toast.LENGTH_SHORT).show()

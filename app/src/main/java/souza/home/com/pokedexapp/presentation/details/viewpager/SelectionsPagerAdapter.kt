@@ -9,12 +9,12 @@ import souza.home.com.pokedexapp.presentation.details.details_nested.others.Othe
 import souza.home.com.pokedexapp.presentation.details.details_nested.stats.StatsFragment
 import souza.home.com.pokedexapp.utils.Constants.Companion.LIMIT_NORMAL_POKES
 
-internal class SectionsPagerAdapter(fm: FragmentManager, val poke: String) :
+internal class SectionsPagerAdapter(fm: FragmentManager, val pokeId: Int) :
     FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT ) {
 
     private val TAB_FRAGMENTS_EVOLUTION = arrayOf(
-        AboutFragment(poke),
-        StatsFragment(poke)
+        AboutFragment(pokeId),
+        StatsFragment(pokeId)
     )
 
     private val TAB_TITLES_EVOLUTION = arrayOf(
@@ -23,10 +23,10 @@ internal class SectionsPagerAdapter(fm: FragmentManager, val poke: String) :
     )
 
     private val TAB_FRAGMENTS = arrayOf(
-        AboutFragment(poke),
-        StatsFragment(poke),
-        EvolutionChainFragment(poke),
-        OthersFragment(poke)
+        AboutFragment(pokeId),
+        StatsFragment(pokeId),
+        EvolutionChainFragment(pokeId),
+        OthersFragment(pokeId)
     )
 
     private val TAB_TITLES = arrayOf(
@@ -39,21 +39,21 @@ internal class SectionsPagerAdapter(fm: FragmentManager, val poke: String) :
     override fun getItem(position: Int): Fragment {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        if(Integer.parseInt(poke) > LIMIT_NORMAL_POKES){ // this defines a poke as an evolution! so some fragments will not show.
+        if(pokeId > LIMIT_NORMAL_POKES){ // this defines a poke as an evolution! so some fragments will not show.
             return TAB_FRAGMENTS_EVOLUTION[position]
         }
         return TAB_FRAGMENTS[position]
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        if(Integer.parseInt(poke) > LIMIT_NORMAL_POKES){
+        if(pokeId > LIMIT_NORMAL_POKES){
             return TAB_TITLES_EVOLUTION[position]
         }
         return TAB_TITLES[position]
     }
 
     override fun getCount(): Int {
-        if(Integer.parseInt(poke) > LIMIT_NORMAL_POKES){
+        if(pokeId > LIMIT_NORMAL_POKES){
             return TAB_FRAGMENTS_EVOLUTION.size
         }
         return TAB_FRAGMENTS.size

@@ -9,7 +9,7 @@ import souza.home.com.pokedexapp.data.pokedex.local.model.PokeVariationsEntity
 interface VarietiesDao{
 
     @Query("select * from $VARIETY_TABLE_NAME where $VARIETY_TABLE_NAME._poke_variety_id = :id")
-    fun getVariety(id: String): LiveData<PokeVariationsEntity?>?
+    fun getVariety(id: Int): LiveData<PokeVariationsEntity?>?
 
     @Query("select * from $VARIETY_TABLE_NAME where $VARIETY_TABLE_NAME._poke_variety_id = :id")
     fun getVar(id: Int): PokeVariationsEntity?

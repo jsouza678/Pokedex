@@ -12,7 +12,7 @@ import souza.home.com.pokedexapp.data.remote.PokeApi
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 import souza.home.com.pokedexapp.domain.repository.VarietiesRepository
 
-class VarietiesRepositoryImpl(private val id: String, context: Context) : VarietiesRepository {
+class VarietiesRepositoryImpl(private val id: Int, context: Context) : VarietiesRepository {
 
     val DB_INSTANCE = PokemonsDatabase.getDatabase(context)
 
@@ -23,7 +23,7 @@ class VarietiesRepositoryImpl(private val id: String, context: Context) : Variet
             }
         }
 
-    override suspend fun refreshVarieties(id: String) {
+    override suspend fun refreshVarieties(id: Int) {
         withContext(Dispatchers.IO){
             try{
                 val pokeVariations = PokeApi.retrofitService.getVariations(id).await()

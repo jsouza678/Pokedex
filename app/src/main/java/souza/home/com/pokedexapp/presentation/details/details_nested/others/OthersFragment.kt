@@ -19,7 +19,7 @@ import souza.home.com.pokedexapp.utils.cropAbilityUrl
 import souza.home.com.pokedexapp.utils.cropTypeUrl
 
 
-class OthersFragment(var pokemon: String) : Fragment() {
+class OthersFragment(var pokemon: Int) : Fragment() {
 
     private lateinit var viewModel: PokeOthersViewModel
     private lateinit var poke: String
@@ -37,7 +37,6 @@ class OthersFragment(var pokemon: String) : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_others, container, false)
-        poke = pokemon
         lvTypes = view.findViewById(R.id.lv_types)
         lvAbilities = view.findViewById(R.id.lv_abilities)
         typesArray = ArrayList()
@@ -115,10 +114,11 @@ class OthersFragment(var pokemon: String) : Fragment() {
         lvTypes.adapter = adapterTypes
 
         lvTypes.setOnItemClickListener { parent, view, position, id ->
-            var elementId = adapterTypes.getItem(position).type.url// The item that was clicked
-            elementId = elementId?.let { cropTypeUrl(it) }
+            val elementId = adapterTypes.getItem(position).type.url// The item that was clicked
 
-            elementId?.let { viewModel.getPokesInTypes(it) }
+            val typeId = elementId?.let { cropTypeUrl(it) }?.let { Integer.parseInt(it) }
+
+            elementId?.let { typeId?.let { idType -> viewModel.getPokesInTypes(idType) } }
 
             initOutsideObserverTypes()
         }
@@ -128,12 +128,11 @@ class OthersFragment(var pokemon: String) : Fragment() {
         lvAbilities.adapter = adapterAbilities
 
         lvAbilities.setOnItemClickListener { parent, view, position, id ->
-            var elementId =
-                adapterAbilities.getItem(position).ability.url// The item that was clicked
+            val elementId = adapterAbilities.getItem(position).ability.url// The item that was clicked
 
-            elementId = cropAbilityUrl(elementId)
+            val abilityId = Integer.parseInt( cropAbilityUrl(elementId))
 
-            viewModel.getAbilityDesc(elementId)
+            viewModel.getAbilityDesc(abilityId)
 
             initOutsideObserverAbilities()
         }

@@ -6,9 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import souza.home.com.pokedexapp.data.pokedex.local.model.PokeVariationsEntity
 import souza.home.com.pokedexapp.data.pokedex.local.model.PokemonEntity
+import souza.home.com.pokedexapp.data.pokedex.local.model.PropertyEntity
+import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.PokemonProperty
 
-// 2 entities at the moment
-@Database(entities = [PokemonEntity::class , PokeVariationsEntity::class ], version = 1)
+@Database(entities = [PokemonEntity::class , PokeVariationsEntity::class, PropertyEntity::class ], version = 1)
 abstract class PokemonsDatabase: RoomDatabase() {
     abstract val pokemonDao: PokemonDao
     abstract val varietiesDao: VarietiesDao
@@ -21,7 +22,7 @@ abstract class PokemonsDatabase: RoomDatabase() {
                 if(!::INSTANCE.isInitialized){
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
                         PokemonsDatabase::class.java,
-                        "pokedex.db").build() // name
+                        "pokesdex.db").build() // name
                 }
             }
             return INSTANCE

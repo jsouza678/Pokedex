@@ -15,11 +15,11 @@ class PokedexMapper {
 
     companion object {
 
-        // Here the data fetched from API passes thru a transformation to store only poke id contained on pokeapi url.
+        // Here the data fetched from API passes thru a transformation to store only poke id contained on pokeapi _id.
         fun pokemonToDatabaseModel(pokeRootProperty: PokeRootProperty): Array<PokemonEntity>? {
             return pokeRootProperty.results?.map {
                 PokemonEntity(
-                    _id = cropPokeUrl(it._id),
+                    _id = Integer.parseInt(cropPokeUrl(it._id)),
                     name = it.name
                 )
             }?.toTypedArray()
@@ -32,7 +32,7 @@ class PokedexMapper {
             val pokeColorAsString = TypeConverter.fromColor(pokeVarietiesReponse.color)
 
             return PokeVariationsEntity(
-                _poke_variety_id = pokeVarietiesReponse._id,
+                _poke_variety_id = Integer.parseInt(pokeVarietiesReponse._id),
                 evolution_chain = pokeEvolutionChainAsString!!,
                 varieties = pokeVarietiesAsString!!,
                 color = pokeColorAsString!!,
@@ -41,7 +41,6 @@ class PokedexMapper {
         }
 
         fun variationsAsDomain(pokeVariationsEntity: PokeVariationsEntity): PokeVariety {
-
             val pokeEvolutionPathAsObject = TypeConverter.ToEvolutionPath(pokeVariationsEntity.evolution_chain)
             val pokeVarietiesAsList = TypeConverter.ToVarietiesList(pokeVariationsEntity.varieties)
             val pokeColorAsObject = TypeConverter.ToColor(pokeVariationsEntity.color)
@@ -58,7 +57,7 @@ class PokedexMapper {
         fun pokemonAsDomain(pokemonResponse : List<PokemonResponse>?): List<Poke>?{
             return pokemonResponse?.map{
                 Poke(
-                    url = it._id,
+                    _id = Integer.parseInt(it._id),
                     name = it.name
                 )
             }

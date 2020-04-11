@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.type.PokemonNested
 import souza.home.com.pokedexapp.presentation.details.DetailsFragment
+import souza.home.com.pokedexapp.utils.cropPokeUrl
 
 class TypesDialog(private val pList: MutableList<PokemonNested>) : DialogFragment() {
 
@@ -55,7 +56,7 @@ class TypesDialog(private val pList: MutableList<PokemonNested>) : DialogFragmen
         adapter.onItemClick = {
             val urlChain = it.pokemon._id
             val pokeName = it.pokemon.name
-            val pokePath = urlChain.substringAfterLast("n/").substringBeforeLast("/")
+            val pokePath = Integer.parseInt(cropPokeUrl(urlChain))
             val details = DetailsFragment(pokePath, pokeName)
 
             fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment, details)?.commit()

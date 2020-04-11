@@ -9,7 +9,7 @@ import souza.home.com.pokedexapp.presentation.details.details_nested.evolution_c
 import souza.home.com.pokedexapp.presentation.details.details_nested.others.PokeOthersViewModel
 import souza.home.com.pokedexapp.presentation.details.details_nested.stats.PokeStatsViewModel
 
-class NestedViewModelFactory(private val pokemon: String, private val application: Application) : ViewModelProvider.Factory {
+class NestedViewModelFactory(private val pokemon: Int, private val application: Application) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

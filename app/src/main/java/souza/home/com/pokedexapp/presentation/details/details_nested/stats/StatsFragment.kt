@@ -15,7 +15,7 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.PokemonProperty
 import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewModelFactory
 
 
-class StatsFragment(var pokemon: String) : Fragment() {
+class StatsFragment(var pokemon: Int) : Fragment() {
 
     private lateinit var viewModel: PokeStatsViewModel
     private lateinit var tvHp : TextView

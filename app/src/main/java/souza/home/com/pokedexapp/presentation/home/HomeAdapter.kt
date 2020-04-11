@@ -67,24 +67,22 @@ class HomeAdapter(private val pokes: MutableList<Poke>?, private val context: Co
         return color[choosed]
     }
 
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val pokeName: TextView = itemView.tv_name_poke
         private val pokeImage: ImageView = itemView.iv_poke_sprite
         private val pokeId: TextView = itemView.tv_id_poke
         private val pokeCv: CardView = itemView.cv_poke_item_home
         private var formatedNumber: String = ""
-        private var pokemonId : String = ""
+        private var pokemonId : Int = 0
 
         fun itemBind(pokes: Poke){
             pokeName.text = pokes.name
-            pokemonId = pokes.url//.substringAfter("n/").substringBefore('/')
-            formatedNumber= "%03d".format(Integer.parseInt(pokemonId))
+            pokemonId = pokes._id
+            formatedNumber= "%03d".format(pokemonId)
             pokeId.text = context.resources.getString(R.string.text_view_placeholder_hash, formatedNumber)
             pokeImage.loadUrl("$imageResourceUrl$pokemonId.png")
             pokeCv.setCardBackgroundColor(ContextCompat.getColor(context, setColor()))
         }
-
         init{
             itemView.setOnClickListener{
                 onItemClick?.invoke(pokes!![adapterPosition])

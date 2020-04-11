@@ -16,7 +16,7 @@ enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
 enum class AbilityPokedexStatus{ LOADING, ERROR, DONE}
 
-class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(app) {
+class PokeOthersViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
 
     private var _status = MutableLiveData<DetailsPokedexStatus>()
 
@@ -52,7 +52,7 @@ class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(a
         getOtherProperties(pokemon)
     }
 
-    private fun getOtherProperties(pokemon: String) {
+    private fun getOtherProperties(pokemon: Int) {
 
         _status.value = DetailsPokedexStatus.LOADING
 
@@ -71,22 +71,22 @@ class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(a
     }
 
 
-    fun getAbilityDesc(abId: String){
-        getAbilityData(abId)
+    fun getAbilityDesc(abilityId: Int){
+        getAbilityData(abilityId)
     }
 
 
 
-    fun getPokesInTypes(typeId: String){
+    fun getPokesInTypes(typeId: Int){
         getPokesFromTypes(typeId)
     }
 
 
-    private fun getAbilityData(abId: String){
+    private fun getAbilityData(abilityId: Int){
         _statusAb.value = AbilityPokedexStatus.LOADING
 
         coroutineScope.launch {
-            val getAbilityDeferred = PokeApi.retrofitService.getAbilityData(abId)
+            val getAbilityDeferred = PokeApi.retrofitService.getAbilityData(abilityId)
 
             try{
                 val abilityData = getAbilityDeferred.await()
@@ -101,7 +101,7 @@ class PokeOthersViewModel(pokemon: String, app: Application): AndroidViewModel(a
         }
     }
 
-    private fun getPokesFromTypes(typeId: String){
+    private fun getPokesFromTypes(typeId: Int){
 
         _statusAb.value = AbilityPokedexStatus.LOADING
 

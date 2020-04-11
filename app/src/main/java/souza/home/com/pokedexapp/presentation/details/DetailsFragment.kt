@@ -22,7 +22,7 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.LIMIT_NORMAL_POKES
 import souza.home.com.pokedexapp.utils.Constants.Companion.TIME_BACKGROUND_ANIMATION
 
 
-class DetailsFragment(private var pokeIdP: String, private var pokeNameP: String) : Fragment(){
+class DetailsFragment(private var pokeId: Int, private var pokeName: String) : Fragment(){
 
     private lateinit var viewModel: DetailsPokedexViewModel
     private lateinit var tvPokeName: TextView
@@ -30,9 +30,6 @@ class DetailsFragment(private var pokeIdP: String, private var pokeNameP: String
     private lateinit var constraintLayout: ConstraintLayout
     private lateinit var galleryViewPager: GalleryViewPagerAdapter
     private lateinit var gallery : ViewPager
-
-    private var pokeId: String = ""
-    private var pokeName = ""
     private lateinit var mImages : MutableList<String>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,13 +42,10 @@ class DetailsFragment(private var pokeIdP: String, private var pokeNameP: String
         gallery = view.findViewById(R.id.image_slider_detail_fragment)
         val viewPager: DynamicHeightViewPager = view.findViewById(R.id.fragment_container_details)
         val tabs: TabLayout = view.findViewById(R.id.tab_layout_details_fragments)
-
         mImages = ArrayList()
-        pokeId = pokeIdP
-        pokeName = pokeNameP
 
         tvPokeName.text = pokeName.capitalize()
-        val textId = "%03d".format(Integer.parseInt(pokeId))
+        val textId = "%03d".format(pokeId)
         tvPokeId.text = context?.resources?.getString(R.string.text_view_placeholder_hash, textId)
 
         viewModel = ViewModelProviders.of(this,
@@ -90,7 +84,7 @@ class DetailsFragment(private var pokeIdP: String, private var pokeNameP: String
         viewModel.apply {
             this.updateVariationsOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
                 if(it!=null){
-                    setColor(it.color?.name, pokeIdP)
+                    setColor(it.color?.name, pokeId)
                 }
             }
             )
@@ -106,7 +100,7 @@ class DetailsFragment(private var pokeIdP: String, private var pokeNameP: String
         mImages.addAll(it)
     }
 
-    private fun setColor(color: String?, pokeId: String){
+    private fun setColor(color: String?, pokeId: Int){
 
         var colorV = when(color){
             "red"-> R.color.poke_red
@@ -122,7 +116,7 @@ class DetailsFragment(private var pokeIdP: String, private var pokeNameP: String
             else-> R.color.poke_grey
         }
 
-        if(Integer.parseInt(pokeId)> LIMIT_NORMAL_POKES ){
+        if(pokeId> LIMIT_NORMAL_POKES ){
             colorV  = R.color.poke_black
         }
 
