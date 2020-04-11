@@ -53,16 +53,16 @@ class HomeAdapter(private val pokes: MutableList<Poke>?, private val context: Co
         val choosed = random.nextInt(9)
 
         val color = arrayOf(
-        R.color.poke_red_mid_translucent,
-        R.color.poke_green_mid_translucent,
-        R.color.poke_blue_mid_translucent,
-        R.color.poke_gray_mid_translucent,
-        R.color.poke_black_mid_translucent,
-        R.color.poke_yellow_mid_translucent,
-        R.color.poke_white_mid_translucent,
-        R.color.poke_purple_mid_translucent,
-        R.color.poke_pink_mid_translucent,
-        R.color.poke_brown_mid_translucent)
+            R.color.poke_red_mid_translucent,
+            R.color.poke_green_mid_translucent,
+            R.color.poke_blue_mid_translucent,
+            R.color.poke_gray_mid_translucent,
+            R.color.poke_black_mid_translucent,
+            R.color.poke_yellow_mid_translucent,
+            R.color.poke_white_mid_translucent,
+            R.color.poke_purple_mid_translucent,
+            R.color.poke_pink_mid_translucent,
+            R.color.poke_brown_mid_translucent)
 
         return color[choosed]
     }
@@ -80,14 +80,14 @@ class HomeAdapter(private val pokes: MutableList<Poke>?, private val context: Co
             pokeName.text = pokes.name
             pokemonId = pokes.url//.substringAfter("n/").substringBefore('/')
             formatedNumber= "%03d".format(Integer.parseInt(pokemonId))
-            pokeId.text = context.resources.getString(R.string.placeholder_tv_id, formatedNumber)
+            pokeId.text = context.resources.getString(R.string.text_view_placeholder_hash, formatedNumber)
             pokeImage.loadUrl("$imageResourceUrl$pokemonId.png")
             pokeCv.setCardBackgroundColor(ContextCompat.getColor(context, setColor()))
         }
 
-    init{
-        itemView.setOnClickListener{
-            onItemClick?.invoke(pokes!![adapterPosition])
+        init{
+            itemView.setOnClickListener{
+                onItemClick?.invoke(pokes!![adapterPosition])
             }
         }
 

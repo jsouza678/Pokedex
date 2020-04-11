@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_view_poke_height">160dp</dimen>
+    <dimen name="card_view_poke_width">160dp</dimen>
+    <dimen name="match_constraint">0dp</dimen>
+    <dimen name="custom_card_view_top_corner_radius">25dp</dimen>
+    <dimen name="custom_card_view_low_corner_radius">0dp</dimen>
+    <dimen name="stat_text_size">18sp</dimen>
+    <dimen name="stat_label_text_size">14sp</dimen>
+</resources>

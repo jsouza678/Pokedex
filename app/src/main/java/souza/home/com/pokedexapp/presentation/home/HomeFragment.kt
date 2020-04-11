@@ -40,10 +40,10 @@ class HomeFragment : Fragment() {
         adapter = HomeAdapter(pokesList, view.context)
         recyclerView = view.findViewById(R.id.poke_recycler_view)
 
-       val  viewModel = ViewModelProviders.of(this,
-           HomePokedexViewModel.Factory(
-               activity!!.application
-           )
+        val  viewModel = ViewModelProviders.of(this,
+            HomePokedexViewModel.Factory(
+                activity!!.application
+            )
         )
             .get(HomePokedexViewModel::class.java)
 

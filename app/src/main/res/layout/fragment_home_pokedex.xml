@@ -14,7 +14,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background_sprite" />
+        app:srcCompat="@drawable/mock_background_sprite_poke" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/pokedex_toolbar"
@@ -81,7 +81,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="228dp"
         android:layout_weight="1"
-        android:contentDescription="@string/cd_iv_empty_pokes_list"
+        android:contentDescription="@string/content_description_image_view_empty_pokes_list"
         android:src="@drawable/clear"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"

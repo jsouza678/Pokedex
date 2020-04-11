@@ -2,21 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_details"
+    android:id="@+id/layout_details"
     android:layout_width="match_parent"
     android:background="@color/blue_poke"
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/sprite_background_fragment"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:background="@color/translucent"
-        android:src="@drawable/background_sprite"
+        android:contentDescription="@string/content_description_sprite_background"
+        android:src="@drawable/mock_background_sprite_poke"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/main_toolbar"
+        android:id="@+id/toolbar_details_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/translucent"
@@ -31,19 +33,21 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/gallery_travel_detail_activity"
+        android:id="@+id/image_slider_detail_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@id/coordinator_cv"
+        app:layout_constraintBottom_toTopOf="@id/down_fragments_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar_details_fragment" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/coordinator_cv"
+        android:id="@+id/down_fragments_container"
         style="@style/CustomCardViewStyle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -51,61 +55,58 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <TextView
-                android:id="@+id/tv_poke_name_detail"
+                android:id="@+id/text_view_poke_name_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:textColor="#000"
+                android:textColor="@color/real_black"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@id/tabs"
+                app:layout_constraintBottom_toTopOf="@id/tab_layout_details_fragments"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@string/mock_poke_name_details" />
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs"
+                android:id="@+id/tab_layout_details_fragments"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="#FFFFFF"
-                app:layout_constraintTop_toBottomOf="@id/tv_poke_id_detail"
+                app:layout_constraintTop_toBottomOf="@id/text_view_poke_id_detail"
                 app:tabSelectedTextColor="#000"
                 app:tabTextAppearance="@style/custom_text"
-                app:tabTextColor="#CBCDCF" />
+                app:tabTextColor="@color/tab_text_color" />
 
             <souza.home.com.pokedexapp.presentation.view_utils.DynamicHeightViewPager
-                android:id="@+id/view_pager"
+                android:id="@+id/fragment_container_details"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:background="#FFFFFF"
-                app:layout_anchor="@id/tabs"
+                app:layout_anchor="@id/tab_layout_details_fragments"
                 app:layout_anchorGravity="bottom"
-                app:layout_constraintTop_toBottomOf="@id/tabs" />
+                app:layout_constraintTop_toBottomOf="@id/tab_layout_details_fragments" />
 
             <TextView
-                android:id="@+id/tv_poke_id_detail"
+                android:id="@+id/text_view_poke_id_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 tools:text="#001"
-                app:layout_constraintBottom_toTopOf="@id/tabs"
+                app:layout_constraintBottom_toTopOf="@id/tab_layout_details_fragments"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_poke_name_detail" />
-
+                app:layout_constraintTop_toBottomOf="@id/text_view_poke_name_detail" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

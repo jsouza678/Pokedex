@@ -39,12 +39,12 @@ class DetailsFragment(private var pokeIdP: String, private var pokeNameP: String
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
 
-        tvPokeName = view.findViewById(R.id.tv_poke_name_detail)
-        tvPokeId = view.findViewById(R.id.tv_poke_id_detail)
-        constraintLayout = view.findViewById(R.id.cl_details)
-        gallery = view.findViewById(R.id.gallery_travel_detail_activity)
-        val viewPager: DynamicHeightViewPager = view.findViewById(R.id.view_pager)
-        val tabs: TabLayout = view.findViewById(R.id.tabs)
+        tvPokeName = view.findViewById(R.id.text_view_poke_name_detail)
+        tvPokeId = view.findViewById(R.id.text_view_poke_id_detail)
+        constraintLayout = view.findViewById(R.id.layout_details)
+        gallery = view.findViewById(R.id.image_slider_detail_fragment)
+        val viewPager: DynamicHeightViewPager = view.findViewById(R.id.fragment_container_details)
+        val tabs: TabLayout = view.findViewById(R.id.tab_layout_details_fragments)
 
         mImages = ArrayList()
         pokeId = pokeIdP
@@ -52,7 +52,7 @@ class DetailsFragment(private var pokeIdP: String, private var pokeNameP: String
 
         tvPokeName.text = pokeName.capitalize()
         val textId = "%03d".format(Integer.parseInt(pokeId))
-        tvPokeId.text = context?.resources?.getString(R.string.placeholder_tv_id, textId)
+        tvPokeId.text = context?.resources?.getString(R.string.text_view_placeholder_hash, textId)
 
         viewModel = ViewModelProviders.of(this,
             activity?.application?.let {
@@ -74,7 +74,7 @@ class DetailsFragment(private var pokeIdP: String, private var pokeNameP: String
         initObservers()
 
 
-        val toolbar = view.findViewById<Toolbar>(R.id.main_toolbar)
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar_details_fragment)
         toolbar.setNavigationOnClickListener(View.OnClickListener { activity!!.onBackPressed() })
 
         return view
@@ -90,12 +90,12 @@ class DetailsFragment(private var pokeIdP: String, private var pokeNameP: String
         viewModel.apply {
             this.updateVariationsOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
                 if(it!=null){
-                setColor(it.color?.name, pokeIdP)
+                    setColor(it.color?.name, pokeIdP)
                 }
-                }
+            }
             )
 
-           this.poke.observe(viewLifecycleOwner, Observer {
+            this.poke.observe(viewLifecycleOwner, Observer {
                 //addImagesToList(it)
                 //initGalleryViewPager(mImages)
             })

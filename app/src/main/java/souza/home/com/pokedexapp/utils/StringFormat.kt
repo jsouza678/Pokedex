@@ -4,10 +4,20 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.PokeFlavorDes
 import souza.home.com.pokedexapp.utils.Constants.Companion.LANGUAGE_DESCRIPTIONS
 
 fun cropPokeUrl(url: String) : String {
-    val id = url.substringAfterLast("n/")?.substringBeforeLast("/")
-
+    val id = url.substringAfterLast("n/").substringBeforeLast("/")
     return id
 }
+
+fun cropAbilityUrl(url: String) : String {
+    val id = url.substringAfterLast("y/").substringBeforeLast("/")
+    return id
+}
+
+fun cropTypeUrl(url: String) : String {
+    val id = url.substringAfterLast("e/").substringBeforeLast("/")
+    return id
+}
+
 
 fun optimizeDescription(it: MutableList<PokeFlavorDescription>?) : String{
     var description : String = ""
@@ -17,6 +27,5 @@ fun optimizeDescription(it: MutableList<PokeFlavorDescription>?) : String{
             description += it[i].flavor_text + "\n "
         }
     }
-
     return description
 }

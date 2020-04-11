@@ -78,10 +78,10 @@ class StatsFragment(var pokemon: String) : Fragment() {
 
                 }
             })
-        this.status.observe(this@StatsFragment, Observer {
-            if(it == DetailsPokedexStatus.DONE){
-                initStats(viewModel.stats.value!!)
-            }
+            this.status.observe(this@StatsFragment, Observer {
+                if(it == DetailsPokedexStatus.DONE){
+                    initStats(viewModel.stats.value!!)
+                }
             })
         }
     }

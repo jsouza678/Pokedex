@@ -1,18 +1,15 @@
 <resources>
     <string name="app_name">PokedexApp</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="mock_header_text">Pokedex Nav</string>
-    <string name="cd_iv_header" />
     <string name="mock_poke_name">Charmander</string>
-    <string name="hp_poke">HP:</string>
-    <string name="attack_poke">ATTACK:</string>
-    <string name="poke_deffense">DEFFENSE:</string>
-    <string name="poke_special_attack">SPECIAL ATTACK:</string>
-    <string name="poke_special_deffense">SPECIAL DEFFENSE:</string>
-    <string name="poke_weight">WEIGHT:</string>
-    <string name="poke_height">HEIGHT:</string>
-    <string name="poke_speed">SPEED:</string>
+    <string name="poke_hp_label">HP:</string>
+    <string name="poke_attack_label">ATTACK:</string>
+    <string name="poke_deffense_label">DEFFENSE:</string>
+    <string name="poke_special_attack_label">SPECIAL ATTACK:</string>
+    <string name="poke_special_deffense_label">SPECIAL DEFFENSE:</string>
+    <string name="poke_weight_label">WEIGHT:</string>
+    <string name="poke_height_label">HEIGHT:</string>
+    <string name="poke_speed_label">SPEED:</string>
     <string name="mock_hp">85</string>
     <string name="mock_attack">40</string>
     <string name="mock_deffense">50</string>
@@ -23,20 +20,21 @@
     <string name="title_type">Types</string>
     <string name="title_ability">Abilities</string>
     <string name="mock_spinner_item">Pikachu</string>
-    <string name="cd_iv_poke_sprite">Pokemon Sprite, Home Screen</string>
-    <string name="cd_iv_empty_pokes_list">Empty Pokes List Image</string>
+    <string name="content_description_image_view_poke_sprite">Pokemon Sprite, Home Screen</string>
+    <string name="content_description_image_view_empty_pokes_list">Empty Pokes List Image</string>
     <string name="text_no_pokes">No pokes!</string>
     <string name="mock_poke_name_details">Pikachu</string>
     <string name="mock_body_desc">Lorem ipsum sit dolor amet gravida sit dolor amet bloco sit dolor amet gravida sit dolor amet blocd sit dolor amet gravida sit dolor amet bloc bloco sit dolor amet</string>
-    <string name="tv_poke_variations">Poke Variations</string>
-    <string name="tv_evolution_chain_title">Evolution Chain</string>
-    <string name="placeholder_tv_id">#%1$s</string>
+    <string name="text_view_poke_variations">Poke Variations</string>
+    <string name="text_view_evolution_chain_title">Evolution Chain</string>
+    <string name="text_view_placeholder_hash">#%1$s</string>
     <string name="mock_weight">120</string>
     <string name="mock_height">80</string>
     <string name="snackbar_loading_poke_evolution">Loading poke evolution!</string>
     <string name="no_poke_evolution">This Poke does not evolutes</string>
     <string name="button_text_dismiss">Dismiss</string>
-    <string name="tv_custom_alert_dialog_types">We\'ve found 12 pokemons with this type</string>
+    <string name="text_view_custom_alert_dialog_types_body">We\'ve found 12 pokemons with this type</string>
+    <string name="content_description_sprite_background">Sprite background used on home and details screen</string>
     <string-array name="poke_spinner_mock">
         <item>None</item>
         <item>Pikachu</item>

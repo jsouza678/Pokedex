@@ -15,6 +15,8 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.type.PokeTypes
 import souza.home.com.pokedexapp.data.pokedex.remote.model.type.PokemonNested
 import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewModelFactory
 import souza.home.com.pokedexapp.presentation.details.details_nested.others.types.TypesDialog
+import souza.home.com.pokedexapp.utils.cropAbilityUrl
+import souza.home.com.pokedexapp.utils.cropTypeUrl
 
 
 class OthersFragment(var pokemon: String) : Fragment() {
@@ -36,23 +38,12 @@ class OthersFragment(var pokemon: String) : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_others, container, false)
         poke = pokemon
-
         lvTypes = view.findViewById(R.id.lv_types)
         lvAbilities = view.findViewById(R.id.lv_abilities)
         typesArray = ArrayList()
         abilitiesArray = ArrayList()
 
-        adapterTypes =
-            TypeAdapter(
-                view.context,
-                typesArray
-            )
-        adapterAbilities =
-            AbilityAdapter(
-                view.context,
-                abilitiesArray
-            )
-
+        initializeAdapters(view)
 
         viewModel = ViewModelProviders.of(activity!!,
             NestedViewModelFactory(
@@ -69,11 +60,22 @@ class OthersFragment(var pokemon: String) : Fragment() {
         return view
     }
 
+    private fun initializeAdapters(view: View){
+        adapterTypes =
+            TypeAdapter(
+                view.context,
+                typesArray
+            )
+
+        adapterAbilities =
+            AbilityAdapter(
+                view.context,
+                abilitiesArray
+            )
+    }
 
     private fun initObservers(){
-
         viewModel.apply {
-
             this.status.observe(viewLifecycleOwner, Observer {
                 if (it == DetailsPokedexStatus.DONE) {
                     adapterTypes.submitList(viewModel.other.value?.types!!)
@@ -83,26 +85,24 @@ class OthersFragment(var pokemon: String) : Fragment() {
     }
 
     private fun initOutsideObserverAbilities(){
-
-            viewModel.apply {
-                this.statusAb.observe(viewLifecycleOwner, Observer {
-                    if (it == AbilityPokedexStatus.DONE) {
-                        openDialog(viewModel.abilityDesc.value)
-                        this.statusAb.removeObservers(viewLifecycleOwner)
-                    }
-                })
-            }
+        viewModel.apply {
+            this.statusAb.observe(viewLifecycleOwner, Observer {
+                if (it == AbilityPokedexStatus.DONE) {
+                    openDialog(viewModel.abilityDesc.value)
+                    this.statusAb.removeObservers(viewLifecycleOwner)
+                }
+            })
+        }
     }
 
     private fun initOutsideObserverTypes(){
-
-            viewModel.apply {
-                this.statusAb.observe(viewLifecycleOwner, Observer {
-                  if (it == AbilityPokedexStatus.DONE){ //Toast.makeText(context, "${viewModel.pokeTypes.value}", Toast.LENGTH_SHORT).show()
+        viewModel.apply {
+            this.statusAb.observe(viewLifecycleOwner, Observer {
+                if (it == AbilityPokedexStatus.DONE){ //Toast.makeText(context, "${viewModel.pokeTypes.value}", Toast.LENGTH_SHORT).show()
                     showCustomTypesDialog(viewModel.pokeTypes.value!!)
                     this.statusAb.removeObservers(viewLifecycleOwner)}
-                })
-            }
+            })
+        }
     }
 
     private fun openDialog(message: String?){
@@ -116,9 +116,9 @@ class OthersFragment(var pokemon: String) : Fragment() {
 
         lvTypes.setOnItemClickListener { parent, view, position, id ->
             var elementId = adapterTypes.getItem(position).type.url// The item that was clicked
-            elementId = elementId?.substringAfterLast("e/")?.substringBeforeLast("/")
+            elementId = elementId?.let { cropTypeUrl(it) }
 
-            viewModel.getPokesInTypes(elementId!!)
+            elementId?.let { viewModel.getPokesInTypes(it) }
 
             initOutsideObserverTypes()
         }
@@ -130,18 +130,18 @@ class OthersFragment(var pokemon: String) : Fragment() {
         lvAbilities.setOnItemClickListener { parent, view, position, id ->
             var elementId =
                 adapterAbilities.getItem(position).ability.url// The item that was clicked
-            elementId = elementId.substringAfterLast("y/").substringBeforeLast("/")
+
+            elementId = cropAbilityUrl(elementId)
 
             viewModel.getAbilityDesc(elementId)
 
             initOutsideObserverAbilities()
-
         }
     }
 
     private fun showCustomTypesDialog(list: MutableList<PokemonNested>){
         val pokeTypesDialog: TypesDialog = TypesDialog(list)
 
-        pokeTypesDialog.show(fragmentManager!!, "my_fragment")
+        fragmentManager?.let { pokeTypesDialog.show(it, "my_fragment") }
     }
 }

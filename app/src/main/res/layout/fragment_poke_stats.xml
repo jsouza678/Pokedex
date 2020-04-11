@@ -8,10 +8,10 @@
 
     <TextView
         android:id="@+id/tv_detail_hp_label"
-        style="@style/stat_name"
+        style="@style/stat_label"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/hp_poke"
+        android:text="@string/poke_hp_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,6 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        style="@style/stat_value"
         app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_hp_label"
         app:layout_constraintStart_toEndOf="@id/tv_detail_hp_label"
         tools:text="@string/mock_hp" />
@@ -41,12 +42,12 @@
 
     <TextView
         android:id="@+id/tv_detail_attack_label"
-        style="@style/stat_name"
+        style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/attack_poke"
+        android:text="@string/poke_attack_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_detail_hp_label" />
 
@@ -55,6 +56,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        style="@style/stat_value"
         tools:text="@string/mock_attack"
         app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_attack_label"
         app:layout_constraintStart_toEndOf="@id/tv_detail_attack_label" />
@@ -75,12 +77,12 @@
 
     <TextView
         android:id="@+id/tv_detail_deffense_label"
-        style="@style/stat_name"
+        style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/poke_deffense"
+        android:text="@string/poke_deffense_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_detail_attack_label" />
 
@@ -88,6 +90,7 @@
         android:id="@+id/tv_poke_deffense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        style="@style/stat_value"
         android:layout_marginStart="8dp"
         app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_deffense_label"
         app:layout_constraintStart_toEndOf="@id/tv_detail_deffense_label"
@@ -109,12 +112,12 @@
 
     <TextView
         android:id="@+id/tv_detail_special_attack_label"
-        style="@style/stat_name"
+        style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/poke_special_attack"
+        android:text="@string/poke_special_attack_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_detail_deffense_label" />
 
@@ -123,6 +126,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        style="@style/stat_value"
         tools:text="@string/mock_special_attack"
         app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_special_attack_label"
         app:layout_constraintStart_toEndOf="@id/tv_detail_special_attack_label" />
@@ -143,12 +147,12 @@
 
     <TextView
         android:id="@+id/tv_detail_special_deffense_label"
-        style="@style/stat_name"
+        style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/poke_special_deffense"
+        android:text="@string/poke_special_deffense_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_detail_special_attack_label" />
 
@@ -156,6 +160,7 @@
         android:id="@+id/tv_poke_special_deffense"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        style="@style/stat_value"
         android:layout_marginStart="8dp"
         app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_special_deffense_label"
         app:layout_constraintStart_toEndOf="@id/tv_detail_special_deffense_label"
@@ -178,12 +183,12 @@
 
     <TextView
         android:id="@+id/tv_detail_speed_label"
-        style="@style/stat_name"
+        style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/poke_speed"
+        android:text="@string/poke_speed_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_detail_special_deffense_label" />
 
@@ -192,6 +197,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        style="@style/stat_value"
         app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_speed_label"
         app:layout_constraintStart_toEndOf="@id/tv_detail_speed_label"
         tools:text="@string/mock_speed" />
@@ -213,12 +219,12 @@
 
     <TextView
         android:id="@+id/tv_detail_weight_label"
-        style="@style/stat_name"
+        style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/poke_weight"
+        android:text="@string/poke_weight_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_detail_speed_label" />
 
@@ -228,18 +234,19 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         tools:text="@string/mock_weight"
+        style="@style/stat_value"
         app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_weight_label"
         app:layout_constraintStart_toEndOf="@id/tv_detail_weight_label" />
 
     <TextView
         android:id="@+id/tv_detail_height_label"
-        style="@style/stat_name"
+        style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/poke_height"
+        android:text="@string/poke_height_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_detail_weight_label" />
@@ -249,6 +256,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        style="@style/stat_value"
         tools:text="@string/mock_height"
         app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_height_label"
         app:layout_constraintStart_toEndOf="@id/tv_detail_height_label" />

@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/tv_custom_alert_dialog_types"
+                android:text="@string/text_view_custom_alert_dialog_types_body"
                 android:textAlignment="center"
                 android:textSize="14sp"
                 android:textStyle="bold"

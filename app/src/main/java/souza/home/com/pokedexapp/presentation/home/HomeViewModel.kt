@@ -24,7 +24,7 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
     private val _status = MutableLiveData<HomePokedexStatus>()
 
     val status : LiveData<HomePokedexStatus>
-    get() = _status
+        get() = _status
 
     fun updatePokeslListOnViewLiveData(): LiveData<List<Poke>?> = pokesRepository.pokes
 

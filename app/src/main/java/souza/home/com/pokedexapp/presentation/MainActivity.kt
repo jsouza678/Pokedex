@@ -14,7 +14,5 @@ class MainActivity : AppCompatActivity() {
         //val textFragment = DetailsFragment("25", "pikachu")
         val textFragment = HomeFragment()
         supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, textFragment).commit()
-
     }
-
 }
