@@ -33,6 +33,7 @@
     <string name="placeholder_tv_id">#%1$s</string>
     <string name="mock_weight">120</string>
     <string name="mock_height">80</string>
+    <string name="snackbar_loading_poke_evolution">Loading poke evolution!</string>
     <string name="no_poke_evolution">This Poke does not evolutes</string>
     <string name="button_text_dismiss">Dismiss</string>
     <string name="tv_custom_alert_dialog_types">We\'ve found 12 pokemons with this type</string>

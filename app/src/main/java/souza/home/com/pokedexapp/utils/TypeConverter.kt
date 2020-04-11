@@ -3,10 +3,10 @@ package souza.home.com.pokedexapp.utils
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeColor
-import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeEvolutionPath
-import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeFlavorDescription
-import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeVarieties
+import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.PokeColor
+import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.PokeEvolutionPath
+import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.PokeFlavorDescription
+import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.PokeVarieties
 
 class TypeConverter {
 

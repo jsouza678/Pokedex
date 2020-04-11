@@ -9,12 +9,12 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import souza.home.com.pokedexapp.data.pokedex.remote.model.PokeRootProperty
+import souza.home.com.pokedexapp.data.pokedex.remote.model.pokemon.PokeRootProperty
 import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.PokeAbilityRoot
 import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.PokeEvolutionChain
-import souza.home.com.pokedexapp.data.pokedex.remote.model.stats.PokemonProperty
-import souza.home.com.pokedexapp.data.pokedex.remote.model.types.PokeTypeRoot
-import souza.home.com.pokedexapp.data.pokedex.remote.model.varieties.PokeVarietiesResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.PokemonProperty
+import souza.home.com.pokedexapp.data.pokedex.remote.model.type.PokeTypeRoot
+import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.PokeVarietiesResponse
 import souza.home.com.pokedexapp.utils.Constants.Companion.POKE_API_BASE_URL
 
 private val moshi = Moshi.Builder()
