@@ -8,14 +8,14 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.remote.model.PokemonResponse
-import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.PokeVarieties
+import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
 
-class SpinnerAdapter (private val context: Context, private val dataList: MutableList<PokeVarieties>) : BaseAdapter() {
+class SpinnerAdapter (private val context: Context, private val dataList: MutableList<Varieties>) : BaseAdapter() {
 
     var pokemon: PokemonResponse =
         PokemonResponse("http://", "Select one item")
-    var poke : PokeVarieties =
-        PokeVarieties(pokemon)
+    var poke : Varieties =
+        Varieties(pokemon)
 
     private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -32,7 +32,7 @@ class SpinnerAdapter (private val context: Context, private val dataList: Mutabl
         return rowView!!
     }
 
-    fun submitList(newData: MutableList<PokeVarieties>?){
+    fun submitList(newData: MutableList<Varieties>?){
         if(dataList.isNotEmpty()){
             dataList.clear()
         }

@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.PokeEvolution
+import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.Evolution
 import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewModelFactory
 
 class EvolutionChainFragment(var pokemon: Int) : Fragment() {
@@ -19,7 +19,7 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
     private lateinit var poke: String
     private lateinit var lvChain : ListView
     private lateinit var adapterChain : EvolutionChainAdapter
-    private lateinit var evolutionArray: MutableList<PokeEvolution>
+    private lateinit var evolutionArray: MutableList<Evolution>
     private var evolutionPath: String? = ""
 
     override fun onCreateView(

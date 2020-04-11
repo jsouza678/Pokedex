@@ -10,13 +10,13 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.PokemonNested
+import souza.home.com.pokedexapp.data.pokedex.remote.model.type.NestedType
 import souza.home.com.pokedexapp.presentation.details.DetailsFragment
 import souza.home.com.pokedexapp.utils.cropPokeUrl
 
-class TypesDialog(private val pList: MutableList<PokemonNested>) : DialogFragment() {
+class TypesDialog(private val pList: MutableList<NestedType>) : DialogFragment() {
 
-    private lateinit var pokesList : MutableList<PokemonNested>
+    private lateinit var pokesList : MutableList<NestedType>
     private lateinit var adapter: PokesTypesDialogAdapter
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var recyclerView: RecyclerView

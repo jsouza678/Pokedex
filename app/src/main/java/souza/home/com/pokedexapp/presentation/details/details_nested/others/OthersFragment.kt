@@ -10,9 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.PokeAbilities
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.PokeTypes
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.PokemonNested
+import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesMain
+import souza.home.com.pokedexapp.data.pokedex.remote.model.type.Types
+import souza.home.com.pokedexapp.data.pokedex.remote.model.type.NestedType
 import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewModelFactory
 import souza.home.com.pokedexapp.presentation.details.details_nested.others.types.TypesDialog
 import souza.home.com.pokedexapp.utils.cropAbilityUrl
@@ -27,8 +27,8 @@ class OthersFragment(var pokemon: Int) : Fragment() {
     private lateinit var lvTypes : ListView
     private lateinit var adapterTypes: TypeAdapter
     private lateinit var adapterAbilities: AbilityAdapter
-    private lateinit var typesArray: MutableList<PokeTypes>
-    private lateinit var abilitiesArray: MutableList<PokeAbilities>
+    private lateinit var typesArray: MutableList<Types>
+    private lateinit var abilitiesArray: MutableList<AbilitiesMain>
     private lateinit var material : MaterialAlertDialogBuilder
 
     override fun onCreateView(
@@ -138,7 +138,7 @@ class OthersFragment(var pokemon: Int) : Fragment() {
         }
     }
 
-    private fun showCustomTypesDialog(list: MutableList<PokemonNested>){
+    private fun showCustomTypesDialog(list: MutableList<NestedType>){
         val pokeTypesDialog: TypesDialog = TypesDialog(list)
 
         fragmentManager?.let { pokeTypesDialog.show(it, "my_fragment") }

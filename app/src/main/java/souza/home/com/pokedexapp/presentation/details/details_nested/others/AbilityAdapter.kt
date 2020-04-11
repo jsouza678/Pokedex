@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.PokeAbilities
+import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesMain
 
-class AbilityAdapter (private val context: Context, private val dataList: MutableList<PokeAbilities>) : BaseAdapter() {
+class AbilityAdapter (private val context: Context, private val dataList: MutableList<AbilitiesMain>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
 
-    fun submitList(newData: MutableList<PokeAbilities>){
+    fun submitList(newData: MutableList<AbilitiesMain>){
         if(dataList.isNotEmpty()){
             dataList.clear()
         }
@@ -32,7 +32,7 @@ class AbilityAdapter (private val context: Context, private val dataList: Mutabl
     }
 
 
-    override fun getItem(position: Int): PokeAbilities {
+    override fun getItem(position: Int): AbilitiesMain {
         return dataList[position]
     }
 

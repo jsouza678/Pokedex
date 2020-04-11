@@ -9,8 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.data.remote.PokeApi
-import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.PokemonProperty
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.PokemonNested
+import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PropertyResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.model.type.NestedType
 
 enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
@@ -33,14 +33,14 @@ class PokeOthersViewModel(pokemon: Int, app: Application): AndroidViewModel(app)
     val abilityDesc : LiveData<String>
         get() = _abilityDesc
 
-    private var _pokeTypes = MutableLiveData<MutableList<PokemonNested>>()
+    private var _pokeTypes = MutableLiveData<MutableList<NestedType>>()
 
-    val pokeTypes : LiveData<MutableList<PokemonNested>>
+    val pokeTypes : LiveData<MutableList<NestedType>>
         get() = _pokeTypes
 
-    private var _other = MutableLiveData<PokemonProperty>()
+    private var _other = MutableLiveData<PropertyResponse>()
 
-    val other : LiveData<PokemonProperty>
+    val other : LiveData<PropertyResponse>
         get() = _other
 
     private var viewModelJob = Job()
@@ -70,17 +70,13 @@ class PokeOthersViewModel(pokemon: Int, app: Application): AndroidViewModel(app)
         }
     }
 
-
     fun getAbilityDesc(abilityId: Int){
         getAbilityData(abilityId)
     }
 
-
-
     fun getPokesInTypes(typeId: Int){
         getPokesFromTypes(typeId)
     }
-
 
     private fun getAbilityData(abilityId: Int){
         _statusAb.value = AbilityPokedexStatus.LOADING

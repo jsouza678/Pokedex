@@ -12,10 +12,9 @@ import souza.home.com.pokedexapp.data.pokedex.mappers.PokedexMapper
 import souza.home.com.pokedexapp.domain.model.Poke
 import souza.home.com.pokedexapp.domain.repository.PokemonRepository
 
-class PokemonRepositoryImpl(context: Context) :
-    PokemonRepository {
+class PokemonRepositoryImpl(context: Context) : PokemonRepository {
 
-    val DB_INSTANCE = PokemonsDatabase.getDatabase(context)
+    private val DB_INSTANCE = PokemonsDatabase.getDatabase(context)
 
     override val pokes: LiveData<List<Poke>?> = Transformations.map(DB_INSTANCE.pokemonDao.getPokes()){
         PokedexMapper.pokemonAsDomain(it)

@@ -2,6 +2,7 @@ package souza.home.com.pokedexapp.data.pokedex.remote.model.variety
 
 import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 
-data class PokeLanguage(
-    var name : String = EMPTY_STRING
+data class FlavorDescription(
+    var flavor_text: String = EMPTY_STRING,
+    var language: Language
 )

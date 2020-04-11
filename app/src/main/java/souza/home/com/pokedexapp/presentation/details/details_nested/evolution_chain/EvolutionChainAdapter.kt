@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.PokeEvolution
+import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.Evolution
 
-class EvolutionChainAdapter (private val context: Context, private val dataList: MutableList<PokeEvolution>) : BaseAdapter() {
+class EvolutionChainAdapter (private val context: Context, private val dataList: MutableList<Evolution>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-    fun submitList(newData: MutableList<PokeEvolution>){
+    fun submitList(newData: MutableList<Evolution>){
         if(dataList.isNotEmpty()){
             dataList.clear()
         }

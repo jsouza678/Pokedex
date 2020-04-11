@@ -11,7 +11,8 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.PokemonProperty
+import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PropertyResponse
+import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewModelFactory
 
 
@@ -56,7 +57,6 @@ class StatsFragment(var pokemon: Int) : Fragment() {
         pbSpecialAttack = view.findViewById(R.id.progress_bar_special_attack)
         pbSpecialDeffense = view.findViewById(R.id.progress_bar_special_deffense)
         pbSpeed = view.findViewById(R.id.progress_bar_speed)
-
         tvAttack = view.findViewById(R.id.tv_poke_attack)
         tvHp = view.findViewById(R.id.tv_poke_hp)
         tvDeffense = view.findViewById(R.id.tv_poke_deffense)
@@ -73,43 +73,49 @@ class StatsFragment(var pokemon: Int) : Fragment() {
 
     private fun initObservers(){
         viewModel.apply {
+           this.updatePropertiesOnViewLiveData()?.observe(this@StatsFragment, Observer {
+                if(it!=null){
+                    initStats(it)
+                }
+            })
+
             this.stats.observe(this@StatsFragment, Observer {
                 if(it!=null){
-
                 }
             })
             this.status.observe(this@StatsFragment, Observer {
                 if(it == DetailsPokedexStatus.DONE){
-                    initStats(viewModel.stats.value!!)
+
                 }
             })
         }
     }
 
-    private fun initStats(item: PokemonProperty){
-        animateStats(Integer.valueOf(item.stats[5].base_stat), tvHp)
-        pbHp.progress = Integer.parseInt(item.stats[5].base_stat)
+    private fun initStats(item: PokeProperty?){
 
-        animateStats(Integer.valueOf(item.stats[4].base_stat), tvAttack)
-        pbAttack.progress = Integer.parseInt(item.stats[4].base_stat)
+        item?.stats?.get(5)?.base_stat.let { it?.let { it1 -> Integer.valueOf(it1) } }?.let { animateStats(it, tvHp) }
+        pbHp.progress = item?.stats?.get(5)?.base_stat?.let { Integer.parseInt(it) }!!
 
-        animateStats(Integer.valueOf(item.stats[3].base_stat), tvDeffense)
-        pbDeffense.progress = Integer.parseInt(item.stats[3].base_stat)
+        item.stats?.get(4)?.base_stat?.let { Integer.valueOf(it) }?.let { animateStats(it, tvAttack) }
+        pbAttack.progress = item.stats?.get(4)?.base_stat?.let { Integer.parseInt(it) }!!
 
-        animateStats(Integer.valueOf(item.stats[2].base_stat), tvSpecialAttack)
-        pbSpecialAttack.progress = Integer.parseInt(item.stats[2].base_stat)
+        item.stats?.get(3)?.base_stat?.let { Integer.valueOf(it) }?.let { animateStats(it, tvDeffense) }
+        pbDeffense.progress = item.stats?.get(3)?.base_stat?.let { Integer.parseInt(it) }!!
 
-        animateStats(Integer.valueOf(item.stats[1].base_stat), tvSpecialDeffense)
-        pbSpecialDeffense.progress = Integer.parseInt(item.stats[1].base_stat)
+        item.stats?.get(2)?.base_stat?.let { Integer.valueOf(it) }?.let { animateStats(it, tvSpecialAttack) }
+        pbSpecialAttack.progress = item.stats?.get(2)?.base_stat?.let { Integer.parseInt(it) }!!
 
-        animateStats(Integer.valueOf(item.stats[0].base_stat), tvSpeed)
-        pbSpeed.progress = Integer.parseInt(item.stats[0].base_stat)
+        item.stats?.get(1)?.base_stat?.let { Integer.valueOf(it) }?.let { animateStats(it, tvSpecialDeffense) }
+        pbSpecialDeffense.progress = item.stats?.get(1)?.base_stat?.let { Integer.parseInt(it) }!!
 
-        animateStats(Integer.valueOf(item.weight), tvWeight)
-        animateStats(Integer.valueOf(item.height), tvHeight)
+        item.stats?.get(0)?.base_stat?.let { Integer.valueOf(it) }?.let { animateStats(it, tvSpeed) }
+        pbSpeed.progress = item.stats?.get(0)?.base_stat?.let { Integer.parseInt(it) }!!
+
+        animateStats(item.weight?.let { Integer.valueOf(it) }, tvWeight)
+        animateStats(item.height?.let { Integer.valueOf(it) }, tvHeight)
     }
 
-    private fun animateStats(item: Int, tv: TextView){
+    private fun animateStats(item: Int?, tv: TextView){
         val animator = ValueAnimator()
         animator.setObjectValues(0, item)// here you set the range, from 0 to "count" value
         animator.addUpdateListener {

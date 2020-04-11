@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 import souza.home.com.pokedexapp.data.remote.PokeApi
-import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.PokeEvolution
+import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.Evolution
 import souza.home.com.pokedexapp.utils.cropPokeUrl
 
 class PokeChainViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
@@ -22,8 +22,8 @@ class PokeChainViewModel(pokemon: Int, app: Application): AndroidViewModel(app) 
     private var _status = MutableLiveData<DetailsPokedexStatus>()
     val status : LiveData<DetailsPokedexStatus>
         get() = _status
-    private var _chain = MutableLiveData<MutableList<PokeEvolution>>()
-    val chain : LiveData<MutableList<PokeEvolution>>
+    private var _chain = MutableLiveData<MutableList<Evolution>>()
+    val chain : LiveData<MutableList<Evolution>>
         get() = _chain
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
     fun updateVariationsOnViewLiveData(): LiveData<PokeVariety>? = varietiesRepository.varieties
@@ -57,7 +57,7 @@ class PokeChainViewModel(pokemon: Int, app: Application): AndroidViewModel(app) 
             val getChainDeferred = PokeApi.retrofitService.getEvolutionChain(evolutionChainID)
             try{
                 val item = getChainDeferred.await()
-                val evolutionArray : List<PokeEvolution>
+                val evolutionArray : List<Evolution>
 
                 evolutionArray = ArrayList()
                 evolutionArray.clear()

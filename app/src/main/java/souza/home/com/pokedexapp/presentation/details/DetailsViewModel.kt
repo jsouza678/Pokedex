@@ -10,8 +10,10 @@ import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import souza.home.com.pokedexapp.data.pokedex.PropertiesRepositoryImpl
 import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
 import souza.home.com.pokedexapp.data.remote.PokeApi
+import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 
 class DetailsPokedexViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
@@ -36,12 +38,16 @@ class DetailsPokedexViewModel(pokemon: Int, app: Application): AndroidViewModel(
     private val varietiesRepository =
         VarietiesRepositoryImpl(pokemon, app.applicationContext)
 
+    private val propertiesRepository =
+        PropertiesRepositoryImpl(pokemon, app.applicationContext)
+
     private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo
     private val isConnected : Boolean = activeNetwork?.isConnected == true
-
     fun updateVariationsOnViewLiveData(): LiveData<PokeVariety>? = varietiesRepository.varieties
+    fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = propertiesRepository.properties
 
+//
     init{
         if(isConnected){
             getColor(pokemon)
@@ -60,26 +66,7 @@ class DetailsPokedexViewModel(pokemon: Int, app: Application): AndroidViewModel(
         _status.value = DetailsPokedexStatus.LOADING
 
         coroutineScope.launch {
-            val getSpritesDeferred = PokeApi.retrofitService.getPokeStats(pokemon)
-            try{
-                val listResult = getSpritesDeferred.await()
-                val auxList = mutableListOf<String>()
-
-                listResult.sprites.front_default?.let { auxList.add(it) }
-                listResult.sprites.back_default?.let { auxList.add(it) }
-                listResult.sprites.front_female?.let { auxList.add(it) }
-                listResult.sprites.back_female?.let { auxList.add(it) }
-                listResult.sprites.front_shiny?.let { auxList.add(it) }
-                listResult.sprites.back_shiny?.let { auxList.add(it) }
-                listResult.sprites.front_shiny_female?.let { auxList.add(it) }
-                listResult.sprites.back_shiny_female?.let { auxList.add(it) }
-
-                _poke.value = auxList
-                _status.value = DetailsPokedexStatus.DONE
-
-            }catch(t: Throwable){
-                _status.value = DetailsPokedexStatus.ERROR
-            }
+            propertiesRepository.refreshProperties(pokemon)
         }
     }
 }

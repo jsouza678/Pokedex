@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.PokeVarieties
+import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
 import souza.home.com.pokedexapp.presentation.details.DetailsFragment
 import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewModelFactory
 import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
@@ -25,8 +25,8 @@ class AboutFragment(var pokemon: Int) : Fragment() {
     private lateinit var viewModel: PokeAboutViewModel
     private lateinit var spVariations : Spinner
     private lateinit var tvDesc : TextView
-    private lateinit var varietiesArray: MutableList<PokeVarieties>
-    private lateinit var pokemonsArray: MutableList<PokeVarieties>
+    private lateinit var varietiesArray: MutableList<Varieties>
+    private lateinit var pokemonsArray: MutableList<Varieties>
     private lateinit var adapterSpinner : SpinnerAdapter
     private var pokePath : Int = 0
     private var urlChain : String = EMPTY_STRING

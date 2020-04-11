@@ -88,10 +88,27 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
                 }
             }
             )
+            this.updatePropertiesOnViewLiveData()?.observe(this@DetailsFragment, Observer {
+                if(it!=null) {
+                    val listResult = it
+                    val auxList = mutableListOf<String>()
+
+                    listResult.sprites?.front_default?.let { auxList.add(it) }
+                    listResult.sprites?.back_default?.let { auxList.add(it) }
+                    listResult.sprites?.front_female?.let { auxList.add(it) }
+                    listResult.sprites?.back_female?.let { auxList.add(it) }
+                    listResult.sprites?.front_shiny?.let { auxList.add(it) }
+                    listResult.sprites?.back_shiny?.let { auxList.add(it) }
+                    listResult.sprites?.front_shiny_female?.let { auxList.add(it) }
+                    listResult.sprites?.back_shiny_female?.let { auxList.add(it) }
+
+                    addImagesToList(auxList)
+                    initGalleryViewPager(mImages)
+                }
+            })
 
             this.poke.observe(viewLifecycleOwner, Observer {
-                //addImagesToList(it)
-                //initGalleryViewPager(mImages)
+
             })
         }
     }

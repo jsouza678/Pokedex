@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import souza.home.com.pokedexapp.utils.Constants.Companion.VARIETY_TABLE_NAME
 
 @Entity (tableName = VARIETY_TABLE_NAME)
-data class PokeVariationsEntity constructor(
+data class VarietyEntity constructor(
     @PrimaryKey
     val _poke_variety_id: Int,
     val evolution_chain: String,

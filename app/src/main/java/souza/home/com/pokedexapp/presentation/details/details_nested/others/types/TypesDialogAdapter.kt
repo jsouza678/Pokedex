@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.poke_item_view.view.*
 import souza.home.com.pokedexapp.R
 import souza.home.com.extensions.loadUrl
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.PokemonNested
+import souza.home.com.pokedexapp.data.pokedex.remote.model.type.NestedType
 
 
-class PokesTypesDialogAdapter(private val pokes: MutableList<PokemonNested>?, private val context: Context) : RecyclerView.Adapter<PokesTypesDialogAdapter.ViewHolder>() {
+class PokesTypesDialogAdapter(private val pokes: MutableList<NestedType>?, private val context: Context) : RecyclerView.Adapter<PokesTypesDialogAdapter.ViewHolder>() {
 
-    var onItemClick: ((PokemonNested) -> Unit)? = null
+    var onItemClick: ((NestedType) -> Unit)? = null
     private val imageResourceUrl = "https://pokeres.bastionbot.org/images/pokemon/"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,7 +23,7 @@ class PokesTypesDialogAdapter(private val pokes: MutableList<PokemonNested>?, pr
         return ViewHolder(view)
     }
 
-    fun submitList(newData: MutableList<PokemonNested>) {
+    fun submitList(newData: MutableList<NestedType>) {
         if (pokes!!.isNotEmpty()) {
             pokes.clear()
         }
@@ -48,7 +48,7 @@ class PokesTypesDialogAdapter(private val pokes: MutableList<PokemonNested>?, pr
         private var formatedNumber: String = ""
         private var pokemonId : String = ""
 
-        fun itemBind(pokes: PokemonNested){
+        fun itemBind(pokes: NestedType){
             pokeName.text = pokes.pokemon.name
             pokemonId = pokes.pokemon._id.substringAfter("n/").substringBefore('/')
             formatedNumber= "%03d".format(Integer.parseInt(pokemonId))

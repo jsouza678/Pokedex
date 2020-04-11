@@ -9,6 +9,8 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import souza.home.com.pokedexapp.R
+import souza.home.com.pokedexapp.utils.Constants.Companion.IMAGE_MAX_HEIGHT
+import souza.home.com.pokedexapp.utils.Constants.Companion.IMAGE_MAX_WIDTH
 
 private var placeHolderId: Int = R.drawable.place_holder
 private var errorImageId: Int = R.drawable.error_image
@@ -47,6 +49,7 @@ fun ImageView.loadUrl(
     placeHolderId.let {
         requestBuilder
             .placeholder(placeHolderId)
+            .override(IMAGE_MAX_WIDTH, IMAGE_MAX_HEIGHT)
             .error(errorImageId)
     }
 

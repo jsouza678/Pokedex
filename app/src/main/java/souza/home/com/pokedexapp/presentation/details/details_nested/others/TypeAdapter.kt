@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.PokeTypes
+import souza.home.com.pokedexapp.data.pokedex.remote.model.type.Types
 
-class TypeAdapter (private val context: Context, private val dataList: MutableList<PokeTypes>) : BaseAdapter() {
+class TypeAdapter (private val context: Context, private val dataList: MutableList<Types>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-    fun submitList(newData: MutableList<PokeTypes>){
+    fun submitList(newData: MutableList<Types>){
         if(dataList.isNotEmpty()){
             dataList.clear()
         }
@@ -30,7 +30,7 @@ class TypeAdapter (private val context: Context, private val dataList: MutableLi
         return rowView
     }
 
-    override fun getItem(position: Int): PokeTypes {
+    override fun getItem(position: Int): Types {
         return dataList[position]
     }
 

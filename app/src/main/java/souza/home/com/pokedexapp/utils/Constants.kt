@@ -11,5 +11,7 @@ class Constants {
         const val LIMIT_NORMAL_POKES = 807
         const val LANGUAGE_DESCRIPTIONS = "en"
         const val EMPTY_STRING = ""
+        const val IMAGE_MAX_HEIGHT = 320
+        const val IMAGE_MAX_WIDTH = 320
     }
 }
