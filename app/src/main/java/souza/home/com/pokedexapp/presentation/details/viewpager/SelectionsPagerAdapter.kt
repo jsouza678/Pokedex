@@ -37,8 +37,6 @@ internal class SectionsPagerAdapter(fm: FragmentManager, val pokeId: Int) :
     )
 
     override fun getItem(position: Int): Fragment {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
         if(pokeId > LIMIT_NORMAL_POKES){ // this defines a poke as an evolution! so some fragments will not show.
             return TAB_FRAGMENTS_EVOLUTION[position]
         }

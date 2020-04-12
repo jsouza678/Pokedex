@@ -28,7 +28,7 @@ class PokeStatsViewModel(pokemon: Int, app: Application): AndroidViewModel(app) 
         get() = _stats
 
     private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.IO)
     private val propertiesRepository =
         PropertiesRepositoryImpl(pokemon, app.applicationContext)
 
@@ -46,11 +46,11 @@ class PokeStatsViewModel(pokemon: Int, app: Application): AndroidViewModel(app) 
 
     private fun getStats(pokemon: Int) {
 
-        _status.value = DetailsPokedexStatus.LOADING
+        //_status.value = DetailsPokedexStatus.LOADING
 
         coroutineScope.launch {
             propertiesRepository.refreshProperties(pokemon)
-            _status.value = DetailsPokedexStatus.DONE
+            //_status.value = DetailsPokedexStatus.DONE
         }
     }
 

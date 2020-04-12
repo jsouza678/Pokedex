@@ -32,5 +32,6 @@
     <color name="poke_purple_mid_translucent">#80FFD76F</color>
     <color name="poke_pink_mid_translucent">#80FA6FFF</color>
     <color name="poke_brown_mid_translucent">#80C47C55</color>
+    <color name="black_transparent">#80000000</color>
 
 </resources>

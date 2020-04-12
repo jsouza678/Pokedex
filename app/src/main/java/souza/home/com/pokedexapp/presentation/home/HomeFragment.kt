@@ -12,11 +12,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.presentation.details.DetailsFragment
 import souza.home.com.extensions.gone
 import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.domain.model.Poke
+import souza.home.com.pokedexapp.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
 import souza.home.com.pokedexapp.utils.cropPokeUrl
 
 class HomeFragment : Fragment() {
@@ -26,6 +28,7 @@ class HomeFragment : Fragment() {
     private lateinit var manager : FragmentManager
     private lateinit var progressBar : ProgressBar
     private lateinit var recyclerView : RecyclerView
+    private lateinit var floatingActionButton : FloatingActionButton
     private lateinit var adapter: HomeAdapter
 
     override fun onCreateView(
@@ -39,6 +42,7 @@ class HomeFragment : Fragment() {
         manager = activity!!.supportFragmentManager
         adapter = HomeAdapter(pokesList, view.context)
         recyclerView = view.findViewById(R.id.poke_recycler_view)
+        floatingActionButton = view.findViewById(R.id.floating_action_button_poke_ball)
 
         val  viewModel = ViewModelProviders.of(this,
             HomePokedexViewModel.Factory(
@@ -48,6 +52,11 @@ class HomeFragment : Fragment() {
             .get(HomePokedexViewModel::class.java)
 
         initRecyclerView(viewModel)
+
+        floatingActionButton.setOnClickListener {
+            Toast.makeText(view.context, "FAB is clicked...", Toast.LENGTH_LONG).show()
+        }
+
         initObservers(viewModel)
 
         return view
@@ -78,7 +87,7 @@ class HomeFragment : Fragment() {
 
     private fun initRecyclerView(viewModel : HomePokedexViewModel){
 
-        layoutManager = GridLayoutManager(context, 2)
+        layoutManager = GridLayoutManager(context, TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
         setTransitionToPokeDetails()

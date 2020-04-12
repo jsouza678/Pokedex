@@ -16,5 +16,6 @@ class Constants {
         const val EMPTY_STRING = ""
         const val IMAGE_MAX_HEIGHT = 320
         const val IMAGE_MAX_WIDTH = 320
+        const val TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW = 2
     }
 }

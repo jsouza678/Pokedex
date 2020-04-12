@@ -22,7 +22,7 @@ import souza.home.com.pokedexapp.utils.cropPokeUrl
 
 class EvolutionChainViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
 
-    private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
     fun updateVariationsOnViewLiveData(): LiveData<PokeVariety>? = varietiesRepository.varieties
     private val varietiesRepository = VarietiesRepositoryImpl(pokemon, app.applicationContext)
     private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

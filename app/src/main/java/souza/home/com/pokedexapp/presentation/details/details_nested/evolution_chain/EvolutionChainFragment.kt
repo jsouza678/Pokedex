@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.Evolution
 import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewModelFactory
@@ -29,7 +27,7 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_chain, container, false)
-        lvChain = view.findViewById(R.id.lv_chain)
+        lvChain = view.findViewById(R.id.list_view_chain)
         listString = mutableListOf<String>()
         viewModel = ViewModelProviders.of(this,
             NestedViewModelFactory(
@@ -49,8 +47,6 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
                 view.context,
                 listString
             )
-
-
 
         initObservers()
 

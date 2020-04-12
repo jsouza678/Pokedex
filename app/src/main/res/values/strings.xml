@@ -4,15 +4,15 @@
     <string name="mock_poke_name">Charmander</string>
     <string name="poke_hp_label">HP:</string>
     <string name="poke_attack_label">ATTACK:</string>
-    <string name="poke_deffense_label">DEFFENSE:</string>
+    <string name="poke_defense_label">DEFENSE:</string>
     <string name="poke_special_attack_label">SPECIAL ATTACK:</string>
-    <string name="poke_special_deffense_label">SPECIAL DEFFENSE:</string>
+    <string name="poke_special_defense_label">SPECIAL DEFENSE:</string>
     <string name="poke_weight_label">WEIGHT:</string>
     <string name="poke_height_label">HEIGHT:</string>
     <string name="poke_speed_label">SPEED:</string>
     <string name="mock_hp">85</string>
     <string name="mock_attack">40</string>
-    <string name="mock_deffense">50</string>
+    <string name="mock_defense">50</string>
     <string name="mock_special_attack">120</string>
     <string name="mock_special_deffense">80</string>
     <string name="mock_speed">190</string>
@@ -41,5 +41,8 @@
         <item>Pikachu</item>
         <item>Charmander</item>
     </string-array>
+    <string name="content_description_poke_ball_image_view_splash">Poke Ball image on splash screen</string>
+    <string name="mock_text_view_poke_id_details">#001</string>
+    <string name="spinner_hint">Select one item</string>
 
 </resources>

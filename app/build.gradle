@@ -18,9 +18,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        javaCompileOptions{
-            annotationProcessorOptions{
-                arguments= ["room.schemaLocation": "$projectDir/schemas".toString()]
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
     }
@@ -35,10 +35,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // Kotlin Version
+    // Uncategorized
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.core:core-ktx:$core_ktx_version"
     implementation "androidx.legacy:legacy-support-v4:$legacy_support_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // App Compat
     implementation "androidx.appcompat:appcompat:$app_compat_version"
@@ -73,6 +74,7 @@ dependencies {
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
+    kapt "com.github.bumptech.glide:annotations:$glide_version"
 
     // MaterialDesign
     implementation "com.google.android.material:material:$material_design_version"

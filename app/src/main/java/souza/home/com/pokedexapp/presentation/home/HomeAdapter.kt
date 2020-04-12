@@ -68,10 +68,10 @@ class HomeAdapter(private val pokes: MutableList<Poke>?, private val context: Co
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val pokeName: TextView = itemView.tv_name_poke
-        private val pokeImage: ImageView = itemView.iv_poke_sprite
-        private val pokeId: TextView = itemView.tv_id_poke
-        private val pokeCv: CardView = itemView.cv_poke_item_home
+        private val pokeName: TextView = itemView.text_view_name_poke_recycler
+        private val pokeImage: ImageView = itemView.image_view_poke_sprite_recycler
+        private val pokeId: TextView = itemView.text_view_id_poke_recycler
+        private val pokeCv: CardView = itemView.card_view_poke_item_home
         private var formatedNumber: String = ""
         private var pokemonId : Int = 0
 

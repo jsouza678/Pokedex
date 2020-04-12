@@ -36,8 +36,8 @@ class OthersFragment(var pokemon: Int) : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_others, container, false)
-        lvTypes = view.findViewById(R.id.lv_types)
-        lvAbilities = view.findViewById(R.id.lv_abilities)
+        lvTypes = view.findViewById(R.id.list_view_types)
+        lvAbilities = view.findViewById(R.id.list_view_abilities)
         typesArray = ArrayList<Types>()
         abilitiesArray = ArrayList<AbilitiesMain>()
 

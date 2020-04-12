@@ -9,11 +9,12 @@ import android.widget.TextView
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PokemonResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
+import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 
 class SpinnerAdapter (private val context: Context, private val dataList: MutableList<Varieties>) : BaseAdapter() {
 
     var pokemon: PokemonResponse =
-        PokemonResponse("http://", "Select one item")
+        PokemonResponse(EMPTY_STRING, context.getString(R.string.spinner_hint))
     var poke : Varieties =
         Varieties(pokemon)
 
@@ -25,7 +26,7 @@ class SpinnerAdapter (private val context: Context, private val dataList: Mutabl
         if(rowView == null) {
             val dataItem = dataList[position]
             rowView = inflater.inflate(R.layout.list_row, parent, false)
-            rowView.findViewById<TextView>(R.id.tv_item).text = dataItem.pokemon.name.capitalize()
+            rowView.findViewById<TextView>(R.id.text_view_item).text = dataItem.pokemon.name.capitalize()
             rowView.tag = position
         }
 
@@ -52,5 +53,4 @@ class SpinnerAdapter (private val context: Context, private val dataList: Mutabl
     override fun getCount(): Int {
         return dataList.size
     }
-
 }

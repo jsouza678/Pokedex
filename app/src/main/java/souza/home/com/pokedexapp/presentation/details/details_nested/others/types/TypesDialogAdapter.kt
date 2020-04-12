@@ -42,9 +42,9 @@ class TypesDialogAdapter(private val pokes: MutableList<NestedType>?, private va
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val pokeName: TextView = itemView.tv_name_poke
-        private val pokeImage: ImageView = itemView.iv_poke_sprite
-        private val pokeId: TextView = itemView.tv_id_poke
+        private val pokeName: TextView = itemView.text_view_name_poke_recycler
+        private val pokeImage: ImageView = itemView.image_view_poke_sprite_recycler
+        private val pokeId: TextView = itemView.text_view_id_poke_recycler
         private var formatedNumber: String = ""
         private var pokemonId : String = ""
 

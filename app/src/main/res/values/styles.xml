@@ -28,7 +28,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="custom_text" parent="TextAppearance.Design.Tab">
+    <style name="custom_tab_text_style" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">10sp</item>
         <item name="android:capitalize">words</item>
         <item name="android:textAllCaps">false</item>
@@ -44,6 +44,42 @@
         <item name="cornerSizeTopLeft">@dimen/custom_card_view_top_corner_radius</item>
         <item name="cornerSizeBottomRight">@dimen/custom_card_view_low_corner_radius</item>
         <item name="cornerSizeBottomLeft">@dimen/custom_card_view_low_corner_radius</item>
+    </style>
+
+    <style name="poke_name_detail_style">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginStart">@dimen/material_margin_16</item>
+        <item name="android:layout_marginEnd">@dimen/material_margin_16</item>
+        <item name="android:layout_marginBottom">@dimen/material_margin_16</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textColor">@color/poke_black</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="pokemon_logo_style_home">
+        <item name="android:fontFamily">@font/poke_solid</item>
+        <item name="android:shadowColor">@color/yellow_poke</item>
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:textColor">@color/blue_poke</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="dialog_pokes_in_types_text">
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAppearance">@style/custom_tab_text_style</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="pokedex_logo_splash_screen">
+        <item name="android:fontFamily">@font/poke_solid</item>
+        <item name="android:textColor">@color/poke_black</item>
+        <item name="android:textSize">36sp</item>
     </style>
 
 </resources>

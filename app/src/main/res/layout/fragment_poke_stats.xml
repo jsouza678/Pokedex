@@ -7,259 +7,259 @@
     tools:context=".presentation.details.details_nested.stats.StatsFragment">
 
     <TextView
-        android:id="@+id/tv_detail_hp_label"
+        android:id="@+id/text_view_detail_hp_label"
         style="@style/stat_label"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginTop="@dimen/material_margin_16"
         android:text="@string/poke_hp_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_poke_hp"
-        android:layout_width="0dp"
+        android:id="@+id/text_view_poke_hp"
+        android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/material_margin_8"
         style="@style/stat_value"
-        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_hp_label"
-        app:layout_constraintStart_toEndOf="@id/tv_detail_hp_label"
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_hp_label"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_hp_label"
         tools:text="@string/mock_hp" />
 
     <ProgressBar
         android:id="@+id/progress_bar_hp"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginEnd="@dimen/material_margin_16"
         android:indeterminate="false"
         android:max="100"
         android:progress="85"
-        app:layout_constraintBottom_toBottomOf="@id/tv_poke_hp"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_poke_hp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_poke_hp"
-        app:layout_constraintTop_toTopOf="@id/tv_detail_hp_label" />
+        app:layout_constraintStart_toEndOf="@id/text_view_poke_hp"
+        app:layout_constraintTop_toTopOf="@id/text_view_detail_hp_label" />
 
     <TextView
-        android:id="@+id/tv_detail_attack_label"
+        android:id="@+id/text_view_detail_attack_label"
         style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginTop="@dimen/material_margin_8"
         android:text="@string/poke_attack_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_detail_hp_label" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_detail_hp_label" />
 
     <TextView
-        android:id="@+id/tv_poke_attack"
-        android:layout_width="0dp"
+        android:id="@+id/text_view_poke_attack"
+        android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/material_margin_8"
         style="@style/stat_value"
         tools:text="@string/mock_attack"
-        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_attack_label"
-        app:layout_constraintStart_toEndOf="@id/tv_detail_attack_label" />
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_attack_label"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_attack_label" />
 
     <ProgressBar
         android:id="@+id/progress_bar_attack"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginEnd="@dimen/material_margin_16"
         android:max="100"
         android:progress="40"
-        app:layout_constraintBottom_toBottomOf="@id/tv_detail_attack_label"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_detail_attack_label"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_poke_attack"
-        app:layout_constraintTop_toTopOf="@id/tv_detail_attack_label" />
+        app:layout_constraintStart_toEndOf="@id/text_view_poke_attack"
+        app:layout_constraintTop_toTopOf="@id/text_view_detail_attack_label" />
 
     <TextView
-        android:id="@+id/tv_detail_deffense_label"
+        android:id="@+id/text_view_detail_defense_label"
         style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/poke_deffense_label"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginTop="@dimen/material_margin_8"
+        android:text="@string/poke_defense_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_detail_attack_label" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_detail_attack_label" />
 
     <TextView
-        android:id="@+id/tv_poke_deffense"
-        android:layout_width="0dp"
+        android:id="@+id/text_view_poke_defense"
+        android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
         style="@style/stat_value"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_deffense_label"
-        app:layout_constraintStart_toEndOf="@id/tv_detail_deffense_label"
-        tools:text="@string/mock_deffense" />
+        android:layout_marginStart="@dimen/material_margin_8"
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_defense_label"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_defense_label"
+        tools:text="@string/mock_defense" />
 
     <ProgressBar
-        android:id="@+id/progress_bar_deffense"
+        android:id="@+id/progress_bar_defense"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginEnd="@dimen/material_margin_16"
         android:max="100"
         android:progress="50"
-        app:layout_constraintBottom_toBottomOf="@id/tv_detail_deffense_label"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_detail_defense_label"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_poke_deffense"
-        app:layout_constraintTop_toTopOf="@id/tv_detail_deffense_label" />
+        app:layout_constraintStart_toEndOf="@id/text_view_poke_defense"
+        app:layout_constraintTop_toTopOf="@id/text_view_detail_defense_label" />
 
     <TextView
-        android:id="@+id/tv_detail_special_attack_label"
+        android:id="@+id/text_view_detail_special_attack_label"
         style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginTop="@dimen/material_margin_8"
         android:text="@string/poke_special_attack_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_detail_deffense_label" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_detail_defense_label" />
 
     <TextView
-        android:id="@+id/tv_poke_special_attack"
-        android:layout_width="0dp"
+        android:id="@+id/text_view_poke_special_attack"
+        android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/material_margin_8"
         style="@style/stat_value"
         tools:text="@string/mock_special_attack"
-        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_special_attack_label"
-        app:layout_constraintStart_toEndOf="@id/tv_detail_special_attack_label" />
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_special_attack_label"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_special_attack_label" />
 
     <ProgressBar
         android:id="@+id/progress_bar_special_attack"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginEnd="@dimen/material_margin_16"
         android:max="200"
         android:progress="120"
-        app:layout_constraintBottom_toBottomOf="@id/tv_detail_special_attack_label"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_detail_special_attack_label"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_poke_special_attack"
-        app:layout_constraintTop_toTopOf="@id/tv_detail_special_attack_label" />
+        app:layout_constraintStart_toEndOf="@id/text_view_poke_special_attack"
+        app:layout_constraintTop_toTopOf="@id/text_view_detail_special_attack_label" />
 
     <TextView
-        android:id="@+id/tv_detail_special_deffense_label"
+        android:id="@+id/text_view_detail_special_defense_label"
         style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/poke_special_deffense_label"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginTop="@dimen/material_margin_8"
+        android:text="@string/poke_special_defense_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_detail_special_attack_label" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_detail_special_attack_label" />
 
     <TextView
-        android:id="@+id/tv_poke_special_deffense"
-        android:layout_width="0dp"
+        android:id="@+id/text_view_poke_special_deffense"
+        android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
         style="@style/stat_value"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_special_deffense_label"
-        app:layout_constraintStart_toEndOf="@id/tv_detail_special_deffense_label"
+        android:layout_marginStart="@dimen/material_margin_8"
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_special_defense_label"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_special_defense_label"
         tools:text="@string/mock_special_deffense" />
 
     <ProgressBar
-        android:id="@+id/progress_bar_special_deffense"
+        android:id="@+id/progress_bar_special_defense"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginEnd="@dimen/material_margin_16"
         android:max="200"
         android:progress="80"
-        app:layout_constraintBottom_toBottomOf="@id/tv_poke_special_deffense"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_poke_special_deffense"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@id/tv_poke_special_deffense"
-        app:layout_constraintTop_toTopOf="@id/tv_detail_special_deffense_label" />
+        app:layout_constraintStart_toEndOf="@id/text_view_poke_special_deffense"
+        app:layout_constraintTop_toTopOf="@id/text_view_detail_special_defense_label" />
 
     <TextView
-        android:id="@+id/tv_detail_speed_label"
+        android:id="@+id/text_view_detail_speed_label"
         style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginTop="@dimen/material_margin_16"
         android:text="@string/poke_speed_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_detail_special_deffense_label" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_detail_special_defense_label" />
 
     <TextView
-        android:id="@+id/tv_poke_speed"
-        android:layout_width="0dp"
+        android:id="@+id/text_view_poke_speed"
+        android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/material_margin_16"
         style="@style/stat_value"
-        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_speed_label"
-        app:layout_constraintStart_toEndOf="@id/tv_detail_speed_label"
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_speed_label"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_speed_label"
         tools:text="@string/mock_speed" />
 
 
     <ProgressBar
         android:id="@+id/progress_bar_speed"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginEnd="@dimen/material_margin_16"
         android:max="200"
         android:progress="190"
-        app:layout_constraintBottom_toBottomOf="@id/tv_poke_speed"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_poke_speed"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_poke_speed"
-        app:layout_constraintTop_toTopOf="@id/tv_poke_speed" />
+        app:layout_constraintStart_toEndOf="@id/text_view_poke_speed"
+        app:layout_constraintTop_toTopOf="@id/text_view_poke_speed" />
 
     <TextView
-        android:id="@+id/tv_detail_weight_label"
+        android:id="@+id/text_view_detail_weight_label"
         style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginTop="@dimen/material_margin_8"
         android:text="@string/poke_weight_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_detail_speed_label" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_detail_speed_label" />
 
     <TextView
-        android:id="@+id/tv_detail_weight"
+        android:id="@+id/text_view_detail_weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/material_margin_8"
         tools:text="@string/mock_weight"
         style="@style/stat_value"
-        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_weight_label"
-        app:layout_constraintStart_toEndOf="@id/tv_detail_weight_label" />
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_weight_label"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_weight_label" />
 
     <TextView
-        android:id="@+id/tv_detail_height_label"
+        android:id="@+id/text_view_detail_height_label"
         style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginTop="@dimen/material_margin_8"
+        android:layout_marginBottom="@dimen/material_margin_16"
         android:text="@string/poke_height_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_detail_weight_label" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_detail_weight_label" />
 
     <TextView
-        android:id="@+id/tv_detail_height"
+        android:id="@+id/text_view_detail_height"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/material_margin_8"
         style="@style/stat_value"
         tools:text="@string/mock_height"
-        app:layout_constraintBaseline_toBaselineOf="@id/tv_detail_height_label"
-        app:layout_constraintStart_toEndOf="@id/tv_detail_height_label" />
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_height_label"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_height_label" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

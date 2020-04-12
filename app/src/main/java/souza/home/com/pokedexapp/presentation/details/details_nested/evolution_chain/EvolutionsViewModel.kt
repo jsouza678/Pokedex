@@ -20,7 +20,7 @@ class EvolutionsViewModel(pokemon: Int, app: Application): AndroidViewModel(app)
     private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo
     private val isConnected : Boolean = activeNetwork?.isConnected == true
-    private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     init{
         if(isConnected){

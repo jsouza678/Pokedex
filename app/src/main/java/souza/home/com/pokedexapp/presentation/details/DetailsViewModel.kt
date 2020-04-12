@@ -46,7 +46,6 @@ class DetailsPokedexViewModel(pokemon: Int, app: Application): AndroidViewModel(
     fun updateVariationsOnViewLiveData(): LiveData<PokeVariety>? = varietiesRepository.varieties
     fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = propertiesRepository.properties
 
-//
     init{
         if(isConnected){
             getColor(pokemon)
