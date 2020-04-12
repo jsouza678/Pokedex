@@ -50,18 +50,11 @@ class DetailsPokedexViewModel(pokemon: Int, app: Application): AndroidViewModel(
         if(isConnected){
             getColor(pokemon)
         }
-        getSprites(pokemon)
     }
 
     private fun getColor(pokemon: Int){
         coroutineScope.launch {
             varietiesRepository.refreshVarieties(pokemon)
-        }
-    }
-
-    private fun getSprites(pokemon: Int){
-
-        coroutineScope.launch {
             propertiesRepository.refreshProperties(pokemon)
         }
     }

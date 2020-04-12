@@ -75,6 +75,8 @@ class PokedexMapper {
             val statsAsString = TypeConverter.fromStats(propertyResponse.stats)
             val typesAsString = TypeConverter.fromTypes(propertyResponse.types)
 
+            Log.i("TO DB" , "TO DB" + abilitiesAsString)
+
             return PropertyEntity(
                 id = propertyResponse.id,
                 abilities = abilitiesAsString,
@@ -105,6 +107,8 @@ class PokedexMapper {
             val spritesAsObject = TypeConverter.toSprites(propertyEntity.sprites)
             val statsAsList = TypeConverter.toStatsList(propertyEntity.stats)
             val typesAsList = TypeConverter.toTypesList(propertyEntity.types)
+
+            Log.i("TO DOMAIN" , "TO DOMAIN" + abilitiesAsList)
 
             return PokeProperty(
                 id = propertyEntity.id,

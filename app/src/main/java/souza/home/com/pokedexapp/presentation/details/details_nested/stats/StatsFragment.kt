@@ -55,10 +55,12 @@ class StatsFragment(var pokemon: Int) : Fragment() {
         tvHeight = view.findViewById(R.id.text_view_detail_height)
 
         viewModel = ViewModelProviders.of(this,
-            NestedViewModelFactory(
-                pokemon,
-                activity!!.application
-            )
+            activity?.application?.let {
+                NestedViewModelFactory(
+                    pokemon,
+                    it
+                )
+            }
         )
             .get(PokeStatsViewModel::class.java)
 
@@ -69,7 +71,7 @@ class StatsFragment(var pokemon: Int) : Fragment() {
 
     private fun initObservers(){
         viewModel.apply {
-            this.updatePropertiesOnViewLiveData()?.observe(this@StatsFragment, Observer {
+            this.updatePropertiesOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
                 if(it!=null){
                     initStats(it)
                 }

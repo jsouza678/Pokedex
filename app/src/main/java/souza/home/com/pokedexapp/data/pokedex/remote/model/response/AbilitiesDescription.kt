@@ -5,5 +5,5 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 
 @JsonClass(generateAdapter = true)
 data class AbilitiesDescription(
-    var effect: String? = EMPTY_STRING
+    var effect: String?
 )

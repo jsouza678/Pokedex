@@ -9,7 +9,7 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 data class PokeProperty(
     var id: Int = 0,
     var abilities: MutableList<AbilitiesMain>?,
-    var name: String? = EMPTY_STRING,
+    var name: String?,
     var height: Int? = 0,
     var sprites: Sprites?,
     var stats: List<Stats>?,

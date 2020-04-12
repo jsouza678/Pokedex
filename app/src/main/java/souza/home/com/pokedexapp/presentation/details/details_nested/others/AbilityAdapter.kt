@@ -41,5 +41,4 @@ class AbilityAdapter (private val context: Context, private val dataList: Mutabl
     override fun getCount(): Int {
         return dataList.size
     }
-
 }

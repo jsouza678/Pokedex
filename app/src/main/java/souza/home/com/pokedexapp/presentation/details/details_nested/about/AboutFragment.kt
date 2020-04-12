@@ -42,10 +42,12 @@ class AboutFragment(var pokemon: Int) : Fragment() {
         spVariations = view.findViewById(R.id.spinner_variations)
 
         viewModel = ViewModelProviders.of(this,
-            NestedViewModelFactory(
-                pokemon,
-                activity!!.application
-            )
+            activity?.application?.let {
+                NestedViewModelFactory(
+                    pokemon,
+                    it
+                )
+            }
         )
             .get(AboutViewModel::class.java)
 

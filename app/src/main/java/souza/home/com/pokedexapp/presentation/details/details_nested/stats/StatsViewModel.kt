@@ -27,8 +27,7 @@ class PokeStatsViewModel(pokemon: Int, app: Application): AndroidViewModel(app) 
     val stats : LiveData<PropertyResponse>
         get() = _stats
 
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.IO)
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
     private val propertiesRepository =
         PropertiesRepositoryImpl(pokemon, app.applicationContext)
 
@@ -45,18 +44,11 @@ class PokeStatsViewModel(pokemon: Int, app: Application): AndroidViewModel(app) 
     }
 
     private fun getStats(pokemon: Int) {
-
         //_status.value = DetailsPokedexStatus.LOADING
-
         coroutineScope.launch {
             propertiesRepository.refreshProperties(pokemon)
             //_status.value = DetailsPokedexStatus.DONE
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        Job().cancel()
     }
 }
 

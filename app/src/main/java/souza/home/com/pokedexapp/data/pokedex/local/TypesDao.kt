@@ -11,7 +11,7 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.TYPE_TABLE_NAME
 @Dao
 interface TypesDao {
 
-    @Query("SELECT * FROM $TYPE_TABLE_NAME WHERE $TYPE_TABLE_NAME._id = :pokeId")
+    @Query("select * from $TYPE_TABLE_NAME where $TYPE_TABLE_NAME._id = :pokeId")
     fun getTypeData(pokeId: Int): LiveData<TypeEntity>?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -14,9 +14,8 @@ import souza.home.com.pokedexapp.domain.model.PokeEvolutionChain
 
 class EvolutionsViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
 
-    private var chainRepository = EvolutionRepositoryImpl(pokemon, app.applicationContext)
-
     fun updateEvolutionOnViewLiveData(): LiveData<PokeEvolutionChain>? = chainRepository.evolution
+    private var chainRepository = EvolutionRepositoryImpl(pokemon, app.applicationContext)
     private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo
     private val isConnected : Boolean = activeNetwork?.isConnected == true

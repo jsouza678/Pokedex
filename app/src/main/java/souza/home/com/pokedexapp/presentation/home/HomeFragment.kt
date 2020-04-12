@@ -45,9 +45,11 @@ class HomeFragment : Fragment() {
         floatingActionButton = view.findViewById(R.id.floating_action_button_poke_ball)
 
         val  viewModel = ViewModelProviders.of(this,
-            HomePokedexViewModel.Factory(
-                activity!!.application
-            )
+            activity?.application?.let {
+                HomePokedexViewModel.Factory(
+                    it
+                )
+            }
         )
             .get(HomePokedexViewModel::class.java)
 
@@ -65,21 +67,16 @@ class HomeFragment : Fragment() {
     private fun initObservers(viewModel: HomePokedexViewModel){
         viewModel.apply {
 
-            this.updatePokeslListOnViewLiveData().observe(this@HomeFragment, Observer {
+            this.updatePokeslListOnViewLiveData().observe(viewLifecycleOwner, Observer {
                 it?.toMutableList()?.let { it1 -> adapter.submitList(it1) }
             })
 
             this.status.observe(viewLifecycleOwner, Observer {
                 when(it){
-                    HomePokedexStatus.DONE->{
-                        turnOffProgressBar()
-                    }
-                    HomePokedexStatus.LOADING->
-                        turnOnProgressBar()
-                    HomePokedexStatus.ERROR->
-                        Toast.makeText(context, "No conectivity", Toast.LENGTH_SHORT).show()
-                    else->
-                        turnOffProgressBar()
+                    HomePokedexStatus.DONE->{ turnOffProgressBar() }
+                    HomePokedexStatus.LOADING-> turnOnProgressBar()
+                    HomePokedexStatus.ERROR-> Toast.makeText(context, "No conectivity", Toast.LENGTH_SHORT).show()
+                    else-> turnOffProgressBar()
                 }
             })
         }

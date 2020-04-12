@@ -38,7 +38,7 @@ interface PokedexService {
 
     @GET("evolution-chain/{id}")
     fun getEvolutionChain(@Path("id") id: Int?):
-            Deferred<EvolutionChainResponse> // needs to be cached
+            Deferred<EvolutionChainResponse> // Cached
 
     @GET("pokemon-species/{id}")
     fun getVariations(@Path("id") id: Int?):

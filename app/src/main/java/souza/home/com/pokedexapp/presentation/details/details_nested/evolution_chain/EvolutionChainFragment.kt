@@ -29,11 +29,14 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
         val view = inflater.inflate(R.layout.fragment_poke_chain, container, false)
         lvChain = view.findViewById(R.id.list_view_chain)
         listString = mutableListOf<String>()
+
         viewModel = ViewModelProviders.of(this,
-            NestedViewModelFactory(
-                pokemon,
-                activity!!.application
-            )
+            activity?.application?.let {
+                NestedViewModelFactory(
+                    pokemon,
+                    it
+                )
+            }
         )
             .get(EvolutionChainViewModel::class.java)
 
@@ -56,11 +59,12 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
     private fun initObservers(){
         viewModel.apply {
 
-            this.updateVariationsOnViewLiveData()?.observe(this@EvolutionChainFragment, Observer {
+            this.updateVariationsOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
+                if(it!=null){
                     val evolutionPath = it.evolution_chain?.url
                     val evolutionCropped = evolutionPath?.let { url -> cropPokeUrl(url) }
-
-                evolutionCropped?.let { it1 -> initEvolutionChainViewModel(it1) }
+                    evolutionCropped?.let { it1 -> initEvolutionChainViewModel(it1) }
+                }
             })
         }
     }
@@ -78,7 +82,7 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
     }
 
     private fun initSecondaryObserver(viewModel: EvolutionsViewModel){
-        viewModel.updateEvolutionOnViewLiveData()?.observe(this@EvolutionChainFragment, Observer {
+        viewModel.updateEvolutionOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
             if(it!=null){
                 listString = it.evolution!!
                 initChainEvolution()

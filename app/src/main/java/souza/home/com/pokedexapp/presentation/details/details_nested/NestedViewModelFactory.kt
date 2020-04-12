@@ -8,6 +8,7 @@ import souza.home.com.pokedexapp.presentation.details.DetailsPokedexViewModel
 import souza.home.com.pokedexapp.presentation.details.details_nested.about.AboutViewModel
 import souza.home.com.pokedexapp.presentation.details.details_nested.evolution_chain.EvolutionChainViewModel
 import souza.home.com.pokedexapp.presentation.details.details_nested.evolution_chain.EvolutionsViewModel
+import souza.home.com.pokedexapp.presentation.details.details_nested.others.OtherPropertiesViewModel
 import souza.home.com.pokedexapp.presentation.details.details_nested.others.OthersViewModel
 import souza.home.com.pokedexapp.presentation.details.details_nested.stats.PokeStatsViewModel
 
@@ -16,10 +17,8 @@ class NestedViewModelFactory(private val pokemon: Int, private val application: 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailsPokedexViewModel::class.java)) {
-            return DetailsPokedexViewModel(
-                pokemon,
-                application
-            ) as T
+            return DetailsPokedexViewModel(pokemon, application) as T
+
         }else if(modelClass.isAssignableFrom(PokeStatsViewModel::class.java)){
             return PokeStatsViewModel(pokemon, application) as T
 
@@ -35,6 +34,7 @@ class NestedViewModelFactory(private val pokemon: Int, private val application: 
         } else if(modelClass.isAssignableFrom(EvolutionsViewModel::class.java)){
             return EvolutionsViewModel(pokemon, application) as T
         }
+
         throw IllegalArgumentException(application.applicationContext.getString(R.string.unknown_viewmodel))
     }
 }

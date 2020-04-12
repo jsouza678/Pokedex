@@ -10,7 +10,7 @@ class Constants {
         const val ABILITY_TABLE_NAME = "ability"
         const val PROPERTY_TABLE_NAME = "property"
         const val POKE_LIMIT = 20
-        const val TIME_BACKGROUND_ANIMATION : Long = 300
+        const val TIME_BACKGROUND_ANIMATION : Long = 400
         const val LIMIT_NORMAL_POKES = 807
         const val LANGUAGE_DESCRIPTIONS = "en"
         const val EMPTY_STRING = ""

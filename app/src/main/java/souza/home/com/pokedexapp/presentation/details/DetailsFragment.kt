@@ -42,7 +42,10 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
         gallery = view.findViewById(R.id.image_slider_detail_fragment)
         val viewPager: DynamicHeightViewPager = view.findViewById(R.id.fragment_container_details)
         val tabs: TabLayout = view.findViewById(R.id.tab_layout_details_fragments)
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar_details_fragment)
         mImages = ArrayList()
+
+        toolbar.setNavigationOnClickListener(View.OnClickListener { activity!!.onBackPressed() })
 
         tvPokeName.text = pokeName.capitalize()
         val textId = "%03d".format(pokeId)
@@ -67,13 +70,8 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
         setViewPager(viewPager, sectionsPagerAdapter, tabs)
         initObservers()
 
-
-        val toolbar = view.findViewById<Toolbar>(R.id.toolbar_details_fragment)
-        toolbar.setNavigationOnClickListener(View.OnClickListener { activity!!.onBackPressed() })
-
         return view
     }
-
 
     private fun setViewPager(viewPager: ViewPager, sectionsPagerAdapter: SectionsPagerAdapter, tabs: TabLayout){
         viewPager.adapter = sectionsPagerAdapter
@@ -85,10 +83,11 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
             this.updateVariationsOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
                 if(it!=null){
                     setColor(it.color?.name, pokeId)
+                    }
+
                 }
-            }
             )
-            this.updatePropertiesOnViewLiveData()?.observe(this@DetailsFragment, Observer {
+            this.updatePropertiesOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
                 if(it!=null) {
                     val listResult = it
                     val auxList = mutableListOf<String>()
@@ -155,12 +154,5 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
                 travelGallery
             )
         gallery.adapter = galleryViewPager
-    }
-
-    override fun onStop() {
-        super.onStop()
-        this.viewModel.status.removeObservers(viewLifecycleOwner)
-        this.viewModel.poke.removeObservers(viewLifecycleOwner)
-        this.viewModel.color.removeObservers(viewLifecycleOwner)
     }
 }

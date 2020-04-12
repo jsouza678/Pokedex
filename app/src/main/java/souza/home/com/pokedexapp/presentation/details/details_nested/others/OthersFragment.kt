@@ -39,21 +39,25 @@ class OthersFragment(var pokemon: Int) : Fragment() {
         lvTypes = view.findViewById(R.id.list_view_types)
         lvAbilities = view.findViewById(R.id.list_view_abilities)
         typesArray = ArrayList<Types>()
+        typesArray.clear()
         abilitiesArray = ArrayList<AbilitiesMain>()
+        abilitiesArray.clear()
 
-        initializeAdapters(view)
 
-        viewModel = ViewModelProviders.of(activity!!,
-            NestedViewModelFactory(
-                pokemon,
-                activity!!.application
-            )
+        viewModel = ViewModelProviders.of(this,
+            activity?.application?.let {
+                NestedViewModelFactory(
+                    pokemon,
+                    activity!!.application
+                )
+            }
         )
             .get(OthersViewModel::class.java)
 
+        initializeAdapters(view)
         initType()
         initAbilities()
-        //initObservers
+        initObservers()
 
         return view
     }
@@ -74,37 +78,33 @@ class OthersFragment(var pokemon: Int) : Fragment() {
 
     private fun initObservers(){
         viewModel.apply {
-            this.status.observe(viewLifecycleOwner, Observer {
-                if (it == DetailsPokedexStatus.DONE) {
 
-
-                }
-            })
-        }
-    }
-
-    private fun initOutsideObserverAbilities(){
-        viewModel.apply {
-            this.statusAb.observe(viewLifecycleOwner, Observer {
-              /*  if (it == AbilityPokedexStatus.DONE) {
-                    openDialog(viewModel.abilityDesc.value)
-                    this.statusAb.removeObservers(viewLifecycleOwner)
-                }*/
-            })
-            this.updateAbilityOnViewLiveData()?.observe(this@OthersFragment, Observer {
+            /*this.statusAb.observe(viewLifecycleOwner, Observer {*/
+            /*  if (it == AbilityPokedexStatus.DONE) {
+                  openDialog(viewModel.abilityDesc.value)
+                  this.statusAb.removeObservers(viewLifecycleOwner)
+              }*/
+            /*})*/
+/*            this.updateAbilityOnViewLiveData()?.observe(this@OthersFragment, Observer {
                 createDialog(it.effect?.get(0)?.effect) // pickup the description on 0 position
                 this.statusAb.removeObservers(viewLifecycleOwner)
             })
             this.updateTypesOnViewLiveData()?.observe(this@OthersFragment, Observer {
-               // adapterTypes.submitList(it.types)
-            })
-            this.updateStatsOnViewLiveData()?.observe(this@OthersFragment, Observer {
-                it.abilities?.let { it1 -> adapterAbilities.submitList(it1) }
+               //
+            })*/
+            this.updateAbilitiesOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
+                if(it!=null){
+                    abilitiesArray = it.abilities!!
+                    typesArray = it.types!!
+                    adapterAbilities.submitList(abilitiesArray)
+                    adapterTypes.submitList(typesArray)
+                }
+
             })
         }
     }
 
-    private fun initOutsideObserverTypes(){
+    /*private fun initOutsideObserverTypes(){
         viewModel.apply {
             this.statusAb.observe(viewLifecycleOwner, Observer {
                 if (it == AbilityPokedexStatus.DONE){
@@ -112,7 +112,7 @@ class OthersFragment(var pokemon: Int) : Fragment() {
                     this.statusAb.removeObservers(viewLifecycleOwner)}
             })
         }
-    }
+    }*/
 
     private fun createDialog(message: String?){
         material = MaterialAlertDialogBuilder(context).setTitle("Ability Description").setPositiveButton("Dismiss", null)
@@ -128,9 +128,9 @@ class OthersFragment(var pokemon: Int) : Fragment() {
 
             val typeId = elementId?.let { cropTypeUrl(it) }?.let { Integer.parseInt(it) }
 
-            elementId?.let { typeId?.let { idType -> viewModel.getPokesInTypes(idType) } }
+/*            elementId?.let { typeId?.let { idType -> viewModel.getPokesInTypes(idType) } }
 
-            initOutsideObserverTypes()
+            initOutsideObserverTypes()*/
         }
     }
 
@@ -138,13 +138,13 @@ class OthersFragment(var pokemon: Int) : Fragment() {
         lvAbilities.adapter = adapterAbilities
 
         lvAbilities.setOnItemClickListener { parent, view, position, id ->
-            val elementId = adapterAbilities.getItem(position).ability.url// The item that was clicked
+            val elementId = adapterAbilities.getItem(position).ability.url
 
             val abilityId = Integer.parseInt( cropAbilityUrl(elementId))
 
-            viewModel.getAbilityDesc(abilityId)
+            /* viewModel.getAbilityDesc(abilityId)
 
-            initOutsideObserverAbilities()
+             initOutsideObserverAbilities()*/
         }
     }
 

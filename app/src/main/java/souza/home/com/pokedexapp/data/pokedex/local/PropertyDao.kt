@@ -9,7 +9,7 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.PROPERTY_TABLE_NAME
 interface PropertyDao{
 
     @Query("select * from $PROPERTY_TABLE_NAME where $PROPERTY_TABLE_NAME.id = :id")
-    fun getProperty(id: Int): LiveData<PropertyEntity?>?
+    fun getProperty(id: Int): LiveData<PropertyEntity>?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg pokes: PropertyEntity)

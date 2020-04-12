@@ -38,11 +38,11 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
     private val isConnected : Boolean = activeNetwork?.isConnected == true
 
     init{
+        _status.value = HomePokedexStatus.LOADING
         getPokes()
     }
 
     fun getPokes(){
-        _status.value = HomePokedexStatus.LOADING
         if(isConnected)(
                 try{
                     coroutineScope.launch {

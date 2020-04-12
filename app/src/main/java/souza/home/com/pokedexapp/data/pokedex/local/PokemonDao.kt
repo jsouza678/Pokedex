@@ -8,13 +8,13 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.POKE_TABLE_NAME
 
 @Dao
 interface PokemonDao{
-    @Query("SELECT * FROM $POKE_TABLE_NAME")
+    @Query("select * from $POKE_TABLE_NAME")
     fun getPokes(): LiveData<List<PokemonResponse>?>
 
-    @Query("SELECT * FROM $POKE_TABLE_NAME WHERE $POKE_TABLE_NAME._id = :pokeId")
+    @Query("select * from $POKE_TABLE_NAME where $POKE_TABLE_NAME._id = :pokeId")
     fun getPokesById(pokeId: Int): LiveData<List<PokemonResponse>?>
 
-    @Query("SELECT * FROM $POKE_TABLE_NAME WHERE $POKE_TABLE_NAME.name = :pokeName")
+    @Query("select * from $POKE_TABLE_NAME where $POKE_TABLE_NAME.name = :pokeName")
     fun getPokesByName(pokeName: String): LiveData<List<PokemonResponse>?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -21,7 +21,6 @@ fun cropTypeUrl(url: String) : String {
     return id
 }
 
-
 fun optimizeDescription(it: MutableList<FlavorDescription>?) : String {
     var description : String = ""
 
