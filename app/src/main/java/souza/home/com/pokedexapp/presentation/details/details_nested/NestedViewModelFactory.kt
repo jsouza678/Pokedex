@@ -3,10 +3,12 @@ package souza.home.com.pokedexapp.presentation.details.details_nested
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.presentation.details.DetailsPokedexViewModel
-import souza.home.com.pokedexapp.presentation.details.details_nested.about.PokeAboutViewModel
-import souza.home.com.pokedexapp.presentation.details.details_nested.evolution_chain.PokeChainViewModel
-import souza.home.com.pokedexapp.presentation.details.details_nested.others.PokeOthersViewModel
+import souza.home.com.pokedexapp.presentation.details.details_nested.about.AboutViewModel
+import souza.home.com.pokedexapp.presentation.details.details_nested.evolution_chain.EvolutionChainViewModel
+import souza.home.com.pokedexapp.presentation.details.details_nested.evolution_chain.EvolutionsViewModel
+import souza.home.com.pokedexapp.presentation.details.details_nested.others.OthersViewModel
 import souza.home.com.pokedexapp.presentation.details.details_nested.stats.PokeStatsViewModel
 
 class NestedViewModelFactory(private val pokemon: Int, private val application: Application) : ViewModelProvider.Factory {
@@ -21,15 +23,18 @@ class NestedViewModelFactory(private val pokemon: Int, private val application: 
         }else if(modelClass.isAssignableFrom(PokeStatsViewModel::class.java)){
             return PokeStatsViewModel(pokemon, application) as T
 
-        }else if(modelClass.isAssignableFrom(PokeAboutViewModel::class.java)){
-            return PokeAboutViewModel(pokemon, application) as T
+        }else if(modelClass.isAssignableFrom(AboutViewModel::class.java)){
+            return AboutViewModel(pokemon, application) as T
 
-        }else if(modelClass.isAssignableFrom(PokeChainViewModel::class.java)){
-            return PokeChainViewModel(pokemon, application) as T
+        }else if(modelClass.isAssignableFrom(EvolutionChainViewModel::class.java)){
+            return EvolutionChainViewModel(pokemon, application) as T
 
-        }else if(modelClass.isAssignableFrom(PokeOthersViewModel::class.java)){
-            return PokeOthersViewModel(pokemon, application) as T
+        }else if(modelClass.isAssignableFrom(OthersViewModel::class.java)){
+            return OthersViewModel(pokemon, application) as T
+
+        } else if(modelClass.isAssignableFrom(EvolutionsViewModel::class.java)){
+            return EvolutionsViewModel(pokemon, application) as T
         }
-        throw IllegalArgumentException("Unknown ViewModel Class")
+        throw IllegalArgumentException(application.applicationContext.getString(R.string.unknown_viewmodel))
     }
 }

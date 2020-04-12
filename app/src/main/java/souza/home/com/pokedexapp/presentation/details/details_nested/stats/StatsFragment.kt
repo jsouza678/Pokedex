@@ -78,16 +78,6 @@ class StatsFragment(var pokemon: Int) : Fragment() {
                     initStats(it)
                 }
             })
-
-            this.stats.observe(this@StatsFragment, Observer {
-                if(it!=null){
-                }
-            })
-            this.status.observe(this@StatsFragment, Observer {
-                if(it == DetailsPokedexStatus.DONE){
-
-                }
-            })
         }
     }
 

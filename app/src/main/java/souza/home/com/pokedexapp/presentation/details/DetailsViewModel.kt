@@ -12,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.data.pokedex.PropertiesRepositoryImpl
 import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
-import souza.home.com.pokedexapp.data.remote.PokeApi
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 
@@ -33,7 +32,7 @@ class DetailsPokedexViewModel(pokemon: Int, app: Application): AndroidViewModel(
     val poke : LiveData<MutableList<String>>
         get() = _poke
 
-    private val coroutineScope = CoroutineScope(Dispatchers.Main)
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     private val varietiesRepository =
         VarietiesRepositoryImpl(pokemon, app.applicationContext)
@@ -62,8 +61,6 @@ class DetailsPokedexViewModel(pokemon: Int, app: Application): AndroidViewModel(
     }
 
     private fun getSprites(pokemon: Int){
-
-        _status.value = DetailsPokedexStatus.LOADING
 
         coroutineScope.launch {
             propertiesRepository.refreshProperties(pokemon)

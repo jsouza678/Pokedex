@@ -7,12 +7,12 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.PROPERTY_TABLE_NAME
 @Entity (tableName = PROPERTY_TABLE_NAME)
 data class PropertyEntity constructor (
     @PrimaryKey
-    var id : Int, // change to string // was int
-    var abilities : String?, // was mutable list of poke abilitits
+    var id : Int,
+    var abilities : String?,
     var name: String?,
     var height: Int?,
-    var sprites: String?, // was pokesprites
-    var stats: String?, // was list of pokestats
-    var types: String?, // was mutable list of types
+    var sprites: String?,
+    var stats: String?,
+    var types: String?,
     var weight: Int?
 )

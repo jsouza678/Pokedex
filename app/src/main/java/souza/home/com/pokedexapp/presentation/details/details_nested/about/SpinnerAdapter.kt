@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.data.remote.model.PokemonResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PokemonResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
 
 class SpinnerAdapter (private val context: Context, private val dataList: MutableList<Varieties>) : BaseAdapter() {

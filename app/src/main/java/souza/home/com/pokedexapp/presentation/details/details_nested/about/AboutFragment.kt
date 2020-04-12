@@ -22,7 +22,7 @@ import souza.home.com.pokedexapp.utils.cropPokeUrl
 
 class AboutFragment(var pokemon: Int) : Fragment() {
 
-    private lateinit var viewModel: PokeAboutViewModel
+    private lateinit var viewModel: AboutViewModel
     private lateinit var spVariations : Spinner
     private lateinit var tvDesc : TextView
     private lateinit var varietiesArray: MutableList<Varieties>
@@ -47,10 +47,10 @@ class AboutFragment(var pokemon: Int) : Fragment() {
                 activity!!.application
             )
         )
-            .get(PokeAboutViewModel::class.java)
+            .get(AboutViewModel::class.java)
 
-        varietiesArray = ArrayList()
-        pokemonsArray = ArrayList()
+        varietiesArray = mutableListOf()
+        pokemonsArray = mutableListOf()
 
         adapterSpinner =
             SpinnerAdapter(
@@ -72,7 +72,6 @@ class AboutFragment(var pokemon: Int) : Fragment() {
                     pokemonsArray = it.varieties!!
                     tvDesc.text = it.description
                 }
-
             })
         }
     }
@@ -85,29 +84,30 @@ class AboutFragment(var pokemon: Int) : Fragment() {
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, p3: Long) {
                 spinnerSelected = position - 1
                 when(position){
-                    0 ->  {
-                    }
+                    0 ->  { } // Do Nothing. This is the hint position.
                     else-> {
-                        //Reload Fragment
-                        urlChain = pokemonsArray[spinnerSelected].pokemon._id
-
-                        pokePath = Integer.parseInt(cropPokeUrl(urlChain))
-
-                        if(pokePath == pokemon){
-                            Toast.makeText(context, "Same poke", Toast.LENGTH_SHORT).show()
-                        }else{
-                            view?.let { Snackbar.make(it, R.string.snackbar_loading_poke_evolution, BaseTransientBottomBar.LENGTH_SHORT).show() }
-                            val newPoke = pokemonsArray[spinnerSelected].pokemon.name
-                            val details = DetailsFragment(pokePath, newPoke)
-
-                            fragmentManager?.beginTransaction()
-                                ?.replace(R.id.nav_host_fragment, details)?.commit()
-                        }
+                        onSpinnerSelectedChange()
                     }
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>) {/* Do nothing when not selected" */ }
         }
+    }
 
+    private fun onSpinnerSelectedChange(){
+        urlChain = pokemonsArray[spinnerSelected].pokemon._id
+
+        pokePath = Integer.parseInt(cropPokeUrl(urlChain))
+
+        if(pokePath == pokemon){
+            Toast.makeText(context, "Same poke", Toast.LENGTH_SHORT).show()
+        }else{
+            view?.let { Snackbar.make(it, R.string.snackbar_loading_poke_evolution, BaseTransientBottomBar.LENGTH_SHORT).show() }
+            val newPoke = pokemonsArray[spinnerSelected].pokemon.name
+            val details = DetailsFragment(pokePath, newPoke)
+
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.nav_host_fragment, details)?.commit()
+        }
     }
 }

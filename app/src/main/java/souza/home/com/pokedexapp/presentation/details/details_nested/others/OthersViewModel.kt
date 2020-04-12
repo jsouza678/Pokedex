@@ -1,6 +1,9 @@
 package souza.home.com.pokedexapp.presentation.details.details_nested.others
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,15 +11,22 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import souza.home.com.pokedexapp.data.remote.PokeApi
+import souza.home.com.pokedexapp.data.pokedex.AbilitiesRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.PropertiesRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.TypesRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.remote.PokeApi
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PropertyResponse
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.NestedType
+import souza.home.com.pokedexapp.data.pokedex.remote.model.response.NestedType
+import souza.home.com.pokedexapp.domain.model.PokeAbility
+import souza.home.com.pokedexapp.domain.model.PokeProperty
+import souza.home.com.pokedexapp.domain.model.PokeType
+import souza.home.com.pokedexapp.domain.model.PokeVariety
 
 enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
 enum class AbilityPokedexStatus{ LOADING, ERROR, DONE}
 
-class PokeOthersViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
+class OthersViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
 
     private var _status = MutableLiveData<DetailsPokedexStatus>()
 
@@ -43,13 +53,27 @@ class PokeOthersViewModel(pokemon: Int, app: Application): AndroidViewModel(app)
     val other : LiveData<PropertyResponse>
         get() = _other
 
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
+
+    private val abilitiesRepository =
+        AbilitiesRepositoryImpl(pokemon, app.applicationContext)
+    private val typesRepository =
+        TypesRepositoryImpl(pokemon, app.applicationContext)
+    private val propertyRepository =
+        PropertiesRepositoryImpl(pokemon, app.applicationContext)
+
+    private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo
+    private val isConnected : Boolean = activeNetwork?.isConnected == true
+
+    fun updateAbilityOnViewLiveData(): LiveData<PokeAbility>? = abilitiesRepository.abilities
+    fun updateTypesOnViewLiveData(): LiveData<PokeType>? = typesRepository.types
+    fun updateStatsOnViewLiveData(): LiveData<PokeProperty>? = propertyRepository.properties
 
 
     init {
-        _pokeTypes.value = mutableListOf()
-        getOtherProperties(pokemon)
+        //_pokeTypes.value = mutableListOf()
+        // getOtherProperties(pokemon)
     }
 
     private fun getOtherProperties(pokemon: Int) {
@@ -57,7 +81,9 @@ class PokeOthersViewModel(pokemon: Int, app: Application): AndroidViewModel(app)
         _status.value = DetailsPokedexStatus.LOADING
 
         coroutineScope.launch {
-            val getStatsDeferred = PokeApi.retrofitService.getPokeStats(pokemon)
+            propertyRepository.refreshProperties(pokemon)
+
+           /* val getStatsDeferred = PokeApi.retrofitService.getPokeStats(pokemon)
             try{
                 val listResult = getStatsDeferred.await()
 
@@ -66,7 +92,7 @@ class PokeOthersViewModel(pokemon: Int, app: Application): AndroidViewModel(app)
 
             }catch(t: Throwable){
                 _status.value = DetailsPokedexStatus.ERROR
-            }
+            }*/
         }
     }
 
@@ -82,18 +108,19 @@ class PokeOthersViewModel(pokemon: Int, app: Application): AndroidViewModel(app)
         _statusAb.value = AbilityPokedexStatus.LOADING
 
         coroutineScope.launch {
-            val getAbilityDeferred = PokeApi.retrofitService.getAbilityData(abilityId)
+            abilitiesRepository.refreshAbilities(abilityId)
+         /*   val getAbilityDeferred = PokeApi.retrofitService.getAbilityData(abilityId)
 
             try{
                 val abilityData = getAbilityDeferred.await()
 
-                _abilityDesc.value = abilityData.effect[0].effect
+                _abilityDesc.value = abilityData.effect?.get(0)?.effect
 
                 _statusAb.value = AbilityPokedexStatus.DONE
 
             }catch(t: Throwable){
                 _statusAb.value = AbilityPokedexStatus.ERROR
-            }
+            }*/
         }
     }
 
@@ -102,7 +129,8 @@ class PokeOthersViewModel(pokemon: Int, app: Application): AndroidViewModel(app)
         _statusAb.value = AbilityPokedexStatus.LOADING
 
         coroutineScope.launch {
-            val getTypesDeferred = PokeApi.retrofitService.getTypeData(typeId)
+            typesRepository.refreshtypes(typeId)
+            /*val getTypesDeferred = PokeApi.retrofitService.getTypeData(typeId)
 
             try{
                 val typesData = getTypesDeferred.await()
@@ -112,7 +140,7 @@ class PokeOthersViewModel(pokemon: Int, app: Application): AndroidViewModel(app)
                 _statusAb.value = AbilityPokedexStatus.DONE
             }catch(t: Throwable){
                 _statusAb.value = AbilityPokedexStatus.ERROR
-            }
+            }*/
         }
     }
 

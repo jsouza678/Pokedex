@@ -6,21 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.Evolution
 import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewModelFactory
+import souza.home.com.pokedexapp.utils.cropPokeUrl
 
 class EvolutionChainFragment(var pokemon: Int) : Fragment() {
 
-    private lateinit var viewModel: PokeChainViewModel
-    private lateinit var poke: String
+    private lateinit var viewModel: EvolutionChainViewModel
     private lateinit var lvChain : ListView
     private lateinit var adapterChain : EvolutionChainAdapter
     private lateinit var evolutionArray: MutableList<Evolution>
-    private var evolutionPath: String? = ""
+    private lateinit var listString : MutableList<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,23 +29,28 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_chain, container, false)
-
+        lvChain = view.findViewById(R.id.lv_chain)
+        listString = mutableListOf<String>()
         viewModel = ViewModelProviders.of(this,
             NestedViewModelFactory(
                 pokemon,
                 activity!!.application
             )
         )
-            .get(PokeChainViewModel::class.java)
+            .get(EvolutionChainViewModel::class.java)
 
-        evolutionArray = ArrayList()
-        lvChain = view.findViewById(R.id.lv_chain)
+        evolutionArray = mutableListOf<Evolution>()
+        evolutionArray.clear()
+
+        listString = mutableListOf()
 
         adapterChain =
             EvolutionChainAdapter(
                 view.context,
-                evolutionArray
+                listString
             )
+
+
 
         initObservers()
 
@@ -55,25 +61,37 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
         viewModel.apply {
 
             this.updateVariationsOnViewLiveData()?.observe(this@EvolutionChainFragment, Observer {
-                evolutionPath = it.evolution_chain?.url
-                evolutionPath?.let { it1 -> loadEvolutionChain(it1) }
-            })
-            this.chain.observe(viewLifecycleOwner, Observer {
-                initChainEvolution()
-                adapterChain.submitList(it)
-            })
+                    val evolutionPath = it.evolution_chain?.url
+                    val evolutionCropped = evolutionPath?.let { url -> cropPokeUrl(url) }
 
-            this.status.observe(this@EvolutionChainFragment, Observer {
-                if(it == DetailsPokedexStatus.DONE){
-
-                }
+                evolutionCropped?.let { it1 -> initEvolutionChainViewModel(it1) }
             })
         }
+    }
+
+    private fun initEvolutionChainViewModel(evolutionCropped: String){
+        val viewModel = ViewModelProviders.of(this@EvolutionChainFragment,
+            NestedViewModelFactory(
+                Integer.parseInt(evolutionCropped),
+                activity!!.application
+            )
+        )
+            .get(EvolutionsViewModel::class.java)
+
+        initSecondaryObserver(viewModel)
+    }
+
+    private fun initSecondaryObserver(viewModel: EvolutionsViewModel){
+        viewModel.updateEvolutionOnViewLiveData()?.observe(this@EvolutionChainFragment, Observer {
+            if(it!=null){
+                listString = it.evolution!!
+                initChainEvolution()
+                adapterChain.submitList(listString)
+            }
+        })
     }
 
     private fun initChainEvolution(){
         lvChain.adapter = adapterChain
     }
-
-
 }

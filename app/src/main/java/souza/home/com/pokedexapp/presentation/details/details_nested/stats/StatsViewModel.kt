@@ -12,11 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.data.pokedex.PropertiesRepositoryImpl
-import souza.home.com.pokedexapp.data.remote.PokeApi
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PropertyResponse
 import souza.home.com.pokedexapp.domain.model.PokeProperty
-
-enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 
 class PokeStatsViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
 
@@ -43,7 +40,7 @@ class PokeStatsViewModel(pokemon: Int, app: Application): AndroidViewModel(app) 
 
     init {
         if(isConnected){
-       //     getStats(pokemon)
+            getStats(pokemon)
         }
     }
 
@@ -54,16 +51,6 @@ class PokeStatsViewModel(pokemon: Int, app: Application): AndroidViewModel(app) 
         coroutineScope.launch {
             propertiesRepository.refreshProperties(pokemon)
             _status.value = DetailsPokedexStatus.DONE
-       /*     val getStatsDeferred = PokeApi.retrofitService.getPokeStats(pokemon)
-            try{
-                val listResult = getStatsDeferred.await()
-
-                _stats.value = listResult
-                _status.value = DetailsPokedexStatus.DONE
-
-            }catch(t: Throwable){
-                _status.value = DetailsPokedexStatus.ERROR
-            }*/
         }
     }
 
@@ -72,3 +59,5 @@ class PokeStatsViewModel(pokemon: Int, app: Application): AndroidViewModel(app) 
         Job().cancel()
     }
 }
+
+enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}

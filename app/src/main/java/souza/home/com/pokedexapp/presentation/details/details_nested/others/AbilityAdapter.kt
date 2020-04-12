@@ -13,7 +13,6 @@ class AbilityAdapter (private val context: Context, private val dataList: Mutabl
 
     private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-
     fun submitList(newData: MutableList<AbilitiesMain>){
         if(dataList.isNotEmpty()){
             dataList.clear()
@@ -31,7 +30,6 @@ class AbilityAdapter (private val context: Context, private val dataList: Mutabl
         return rowView
     }
 
-
     override fun getItem(position: Int): AbilitiesMain {
         return dataList[position]
     }
@@ -39,8 +37,6 @@ class AbilityAdapter (private val context: Context, private val dataList: Mutabl
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
-
-
 
     override fun getCount(): Int {
         return dataList.size

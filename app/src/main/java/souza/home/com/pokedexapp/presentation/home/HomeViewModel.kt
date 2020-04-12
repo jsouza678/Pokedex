@@ -10,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.PokemonRepositoryImpl
 import souza.home.com.pokedexapp.domain.model.Poke
 import souza.home.com.pokedexapp.utils.Constants.Companion.POKE_LIMIT
@@ -28,8 +29,7 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
 
     fun updatePokeslListOnViewLiveData(): LiveData<List<Poke>?> = pokesRepository.pokes
 
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.IO)
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     private val pokesRepository = PokemonRepositoryImpl(app.applicationContext)
 
@@ -74,7 +74,6 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
 
     override fun onCleared() {
         super.onCleared()
-        Job().cancel()
     }
 
     class Factory(val app: Application): ViewModelProvider.Factory{
@@ -83,7 +82,7 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
                 @Suppress("UNCHECKED_CAST")
                 return HomePokedexViewModel(app) as T
             }
-            throw IllegalArgumentException("Viewmodel unknown")
+            throw IllegalArgumentException(app.applicationContext.getString(R.string.unknown_viewmodel))
         }
     }
 

@@ -10,14 +10,14 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.NestedType
+import souza.home.com.pokedexapp.data.pokedex.remote.model.response.NestedType
 import souza.home.com.pokedexapp.presentation.details.DetailsFragment
 import souza.home.com.pokedexapp.utils.cropPokeUrl
 
 class TypesDialog(private val pList: MutableList<NestedType>) : DialogFragment() {
 
     private lateinit var pokesList : MutableList<NestedType>
-    private lateinit var adapter: PokesTypesDialogAdapter
+    private lateinit var adapter: TypesDialogAdapter
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var recyclerView: RecyclerView
     private lateinit var buttonDismiss: Button
@@ -32,7 +32,7 @@ class TypesDialog(private val pList: MutableList<NestedType>) : DialogFragment()
         val alert = AlertDialog.Builder(activity)
         alert.setView(view)
 
-        adapter = PokesTypesDialogAdapter(pokesList, view.context)
+        adapter = TypesDialogAdapter(pokesList, view.context)
         layoutManager = GridLayoutManager(context, 2)
         recyclerView.layoutManager = layoutManager
 

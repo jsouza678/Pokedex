@@ -4,6 +4,9 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesMain
+import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.Evolution
+import souza.home.com.pokedexapp.data.pokedex.remote.model.response.AbilitiesDescription
+import souza.home.com.pokedexapp.data.pokedex.remote.model.response.NestedType
 import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.Sprites
 import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.Stats
 import souza.home.com.pokedexapp.data.pokedex.remote.model.type.Types
@@ -15,6 +18,36 @@ class TypeConverter {
 
     companion object{
         private var gson = Gson()
+
+        @TypeConverter
+        fun fromNestedType(nestedType: MutableList<NestedType>?): String? {
+            if (nestedType == null) { return null }
+            gson = Gson()
+            val type = object : TypeToken<MutableList<NestedType>>() {
+            }.type
+
+            return gson.toJson(nestedType, type)
+        }
+
+        @TypeConverter
+        fun fromAbilityDescription(ability: MutableList<AbilitiesDescription>?): String?{
+            if(ability == null){ return null }
+            gson = Gson()
+            val type = object: TypeToken<MutableList<AbilitiesDescription>>(){
+            }.type
+
+            return gson.toJson(ability, type)
+        }
+
+        @TypeConverter
+        fun fromEvolution(evolution: MutableList<String>?): String?{
+            if(evolution == null){ return null }
+            gson = Gson()
+            val type = object: TypeToken<MutableList<String>>(){
+            }.type
+
+            return gson.toJson(evolution, type)
+        }
 
         @TypeConverter
         fun fromAbilities(pokeAbilities: MutableList<AbilitiesMain>?): String?{
@@ -77,7 +110,7 @@ class TypeConverter {
         }
 
         @TypeConverter
-        fun fromEvolutionChain(evolutionChain: EvolutionPath?): String? {
+        fun fromEvolutionPath(evolutionChain: EvolutionPath?): String? {
             if (evolutionChain == null) { return null }
             gson = Gson()
             val type = object : TypeToken<EvolutionPath>() {
@@ -154,6 +187,36 @@ class TypeConverter {
             }.type
 
             return gson.fromJson(pokeTypes, type)
+        }
+
+        @TypeConverter
+        fun toNestedTypesList(nestedType: String?): MutableList<NestedType>?{
+            if(nestedType == null){ return null }
+            gson = Gson()
+            val type = object: TypeToken<MutableList<Types>>(){
+            }.type
+
+            return gson.fromJson(nestedType, type)
+        }
+
+        @TypeConverter
+        fun toAbilityDescriptionList(pokeAbilities: String?): MutableList<AbilitiesDescription>?{
+            if(pokeAbilities == null){ return null }
+            gson = Gson()
+            val type = object: TypeToken<MutableList<Types>>(){
+            }.type
+
+            return gson.fromJson(pokeAbilities, type)
+        }
+
+        @TypeConverter
+        fun toEvolution(evolution: String?): MutableList<String>?{
+            if(evolution == null){ return null }
+            gson = Gson()
+            val type = object: TypeToken<MutableList<String>>(){
+            }.type
+
+            return gson.fromJson(evolution, type)
         }
     }
 }

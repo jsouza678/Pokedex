@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.poke_item_view.view.*
 import souza.home.com.pokedexapp.R
 import souza.home.com.extensions.loadUrl
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.NestedType
+import souza.home.com.pokedexapp.data.pokedex.remote.model.response.NestedType
 
 
-class PokesTypesDialogAdapter(private val pokes: MutableList<NestedType>?, private val context: Context) : RecyclerView.Adapter<PokesTypesDialogAdapter.ViewHolder>() {
+class TypesDialogAdapter(private val pokes: MutableList<NestedType>?, private val context: Context) : RecyclerView.Adapter<TypesDialogAdapter.ViewHolder>() {
 
     var onItemClick: ((NestedType) -> Unit)? = null
     private val imageResourceUrl = "https://pokeres.bastionbot.org/images/pokemon/"

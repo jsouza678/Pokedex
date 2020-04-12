@@ -1,4 +1,4 @@
-package souza.home.com.pokedexapp.data.remote
+package souza.home.com.pokedexapp.data.pokedex.remote
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
@@ -9,12 +9,12 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AllAbilitiesResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.model.response.EvolutionChainResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.model.pokemon.PokeRootProperty
-import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AllAbilities
-import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.EvolutionChain
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PropertyResponse
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.AllTypes
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.VarietiesResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.model.type.AllTypesResponse
 import souza.home.com.pokedexapp.utils.Constants.Companion.POKE_API_BASE_URL
 
 private val moshi = Moshi.Builder()
@@ -27,33 +27,36 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(POKE_API_BASE_URL)
     .build()
 
-interface PokeService{
+interface PokedexService {
     @GET("pokemon/?")
     fun getPokes(@Query("offset") page: Int?):
             Deferred<PokeRootProperty>   // Cached
 
     @GET("pokemon/{poke}")
-    fun getPokeStats(@Path("poke") poke: Int?):  // Needs to be cached
-            Deferred<PropertyResponse>
+    fun getPokeStats(@Path("poke") poke: Int?):
+            Deferred<PropertyResponse> // Cached
 
     @GET("evolution-chain/{id}")
-    fun getEvolutionChain(@Path("id") id : Int?):
-            Deferred<EvolutionChain>
+    fun getEvolutionChain(@Path("id") id: Int?):
+            Deferred<EvolutionChainResponse> // needs to be cached
 
     @GET("pokemon-species/{id}")
-    fun getVariations(@Path("id") id : Int?):
+    fun getVariations(@Path("id") id: Int?):
             Deferred<VarietiesResponse>  // Cached
 
     @GET("type/{id}")
     fun getTypeData(@Path("id") id: Int?):
-            Deferred<AllTypes>
+            Deferred<AllTypesResponse> // needs to be cached
 
     @GET("ability/{id}")
     fun getAbilityData(@Path("id") id: Int):
-            Deferred<AllAbilities>
+            Deferred<AllAbilitiesResponse> // needs to be cached
 }
 
-object PokeApi{
-    val retrofitService: PokeService by lazy { retrofit.create(
-        PokeService::class.java) }
+object PokeApi {
+    val retrofitService: PokedexService by lazy {
+        retrofit.create(
+            PokedexService::class.java
+        )
+    }
 }

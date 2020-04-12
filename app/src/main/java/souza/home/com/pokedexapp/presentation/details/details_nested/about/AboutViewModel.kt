@@ -14,15 +14,14 @@ import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 
-class PokeAboutViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
+class AboutViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
 
     private var _status = MutableLiveData<DetailsPokedexStatus>()
 
     val status : LiveData<DetailsPokedexStatus>
         get() = _status
 
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     fun updateVariationsOnViewLiveData(): LiveData<PokeVariety>? = varietiesRepository.varieties
 
@@ -47,11 +46,6 @@ class PokeAboutViewModel(pokemon: Int, app: Application): AndroidViewModel(app) 
             varietiesRepository.refreshVarieties(pokemon)
         }
         DetailsPokedexStatus.DONE
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        Job().cancel()
     }
 }
 
