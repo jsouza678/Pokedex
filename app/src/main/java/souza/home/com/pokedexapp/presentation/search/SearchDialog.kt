@@ -3,6 +3,7 @@ package souza.home.com.pokedexapp.presentation.search
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -112,16 +113,14 @@ class SearchDialog() : DialogFragment() {
             this.updatePokeslListOnViewLiveData().observe(this@SearchDialog, Observer {
                 if(it!=null){
                     if(it.isEmpty()){
-                        constraintDefaultLayout.gone()
-                        constraintErrorLayout.visible()
+                        errorMessage()
                     }else{
                         adapter.submitList(it as MutableList<Poke>)
                         val textResult = getString(R.string.pokemon_found_search_1) + it.size + getString(R.string.pokemon_found_search_2)
                         textViewResult.text = textResult
                     }
                 }else{
-                    constraintDefaultLayout.gone()
-                    constraintErrorLayout.visible()
+                    errorMessage()
                 }
             })
         }
@@ -130,6 +129,19 @@ class SearchDialog() : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isCancelable = false
+    }
+
+    private fun toggleErrorVisibility(){
+        constraintDefaultLayout.gone()
+        constraintErrorLayout.visible()
+    }
+
+    private fun errorMessage(){
+        val homeFragment = HomeFragment()
+        toggleErrorVisibility()
+        Handler().postDelayed({ fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment, homeFragment)?.commit()
+            dismiss()
+        }, 2000)
     }
 
     private fun setTransitionToPokeDetails(){
@@ -142,6 +154,4 @@ class SearchDialog() : DialogFragment() {
             dismiss()
         }
     }
-
-
 }

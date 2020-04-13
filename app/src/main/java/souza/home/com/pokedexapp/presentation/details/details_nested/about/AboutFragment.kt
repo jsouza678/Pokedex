@@ -9,15 +9,19 @@ import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import souza.home.com.extensions.gone
+import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
 import souza.home.com.pokedexapp.presentation.details.DetailsFragment
 import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewModelFactory
 import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
+import souza.home.com.pokedexapp.utils.Constants.Companion.LIMIT_NORMAL_POKES
 import souza.home.com.pokedexapp.utils.cropPokeUrl
 
 class AboutFragment(var pokemon: Int) : Fragment() {
@@ -28,6 +32,8 @@ class AboutFragment(var pokemon: Int) : Fragment() {
     private lateinit var varietiesArray: MutableList<Varieties>
     private lateinit var pokemonsArray: MutableList<Varieties>
     private lateinit var adapterSpinner : SpinnerAdapter
+    private lateinit var constraintDefault : ConstraintLayout
+    private lateinit var constraintEvolution : ConstraintLayout
     private var pokePath : Int = 0
     private var urlChain : String = EMPTY_STRING
     private var spinnerSelected: Int = 0
@@ -40,6 +46,8 @@ class AboutFragment(var pokemon: Int) : Fragment() {
         val view = inflater.inflate(R.layout.fragment_poke_about, container, false)
         tvDesc = view.findViewById(R.id.tv_poke_desc)
         spVariations = view.findViewById(R.id.spinner_variations)
+        constraintDefault = view.findViewById(R.id.container_default_about)
+        constraintEvolution = view.findViewById(R.id.container_misterious_about)
 
         viewModel = ViewModelProviders.of(this,
             activity?.application?.let {
@@ -59,6 +67,11 @@ class AboutFragment(var pokemon: Int) : Fragment() {
                 view.context,
                 pokemonsArray
             )
+
+        if(pokemon > LIMIT_NORMAL_POKES){
+            constraintDefault.gone()
+            constraintEvolution.visible()
+        }
 
         initObservers()
 

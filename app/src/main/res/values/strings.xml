@@ -35,6 +35,7 @@
     <string name="button_text_dismiss">Dismiss</string>
     <string name="content_description_sprite_background">Sprite background used on home and details screen</string>
     <string name="unknown_viewmodel">Unknown ViewModel Class</string>
+    <string name="no_internet_connection">No Internet Connection</string>
     <string-array name="poke_spinner_mock">
         <item>None</item>
         <item>Pikachu</item>
@@ -49,8 +50,12 @@
     <string name="type_your_search_here_hint">Type your search here</string>
     <string name="redirect_search_to_home_message">Redirecting to the home page</string>
     <string name="input_text_search_dialog">Error on this field.</string>
-    <string name="pokemon_found_search_1">We\'ve found </string>
-    <string name="pokemon_found_search_2">pokemons with this type</string>
+    <string name="pokemon_found_search_1">We\'ve found&#160;</string>
+    <string name="pokemon_found_search_2">&#160;pokemons with this type</string>
     <string name="text_view_custom_alert_dialog_types_body">We\'ve found pokemons with this type</string>
     <string name="error_message_search_dialog">Unfortunately we have not found any pokes. \n You will be redirected to the Home Screen to discover more pokes!</string>
+    <string name="ability_dialog_title">Ability Description</string>
+    <string name="misterious_poke_evolution_message">This poke is an evolution!\n We don\'t know much about him.\n All we now is that he\'s dangerous.\n\n Take care!</string>
+    <string name="content_description_misterious_poke_evolution">Poke Evolution - He\'s misterious</string>
+    <string name="no_conectivity">No conectivity</string>
 </resources>

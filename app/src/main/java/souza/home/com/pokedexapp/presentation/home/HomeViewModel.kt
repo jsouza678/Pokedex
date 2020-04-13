@@ -8,12 +8,10 @@ import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.PokemonRepositoryImpl
 import souza.home.com.pokedexapp.domain.model.Poke
-import souza.home.com.pokedexapp.utils.Constants.Companion.POKE_LIMIT
 import java.lang.IllegalArgumentException
 
 class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
@@ -83,4 +81,4 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
     }
 }
 
-enum class HomePokedexStatus{ LOADING, ERROR, DONE, EMPTY}
+enum class HomePokedexStatus{ LOADING, ERROR, DONE}

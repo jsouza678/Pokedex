@@ -1,24 +1,23 @@
 package souza.home.com.pokedexapp.presentation.home
 
 import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.presentation.details.DetailsFragment
+import com.google.android.material.snackbar.Snackbar
 import souza.home.com.extensions.gone
 import souza.home.com.extensions.visible
+import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.domain.model.Poke
-import souza.home.com.pokedexapp.presentation.search.SearchDialog
+import souza.home.com.pokedexapp.presentation.details.DetailsFragment
 import souza.home.com.pokedexapp.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
 
 class HomeFragment : Fragment() {
@@ -56,7 +55,7 @@ class HomeFragment : Fragment() {
         initRecyclerView(viewModel)
 
         floatingActionButton.setOnClickListener {
-            Toast.makeText(view.context, "FAB is clicked...", Toast.LENGTH_LONG).show()
+            recyclerView.scrollToPosition(0)
         }
 
         initObservers(viewModel)
@@ -75,7 +74,7 @@ class HomeFragment : Fragment() {
                 when(it){
                     HomePokedexStatus.DONE->{ turnOffProgressBar() }
                     HomePokedexStatus.LOADING-> turnOnProgressBar()
-                    HomePokedexStatus.ERROR-> Toast.makeText(context, "No conectivity", Toast.LENGTH_SHORT).show()
+                    HomePokedexStatus.ERROR-> view?.let { it1 -> Snackbar.make(it1, getString(R.string.no_conectivity), 400).show() }
                     else-> turnOffProgressBar()
                 }
             })

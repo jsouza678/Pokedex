@@ -1,53 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:visibility="visible"
     tools:context=".presentation.details.details_nested.about.AboutFragment">
 
-    <TextView
-        android:id="@+id/tv_poke_desc"
-        android:layout_width="@dimen/match_constraint"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_misterious_about"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/material_margin_16"
-        android:layout_marginTop="@dimen/material_margin_16"
-        android:layout_marginEnd="@dimen/material_margin_16"
-        tools:text="@string/mock_body_desc"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textAlignment="center"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:ellipsize="end"
-        android:maxLines="3"/>
-
-    <TextView
-        android:id="@+id/tv_variations"
-        style="@style/poke_name_detail_style"
-        android:layout_width="@dimen/match_constraint"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/material_margin_16"
-        android:layout_marginTop="@dimen/material_margin_24"
-        android:layout_marginEnd="@dimen/material_margin_16"
-        android:gravity="center"
-        android:text="@string/text_view_poke_variations"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_poke_desc" />
-
-    <Spinner
-        android:id="@+id/spinner_variations"
-        android:layout_width="@dimen/match_constraint"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/material_margin_16"
-        android:layout_marginTop="@dimen/material_margin_8"
-        android:layout_marginEnd="@dimen/material_margin_16"
-        android:layout_marginBottom="@dimen/material_margin_16"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_variations"
-        tools:listitem="@tools:sample/cities[0]"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/text_view_misterious_poke"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/material_margin_8"
+            android:layout_marginTop="@dimen/material_margin_8"
+            android:layout_marginEnd="@dimen/material_margin_8"
+            android:fontFamily="@font/open_sans"
+            android:text="@string/misterious_poke_evolution_message"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_view_misterious_poke"
+            android:layout_width="@dimen/background_sprite_size"
+            android:layout_height="@dimen/background_sprite_size"
+            android:layout_marginStart="@dimen/material_margin_8"
+            android:layout_marginTop="@dimen/material_margin_8"
+            android:layout_marginEnd="@dimen/material_margin_8"
+            android:layout_marginBottom="@dimen/material_margin_8"
+            android:contentDescription="@string/content_description_misterious_poke_evolution"
+            android:src="@drawable/place_holder"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_misterious_poke" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_default_about"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/about_poke_description"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_poke_desc"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/material_margin_16"
+            android:layout_marginTop="@dimen/material_margin_8"
+            android:layout_marginEnd="@dimen/material_margin_16"
+            android:layout_marginBottom="@dimen/material_margin_16"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/tv_variations"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/mock_body_desc" />
+
+        <TextView
+            android:id="@+id/tv_variations"
+            style="@style/poke_name_detail_style"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/material_margin_16"
+            android:layout_marginTop="@dimen/material_margin_24"
+            android:layout_marginEnd="@dimen/material_margin_16"
+            android:gravity="center"
+            android:text="@string/text_view_poke_variations"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_poke_desc" />
+
+        <Spinner
+            android:id="@+id/spinner_variations"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/material_margin_16"
+            android:layout_marginTop="@dimen/material_margin_8"
+            android:layout_marginEnd="@dimen/material_margin_16"
+            android:layout_marginBottom="@dimen/material_margin_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_variations"
+            tools:listitem="@tools:sample/cities[0]" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

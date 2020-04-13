@@ -9,7 +9,6 @@ class DynamicHeightViewPager @JvmOverloads constructor(context: Context, attrs: 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         var heightMeasureSpec = heightMeasureSpec
 
-
         var height = 0
         for (i in 0 until childCount) {
             val child = getChildAt(i)
@@ -17,12 +16,9 @@ class DynamicHeightViewPager @JvmOverloads constructor(context: Context, attrs: 
             val h = child.measuredHeight
             if (h > height) height = h
         }
-
         if (height != 0) {
             heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
         }
-
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
-
 }

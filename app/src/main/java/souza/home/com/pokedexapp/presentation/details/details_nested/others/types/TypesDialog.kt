@@ -5,12 +5,14 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.NestedType
 import souza.home.com.pokedexapp.presentation.details.DetailsFragment
+import souza.home.com.pokedexapp.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
 import souza.home.com.pokedexapp.utils.cropPokeUrl
 
 class TypesDialog(private val pList: MutableList<NestedType>) : DialogFragment() {
@@ -20,24 +22,28 @@ class TypesDialog(private val pList: MutableList<NestedType>) : DialogFragment()
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var recyclerView: RecyclerView
     private lateinit var buttonDismiss: Button
+    private lateinit var textViewResult: TextView
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view : View = activity?.layoutInflater?.inflate(R.layout.fragment_poke_types_dialog, null)!!
 
         recyclerView = view.findViewById(R.id.recycler_view_poke_search_alert)
         buttonDismiss = view.findViewById(R.id.button_dismiss_custom_search_dialog)
+        textViewResult = view.findViewById(R.id.text_view_custom_alert_dialog_label)
 
         pokesList = pList
         val alert = AlertDialog.Builder(activity)
         alert.setView(view)
 
         adapter = TypesDialogAdapter(pokesList, view.context)
-        layoutManager = GridLayoutManager(context, 2)
+        layoutManager = GridLayoutManager(context, TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW)
         recyclerView.layoutManager = layoutManager
 
         recyclerView.adapter = adapter
 
         setTransitionToPokeDetails()
+        val listSize = getString(R.string.pokemon_found_search_1) + pokesList.size + getString(R.string.pokemon_found_search_2)
+        textViewResult.text = listSize
 
         buttonDismiss.setOnClickListener {
             dismiss()
@@ -48,6 +54,7 @@ class TypesDialog(private val pList: MutableList<NestedType>) : DialogFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        isCancelable = false
     }
 
     private fun setTransitionToPokeDetails(){

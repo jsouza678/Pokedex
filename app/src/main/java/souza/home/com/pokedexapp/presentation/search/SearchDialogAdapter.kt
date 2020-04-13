@@ -38,7 +38,7 @@ class SearchDialogAdapter(private val pokes: MutableList<Poke>?, private val con
     }
 
     override fun getItemCount(): Int {
-        if (pokes != null) {
+        if(pokes != null) {
             return pokes.size
         }else{
             return 0
@@ -53,14 +53,14 @@ class SearchDialogAdapter(private val pokes: MutableList<Poke>?, private val con
         private val pokeName: TextView = itemView.text_view_name_poke_recycler
         private val pokeImage: ImageView = itemView.image_view_poke_sprite_recycler
         private val pokeId: TextView = itemView.text_view_id_poke_recycler
-        private var formatedNumber: String = EMPTY_STRING
+        private var formattedNumber: String = EMPTY_STRING
         private var pokemonId : Int = 0
 
         fun itemBind(pokes: Poke){
             pokeName.text = pokes.name
             pokemonId = pokes._id
-            formatedNumber= FORMAT_ID_POKE_DISPLAY.format(pokemonId)
-            pokeId.text = context?.resources?.getString(R.string.text_view_placeholder_hash, formatedNumber)
+            formattedNumber= FORMAT_ID_POKE_DISPLAY.format(pokemonId)
+            pokeId.text = context?.resources?.getString(R.string.text_view_placeholder_hash, formattedNumber)
             pokeImage.loadUrl("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION")
         }
 

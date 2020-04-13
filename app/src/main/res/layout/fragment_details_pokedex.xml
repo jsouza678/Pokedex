@@ -50,7 +50,7 @@
         android:id="@+id/down_fragments_container"
         style="@style/CustomCardViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/match_constraint"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -61,21 +61,37 @@
 
             <TextView
                 android:id="@+id/text_view_poke_name_detail"
+                style="@style/poke_name_detail_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@id/tab_layout_details_fragments"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/mock_poke_name_details"
-                style="@style/poke_name_detail_style" />
+                tools:text="@string/mock_poke_name_details" />
+
+            <TextView
+                android:id="@+id/text_view_poke_id_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/material_margin_16"
+                android:layout_marginTop="@dimen/material_margin_4"
+                android:layout_marginEnd="@dimen/material_margin_16"
+                app:layout_constraintBottom_toTopOf="@id/tab_layout_details_fragments"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_poke_name_detail"
+                tools:text="@string/mock_text_view_poke_id_details" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout_details_fragments"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/material_margin_8"
+                android:layout_marginTop="@dimen/material_margin_4"
                 android:background="@color/real_white"
+                app:layout_constraintBottom_toTopOf="@+id/fragment_container_details"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_view_poke_id_detail"
                 app:tabSelectedTextColor="@color/blue_poke"
                 app:tabTextAppearance="@style/custom_tab_text_style"
@@ -88,20 +104,10 @@
                 android:background="@color/real_white"
                 app:layout_anchor="@id/tab_layout_details_fragments"
                 app:layout_anchorGravity="bottom"
-                app:layout_constraintTop_toBottomOf="@id/tab_layout_details_fragments" />
-
-            <TextView
-                android:id="@+id/text_view_poke_id_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/material_margin_16"
-                android:layout_marginTop="@dimen/material_margin_4"
-                android:layout_marginEnd="@dimen/material_margin_16"
-                tools:text="@string/mock_text_view_poke_id_details"
-                app:layout_constraintBottom_toTopOf="@id/tab_layout_details_fragments"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_poke_name_detail" />
+                app:layout_constraintTop_toBottomOf="@id/tab_layout_details_fragments" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

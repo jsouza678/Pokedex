@@ -8,7 +8,6 @@ import souza.home.com.pokedexapp.presentation.details.DetailsPokedexViewModel
 import souza.home.com.pokedexapp.presentation.details.details_nested.about.AboutViewModel
 import souza.home.com.pokedexapp.presentation.details.details_nested.evolution_chain.EvolutionChainViewModel
 import souza.home.com.pokedexapp.presentation.details.details_nested.evolution_chain.EvolutionsViewModel
-import souza.home.com.pokedexapp.presentation.details.details_nested.others.OtherPropertiesViewModel
 import souza.home.com.pokedexapp.presentation.details.details_nested.others.OthersViewModel
 import souza.home.com.pokedexapp.presentation.details.details_nested.stats.PokeStatsViewModel
 

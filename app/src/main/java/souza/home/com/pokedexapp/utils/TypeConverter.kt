@@ -20,26 +20,6 @@ class TypeConverter {
         private var gson = Gson()
 
         @TypeConverter
-        fun fromNestedType(nestedType: MutableList<NestedType>?): String? {
-            if (nestedType == null) { return null }
-            gson = Gson()
-            val type = object : TypeToken<MutableList<NestedType>>() {
-            }.type
-
-            return gson.toJson(nestedType, type)
-        }
-
-        @TypeConverter
-        fun fromAbilityDescription(ability: MutableList<AbilitiesDescription>?): String?{
-            if(ability == null){ return null }
-            gson = Gson()
-            val type = object: TypeToken<MutableList<AbilitiesDescription>>(){
-            }.type
-
-            return gson.toJson(ability, type)
-        }
-
-        @TypeConverter
         fun fromEvolution(evolution: MutableList<String>?): String?{
             if(evolution == null){ return null }
             gson = Gson()
@@ -187,26 +167,6 @@ class TypeConverter {
             }.type
 
             return gson.fromJson(pokeTypes, type)
-        }
-
-        @TypeConverter
-        fun toNestedTypesList(nestedType: String?): MutableList<NestedType>?{
-            if(nestedType == null){ return null }
-            gson = Gson()
-            val type = object: TypeToken<MutableList<Types>>(){
-            }.type
-
-            return gson.fromJson(nestedType, type)
-        }
-
-        @TypeConverter
-        fun toAbilityDescriptionList(pokeAbilities: String?): MutableList<AbilitiesDescription>?{
-            if(pokeAbilities == null){ return null }
-            gson = Gson()
-            val type = object: TypeToken<MutableList<Types>>(){
-            }.type
-
-            return gson.fromJson(pokeAbilities, type)
         }
 
         @TypeConverter

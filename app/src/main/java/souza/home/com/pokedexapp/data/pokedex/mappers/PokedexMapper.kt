@@ -26,24 +26,6 @@ class PokedexMapper {
                     name = it.name) }?.toTypedArray()
         }
 
-        fun abilitiesToDatabaseModel(allAbilitiesResponse: AllAbilitiesResponse): AbilityEntity {
-            val abilitiesAsString = TypeConverter.fromAbilityDescription(allAbilitiesResponse.effect)
-
-            return AbilityEntity(
-                _id = allAbilitiesResponse._id,
-                effect = abilitiesAsString
-            )
-        }
-
-        fun typesToDatabaseModel(allTypesResponse: AllTypesResponse): TypeEntity {
-            val typesAsString = TypeConverter.fromNestedType(allTypesResponse.pokemon)
-
-            return TypeEntity(
-                _id = allTypesResponse._id,
-                types = typesAsString
-            )
-        }
-
         fun evolutionChainToDatabaseModel(evolutionChainResponse: EvolutionChainResponse): EvolutionEntity {
             val pureEvolutionChain = optimizeChain(evolutionChainResponse)
             val evolutionAsString = TypeConverter.fromEvolution(pureEvolutionChain)
@@ -74,8 +56,6 @@ class PokedexMapper {
             val spritesAsString = TypeConverter.fromSprites(propertyResponse.sprites)
             val statsAsString = TypeConverter.fromStats(propertyResponse.stats)
             val typesAsString = TypeConverter.fromTypes(propertyResponse.types)
-
-            Log.i("TO DB" , "TO DB" + abilitiesAsString)
 
             return PropertyEntity(
                 id = propertyResponse.id,
@@ -108,8 +88,6 @@ class PokedexMapper {
             val statsAsList = TypeConverter.toStatsList(propertyEntity.stats)
             val typesAsList = TypeConverter.toTypesList(propertyEntity.types)
 
-            Log.i("TO DOMAIN" , "TO DOMAIN" + abilitiesAsList)
-
             return PokeProperty(
                 id = propertyEntity.id,
                 abilities = abilitiesAsList,
@@ -134,24 +112,6 @@ class PokedexMapper {
             return PokeEvolutionChain(
                 _id = evolutionEntity._id,
                 evolution = chainAsEvolution
-            )
-        }
-
-        fun abilitiesAsDomain(abilityEntity: AbilityEntity): PokeAbility {
-            val abilityAsResponse = TypeConverter.toAbilityDescriptionList(abilityEntity.effect)
-
-            return PokeAbility(
-                _id = abilityEntity._id,
-                effect = abilityAsResponse
-            )
-        }
-
-        fun typesAsDomain(typeEntity: TypeEntity): PokeType {
-            val typesAsResponse = TypeConverter.toNestedTypesList(typeEntity.types)
-
-            return PokeType(
-                _id = typeEntity._id,
-                types = typesAsResponse
             )
         }
     }

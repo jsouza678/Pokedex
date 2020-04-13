@@ -28,14 +28,14 @@
 
             <TextView
                 android:id="@+id/text_view_custom_alert_dialog_label"
-                android:layout_width="wrap_content"
+                style="@style/dialog_pokes_in_search_text"
+                android:layout_width="@dimen/match_constraint"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/material_margin_16"
-                tools:text="@string/text_view_custom_alert_dialog_types_body"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                style="@style/dialog_pokes_in_search_text" />
+                tools:text="@string/text_view_custom_alert_dialog_types_body" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_poke_search_alert"

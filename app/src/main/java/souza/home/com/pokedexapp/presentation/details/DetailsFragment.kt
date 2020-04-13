@@ -1,5 +1,7 @@
 package souza.home.com.pokedexapp.presentation.details
 
+import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,14 +16,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.presentation.details.viewpager.SectionsPagerAdapter
-import android.animation.ObjectAnimator
-import android.animation.ArgbEvaluator
 import souza.home.com.pokedexapp.domain.model.PokeProperty
+import souza.home.com.pokedexapp.presentation.details.viewpager.SectionsPagerAdapter
 import souza.home.com.pokedexapp.presentation.view_utils.DynamicHeightViewPager
 import souza.home.com.pokedexapp.utils.ColorFormat
 import souza.home.com.pokedexapp.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
-import souza.home.com.pokedexapp.utils.Constants.Companion.LIMIT_NORMAL_POKES
 import souza.home.com.pokedexapp.utils.Constants.Companion.OFFSCREEN_DEFAULT_VIEW_PAGER
 import souza.home.com.pokedexapp.utils.Constants.Companion.TIME_BACKGROUND_ANIMATION
 import souza.home.com.pokedexapp.utils.cropPokeUrl
@@ -40,7 +39,6 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
-
         tvPokeName = view.findViewById(R.id.text_view_poke_name_detail)
         tvPokeId = view.findViewById(R.id.text_view_poke_id_detail)
         constraintLayout = view.findViewById(R.id.layout_details)
@@ -50,13 +48,16 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar_details_fragment)
         mImages = ArrayList()
 
-        toolbar.setNavigationOnClickListener(View.OnClickListener { activity?.onBackPressed() })
-
+        setToolbarBackButton(toolbar)
         setPokeAndIdText()
         initViewModel()
         initObservers(viewPager, tabs, view)
 
         return view
+    }
+
+    private fun setToolbarBackButton(toolbar: Toolbar){
+        toolbar.setNavigationOnClickListener(View.OnClickListener { activity?.onBackPressed() })
     }
 
     private fun initViewModel(){
@@ -85,17 +86,20 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
                         animateBackground(backgroundColor)
 
                         val sectionsPagerAdapter =
-                            fragmentManager?.let { fm ->
-                                SectionsPagerAdapter(
-                                    fm,
-                                    pokeId, Integer.parseInt(cropPokeUrl(it.evolution_chain?.url!!))
-                                )
+                            fragmentManager?.let { fm -> SectionsPagerAdapter(fm, pokeId,
+                                Integer.parseInt(cropPokeUrl(it.evolution_chain?.url!!)) // Here the !! is accepted because
+                            ) // the pokemon has a evolution chain url.
                             }
-
-                        sectionsPagerAdapter?.let { it1 -> setViewPager(viewPager, it1, tabs) }
+                        sectionsPagerAdapter?.let { item -> setViewPager(viewPager, item, tabs) }
                         viewPager.offscreenPageLimit = OFFSCREEN_DEFAULT_VIEW_PAGER
                         count++
                     }
+                }else{
+                    val sectionsPagerAdapterEvolution = fragmentManager?.let { fm ->
+                        SectionsPagerAdapter(fm, pokeId, 0) }
+                    sectionsPagerAdapterEvolution?.let { item -> setViewPager(viewPager, item, tabs) }
+                    val backgroundColor = ColorFormat.setColor("black", pokeId)
+                    animateBackground(backgroundColor)
                 }
             }
             )
@@ -141,11 +145,7 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
     }
 
     private fun initGalleryViewPager(travelGallery: MutableList<String>, view: View) {
-        galleryViewPager =
-            GalleryViewPagerAdapter(
-                view.context,
-                travelGallery
-            )
+        galleryViewPager = GalleryViewPagerAdapter(view.context, travelGallery)
         gallery.adapter = galleryViewPager
     }
-}//
+}

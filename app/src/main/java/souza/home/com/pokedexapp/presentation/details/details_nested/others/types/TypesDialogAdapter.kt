@@ -12,6 +12,10 @@ import souza.home.com.pokedexapp.R
 import souza.home.com.extensions.loadUrl
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.NestedType
 import souza.home.com.pokedexapp.utils.Constants.Companion.BASTION_POKE_IMAGE_BASE_URL
+import souza.home.com.pokedexapp.utils.Constants.Companion.DEFAULT_IMAGE_FORMAT_BASTION
+import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
+import souza.home.com.pokedexapp.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
+import souza.home.com.pokedexapp.utils.cropPokeUrl
 
 
 class TypesDialogAdapter(private val pokes: MutableList<NestedType>?, private val context: Context) : RecyclerView.Adapter<TypesDialogAdapter.ViewHolder>() {
@@ -25,10 +29,12 @@ class TypesDialogAdapter(private val pokes: MutableList<NestedType>?, private va
     }
 
     fun submitList(newData: MutableList<NestedType>) {
-        if (pokes!!.isNotEmpty()) {
-            pokes.clear()
+        if (pokes != null) {
+            if (pokes.isNotEmpty()) {
+                pokes.clear()
+            }
         }
-        pokes.addAll(newData)
+        pokes?.addAll(newData)
         notifyDataSetChanged()
     }
 
@@ -37,27 +43,27 @@ class TypesDialogAdapter(private val pokes: MutableList<NestedType>?, private va
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemBind(pokes!![position])
+        pokes?.get(position)?.let { holder.itemBind(it) }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val pokeName: TextView = itemView.text_view_name_poke_recycler
         private val pokeImage: ImageView = itemView.image_view_poke_sprite_recycler
         private val pokeId: TextView = itemView.text_view_id_poke_recycler
-        private var formatedNumber: String = ""
-        private var pokemonId : String = ""
+        private var formatedNumber: String = EMPTY_STRING
+        private var pokemonId : String = EMPTY_STRING
 
         fun itemBind(pokes: NestedType){
             pokeName.text = pokes.pokemon.name
-            pokemonId = pokes.pokemon._id.substringAfter("n/").substringBefore('/')
-            formatedNumber= "%03d".format(Integer.parseInt(pokemonId))
+            pokemonId = cropPokeUrl(pokes.pokemon._id)
+            formatedNumber= FORMAT_ID_POKE_DISPLAY.format(Integer.parseInt(pokemonId))
             pokeId.text = context.resources.getString(R.string.text_view_placeholder_hash, formatedNumber)
-            pokeImage.loadUrl("$imageResourceUrl$pokemonId.png")
+            pokeImage.loadUrl("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION")
         }
 
         init{
             itemView.setOnClickListener{
-                onItemClick?.invoke(pokes!![adapterPosition])
+                pokes?.get(adapterPosition)?.let { it1 -> onItemClick?.invoke(it1) }
             }
         }
 
