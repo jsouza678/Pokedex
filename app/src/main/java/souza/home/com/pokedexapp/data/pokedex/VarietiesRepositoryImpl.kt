@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
 import souza.home.com.pokedexapp.data.pokedex.mappers.PokedexMapper
-import souza.home.com.pokedexapp.data.pokedex.remote.PokeApi
+import souza.home.com.pokedexapp.di.PokeApi
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 import souza.home.com.pokedexapp.domain.repository.VarietiesRepository
 
@@ -17,10 +17,11 @@ class VarietiesRepositoryImpl(private val id: Int, context: Context) : Varieties
     private val DB_INSTANCE = PokemonDatabase.getDatabase(context)
 
     override val varieties: LiveData<PokeVariety>?
-        get() = DB_INSTANCE.varietiesDao.getVariety(id)?.let {
-            Transformations.map(it){ varietyObject ->
-                varietyObject?.let {
-                        varietyObjectInside -> PokedexMapper.variationsAsDomain(varietyObjectInside) }
+        get() = DB_INSTANCE.varietiesDao.getVariety(id).let {
+            it?.let { it1 ->
+                Transformations.map(it1){ varietyObject ->
+                    varietyObject?.let { varietyObjectInside -> PokedexMapper.variationsAsDomain(varietyObjectInside) }
+                }
             }
         }
 

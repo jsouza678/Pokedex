@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/blue_poke"
-    tools:context=".presentation.details.details_nested.others.types.TypesDialog">
+    tools:context=".presentation.search.SearchDialog">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -24,21 +24,21 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/recycler_view_container_height_pokes_in_types"
-            tools:context=".presentation.details.details_nested.others.types.TypesDialog">
+            tools:context=".presentation.search.SearchDialog">
 
             <TextView
                 android:id="@+id/text_view_custom_alert_dialog_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/material_margin_16"
-                android:text="@string/text_view_custom_alert_dialog_types_body"
+                tools:text="@string/text_view_custom_alert_dialog_types_body"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                style="@style/dialog_pokes_in_types_text" />
+                style="@style/dialog_pokes_in_search_text" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_poke_types_alert"
+                android:id="@+id/recycler_view_poke_search_alert"
                 android:layout_width="@dimen/match_constraint"
                 android:layout_height="280dp"
                 android:layout_marginStart="@dimen/material_margin_16"
@@ -55,19 +55,13 @@
             </androidx.recyclerview.widget.RecyclerView>
 
             <Button
-                android:id="@+id/button_dismiss_custom_dialog"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="@dimen/material_margin_16"
-                android:layout_marginTop="@dimen/material_margin_8"
-                android:layout_marginEnd="@dimen/material_margin_16"
-                android:layout_marginBottom="@dimen/material_margin_16"
+                android:id="@+id/button_dismiss_custom_search_dialog"
+                style="@style/button_default"
                 android:text="@string/button_text_dismiss"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recycler_view_poke_types_alert" />
+                app:layout_constraintTop_toBottomOf="@id/recycler_view_poke_search_alert" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 

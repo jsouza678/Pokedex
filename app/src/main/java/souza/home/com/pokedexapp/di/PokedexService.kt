@@ -1,4 +1,4 @@
-package souza.home.com.pokedexapp.data.pokedex.remote
+package souza.home.com.pokedexapp.di
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi

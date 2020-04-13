@@ -1,9 +1,9 @@
 package souza.home.com.pokedexapp.utils
 
-import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.Evolution
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.EvolutionChainResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.FlavorDescription
-import souza.home.com.pokedexapp.domain.model.PokeEvolutionChain
+import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
+import souza.home.com.pokedexapp.utils.Constants.Companion.INT_MAX_SIZE
 import souza.home.com.pokedexapp.utils.Constants.Companion.LANGUAGE_DESCRIPTIONS
 
 fun cropPokeUrl(url: String) : String {
@@ -40,4 +40,25 @@ fun optimizeChain(it: EvolutionChainResponse) : MutableList<String> {
     it.chain.evolves_to?.get(0)?.evolves_to?.get(0)?.species?.name?.let { it1 -> croppedList.add(it1) }
 
     return croppedList
+}
+
+fun isString(text: String) : Boolean{
+    var numeric = true
+    numeric = text.matches("-?\\d+(\\.\\d+)?".toRegex())
+
+    if(text == EMPTY_STRING){
+        return false
+    }
+
+    if(numeric == true){
+        try{
+            Integer.parseInt(text)
+            return true
+        }catch (e: Exception){
+            return false
+        }
+        return false
+    }
+
+    return numeric
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PokedexApp</string>
+    <string name="app_name">Pokedex</string>
     <string name="mock_header_text">Pokedex Nav</string>
     <string name="mock_poke_name">Charmander</string>
     <string name="poke_hp_label">HP:</string>
@@ -22,7 +22,7 @@
     <string name="mock_spinner_item">Pikachu</string>
     <string name="content_description_image_view_poke_sprite">Pokemon Sprite, Home Screen</string>
     <string name="content_description_image_view_empty_pokes_list">Empty Pokes List Image</string>
-    <string name="text_no_pokes">No pokes!</string>
+    <string name="text_no_pokes">No Pokes! \nSnorlax is sleeping! \nCome back later!</string>
     <string name="mock_poke_name_details">Pikachu</string>
     <string name="mock_body_desc">Lorem ipsum sit dolor amet gravida sit dolor amet bloco sit dolor amet gravida sit dolor amet blocd sit dolor amet gravida sit dolor amet bloc bloco sit dolor amet</string>
     <string name="text_view_poke_variations">Poke Variations</string>
@@ -33,7 +33,6 @@
     <string name="snackbar_loading_poke_evolution">Loading poke evolution!</string>
     <string name="no_poke_evolution">This Poke does not evolutes</string>
     <string name="button_text_dismiss">Dismiss</string>
-    <string name="text_view_custom_alert_dialog_types_body">We\'ve found 12 pokemons with this type</string>
     <string name="content_description_sprite_background">Sprite background used on home and details screen</string>
     <string name="unknown_viewmodel">Unknown ViewModel Class</string>
     <string-array name="poke_spinner_mock">
@@ -44,5 +43,14 @@
     <string name="content_description_poke_ball_image_view_splash">Poke Ball image on splash screen</string>
     <string name="mock_text_view_poke_id_details">#001</string>
     <string name="spinner_hint">Select one item</string>
-
+    <string name="welcome_screen_message">Welcome! \n Gotta Catch \'Em All!</string>
+    <string name="button_activity_discover_pokes">Discover Pokes</string>
+    <string name="search_hint">Search poke by id</string>
+    <string name="type_your_search_here_hint">Type your search here</string>
+    <string name="redirect_search_to_home_message">Redirecting to the home page</string>
+    <string name="input_text_search_dialog">Error on this field.</string>
+    <string name="pokemon_found_search_1">We\'ve found </string>
+    <string name="pokemon_found_search_2">pokemons with this type</string>
+    <string name="text_view_custom_alert_dialog_types_body">We\'ve found pokemons with this type</string>
+    <string name="error_message_search_dialog">Unfortunately we have not found any pokes. \n You will be redirected to the Home Screen to discover more pokes!</string>
 </resources>

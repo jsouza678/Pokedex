@@ -8,8 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
 import souza.home.com.pokedexapp.data.pokedex.mappers.PokedexMapper
-import souza.home.com.pokedexapp.data.pokedex.remote.PokeApi
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.AllTypesResponse
+import souza.home.com.pokedexapp.di.PokeApi
 import souza.home.com.pokedexapp.domain.model.PokeType
 import souza.home.com.pokedexapp.domain.repository.TypesRepository
 

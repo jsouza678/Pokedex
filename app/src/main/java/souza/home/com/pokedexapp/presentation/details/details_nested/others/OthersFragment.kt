@@ -15,6 +15,7 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.type.Types
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.NestedType
 import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewModelFactory
 import souza.home.com.pokedexapp.presentation.details.details_nested.others.types.TypesDialog
+import souza.home.com.pokedexapp.presentation.search.SearchDialog
 import souza.home.com.pokedexapp.utils.cropAbilityUrl
 import souza.home.com.pokedexapp.utils.cropTypeUrl
 
@@ -151,6 +152,6 @@ class OthersFragment(var pokemon: Int) : Fragment() {
     private fun showCustomTypesDialog(list: MutableList<NestedType>){
         val pokeTypesDialog: TypesDialog = TypesDialog(list)
 
-        fragmentManager?.let { pokeTypesDialog.show(it, "my_fragment") }
+        fragmentManager?.let { pokeTypesDialog.show(it, "poke_in_types_fragment") }
     }
 }

@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -45,6 +46,12 @@ class DetailsPokedexViewModel(pokemon: Int, app: Application): AndroidViewModel(
     private val isConnected : Boolean = activeNetwork?.isConnected == true
     fun updateVariationsOnViewLiveData(): LiveData<PokeVariety>? = varietiesRepository.varieties
     fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = propertiesRepository.properties
+    private val mediator = varietiesRepository.varieties?.let {
+        MediatorLiveData<PokeVariety>().addSource(it){
+        // _color.postValue(it)
+        _color.value = it
+    }
+    }
 
     init{
         if(isConnected){

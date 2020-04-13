@@ -9,7 +9,7 @@ import souza.home.com.pokedexapp.presentation.details.details_nested.others.Othe
 import souza.home.com.pokedexapp.presentation.details.details_nested.stats.StatsFragment
 import souza.home.com.pokedexapp.utils.Constants.Companion.LIMIT_NORMAL_POKES
 
-internal class SectionsPagerAdapter(fm: FragmentManager, val pokeId: Int) :
+internal class SectionsPagerAdapter(fm: FragmentManager, val pokeId: Int, val pokeChainId: Int) :
     FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT ) {
 
     private val TAB_FRAGMENTS_EVOLUTION = arrayOf(
@@ -25,7 +25,7 @@ internal class SectionsPagerAdapter(fm: FragmentManager, val pokeId: Int) :
     private val TAB_FRAGMENTS = arrayOf(
         AboutFragment(pokeId),
         StatsFragment(pokeId),
-        EvolutionChainFragment(pokeId),
+        EvolutionChainFragment(pokeChainId),
         OthersFragment(pokeId)
     )
 

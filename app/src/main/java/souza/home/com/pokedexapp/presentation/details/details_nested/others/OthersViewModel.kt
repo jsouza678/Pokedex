@@ -9,18 +9,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import souza.home.com.pokedexapp.data.pokedex.AbilitiesRepositoryImpl
 import souza.home.com.pokedexapp.data.pokedex.PropertiesRepositoryImpl
-import souza.home.com.pokedexapp.data.pokedex.TypesRepositoryImpl
-import souza.home.com.pokedexapp.data.pokedex.remote.PokeApi
-import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PropertyResponse
-import souza.home.com.pokedexapp.data.pokedex.remote.model.response.NestedType
-import souza.home.com.pokedexapp.domain.model.PokeAbility
 import souza.home.com.pokedexapp.domain.model.PokeProperty
-import souza.home.com.pokedexapp.domain.model.PokeType
-import souza.home.com.pokedexapp.domain.model.PokeVariety
 
 enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
 

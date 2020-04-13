@@ -72,10 +72,6 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
         return visibleItemCount + firstVisibleItemPosition >= totalItemCount
     }
 
-    override fun onCleared() {
-        super.onCleared()
-    }
-
     class Factory(val app: Application): ViewModelProvider.Factory{
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if(modelClass.isAssignableFrom(HomePokedexViewModel::class.java)){
@@ -85,7 +81,6 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
             throw IllegalArgumentException(app.applicationContext.getString(R.string.unknown_viewmodel))
         }
     }
-
 }
 
 enum class HomePokedexStatus{ LOADING, ERROR, DONE, EMPTY}

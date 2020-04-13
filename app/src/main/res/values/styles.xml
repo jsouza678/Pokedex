@@ -68,7 +68,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="dialog_pokes_in_types_text">
+    <style name="dialog_pokes_in_search_text">
         <item name="android:fontFamily">@font/open_sans</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textAppearance">@style/custom_tab_text_style</item>
@@ -80,6 +80,21 @@
         <item name="android:fontFamily">@font/poke_solid</item>
         <item name="android:textColor">@color/poke_black</item>
         <item name="android:textSize">36sp</item>
+    </style>
+
+    <style name="button_default" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_width">90dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginStart">@dimen/material_margin_16</item>
+        <item name="android:layout_marginTop">@dimen/material_margin_8</item>
+        <item name="android:layout_marginEnd">@dimen/material_margin_16</item>
+        <item name="android:layout_marginBottom">@dimen/material_margin_16</item>
+    </style>
+
+    <style name="style_welcome_text_main_activity">
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>

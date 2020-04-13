@@ -51,28 +51,15 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
                 listString
             )
 
-        initObservers()
+        initEvolutionChainViewModel(pokemon)
 
         return view
     }
 
-    private fun initObservers(){
-        viewModel.apply {
-
-            this.updateVariationsOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
-                if(it!=null){
-                    val evolutionPath = it.evolution_chain?.url
-                    val evolutionCropped = evolutionPath?.let { url -> cropPokeUrl(url) }
-                    evolutionCropped?.let { it1 -> initEvolutionChainViewModel(it1) }
-                }
-            })
-        }
-    }
-
-    private fun initEvolutionChainViewModel(evolutionCropped: String){
+    private fun initEvolutionChainViewModel(evolutionCropped: Int){
         val viewModel = ViewModelProviders.of(this@EvolutionChainFragment,
             NestedViewModelFactory(
-                Integer.parseInt(evolutionCropped),
+                evolutionCropped,
                 activity!!.application
             )
         )

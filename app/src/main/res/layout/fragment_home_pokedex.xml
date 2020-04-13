@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/real_white"
+    android:visibility="visible"
     tools:context=".presentation.home.HomeFragment">
 
     <ImageView
@@ -13,35 +14,39 @@
         android:layout_height="@dimen/background_sprite_size"
         android:contentDescription="@string/content_description_sprite_background"
         android:scaleType="centerCrop"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/mock_background_sprite_poke" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/pokedex_toolbar"
+        android:id="@+id/pokedex_home_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/translucent"
         android:elevation="4dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="visible"
+            tools:layout_editor_absoluteX="16dp">
 
             <TextView
-                android:id="@+id/tv_app_name"
+                android:id="@+id/text_view_app_name_main_activity"
+                style="@style/pokemon_logo_style_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/material_margin_4"
                 android:padding="@dimen/material_margin_4"
                 android:text="@string/app_name"
-                style="@style/pokemon_logo_style_home" />
+                android:visibility="visible" />
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
@@ -56,17 +61,15 @@
         android:layout_marginBottom="@dimen/material_margin_8"
         android:clipToPadding="false"
         android:visibility="visible"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/poke_toolbar"
+        app:layout_constraintBottom_toTopOf="@id/poke_ball_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pokedex_toolbar"
-        app:spanCount="2"
+        app:layout_constraintTop_toBottomOf="@id/pokedex_home_toolbar"
         tools:listitem="@layout/poke_item_view" />
 
     <!-- In case of Empty list -->
     <ImageView
-        android:id="@+id/image_view_no_coneciton"
+        android:id="@+id/image_view_no_conection"
         android:layout_width="@dimen/no_list_image"
         android:layout_height="@dimen/no_list_image"
         android:layout_gravity="center"
@@ -90,13 +93,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_view_no_coneciton"
+        app:layout_constraintTop_toBottomOf="@id/image_view_no_conection"
         app:layout_constraintVertical_bias="0.026" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/poke_toolbar"
+        android:id="@+id/poke_ball_toolbar"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/poke_ball_container_layout_height"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,6 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_bar_home_height"
             android:layout_gravity="bottom"
+            android:visibility="visible"
             app:backgroundTint="@color/blue_poke"
             app:fabAlignmentMode="center"
             app:fabCradleMargin="@dimen/material_margin_8" />
@@ -115,6 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/material_margin_8"
+            android:visibility="visible"
             app:layout_anchor="@id/bottom_app_bar"
             app:layout_anchorGravity="center">
 
@@ -124,7 +130,6 @@
                 android:layout_width="@dimen/progress_bar_size_home"
                 android:layout_height="@dimen/progress_bar_size_home"
                 android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true"
                 android:visibility="visible" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -133,6 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:src="@drawable/poke_ball"
+                android:visibility="visible"
                 app:maxImageSize="@dimen/floating_action_button_max_image_size_home"
                 app:tint="@null" />
         </RelativeLayout>

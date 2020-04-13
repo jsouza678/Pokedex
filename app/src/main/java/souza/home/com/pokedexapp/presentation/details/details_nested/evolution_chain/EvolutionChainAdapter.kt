@@ -29,7 +29,7 @@ class EvolutionChainAdapter(private val context: Context, private val dataList: 
 
         if (dataList != null) {
             if(dataList.size > 0){
-                tv.text = dataItem!!.capitalize()
+                tv.text = dataItem
             }else{
                 tv.text = context.getString(R.string.no_poke_evolution)
             }

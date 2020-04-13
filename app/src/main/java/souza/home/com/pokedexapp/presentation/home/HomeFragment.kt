@@ -1,12 +1,12 @@
 package souza.home.com.pokedexapp.presentation.home
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -18,8 +18,8 @@ import souza.home.com.pokedexapp.presentation.details.DetailsFragment
 import souza.home.com.extensions.gone
 import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.domain.model.Poke
+import souza.home.com.pokedexapp.presentation.search.SearchDialog
 import souza.home.com.pokedexapp.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
-import souza.home.com.pokedexapp.utils.cropPokeUrl
 
 class HomeFragment : Fragment() {
 
@@ -117,4 +117,5 @@ class HomeFragment : Fragment() {
     private fun turnOffProgressBar(){
         progressBar.gone()
     }
+
 }

@@ -2,23 +2,75 @@ package souza.home.com.pokedexapp.presentation
 
 import android.os.Bundle
 import android.os.Handler
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
+import souza.home.com.extensions.gone
+import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.presentation.home.HomeFragment
+import souza.home.com.pokedexapp.presentation.search.SearchDialog
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var buttonDiscover : Button
+    private lateinit var frameLayoutFragmentHost : FrameLayout
+    private lateinit var mainToolbar : Toolbar
+    private lateinit var constraintLayoutHome : ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        buttonDiscover = findViewById(R.id.button_discover_pokes_main_activity)
+        frameLayoutFragmentHost = findViewById(R.id.nav_host_fragment)
+        mainToolbar = findViewById(R.id.toolbar_main_activity)
+        constraintLayoutHome = findViewById(R.id.constraint_layout_main_activity)
 
         val splashFragment = SplashScreen()
+        val homeFragment = HomeFragment()
+
         supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, splashFragment).commit()
-
-        val textFragment = HomeFragment()
-
         Handler().postDelayed({
-            supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, textFragment).commit()
+            supportFragmentManager.beginTransaction().remove(splashFragment)
+            frameLayoutFragmentHost.gone()
+            constraintLayoutHome.visible()
         }, 1000)
+
+        setSupportActionBar(mainToolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        buttonDiscover.setOnClickListener {
+            constraintLayoutHome.gone()
+            supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, homeFragment).commit()
+            frameLayoutFragmentHost.visible()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_menu, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.search_menu_icon -> {
+                openSearchDialog()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    private fun openSearchDialog(){
+        val searchDialog = SearchDialog()
+        frameLayoutFragmentHost.visible()
+        constraintLayoutHome.gone()
+        searchDialog.show(supportFragmentManager, "search_fragment")
     }
 }

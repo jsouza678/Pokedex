@@ -1,6 +1,5 @@
 package souza.home.com.pokedexapp.presentation.details.details_nested.others.types
 
-
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
@@ -25,8 +24,8 @@ class TypesDialog(private val pList: MutableList<NestedType>) : DialogFragment()
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view : View = activity?.layoutInflater?.inflate(R.layout.fragment_poke_types_dialog, null)!!
 
-        recyclerView = view.findViewById(R.id.recycler_view_poke_types_alert)
-        buttonDismiss = view.findViewById(R.id.button_dismiss_custom_dialog)
+        recyclerView = view.findViewById(R.id.recycler_view_poke_search_alert)
+        buttonDismiss = view.findViewById(R.id.button_dismiss_custom_search_dialog)
 
         pokesList = pList
         val alert = AlertDialog.Builder(activity)
@@ -43,7 +42,6 @@ class TypesDialog(private val pList: MutableList<NestedType>) : DialogFragment()
         buttonDismiss.setOnClickListener {
             dismiss()
         }
-
 
         return alert.create()
     }
