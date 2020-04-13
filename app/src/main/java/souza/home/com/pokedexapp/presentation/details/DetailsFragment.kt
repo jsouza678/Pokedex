@@ -14,25 +14,30 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import souza.home.com.extensions.observeOnce
 import souza.home.com.pokedexapp.R
+import souza.home.com.pokedexapp.data.pokedex.PropertiesPokedexStatus
+import souza.home.com.pokedexapp.data.pokedex.VarietiesPokedexStatus
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 import souza.home.com.pokedexapp.presentation.details.viewpager.SectionsPagerAdapter
 import souza.home.com.pokedexapp.presentation.view_utils.DynamicHeightViewPager
 import souza.home.com.pokedexapp.utils.ColorFormat
 import souza.home.com.pokedexapp.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
+import souza.home.com.pokedexapp.utils.Constants.Companion.LIMIT_NORMAL_POKES
 import souza.home.com.pokedexapp.utils.Constants.Companion.OFFSCREEN_DEFAULT_VIEW_PAGER
 import souza.home.com.pokedexapp.utils.Constants.Companion.TIME_BACKGROUND_ANIMATION
 import souza.home.com.pokedexapp.utils.cropPokeUrl
 
 class DetailsFragment(private var pokeId: Int, private var pokeName: String) : Fragment(){
 
-    private lateinit var viewModel: DetailsPokedexViewModel
+    private lateinit var viewModel: DetailsViewModel
     private lateinit var tvPokeName: TextView
     private lateinit var tvPokeId: TextView
     private lateinit var constraintLayout: ConstraintLayout
-    private lateinit var galleryViewPager: GalleryViewPagerAdapter
+    private lateinit var galleryViewPager: DetailsGalleryAdapter
     private lateinit var gallery : ViewPager
     private lateinit var mImages : MutableList<String>
     private var count = 0
@@ -49,7 +54,7 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
         setToolbarBackButton(toolbar)
         setPokeAndIdText()
         initViewModel()
-        initObservers(viewPager, tabs, view)
+        initObserverStatus(viewPager, tabs, view)
 
         return view
     }
@@ -68,12 +73,7 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
     private fun initViewModel(){
         viewModel = ViewModelProviders.of(this, activity?.application?.let {
             DetailsViewModelFactory(pokeId, it)
-        }).get(DetailsPokedexViewModel::class.java)
-    }
-
-    private fun setViewPager(viewPager: ViewPager, sectionsPagerAdapter: SectionsPagerAdapter, tabs: TabLayout){
-        viewPager.adapter = sectionsPagerAdapter
-        tabs.setupWithViewPager(viewPager)
+        }).get(DetailsViewModel::class.java)
     }
 
     private fun setPokeAndIdText(){
@@ -82,22 +82,83 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
         tvPokeId.text = context?.resources?.getString(R.string.text_view_placeholder_hash, textId)
     }
 
-    private fun initObservers(viewPager: ViewPager, tabs: TabLayout, view: View){
+    private fun initObserverStatus(viewPager: ViewPager, tabs: TabLayout, view: View){
         viewModel.apply {
-            this.updateVariationsOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
-                if(it!=null){
-                    showDataNormalPoke(it, viewPager, tabs)
-                }else{
-                    showDataEvolutionPoke(viewPager, tabs) } }
-            )
-            this.updatePropertiesOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
-                if(it!=null) {
-                    val imagesList = addSpritesToList(it)
-                    addImagesToList(imagesList)
-                    initGalleryViewPager(mImages, view)
-                }
+            this.checkRequestVariationsStatus().observe(viewLifecycleOwner, Observer {
+                if(pokeId> LIMIT_NORMAL_POKES){showDataEvolutionPoke(viewPager, tabs)
+                }else{ bindRequestVarietiesStatus(it, viewPager, tabs) }
+            })
+            this.checkRequestPropertiesStatus().observe(viewLifecycleOwner, Observer {
+                if(pokeId> LIMIT_NORMAL_POKES){showDataEvolutionPoke(viewPager, tabs)
+                }else{ bindRequestPropertiesStatus(it, viewPager, tabs) }
             })
         }
+    }
+
+    private fun bindRequestVarietiesStatus(varietiesPokedexStatus: VarietiesPokedexStatus,
+                                           viewPager: ViewPager, tabs: TabLayout){
+        when(varietiesPokedexStatus){
+            VarietiesPokedexStatus.LOADING -> {}
+            VarietiesPokedexStatus.DONE ->  initObserverData(viewModel, viewPager, tabs)
+            VarietiesPokedexStatus.EMPTY ->  showError()
+            // In case of ERROR. Runs normally, because it has cache on some pokes.
+            else -> {
+                initObserverData(viewModel, viewPager, tabs)
+                showError()
+            }
+        }
+    }
+
+    private fun bindRequestPropertiesStatus(propertiesPokedexStatus: PropertiesPokedexStatus,
+                                            viewPager: ViewPager, tabs: TabLayout){
+        when(propertiesPokedexStatus){
+            PropertiesPokedexStatus.LOADING -> {}
+            PropertiesPokedexStatus.DONE ->  initObserverData(viewModel, viewPager, tabs)
+            PropertiesPokedexStatus.EMPTY ->  showError()
+            // In case of ERROR. Runs normally, because it has cache on some pokes.
+            else -> {
+                initObserverData(viewModel, viewPager, tabs)
+                showError()
+            }
+        }
+    }
+
+    private fun initObserverData(viewModel: DetailsViewModel, viewPager: ViewPager, tabs: TabLayout){
+        viewModel.apply {
+            this.updateVariationsOnViewLiveData()?.observeOnce(viewLifecycleOwner, Observer { pokeVariety->
+                pokeVariety?.let { pokeVariety -> showDataNormalPoke(pokeVariety, viewPager, tabs)}
+            })
+            this.updatePropertiesOnViewLiveData()?.observeOnce(viewLifecycleOwner, Observer {
+                loadImages(it)
+            })
+        }
+    }
+
+    private fun loadImages(it: PokeProperty){
+        val imagesList = addSpritesToList(it)
+        addImagesToList(imagesList)
+        view?.let { it1 -> initGalleryViewPager(mImages, it1) }
+    }
+
+    private fun showError(){
+        view?.let { Snackbar.make(it, getString(R.string.no_conectivity), 800).show() }
+    }
+
+    private fun setViewPager(viewPager: ViewPager, sectionsPagerAdapter: SectionsPagerAdapter, tabs: TabLayout){
+        viewPager.adapter = sectionsPagerAdapter
+        tabs.setupWithViewPager(viewPager)
+    }
+
+    private fun showDataNormalPoke(it: PokeVariety, viewPager: ViewPager, tabs: TabLayout){
+        val backgroundColor = ColorFormat.setColor(it.color?.name, pokeId)
+        animateBackground(backgroundColor)
+
+        val sectionsPagerAdapter =
+            fragmentManager?.let { fm -> SectionsPagerAdapter(fm, pokeId,
+                Integer.parseInt(cropPokeUrl(it.evolution_chain?.url!!))) // Here the !! is accepted because // the pokemon has a evolution chain url.
+            }
+        sectionsPagerAdapter?.let { item -> setViewPager(viewPager, item, tabs) }
+        viewPager.offscreenPageLimit = OFFSCREEN_DEFAULT_VIEW_PAGER
     }
 
     private fun showDataEvolutionPoke(viewPager: ViewPager, tabs: TabLayout){
@@ -106,21 +167,6 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
         sectionsPagerAdapterEvolution?.let { item -> setViewPager(viewPager, item, tabs) }
         val backgroundColor = ColorFormat.setColor(getString(R.string.black_color_name), pokeId)
         animateBackground(backgroundColor)
-    }
-
-    private fun showDataNormalPoke(it: PokeVariety, viewPager: ViewPager, tabs: TabLayout){
-        if(count == 0){
-            val backgroundColor = ColorFormat.setColor(it.color?.name, pokeId)
-            animateBackground(backgroundColor)
-
-            val sectionsPagerAdapter =
-                fragmentManager?.let { fm -> SectionsPagerAdapter(fm, pokeId,
-                    Integer.parseInt(cropPokeUrl(it.evolution_chain?.url!!))) // Here the !! is accepted because // the pokemon has a evolution chain url.
-                }
-            sectionsPagerAdapter?.let { item -> setViewPager(viewPager, item, tabs) }
-            viewPager.offscreenPageLimit = OFFSCREEN_DEFAULT_VIEW_PAGER
-            count++
-        }
     }
 
     private fun addSpritesToList(listResult: PokeProperty) : MutableList<String>{
@@ -155,7 +201,7 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
     }
 
     private fun initGalleryViewPager(travelGallery: MutableList<String>, view: View) {
-        galleryViewPager = GalleryViewPagerAdapter(view.context, travelGallery)
+        galleryViewPager = DetailsGalleryAdapter(view.context, travelGallery)
         gallery.adapter = galleryViewPager
     }
 }

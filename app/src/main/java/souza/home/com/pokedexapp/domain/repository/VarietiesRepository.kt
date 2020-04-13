@@ -5,6 +5,7 @@ import souza.home.com.pokedexapp.domain.model.PokeVariety
 
 interface VarietiesRepository {
 
-    val varieties : LiveData<PokeVariety>?
+    val varieties : LiveData<PokeVariety?>?
+
     suspend fun refreshVarieties(id: Int)
 }

@@ -43,12 +43,12 @@ class HomeFragment : Fragment() {
 
         val  viewModel = ViewModelProviders.of(this,
             activity?.application?.let {
-                HomePokedexViewModel.Factory(
+                HomeViewModel.Factory(
                     it
                 )
             }
         )
-            .get(HomePokedexViewModel::class.java)
+            .get(HomeViewModel::class.java)
 
         initRecyclerView(viewModel)
         setFloactingActionPokeball()
@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun initObservers(viewModel: HomePokedexViewModel){
+    private fun initObservers(viewModel: HomeViewModel){
         viewModel.apply {
             this.updatePokesListOnViewLiveData().observe(viewLifecycleOwner, Observer {
                 it?.toMutableList()?.let { pokesList -> adapter.submitList(pokesList) } })
@@ -82,11 +82,11 @@ class HomeFragment : Fragment() {
         when(it){
             HomePokedexStatus.DONE->{ turnOffProgressBar() }
             HomePokedexStatus.LOADING-> turnOnProgressBar()
-            HomePokedexStatus.ERROR-> view?.let { it1 -> Snackbar.make(it1, getString(R.string.no_conectivity), 400).show() }
+            HomePokedexStatus.ERROR-> view?.let { it1 -> Snackbar.make(it1, getString(R.string.no_conectivity), 800).show() }
             else-> turnOffProgressBar()
         }
     }
-    private fun initRecyclerView(viewModel : HomePokedexViewModel){
+    private fun initRecyclerView(viewModel : HomeViewModel){
 
         layoutManager = GridLayoutManager(context, TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW)
         recyclerView.layoutManager = layoutManager
@@ -96,7 +96,7 @@ class HomeFragment : Fragment() {
         setListenerRecyclerView(recyclerView, viewModel)
     }
 
-    private fun setListenerRecyclerView(recyclerView: RecyclerView, viewModel: HomePokedexViewModel){
+    private fun setListenerRecyclerView(recyclerView: RecyclerView, viewModel: HomeViewModel){
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 viewModel.onRecyclerViewScrolled(

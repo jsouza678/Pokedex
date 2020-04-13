@@ -12,10 +12,9 @@ import souza.home.com.extensions.loadUrl
 import souza.home.com.pokedexapp.R
 
 
-class GalleryViewPagerAdapter(private val context: Context, private val gallery: MutableList<String>) : PagerAdapter() {
+class DetailsGalleryAdapter(private val context: Context, private val gallery: MutableList<String>) : PagerAdapter() {
 
     private companion object {
-        const val EMPTY_GALLERY = 0
         const val FIRST_POSITION = 0
     }
 
@@ -24,12 +23,12 @@ class GalleryViewPagerAdapter(private val context: Context, private val gallery:
     }
 
     override fun getCount(): Int {
-        return gallery.size ?: EMPTY_GALLERY
+        return gallery.size
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val view = inflater.inflate(R.layout.image_view_pager_item, null)
+        val view = inflater.inflate(R.layout.image_view_pager_item, container, false)
         val viewPager = container as ViewPager
         val imageView: ImageView = view.picture_image_view_pager_item
 

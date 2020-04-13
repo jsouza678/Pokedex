@@ -56,7 +56,6 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
             )
         )
             .get(EvolutionChainViewModel::class.java)
-
         initSecondaryObserver(viewModel)
     }
 

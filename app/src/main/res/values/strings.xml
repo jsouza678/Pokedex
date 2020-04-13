@@ -58,7 +58,7 @@
     <string name="ability_dialog_title">Ability Description</string>
     <string name="misterious_poke_evolution_message">This poke is an evolution!\n We don\'t know much about him.\n All we now is that he\'s dangerous.\n\n Take care!</string>
     <string name="content_description_misterious_poke_evolution">Poke Evolution - He\'s misterious</string>
-    <string name="no_conectivity">No conectivity</string>
+    <string name="no_conectivity">Snorlax, we got a problem! No internet</string>
     <string name="content_description_image_button_search">Search logo image search dialog</string>
     <string name="error_image_view_search_dialog">Error image on search dialog</string>
     <string name="gallery_image_view">Image view showed on gallery viewpager</string>

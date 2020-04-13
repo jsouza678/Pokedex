@@ -9,8 +9,8 @@ class DetailsViewModelFactory(private val pokeId: Int, private val application: 
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(DetailsPokedexViewModel::class.java)) {
-            return DetailsPokedexViewModel(pokeId, application) as T
+        if (modelClass.isAssignableFrom(DetailsViewModel::class.java)) {
+            return DetailsViewModel(pokeId, application) as T
         }
         throw IllegalArgumentException(application.applicationContext.getString(R.string.unknown_viewmodel))
     }

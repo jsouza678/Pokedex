@@ -30,8 +30,8 @@ class PokemonRepositoryImpl(context: Context) : PokemonRepository {
 
     override suspend fun refreshPokes(page: Int) {
         withContext(Dispatchers.IO){
+            _internet.postValue(HomePokedexStatus.LOADING)
             try{
-                _internet.postValue(HomePokedexStatus.LOADING)
                 val pokeList = PokeApi.retrofitService.getPokes(page).await()
                 PokedexMapper.pokemonToDatabaseModel(pokeList)?.let { DB_INSTANCE.pokemonDao.insertAll(*it) }
                 if(pokeList.results.isNullOrEmpty()){

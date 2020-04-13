@@ -1,6 +1,7 @@
 package souza.home.com.pokedexapp.presentation.home
 
 import android.app.Application
+import android.os.Handler
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -14,12 +15,10 @@ import souza.home.com.pokedexapp.data.pokedex.HomePokedexStatus
 import souza.home.com.pokedexapp.data.pokedex.PokemonRepositoryImpl
 import souza.home.com.pokedexapp.domain.model.Poke
 
-class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
+class HomeViewModel(app: Application) : AndroidViewModel(app){
 
     private var isLoading : Boolean = false
-
     private var element : Int = 0
-
     fun updatePokesListOnViewLiveData(): LiveData<List<Poke>?> = pokesRepository.pokes
     fun checkRequestStatus(): LiveData<HomePokedexStatus> = pokesRepository.internet
 
@@ -32,9 +31,13 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
     }
 
     fun getPokes(){
+        isLoading = true
         coroutineScope.launch {
             pokesRepository.refreshPokes(element)
         }
+        Handler().postDelayed({
+            isLoading = false
+        }, 800)
     }
 
     fun onRecyclerViewScrolled(dy: Int, layoutManager: GridLayoutManager){
@@ -57,9 +60,9 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
 
     class Factory(val app: Application): ViewModelProvider.Factory{
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if(modelClass.isAssignableFrom(HomePokedexViewModel::class.java)){
+            if(modelClass.isAssignableFrom(HomeViewModel::class.java)){
                 @Suppress("UNCHECKED_CAST")
-                return HomePokedexViewModel(app) as T
+                return HomeViewModel(app) as T
             }
             throw IllegalArgumentException(app.applicationContext.getString(R.string.unknown_viewmodel))
         }

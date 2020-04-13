@@ -16,7 +16,7 @@ class AboutViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
-    fun updateVariationsOnViewLiveData(): LiveData<PokeVariety>? = varietiesRepository.varieties
+    fun updateVariationsOnViewLiveData(): LiveData<PokeVariety?>? = varietiesRepository.varieties
 
     private val varietiesRepository =
         VarietiesRepositoryImpl(pokemon, app.applicationContext)
