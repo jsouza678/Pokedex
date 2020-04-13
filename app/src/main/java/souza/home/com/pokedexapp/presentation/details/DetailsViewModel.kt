@@ -18,11 +18,6 @@ import souza.home.com.pokedexapp.domain.model.PokeVariety
 
 class DetailsPokedexViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
 
-    private var _status = MutableLiveData<DetailsPokedexStatus>()
-
-    val status : LiveData<DetailsPokedexStatus>
-        get() = _status
-
     private var _color = MutableLiveData<PokeVariety>()
 
     val color : LiveData<PokeVariety>
@@ -48,7 +43,6 @@ class DetailsPokedexViewModel(pokemon: Int, app: Application): AndroidViewModel(
     fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = propertiesRepository.properties
     private val mediator = varietiesRepository.varieties?.let {
         MediatorLiveData<PokeVariety>().addSource(it){
-        // _color.postValue(it)
         _color.value = it
     }
     }
@@ -66,5 +60,3 @@ class DetailsPokedexViewModel(pokemon: Int, app: Application): AndroidViewModel(
         }
     }
 }
-
-enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}

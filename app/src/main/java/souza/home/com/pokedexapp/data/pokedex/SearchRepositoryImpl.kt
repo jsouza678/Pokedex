@@ -11,12 +11,7 @@ class SearchRepositoryImpl(context: Context, poke: String){
 
     private val DB_INSTANCE = PokemonDatabase.getDatabase(context)
 
-    val pokesByName: LiveData<List<Poke>?> = Transformations.map(DB_INSTANCE.pokemonDao.getPokesByName(poke)) {
-        PokedexMapper.pokemonAsDomain(it)
-    }
-
     val pokesById: LiveData<List<Poke>?> = Transformations.map(DB_INSTANCE.pokemonDao.getPokesById(Integer.parseInt(poke))) {
         PokedexMapper.pokemonAsDomain(it)
     }
-
 }

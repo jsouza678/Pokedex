@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import souza.home.com.extensions.gone
 import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
+import souza.home.com.pokedexapp.data.pokedex.HomePokedexStatus
 import souza.home.com.pokedexapp.domain.model.Poke
 import souza.home.com.pokedexapp.presentation.details.DetailsFragment
 import souza.home.com.pokedexapp.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
@@ -34,14 +35,11 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        pokesList = mutableListOf()
-
         val view = inflater.inflate(R.layout.fragment_home_pokedex, container, false)
+        pokesList = mutableListOf()
         progressBar = view.findViewById(R.id.progressBar)
-        manager = activity!!.supportFragmentManager
-        adapter = HomeAdapter(pokesList, view.context)
-        recyclerView = view.findViewById(R.id.poke_recycler_view)
-        floatingActionButton = view.findViewById(R.id.floating_action_button_poke_ball)
+        manager = activity?.supportFragmentManager!!
+        bindViews(view)
 
         val  viewModel = ViewModelProviders.of(this,
             activity?.application?.let {
@@ -53,34 +51,41 @@ class HomeFragment : Fragment() {
             .get(HomePokedexViewModel::class.java)
 
         initRecyclerView(viewModel)
-
-        floatingActionButton.setOnClickListener {
-            recyclerView.scrollToPosition(0)
-        }
-
+        setFloactingActionPokeball()
         initObservers(viewModel)
 
         return view
     }
 
-    private fun initObservers(viewModel: HomePokedexViewModel){
-        viewModel.apply {
+    private fun bindViews(view: View){
+        adapter = HomeAdapter(pokesList, view.context)
+        recyclerView = view.findViewById(R.id.poke_recycler_view)
+        floatingActionButton = view.findViewById(R.id.image_view_floating_action_button_poke_ball)
+    }
 
-            this.updatePokeslListOnViewLiveData().observe(viewLifecycleOwner, Observer {
-                it?.toMutableList()?.let { it1 -> adapter.submitList(it1) }
-            })
-
-            this.status.observe(viewLifecycleOwner, Observer {
-                when(it){
-                    HomePokedexStatus.DONE->{ turnOffProgressBar() }
-                    HomePokedexStatus.LOADING-> turnOnProgressBar()
-                    HomePokedexStatus.ERROR-> view?.let { it1 -> Snackbar.make(it1, getString(R.string.no_conectivity), 400).show() }
-                    else-> turnOffProgressBar()
-                }
-            })
+    private fun setFloactingActionPokeball(){
+        floatingActionButton.setOnClickListener {
+            recyclerView.scrollToPosition(0)
         }
     }
 
+    private fun initObservers(viewModel: HomePokedexViewModel){
+        viewModel.apply {
+            this.updatePokesListOnViewLiveData().observe(viewLifecycleOwner, Observer {
+                it?.toMutableList()?.let { pokesList -> adapter.submitList(pokesList) } })
+
+            this.checkRequestStatus().observe(viewLifecycleOwner, Observer { toggleProgressBar(it) })
+        }
+    }
+
+    private fun toggleProgressBar(it: HomePokedexStatus){
+        when(it){
+            HomePokedexStatus.DONE->{ turnOffProgressBar() }
+            HomePokedexStatus.LOADING-> turnOnProgressBar()
+            HomePokedexStatus.ERROR-> view?.let { it1 -> Snackbar.make(it1, getString(R.string.no_conectivity), 400).show() }
+            else-> turnOffProgressBar()
+        }
+    }
     private fun initRecyclerView(viewModel : HomePokedexViewModel){
 
         layoutManager = GridLayoutManager(context, TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW)
@@ -88,6 +93,10 @@ class HomeFragment : Fragment() {
         recyclerView.adapter = adapter
         setTransitionToPokeDetails()
 
+        setListenerRecyclerView(recyclerView, viewModel)
+    }
+
+    private fun setListenerRecyclerView(recyclerView: RecyclerView, viewModel: HomePokedexViewModel){
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 viewModel.onRecyclerViewScrolled(
@@ -116,5 +125,4 @@ class HomeFragment : Fragment() {
     private fun turnOffProgressBar(){
         progressBar.gone()
     }
-
 }

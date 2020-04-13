@@ -42,12 +42,8 @@ class SearchDialog() : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view : View = activity!!.layoutInflater.inflate(R.layout.fragment_poke_search_dialog, null)
         pokesList = mutableListOf()
-        recyclerView = view.findViewById(R.id.recycler_view_poke_search_alert)
-        buttonDismiss = view.findViewById(R.id.button_dismiss_custom_search_dialog)
+        bindViews(view)
         adapter = SearchDialogAdapter(pokesList, activity?.applicationContext)
-        searchButtonDialog = view.findViewById(R.id.search_button_dialog)
-        constraintErrorLayout = view.findViewById(R.id.container_layout_error)
-        constraintDefaultLayout = view.findViewById(R.id.container_layout_default)
         val textViewResult: TextView = view.findViewById(R.id.text_view_custom_alert_dialog_label)
 
         val alert = AlertDialog.Builder(context)
@@ -59,6 +55,14 @@ class SearchDialog() : DialogFragment() {
         setupButtonDismiss()
 
         return alert.create()
+    }
+
+    private fun bindViews(view: View){
+        recyclerView = view.findViewById(R.id.recycler_view_poke_search_alert)
+        buttonDismiss = view.findViewById(R.id.button_dismiss_custom_search_dialog)
+        searchButtonDialog = view.findViewById(R.id.search_button_dialog)
+        constraintErrorLayout = view.findViewById(R.id.container_layout_error)
+        constraintDefaultLayout = view.findViewById(R.id.container_layout_default)
     }
 
     private fun initSearchButtonClickListener(textViewResult: TextView){
@@ -116,7 +120,7 @@ class SearchDialog() : DialogFragment() {
                         errorMessage()
                     }else{
                         adapter.submitList(it as MutableList<Poke>)
-                        val textResult = getString(R.string.pokemon_found_search_1) + it.size + getString(R.string.pokemon_found_search_2)
+                        val textResult = getString(R.string.pokemon_found_search_1) + it.size + getString(R.string.pokemon_found_search_3)
                         textViewResult.text = textResult
                     }
                 }else{

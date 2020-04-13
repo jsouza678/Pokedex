@@ -10,16 +10,19 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.poke_item_view.view.*
-import souza.home.com.pokedexapp.R
 import souza.home.com.extensions.loadUrl
+import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.domain.model.Poke
+import souza.home.com.pokedexapp.utils.Constants.Companion.BASTION_POKE_IMAGE_BASE_URL
+import souza.home.com.pokedexapp.utils.Constants.Companion.DEFAULT_IMAGE_FORMAT_BASTION
+import souza.home.com.pokedexapp.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
 import kotlin.random.Random
 
 
 class HomeAdapter(private val pokes: MutableList<Poke>?, private val context: Context) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     var onItemClick: ((Poke) -> Unit)? = null
-    private val imageResourceUrl = "https://pokeres.bastionbot.org/images/pokemon/"
+    private val imageResourceUrl = BASTION_POKE_IMAGE_BASE_URL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.poke_item_view, parent, false)
@@ -78,9 +81,9 @@ class HomeAdapter(private val pokes: MutableList<Poke>?, private val context: Co
         fun itemBind(pokes: Poke){
             pokeName.text = pokes.name
             pokemonId = pokes._id
-            formatedNumber= "%03d".format(pokemonId)
+            formatedNumber= "$FORMAT_ID_POKE_DISPLAY".format(pokemonId)
             pokeId.text = context.resources.getString(R.string.text_view_placeholder_hash, formatedNumber)
-            pokeImage.loadUrl("$imageResourceUrl$pokemonId.png")
+            pokeImage.loadUrl("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION")
             pokeCv.setCardBackgroundColor(ContextCompat.getColor(context, setColor()))
         }
         init{
@@ -88,7 +91,5 @@ class HomeAdapter(private val pokes: MutableList<Poke>?, private val context: Co
                 onItemClick?.invoke(pokes!![adapterPosition])
             }
         }
-
     }
-
 }

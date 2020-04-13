@@ -1,18 +1,18 @@
 package souza.home.com.pokedexapp.presentation.home
 
 import android.app.Application
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.R
+import souza.home.com.pokedexapp.data.pokedex.HomePokedexStatus
 import souza.home.com.pokedexapp.data.pokedex.PokemonRepositoryImpl
 import souza.home.com.pokedexapp.domain.model.Poke
-import java.lang.IllegalArgumentException
 
 class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
 
@@ -20,36 +20,21 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
 
     private var element : Int = 0
 
-    private val _status = MutableLiveData<HomePokedexStatus>()
-
-    val status : LiveData<HomePokedexStatus>
-        get() = _status
-
-    fun updatePokeslListOnViewLiveData(): LiveData<List<Poke>?> = pokesRepository.pokes
+    fun updatePokesListOnViewLiveData(): LiveData<List<Poke>?> = pokesRepository.pokes
+    fun checkRequestStatus(): LiveData<HomePokedexStatus> = pokesRepository.internet
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     private val pokesRepository = PokemonRepositoryImpl(app.applicationContext)
 
-    private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo
-    private val isConnected : Boolean = activeNetwork?.isConnected == true
-
     init{
-        _status.value = HomePokedexStatus.LOADING
         getPokes()
     }
 
     fun getPokes(){
-        if(isConnected)(
-                try{
-                    coroutineScope.launch {
-                        pokesRepository.refreshPokes(element)
-                    }
-                    _status.value = HomePokedexStatus.DONE
-                }catch(e: Exception){
-                    _status.value = HomePokedexStatus.ERROR
-                })
+        coroutineScope.launch {
+            pokesRepository.refreshPokes(element)
+        }
     }
 
     fun onRecyclerViewScrolled(dy: Int, layoutManager: GridLayoutManager){
@@ -80,5 +65,3 @@ class HomePokedexViewModel(app: Application) : AndroidViewModel(app){
         }
     }
 }
-
-enum class HomePokedexStatus{ LOADING, ERROR, DONE}

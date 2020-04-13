@@ -24,7 +24,6 @@ class ColorFormat {
                     colorV  = R.color.poke_black
                 }
             }
-
             return colorV
         }
     }

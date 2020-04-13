@@ -27,4 +27,7 @@
     <dimen name="recycler_view_poke_image_view_size">80dp</dimen>
     <dimen name="poke_sad_no_result_search">200dp</dimen>
     <dimen name="about_poke_description">175dp</dimen>
+    <dimen name="padding_recycler_text_home">5dp</dimen>
+    <dimen name="text_size_recycler_text_view">18sp</dimen>
+    <dimen name="text_size_recycler_text_view_id">12sp</dimen>
 </resources>

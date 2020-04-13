@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.poke_item_view.view.*
-import souza.home.com.pokedexapp.R
 import souza.home.com.extensions.loadUrl
+import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.NestedType
 import souza.home.com.pokedexapp.utils.Constants.Companion.BASTION_POKE_IMAGE_BASE_URL
 import souza.home.com.pokedexapp.utils.Constants.Companion.DEFAULT_IMAGE_FORMAT_BASTION

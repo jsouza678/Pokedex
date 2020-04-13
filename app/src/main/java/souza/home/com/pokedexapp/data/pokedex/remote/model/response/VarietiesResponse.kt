@@ -17,4 +17,3 @@ data class VarietiesResponse(
     @Json(name="flavor_text_entries")
     var description: MutableList<FlavorDescription>
 )
-

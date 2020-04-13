@@ -8,5 +8,3 @@ interface VarietiesRepository {
     val varieties : LiveData<PokeVariety>?
     suspend fun refreshVarieties(id: Int)
 }
-
-

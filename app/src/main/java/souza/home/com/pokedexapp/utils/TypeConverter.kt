@@ -4,9 +4,6 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesMain
-import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.Evolution
-import souza.home.com.pokedexapp.data.pokedex.remote.model.response.AbilitiesDescription
-import souza.home.com.pokedexapp.data.pokedex.remote.model.response.NestedType
 import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.Sprites
 import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.Stats
 import souza.home.com.pokedexapp.data.pokedex.remote.model.type.Types

@@ -16,11 +16,9 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.response.NestedType
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PropertyResponse
 import souza.home.com.pokedexapp.di.PokeApi
 import souza.home.com.pokedexapp.domain.model.PokeProperty
-import souza.home.com.pokedexapp.domain.model.PokeVariety
 
 class OthersViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
 
-    private var _status = MutableLiveData<DetailsPokedexStatus>()
     private val _internetStatus = MutableLiveData<Boolean>()
     val internetStatus : LiveData<Boolean>
         get() = _internetStatus

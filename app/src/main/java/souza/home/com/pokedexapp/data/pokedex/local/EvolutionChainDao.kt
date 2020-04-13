@@ -6,9 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import souza.home.com.pokedexapp.data.pokedex.local.model.EvolutionEntity
-import souza.home.com.pokedexapp.data.pokedex.local.model.VarietyEntity
 import souza.home.com.pokedexapp.utils.Constants.Companion.EVOLUTION_TABLE_NAME
-import souza.home.com.pokedexapp.utils.Constants.Companion.VARIETY_TABLE_NAME
 
 @Dao
 interface EvolutionChainDao {

@@ -9,4 +9,3 @@ data class PokemonResponse(
     val _id: String,
     val name: String
 )
-

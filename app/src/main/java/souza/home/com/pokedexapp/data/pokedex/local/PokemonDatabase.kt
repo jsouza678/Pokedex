@@ -4,7 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import souza.home.com.pokedexapp.data.pokedex.local.model.*
+import souza.home.com.pokedexapp.data.pokedex.local.model.EvolutionEntity
+import souza.home.com.pokedexapp.data.pokedex.local.model.PokemonEntity
+import souza.home.com.pokedexapp.data.pokedex.local.model.PropertyEntity
+import souza.home.com.pokedexapp.data.pokedex.local.model.VarietyEntity
 
 @Database(entities = [PokemonEntity::class,
     VarietyEntity::class,

@@ -27,11 +27,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        buttonDiscover = findViewById(R.id.button_discover_pokes_main_activity)
-        frameLayoutFragmentHost = findViewById(R.id.nav_host_fragment)
-        mainToolbar = findViewById(R.id.toolbar_main_activity)
-        constraintLayoutHome = findViewById(R.id.constraint_layout_main_activity)
-
+        bindViews()
         val splashFragment = SplashScreen()
         val homeFragment = HomeFragment()
 
@@ -52,6 +48,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun bindViews(){
+        buttonDiscover = findViewById(R.id.button_discover_pokes_main_activity)
+        frameLayoutFragmentHost = findViewById(R.id.nav_host_fragment)
+        mainToolbar = findViewById(R.id.toolbar_main_activity)
+        constraintLayoutHome = findViewById(R.id.constraint_layout_main_activity)
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_menu, menu)
 

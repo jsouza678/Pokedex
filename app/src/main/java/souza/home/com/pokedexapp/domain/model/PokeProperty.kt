@@ -4,7 +4,6 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesMain
 import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.Sprites
 import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.Stats
 import souza.home.com.pokedexapp.data.pokedex.remote.model.type.Types
-import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 
 data class PokeProperty(
     var id: Int = 0,

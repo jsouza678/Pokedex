@@ -1,7 +1,6 @@
 package souza.home.com.pokedexapp.presentation.details.details_nested.about
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -44,10 +44,7 @@ class AboutFragment(var pokemon: Int) : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_about, container, false)
-        tvDesc = view.findViewById(R.id.tv_poke_desc)
-        spVariations = view.findViewById(R.id.spinner_variations)
-        constraintDefault = view.findViewById(R.id.container_default_about)
-        constraintEvolution = view.findViewById(R.id.container_misterious_about)
+        bindViews(view)
 
         viewModel = ViewModelProviders.of(this,
             activity?.application?.let {
@@ -76,6 +73,13 @@ class AboutFragment(var pokemon: Int) : Fragment() {
         initObservers()
 
         return view
+    }
+
+    private fun bindViews(view: View){
+        tvDesc = view.findViewById(R.id.tv_poke_desc)
+        spVariations = view.findViewById(R.id.spinner_variations)
+        constraintDefault = view.findViewById(R.id.container_default_about)
+        constraintEvolution = view.findViewById(R.id.container_misterious_about)
     }
 
     private fun initObservers(){

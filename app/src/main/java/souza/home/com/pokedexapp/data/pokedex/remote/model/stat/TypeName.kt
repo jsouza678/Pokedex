@@ -4,4 +4,3 @@ data class TypeName(
     var name : String?,
     var url: String?
 )
-

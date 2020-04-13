@@ -1,15 +1,18 @@
 package souza.home.com.pokedexapp.data.pokedex.mappers
 
-import android.util.Log
-import souza.home.com.pokedexapp.data.pokedex.local.model.*
+import souza.home.com.pokedexapp.data.pokedex.local.model.EvolutionEntity
+import souza.home.com.pokedexapp.data.pokedex.local.model.PokemonEntity
+import souza.home.com.pokedexapp.data.pokedex.local.model.PropertyEntity
+import souza.home.com.pokedexapp.data.pokedex.local.model.VarietyEntity
 import souza.home.com.pokedexapp.data.pokedex.remote.model.pokemon.PokeRootProperty
-import souza.home.com.pokedexapp.data.pokedex.remote.model.response.VarietiesResponse
-import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PokemonResponse
-import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AllAbilitiesResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.EvolutionChainResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PokemonResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PropertyResponse
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.AllTypesResponse
-import souza.home.com.pokedexapp.domain.model.*
+import souza.home.com.pokedexapp.data.pokedex.remote.model.response.VarietiesResponse
+import souza.home.com.pokedexapp.domain.model.Poke
+import souza.home.com.pokedexapp.domain.model.PokeEvolutionChain
+import souza.home.com.pokedexapp.domain.model.PokeProperty
+import souza.home.com.pokedexapp.domain.model.PokeVariety
 import souza.home.com.pokedexapp.utils.TypeConverter
 import souza.home.com.pokedexapp.utils.cropPokeUrl
 import souza.home.com.pokedexapp.utils.optimizeChain

@@ -1,11 +1,11 @@
 package souza.home.com.pokedexapp.presentation.details.details_nested.others
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -23,7 +23,6 @@ import souza.home.com.pokedexapp.utils.cropTypeUrl
 class OthersFragment(var pokemon: Int) : Fragment() {
 
     private lateinit var viewModel: OthersViewModel
-    private lateinit var poke: String
     private lateinit var lvAbilities : ListView
     private lateinit var lvTypes : ListView
     private lateinit var adapterTypes: TypeAdapter
@@ -38,8 +37,7 @@ class OthersFragment(var pokemon: Int) : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_others, container, false)
-        lvTypes = view.findViewById(R.id.list_view_types)
-        lvAbilities = view.findViewById(R.id.list_view_abilities)
+        bindViews(view)
         typesArray = ArrayList()
         abilitiesArray = ArrayList()
 
@@ -61,6 +59,11 @@ class OthersFragment(var pokemon: Int) : Fragment() {
         initObservers()
 
         return view
+    }
+
+    private fun bindViews(view: View){
+        lvTypes = view.findViewById(R.id.list_view_types)
+        lvAbilities = view.findViewById(R.id.list_view_abilities)
     }
 
     private fun initializeAdapters(view: View){

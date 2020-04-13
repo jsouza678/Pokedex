@@ -10,8 +10,8 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AllAbilitiesResponse
-import souza.home.com.pokedexapp.data.pokedex.remote.model.response.EvolutionChainResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.model.pokemon.PokeRootProperty
+import souza.home.com.pokedexapp.data.pokedex.remote.model.response.EvolutionChainResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PropertyResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.VarietiesResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.model.type.AllTypesResponse
@@ -46,11 +46,11 @@ interface PokedexService {
 
     @GET("type/{id}")
     fun getTypeData(@Path("id") id: Int?):
-            Deferred<AllTypesResponse> // needs to be cached
+            Deferred<AllTypesResponse>
 
     @GET("ability/{id}")
     fun getAbilityData(@Path("id") id: Int):
-            Deferred<AllAbilitiesResponse> // needs to be cached
+            Deferred<AllAbilitiesResponse>
 }
 
 object PokeApi {

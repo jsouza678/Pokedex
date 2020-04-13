@@ -8,5 +8,4 @@ interface PokemonRepository {
     val pokes: LiveData<List<Poke>?>
 
     suspend fun refreshPokes(page: Int)
-
 }

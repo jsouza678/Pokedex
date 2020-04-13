@@ -2,12 +2,12 @@ package souza.home.com.pokedexapp.presentation.details.details_nested.stats
 
 import android.animation.ValueAnimator
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import souza.home.com.pokedexapp.R
@@ -39,20 +39,7 @@ class StatsFragment(var pokemon: Int) : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_stats, container, false)
-        pbHp = view.findViewById(R.id.progress_bar_hp)
-        pbAttack = view.findViewById(R.id.progress_bar_attack)
-        pbDefense = view.findViewById(R.id.progress_bar_defense)
-        pbSpecialAttack = view.findViewById(R.id.progress_bar_special_attack)
-        pbSpecialDefense = view.findViewById(R.id.progress_bar_special_defense)
-        pbSpeed = view.findViewById(R.id.progress_bar_speed)
-        tvAttack = view.findViewById(R.id.text_view_poke_attack)
-        tvHp = view.findViewById(R.id.text_view_poke_hp)
-        tvDefense = view.findViewById(R.id.text_view_poke_defense)
-        tvSpecialAttack = view.findViewById(R.id.text_view_poke_special_attack)
-        tvSpecialDefense = view.findViewById(R.id.text_view_poke_special_deffense)
-        tvSpeed = view.findViewById(R.id.text_view_poke_speed)
-        tvWeight = view.findViewById(R.id.text_view_detail_weight)
-        tvHeight = view.findViewById(R.id.text_view_detail_height)
+        bindViews(view)
 
         viewModel = ViewModelProviders.of(this,
             activity?.application?.let {
@@ -67,6 +54,23 @@ class StatsFragment(var pokemon: Int) : Fragment() {
         initObservers()
 
         return view
+    }
+
+    private fun bindViews(view: View){
+        pbHp = view.findViewById(R.id.progress_bar_hp)
+        pbAttack = view.findViewById(R.id.progress_bar_attack)
+        pbDefense = view.findViewById(R.id.progress_bar_defense)
+        pbSpecialAttack = view.findViewById(R.id.progress_bar_special_attack)
+        pbSpecialDefense = view.findViewById(R.id.progress_bar_special_defense)
+        pbSpeed = view.findViewById(R.id.progress_bar_speed)
+        tvAttack = view.findViewById(R.id.text_view_poke_attack)
+        tvHp = view.findViewById(R.id.text_view_poke_hp)
+        tvDefense = view.findViewById(R.id.text_view_poke_defense)
+        tvSpecialAttack = view.findViewById(R.id.text_view_poke_special_attack)
+        tvSpecialDefense = view.findViewById(R.id.text_view_poke_special_deffense)
+        tvSpeed = view.findViewById(R.id.text_view_poke_speed)
+        tvWeight = view.findViewById(R.id.text_view_detail_weight)
+        tvHeight = view.findViewById(R.id.text_view_detail_height)
     }
 
     private fun initObservers(){

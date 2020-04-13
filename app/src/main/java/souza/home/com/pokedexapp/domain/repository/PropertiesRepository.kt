@@ -2,7 +2,6 @@ package souza.home.com.pokedexapp.domain.repository
 
 import androidx.lifecycle.LiveData
 import souza.home.com.pokedexapp.domain.model.PokeProperty
-import souza.home.com.pokedexapp.domain.model.PokeVariety
 
 interface PropertiesRepository{
 
@@ -10,5 +9,3 @@ interface PropertiesRepository{
 
     suspend fun refreshProperties(id: Int)
 }
-
-

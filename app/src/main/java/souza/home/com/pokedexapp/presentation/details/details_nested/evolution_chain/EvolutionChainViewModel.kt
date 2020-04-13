@@ -9,29 +9,27 @@ import androidx.lifecycle.LiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
-import souza.home.com.pokedexapp.domain.model.PokeVariety
+import souza.home.com.pokedexapp.data.pokedex.EvolutionRepositoryImpl
+import souza.home.com.pokedexapp.domain.model.PokeEvolutionChain
 
 class EvolutionChainViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
 
-    fun updateVariationsOnViewLiveData(): LiveData<PokeVariety>? = varietiesRepository.varieties
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
-    private val varietiesRepository = VarietiesRepositoryImpl(pokemon, app.applicationContext)
+    fun updateEvolutionOnViewLiveData(): LiveData<PokeEvolutionChain>? = chainRepository.evolution
+    private var chainRepository = EvolutionRepositoryImpl(pokemon, app.applicationContext)
     private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo
     private val isConnected : Boolean = activeNetwork?.isConnected == true
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
-    init {
+    init{
         if(isConnected){
-            getPokeChainUrl(pokemon)
+            getChainEvolution(pokemon)
         }
     }
 
-    private fun getPokeChainUrl(pokemon: Int){
+    private fun getChainEvolution(chainId: Int){
         coroutineScope.launch {
-            varietiesRepository.refreshVarieties(pokemon)
+            chainRepository.refreshEvolutionChain(chainId)
         }
     }
 }
-
-enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}

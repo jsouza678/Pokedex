@@ -21,7 +21,7 @@
         style="@style/pokedex_logo_splash_screen" />
 
     <ImageView
-        android:id="@+id/floating_action_button_poke_ball"
+        android:id="@+id/image_view_floating_action_button_poke_ball"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin_16"
@@ -30,10 +30,10 @@
         android:layout_marginBottom="@dimen/material_margin_16"
         android:contentDescription="@string/content_description_poke_ball_image_view_splash"
         android:src="@drawable/poke_ball"
-        app:layout_constraintBottom_toTopOf="@+id/progress_bar_splash"
+        app:layout_constraintBottom_toTopOf="@id/progress_bar_splash"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_name_splash" />
+        app:layout_constraintTop_toBottomOf="@id/app_name_splash" />
 
     <ProgressBar
         android:id="@+id/progress_bar_splash"
@@ -44,6 +44,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/floating_action_button_poke_ball" />
+        app:layout_constraintTop_toBottomOf="@id/image_view_floating_action_button_poke_ball" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
