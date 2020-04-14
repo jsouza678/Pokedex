@@ -13,7 +13,7 @@ import souza.home.com.pokedexapp.data.pokedex.VarietiesPokedexStatus
 import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 
-class AboutViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
+class AboutViewModel(pokemon: Int, app: Application) : AndroidViewModel(app) {
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
@@ -24,16 +24,16 @@ class AboutViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
         VarietiesRepositoryImpl(pokemon, app.applicationContext)
 
     private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo
-    private val isConnected : Boolean = activeNetwork?.isConnected == true
+    private val activeNetwork: NetworkInfo? = conectivityManager.activeNetworkInfo
+    private val isConnected: Boolean = activeNetwork?.isConnected == true
 
     init {
-        if(isConnected){
+        if (isConnected) {
             getVarieties(pokemon)
         }
     }
 
-    fun getVarieties(pokemon: Int){
+    fun getVarieties(pokemon: Int) {
 
         coroutineScope.launch {
             varietiesRepository.refreshVarieties(pokemon)

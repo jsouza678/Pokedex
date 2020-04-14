@@ -20,6 +20,7 @@ import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
 import souza.home.com.pokedexapp.presentation.details.DetailsFragment
 import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewModelFactory
+import souza.home.com.pokedexapp.utils.Constants.Companion.ABSOLUTE_ZERO
 import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 import souza.home.com.pokedexapp.utils.Constants.Companion.LIMIT_NORMAL_POKES
 import souza.home.com.pokedexapp.utils.cropPokeUrl
@@ -27,19 +28,20 @@ import souza.home.com.pokedexapp.utils.cropPokeUrl
 class AboutFragment(var pokemon: Int) : Fragment() {
 
     private lateinit var viewModel: AboutViewModel
-    private lateinit var spVariations : Spinner
-    private lateinit var tvDesc : TextView
+    private lateinit var spVariations: Spinner
+    private lateinit var tvDesc: TextView
     private lateinit var varietiesArray: MutableList<Varieties>
     private lateinit var pokemonsArray: MutableList<Varieties>
-    private lateinit var adapterSpinner : SpinnerAdapter
-    private lateinit var constraintDefault : ConstraintLayout
-    private lateinit var constraintEvolution : ConstraintLayout
-    private var pokePath : Int = 0
-    private var urlChain : String = EMPTY_STRING
-    private var spinnerSelected: Int = 0
+    private lateinit var adapterSpinner: AboutSpinnerAdapter
+    private lateinit var constraintDefault: ConstraintLayout
+    private lateinit var constraintEvolution: ConstraintLayout
+    private var pokePath: Int = ABSOLUTE_ZERO
+    private var urlChain: String = EMPTY_STRING
+    private var spinnerSelected: Int = ABSOLUTE_ZERO
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -49,12 +51,12 @@ class AboutFragment(var pokemon: Int) : Fragment() {
         pokemonsArray = mutableListOf()
 
         adapterSpinner =
-            SpinnerAdapter(
+            AboutSpinnerAdapter(
                 view.context,
                 pokemonsArray
             )
 
-        if(pokemon > LIMIT_NORMAL_POKES){
+        if (pokemon > LIMIT_NORMAL_POKES) {
             constraintDefault.gone()
             constraintEvolution.visible()
         }
@@ -65,14 +67,14 @@ class AboutFragment(var pokemon: Int) : Fragment() {
         return view
     }
 
-    private fun bindViews(view: View){
+    private fun bindViews(view: View) {
         tvDesc = view.findViewById(R.id.text_view_poke_desc_about)
         spVariations = view.findViewById(R.id.spinner_variations_about)
         constraintDefault = view.findViewById(R.id.constraint_layout_default_about)
         constraintEvolution = view.findViewById(R.id.constraint_layout_mysterious_about)
     }
 
-    private fun initViewModel(){
+    private fun initViewModel() {
         viewModel = ViewModelProviders.of(this,
             activity?.application?.let {
                 NestedViewModelFactory(
@@ -84,7 +86,7 @@ class AboutFragment(var pokemon: Int) : Fragment() {
             .get(AboutViewModel::class.java)
     }
 
-    private fun initDataObserver(){
+    private fun initDataObserver() {
         viewModel.apply {
             this.updateVariationsOnViewLiveData()?.observeOnce(viewLifecycleOwner, Observer {
                 initSpinner()
@@ -99,23 +101,23 @@ class AboutFragment(var pokemon: Int) : Fragment() {
         spVariations.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, p3: Long) {
                 spinnerSelected = position - 1
-                when(position){
-                    0 ->  { } // Do Nothing. This is the hint position.
-                    else-> { onSpinnerSelectedChange() }
+                when (position) {
+                    0 -> { } // Do Nothing. This is the hint position.
+                    else -> { onSpinnerSelectedChange() }
                 }
             }
-            override fun onNothingSelected(parent: AdapterView<*>) {/* Do nothing when not selected" */ }
+            override fun onNothingSelected(parent: AdapterView<*>) { /* Do nothing when not selected" */ }
         }
     }
 
-    private fun onSpinnerSelectedChange(){
+    private fun onSpinnerSelectedChange() {
         urlChain = pokemonsArray[spinnerSelected].pokemon._id
 
         pokePath = Integer.parseInt(cropPokeUrl(urlChain))
 
-        if(pokePath == pokemon){
+        if (pokePath == pokemon) {
             view?.let { Snackbar.make(it, getString(R.string.choose_another_poke_spinner_error), BaseTransientBottomBar.LENGTH_SHORT).show() }
-        }else{
+        } else {
             view?.let { Snackbar.make(it, R.string.snackbar_loading_poke_evolution, BaseTransientBottomBar.LENGTH_SHORT).show() }
             val newPoke = pokemonsArray[spinnerSelected].pokemon.name
             val details = DetailsFragment(pokePath, newPoke)

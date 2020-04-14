@@ -13,7 +13,7 @@ import souza.home.com.pokedexapp.di.PokeApi
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.domain.repository.PropertiesRepository
 
-enum class PropertiesPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
+enum class PropertiesPokedexStatus { LOADING, ERROR, DONE, EMPTY }
 
 class PropertiesRepositoryImpl(private val id: Int, context: Context) : PropertiesRepository {
 
@@ -21,30 +21,30 @@ class PropertiesRepositoryImpl(private val id: Int, context: Context) : Properti
 
     override val properties: LiveData<PokeProperty>?
         get() = DB_INSTANCE.propertyDao.getProperty(id)?.let {
-            Transformations.map(it){ propertyObject ->
+            Transformations.map(it) { propertyObject ->
                 propertyObject?.let { propertyItem -> PokedexMapper.propertyAsDomain(propertyItem) }
             }
         }
 
     private val _internet = MutableLiveData<PropertiesPokedexStatus>()
 
-    val internet : LiveData<PropertiesPokedexStatus>
+    val internet: LiveData<PropertiesPokedexStatus>
         get() = _internet
 
     override suspend fun refreshProperties(id: Int) {
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             _internet.postValue(PropertiesPokedexStatus.LOADING)
-            try{
+            try {
                 val pokeProperty = PokeApi.retrofitService.getPokeStats(id).await()
                 DB_INSTANCE.propertyDao.insertAll(PokedexMapper.propertiesAsDatabase(pokeProperty))
-                if(pokeProperty.name.isNullOrBlank()){
+                if (pokeProperty.name.isNullOrBlank()) {
                     _internet.postValue(PropertiesPokedexStatus.EMPTY)
-                }else{
+                } else {
                     _internet.postValue(PropertiesPokedexStatus.DONE)
                 }
-            }catch(e: Exception){
+            } catch (e: Exception) {
                 _internet.postValue(PropertiesPokedexStatus.ERROR)
-                Log.i("Error" , "Message From Api on Properties" + e.message)
+                Log.i("Error", "Message From Api on Properties" + e.message)
             }
         }
     }

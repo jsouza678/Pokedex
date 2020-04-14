@@ -19,21 +19,24 @@ import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.HomePokedexStatus
 import souza.home.com.pokedexapp.domain.model.Poke
 import souza.home.com.pokedexapp.presentation.details.DetailsFragment
+import souza.home.com.pokedexapp.utils.Constants.Companion.ABSOLUTE_ZERO
 import souza.home.com.pokedexapp.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
 
 class HomeFragment : Fragment() {
 
-    private lateinit var pokesList : MutableList<Poke>
+    private lateinit var pokesList: MutableList<Poke>
     private lateinit var layoutManager: GridLayoutManager
-    private lateinit var manager : FragmentManager
-    private lateinit var progressBar : ProgressBar
-    private lateinit var recyclerView : RecyclerView
-    private lateinit var floatingActionButton : FloatingActionButton
+    private lateinit var manager: FragmentManager
+    private lateinit var progressBar: ProgressBar
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var floatingActionButton: FloatingActionButton
     private lateinit var adapter: HomeAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home_pokedex, container, false)
         pokesList = mutableListOf()
@@ -41,7 +44,7 @@ class HomeFragment : Fragment() {
         manager = activity?.supportFragmentManager!!
         bindViews(view)
 
-        val  viewModel = ViewModelProviders.of(this,
+        val viewModel = ViewModelProviders.of(this,
             activity?.application?.let {
                 HomeViewModel.Factory(
                     it
@@ -57,19 +60,19 @@ class HomeFragment : Fragment() {
         return view
     }
 
-    private fun bindViews(view: View){
+    private fun bindViews(view: View) {
         adapter = HomeAdapter(pokesList, view.context)
         recyclerView = view.findViewById(R.id.recycler_view_home)
-        floatingActionButton = view.findViewById(R.id.floating_action_button_poke_ball_home)
+        floatingActionButton = view.findViewById<FloatingActionButton>(R.id.floating_action_button_poke_ball_home)
     }
 
-    private fun setFloactingActionPokeball(){
+    private fun setFloactingActionPokeball() {
         floatingActionButton.setOnClickListener {
-            recyclerView.scrollToPosition(0)
+            recyclerView.scrollToPosition(ABSOLUTE_ZERO)
         }
     }
 
-    private fun initObservers(viewModel: HomeViewModel){
+    private fun initObservers(viewModel: HomeViewModel) {
         viewModel.apply {
             this.updatePokesListOnViewLiveData().observe(viewLifecycleOwner, Observer {
                 it?.toMutableList()?.let { pokesList -> adapter.submitList(pokesList) } })
@@ -78,15 +81,15 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun toggleProgressBar(it: HomePokedexStatus){
-        when(it){
-            HomePokedexStatus.DONE->{ turnOffProgressBar() }
-            HomePokedexStatus.LOADING-> turnOnProgressBar()
-            HomePokedexStatus.ERROR-> view?.let { it1 -> Snackbar.make(it1, getString(R.string.no_conectivity), 800).show() }
-            else-> turnOffProgressBar()
+    private fun toggleProgressBar(it: HomePokedexStatus) {
+        when (it) {
+            HomePokedexStatus.DONE -> { turnOffProgressBar() }
+            HomePokedexStatus.LOADING -> turnOnProgressBar()
+            HomePokedexStatus.ERROR -> view?.let { it1 -> Snackbar.make(it1, getString(R.string.no_conectivity), 800).show() }
+            else -> turnOffProgressBar()
         }
     }
-    private fun initRecyclerView(viewModel : HomeViewModel){
+    private fun initRecyclerView(viewModel: HomeViewModel) {
 
         layoutManager = GridLayoutManager(context, TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW)
         recyclerView.layoutManager = layoutManager
@@ -96,7 +99,7 @@ class HomeFragment : Fragment() {
         setListenerRecyclerView(recyclerView, viewModel)
     }
 
-    private fun setListenerRecyclerView(recyclerView: RecyclerView, viewModel: HomeViewModel){
+    private fun setListenerRecyclerView(recyclerView: RecyclerView, viewModel: HomeViewModel) {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 viewModel.onRecyclerViewScrolled(
@@ -107,7 +110,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun setTransitionToPokeDetails(){
+    private fun setTransitionToPokeDetails() {
         adapter.onItemClick = {
 
             val pokeId = it._id
@@ -118,11 +121,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun turnOnProgressBar(){
+    private fun turnOnProgressBar() {
         progressBar.visible()
     }
 
-    private fun turnOffProgressBar(){
+    private fun turnOffProgressBar() {
         progressBar.gone()
     }
 }

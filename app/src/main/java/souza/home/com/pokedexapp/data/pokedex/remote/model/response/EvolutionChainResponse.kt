@@ -6,7 +6,7 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.Evolu
 
 @JsonClass(generateAdapter = true)
 data class EvolutionChainResponse(
-    @Json(name ="id")
+    @Json(name = "id")
     var _id: Int,
     var chain: Evolution
 )

@@ -18,10 +18,10 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_1000
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var buttonDiscover : Button
-    private lateinit var frameLayoutFragmentHost : FrameLayout
-    private lateinit var mainToolbar : Toolbar
-    private lateinit var constraintLayoutHome : ConstraintLayout
+    private lateinit var buttonDiscover: Button
+    private lateinit var frameLayoutFragmentHost: FrameLayout
+    private lateinit var mainToolbar: Toolbar
+    private lateinit var constraintLayoutHome: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +47,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun bindViews(){
+    private fun bindViews() {
         buttonDiscover = findViewById(R.id.button_discover_pokes_home_activity)
         frameLayoutFragmentHost = findViewById(R.id.nav_host_fragment_home_activity)
         mainToolbar = findViewById(R.id.toolbar_home_activity)
@@ -60,7 +60,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.search_menu_icon -> {
                 openSearchDialog()
                 return true
@@ -68,7 +68,7 @@ class HomeActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-    private fun openSearchDialog(){
+    private fun openSearchDialog() {
         val searchDialog = SearchDialog()
         frameLayoutFragmentHost.visible()
         constraintLayoutHome.gone()

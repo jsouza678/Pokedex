@@ -18,20 +18,20 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.ABSOLUTE_ZERO
 import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_400
 import souza.home.com.pokedexapp.utils.Constants.Companion.POKE_LIMIT
 
-class HomeViewModel(app: Application) : AndroidViewModel(app){
+class HomeViewModel(app: Application) : AndroidViewModel(app) {
 
-    private var isLoading : Boolean = false
-    private var element : Int = ABSOLUTE_ZERO
+    private var isLoading: Boolean = false
+    private var element: Int = ABSOLUTE_ZERO
     fun updatePokesListOnViewLiveData(): LiveData<List<Poke>?> = pokesRepository.pokes
     fun checkRequestStatus(): LiveData<HomePokedexStatus> = pokesRepository.internet
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
     private val pokesRepository = PokemonRepositoryImpl(app.applicationContext)
 
-    init{
+    init {
         getPokes()
     }
 
-    fun getPokes(){
+    fun getPokes() {
         isLoading = true
         coroutineScope.launch {
             pokesRepository.refreshPokes(element)
@@ -41,17 +41,17 @@ class HomeViewModel(app: Application) : AndroidViewModel(app){
         }, DELAY_POST_400)
     }
 
-    fun onRecyclerViewScrolled(dy: Int, layoutManager: GridLayoutManager){
-        if(dy>ABSOLUTE_ZERO){
+    fun onRecyclerViewScrolled(dy: Int, layoutManager: GridLayoutManager) {
+        if (dy> ABSOLUTE_ZERO) {
             val isItTheListEnd = itIsTheListEnd(layoutManager = layoutManager)
-            if(isLoading.not() && isItTheListEnd){
+            if (isLoading.not() && isItTheListEnd) {
                 element += POKE_LIMIT // this will increase the elements and show the next page on API.
                 getPokes()
             }
         }
     }
 
-    fun itIsTheListEnd(layoutManager: GridLayoutManager) : Boolean{
+    fun itIsTheListEnd(layoutManager: GridLayoutManager): Boolean {
         val visibleItemCount = layoutManager.childCount
         val totalItemCount = layoutManager.itemCount
         val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
@@ -59,9 +59,9 @@ class HomeViewModel(app: Application) : AndroidViewModel(app){
         return visibleItemCount + firstVisibleItemPosition >= totalItemCount
     }
 
-    class Factory(val app: Application): ViewModelProvider.Factory{
+    class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if(modelClass.isAssignableFrom(HomeViewModel::class.java)){
+            if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return HomeViewModel(app) as T
             }

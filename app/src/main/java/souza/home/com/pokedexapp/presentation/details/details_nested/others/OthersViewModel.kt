@@ -17,35 +17,35 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PropertyResp
 import souza.home.com.pokedexapp.di.PokeApi
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 
-class OthersViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
+class OthersViewModel(pokemon: Int, app: Application) : AndroidViewModel(app) {
 
     private val _internetStatus = MutableLiveData<Boolean>()
-    val internetStatus : LiveData<Boolean>
+    val internetStatus: LiveData<Boolean>
         get() = _internetStatus
     private var _statusAb = MutableLiveData<AbilityPokedexStatus>()
-    val statusAb : LiveData<AbilityPokedexStatus>
+    val statusAb: LiveData<AbilityPokedexStatus>
         get() = _statusAb
     private var _abilityDesc = MutableLiveData<String>()
-    val abilityDesc : LiveData<String>
+    val abilityDesc: LiveData<String>
         get() = _abilityDesc
     private var _pokeTypes = MutableLiveData<MutableList<NestedType>>()
-    val pokeTypes : LiveData<MutableList<NestedType>>
+    val pokeTypes: LiveData<MutableList<NestedType>>
         get() = _pokeTypes
     private var _other = MutableLiveData<PropertyResponse>()
-    val other : LiveData<PropertyResponse>
+    val other: LiveData<PropertyResponse>
         get() = _other
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
     private val propertiesRepository =
         PropertiesRepositoryImpl(pokemon, app.applicationContext)
     private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo
-    private val isConnected : Boolean = activeNetwork?.isConnected == true
+    private val activeNetwork: NetworkInfo? = conectivityManager.activeNetworkInfo
+    private val isConnected: Boolean = activeNetwork?.isConnected == true
     fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = propertiesRepository.properties
 
     init {
         _internetStatus.value = isConnected
-        if(isConnected){
+        if (isConnected) {
             _pokeTypes.value = mutableListOf()
             getOtherProperties(pokemon)
         }
@@ -57,47 +57,46 @@ class OthersViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
         }
     }
 
-    fun getAbilityDesc(abilityId: Int){
+    fun getAbilityDesc(abilityId: Int) {
         getAbilityData(abilityId)
     }
 
-    fun getPokesInTypes(typeId: Int){
+    fun getPokesInTypes(typeId: Int) {
         getPokesFromTypes(typeId)
     }
 
-    private fun getAbilityData(abilityId: Int){
+    private fun getAbilityData(abilityId: Int) {
         _statusAb.value = AbilityPokedexStatus.LOADING
 
         coroutineScope.launch {
             val getAbilityDeferred = PokeApi.retrofitService.getAbilityData(abilityId)
 
-            try{
+            try {
                 val abilityData = getAbilityDeferred.await()
 
                 _abilityDesc.value = abilityData.effect?.get(0)?.effect
 
                 _statusAb.value = AbilityPokedexStatus.DONE
-
-            }catch(t: Throwable){
+            } catch (t: Throwable) {
                 _statusAb.value = AbilityPokedexStatus.ERROR
             }
         }
     }
 
-    private fun getPokesFromTypes(typeId: Int){
+    private fun getPokesFromTypes(typeId: Int) {
 
         _statusAb.value = AbilityPokedexStatus.LOADING
 
         coroutineScope.launch {
             val getTypesDeferred = PokeApi.retrofitService.getTypeData(typeId)
 
-            try{
+            try {
                 val typesData = getTypesDeferred.await()
 
                 _pokeTypes.value = typesData.pokemon
 
                 _statusAb.value = AbilityPokedexStatus.DONE
-            }catch(t: Throwable){
+            } catch (t: Throwable) {
                 _statusAb.value = AbilityPokedexStatus.ERROR
             }
         }
@@ -109,6 +108,6 @@ class OthersViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
     }
 }
 
-enum class AbilityPokedexStatus{ LOADING, ERROR, DONE}
+enum class AbilityPokedexStatus { LOADING, ERROR, DONE }
 
-enum class DetailsPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
+enum class DetailsPokedexStatus { LOADING, ERROR, DONE, EMPTY }

@@ -8,6 +8,6 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.response.AbilitiesDes
 data class AllAbilitiesResponse(
     @Json(name = "id")
     var _id: Int,
-    @Json(name="effect_entries")
+    @Json(name = "effect_entries")
     var effect: MutableList<AbilitiesDescription>?
 )

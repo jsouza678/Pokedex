@@ -11,11 +11,11 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PokemonRespo
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
 import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 
-class SpinnerAdapter (private val context: Context, private val dataList: MutableList<Varieties>) : BaseAdapter() {
+class AboutSpinnerAdapter(private val context: Context, private val dataList: MutableList<Varieties>) : BaseAdapter() {
 
     var pokemon: PokemonResponse =
         PokemonResponse(EMPTY_STRING, context.getString(R.string.spinner_hint))
-    var poke : Varieties =
+    var poke: Varieties =
         Varieties(pokemon)
 
     private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -23,7 +23,7 @@ class SpinnerAdapter (private val context: Context, private val dataList: Mutabl
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var rowView = convertView
 
-        if(rowView == null) {
+        if (rowView == null) {
             val dataItem = dataList[position]
             rowView = inflater.inflate(R.layout.list_item_row, parent, false)
             rowView.findViewById<TextView>(R.id.text_view_item_list).text = dataItem.pokemon.name.capitalize()
@@ -33,8 +33,8 @@ class SpinnerAdapter (private val context: Context, private val dataList: Mutabl
         return rowView!!
     }
 
-    fun submitList(newData: MutableList<Varieties>?){
-        if(dataList.isNotEmpty()){
+    fun submitList(newData: MutableList<Varieties>?) {
+        if (dataList.isNotEmpty()) {
             dataList.clear()
         }
         dataList.add(0, poke)

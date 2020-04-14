@@ -14,11 +14,11 @@ import souza.home.com.pokedexapp.data.pokedex.PropertiesRepositoryImpl
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PropertyResponse
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 
-class PokeStatsViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
+class StatsViewModel(pokemon: Int, app: Application) : AndroidViewModel(app) {
 
     private var _stats = MutableLiveData<PropertyResponse>()
 
-    val stats : LiveData<PropertyResponse>
+    val stats: LiveData<PropertyResponse>
         get() = _stats
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
@@ -26,13 +26,13 @@ class PokeStatsViewModel(pokemon: Int, app: Application): AndroidViewModel(app) 
         PropertiesRepositoryImpl(pokemon, app.applicationContext)
 
     private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo
-    private val isConnected : Boolean = activeNetwork?.isConnected == true
+    private val activeNetwork: NetworkInfo? = conectivityManager.activeNetworkInfo
+    private val isConnected: Boolean = activeNetwork?.isConnected == true
 
     fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = propertiesRepository.properties
 
     init {
-        if(isConnected){
+        if (isConnected) {
             getStats(pokemon)
         }
     }

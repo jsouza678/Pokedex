@@ -13,7 +13,7 @@ import souza.home.com.pokedexapp.di.PokeApi
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 import souza.home.com.pokedexapp.domain.repository.VarietiesRepository
 
-enum class VarietiesPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
+enum class VarietiesPokedexStatus { LOADING, ERROR, DONE, EMPTY }
 
 class VarietiesRepositoryImpl(private val id: Int, context: Context) : VarietiesRepository {
 
@@ -21,27 +21,27 @@ class VarietiesRepositoryImpl(private val id: Int, context: Context) : Varieties
 
     private val _internet = MutableLiveData<VarietiesPokedexStatus>()
 
-    val internet : LiveData<VarietiesPokedexStatus>
+    val internet: LiveData<VarietiesPokedexStatus>
         get() = _internet
 
-    override val varieties: LiveData<PokeVariety?>? = Transformations.map(DB_INSTANCE.varietiesDao.getVariety(id)){
+    override val varieties: LiveData<PokeVariety?>? = Transformations.map(DB_INSTANCE.varietiesDao.getVariety(id)) {
         it?.let { it1 -> PokedexMapper.variationsAsDomain(it1) }
     }
 
     override suspend fun refreshVarieties(id: Int) {
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             _internet.postValue(VarietiesPokedexStatus.LOADING)
-            try{
+            try {
                 val pokeVariations = PokeApi.retrofitService.getVariations(id).await()
                 DB_INSTANCE.varietiesDao.insertAll(PokedexMapper.variationsAsDatabase(pokeVariations))
-                if(pokeVariations._id.isNullOrEmpty()){
+                if (pokeVariations._id.isNullOrEmpty()) {
                     _internet.postValue(VarietiesPokedexStatus.EMPTY)
-                }else{
+                } else {
                     _internet.postValue(VarietiesPokedexStatus.DONE)
                 }
-            }catch(e: Exception){
+            } catch (e: Exception) {
                 _internet.postValue(VarietiesPokedexStatus.ERROR)
-                Log.i("Error" , "Message From Api on Varieties" + e.message)
+                Log.i("Error", "Message From Api on Varieties" + e.message)
             }
         }
     }

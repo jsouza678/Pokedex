@@ -14,27 +14,27 @@ import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewModelFactory
 
-
 class StatsFragment(var pokemon: Int) : Fragment() {
 
-    private lateinit var viewModel: PokeStatsViewModel
-    private lateinit var tvHp : TextView
-    private lateinit var pbHp : ProgressBar
-    private lateinit var tvAttack : TextView
-    private lateinit var pbAttack : ProgressBar
-    private lateinit var tvDefense : TextView
-    private lateinit var tvHeight : TextView
-    private lateinit var tvWeight : TextView
-    private lateinit var pbDefense : ProgressBar
+    private lateinit var viewModel: StatsViewModel
+    private lateinit var tvHp: TextView
+    private lateinit var pbHp: ProgressBar
+    private lateinit var tvAttack: TextView
+    private lateinit var pbAttack: ProgressBar
+    private lateinit var tvDefense: TextView
+    private lateinit var tvHeight: TextView
+    private lateinit var tvWeight: TextView
+    private lateinit var pbDefense: ProgressBar
     private lateinit var tvSpecialAttack: TextView
-    private lateinit var pbSpecialAttack : ProgressBar
-    private lateinit var tvSpecialDefense : TextView
-    private lateinit var pbSpecialDefense : ProgressBar
-    private lateinit var tvSpeed : TextView
-    private lateinit var pbSpeed : ProgressBar
+    private lateinit var pbSpecialAttack: ProgressBar
+    private lateinit var tvSpecialDefense: TextView
+    private lateinit var pbSpecialDefense: ProgressBar
+    private lateinit var tvSpeed: TextView
+    private lateinit var pbSpeed: ProgressBar
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -49,14 +49,14 @@ class StatsFragment(var pokemon: Int) : Fragment() {
                 )
             }
         )
-            .get(PokeStatsViewModel::class.java)
+            .get(StatsViewModel::class.java)
 
         initObservers()
 
         return view
     }
 
-    private fun bindViews(view: View){
+    private fun bindViews(view: View) {
         pbHp = view.findViewById(R.id.progress_bar_hp_stat)
         pbAttack = view.findViewById(R.id.progress_bar_attack_stat)
         pbDefense = view.findViewById(R.id.progress_bar_defense_stat)
@@ -73,17 +73,17 @@ class StatsFragment(var pokemon: Int) : Fragment() {
         tvHeight = view.findViewById(R.id.text_view_detail_height_stat)
     }
 
-    private fun initObservers(){
+    private fun initObservers() {
         viewModel.apply {
             this.updatePropertiesOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
-                if(it!=null){
+                if (it != null) {
                     initStats(it)
                 }
             })
         }
     }
 
-    private fun initStats(item: PokeProperty?){
+    private fun initStats(item: PokeProperty?) {
 
         item?.stats?.get(5)?.base_stat.let { it?.let { it1 -> Integer.valueOf(it1) } }?.let { animateStats(it, tvHp) }
         pbHp.progress = item?.stats?.get(5)?.base_stat?.let { Integer.parseInt(it) }!!
@@ -107,7 +107,7 @@ class StatsFragment(var pokemon: Int) : Fragment() {
         animateStats(item.height?.let { Integer.valueOf(it) }, tvHeight)
     }
 
-    private fun animateStats(item: Int?, tv: TextView){
+    private fun animateStats(item: Int?, tv: TextView) {
         val animator = ValueAnimator()
         animator.setObjectValues(0, item)
         animator.addUpdateListener {

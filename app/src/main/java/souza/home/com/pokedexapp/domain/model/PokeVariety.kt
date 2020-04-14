@@ -10,6 +10,6 @@ data class PokeVariety(
     var evolution_chain: EvolutionPath?,
     var varieties: MutableList<Varieties>?,
     var color: Color?,
-    @Json(name="flavor_text_entries")
+    @Json(name = "flavor_text_entries")
     var description: String?
 )

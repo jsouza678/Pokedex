@@ -13,18 +13,18 @@ import souza.home.com.pokedexapp.data.pokedex.local.model.VarietyEntity
     VarietyEntity::class,
     PropertyEntity::class,
     EvolutionEntity::class], version = 1)
-abstract class PokemonDatabase: RoomDatabase() {
+abstract class PokemonDatabase : RoomDatabase() {
     abstract val pokemonDao: PokemonDao
     abstract val varietiesDao: VarietiesDao
     abstract val propertyDao: PropertyDao
     abstract val evolutionChainDao: EvolutionChainDao
 
-    companion object{
-        private lateinit var INSTANCE : PokemonDatabase
+    companion object {
+        private lateinit var INSTANCE: PokemonDatabase
 
         fun getDatabase(context: Context): PokemonDatabase {
-            synchronized(PokemonDatabase::class.java){
-                if(!::INSTANCE.isInitialized){
+            synchronized(PokemonDatabase::class.java) {
+                if (!::INSTANCE.isInitialized) {
                     INSTANCE = Room.databaseBuilder(context.applicationContext,
                         PokemonDatabase::class.java,
                         "pokedex.db").build() // name

@@ -10,7 +10,7 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PokemonRespo
 import souza.home.com.pokedexapp.utils.Constants.Companion.POKE_TABLE_NAME
 
 @Dao
-interface PokemonDao{
+interface PokemonDao {
     @Query("select * from $POKE_TABLE_NAME")
     fun getPokes(): LiveData<List<PokemonResponse>?>
 

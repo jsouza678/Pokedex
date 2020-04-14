@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.random.Random
 import kotlinx.android.synthetic.main.recycler_poke_item_view.view.*
 import souza.home.com.extensions.loadUrl
 import souza.home.com.pokedexapp.R
@@ -16,8 +17,6 @@ import souza.home.com.pokedexapp.domain.model.Poke
 import souza.home.com.pokedexapp.utils.Constants.Companion.BASTION_POKE_IMAGE_BASE_URL
 import souza.home.com.pokedexapp.utils.Constants.Companion.DEFAULT_IMAGE_FORMAT_BASTION
 import souza.home.com.pokedexapp.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
-import kotlin.random.Random
-
 
 class HomeAdapter(private val pokes: MutableList<Poke>?, private val context: Context) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
@@ -46,10 +45,9 @@ class HomeAdapter(private val pokes: MutableList<Poke>?, private val context: Co
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.itemBind(pokes!![position])
-
     }
 
-    private fun setColor():  Int{
+    private fun setColor(): Int {
 
         val random: Random = Random
 
@@ -76,18 +74,18 @@ class HomeAdapter(private val pokes: MutableList<Poke>?, private val context: Co
         private val pokeId: TextView = itemView.text_view_id_poke_recycler
         private val pokeCv: CardView = itemView.card_view_poke_item
         private var formatedNumber: String = ""
-        private var pokemonId : Int = 0
+        private var pokemonId: Int = 0
 
-        fun itemBind(pokes: Poke){
+        fun itemBind(pokes: Poke) {
             pokeName.text = pokes.name
             pokemonId = pokes._id
-            formatedNumber= "$FORMAT_ID_POKE_DISPLAY".format(pokemonId)
+            formatedNumber = "$FORMAT_ID_POKE_DISPLAY".format(pokemonId)
             pokeId.text = context.resources.getString(R.string.text_view_placeholder_hash, formatedNumber)
             pokeImage.loadUrl("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION")
             pokeCv.setCardBackgroundColor(ContextCompat.getColor(context, setColor()))
         }
-        init{
-            itemView.setOnClickListener{
+        init {
+            itemView.setOnClickListener {
                 onItemClick?.invoke(pokes!![adapterPosition])
             }
         }

@@ -9,11 +9,11 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
 
 @JsonClass(generateAdapter = true)
 data class VarietiesResponse(
-    @Json(name="id")
+    @Json(name = "id")
     var _id: String,
     var evolution_chain: EvolutionPath,
     var varieties: MutableList<Varieties>,
     var color: Color,
-    @Json(name="flavor_text_entries")
+    @Json(name = "flavor_text_entries")
     var description: MutableList<FlavorDescription>
 )

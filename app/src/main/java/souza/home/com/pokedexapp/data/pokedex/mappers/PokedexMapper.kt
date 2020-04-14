@@ -39,7 +39,7 @@ class PokedexMapper {
             )
         }
 
-        fun variationsAsDatabase(pokeVarietiesReponse : VarietiesResponse) : VarietyEntity {
+        fun variationsAsDatabase(pokeVarietiesReponse: VarietiesResponse): VarietyEntity {
             val pokeVarietiesAsString = TypeConverter.fromVarieties(pokeVarietiesReponse.varieties)
             val pokeDescriptionAsString = optimizeDescription(pokeVarietiesReponse.description)
             val pokeEvolutionChainAsString = TypeConverter.fromEvolutionPath(pokeVarietiesReponse.evolution_chain)
@@ -53,8 +53,7 @@ class PokedexMapper {
                 description = pokeDescriptionAsString)
         }
 
-
-        fun propertiesAsDatabase(propertyResponse: PropertyResponse) : PropertyEntity {
+        fun propertiesAsDatabase(propertyResponse: PropertyResponse): PropertyEntity {
             val abilitiesAsString = TypeConverter.fromAbilities(propertyResponse.abilities)
             val spritesAsString = TypeConverter.fromSprites(propertyResponse.sprites)
             val statsAsString = TypeConverter.fromStats(propertyResponse.stats)
@@ -102,8 +101,8 @@ class PokedexMapper {
                 weight = propertyEntity.weight)
         }
 
-        fun pokemonAsDomain(pokemonResponse : List<PokemonResponse>?): List<Poke>? {
-            return pokemonResponse?.map{
+        fun pokemonAsDomain(pokemonResponse: List<PokemonResponse>?): List<Poke>? {
+            return pokemonResponse?.map {
                 Poke(
                     _id = Integer.parseInt(it._id),
                     name = it.name) }

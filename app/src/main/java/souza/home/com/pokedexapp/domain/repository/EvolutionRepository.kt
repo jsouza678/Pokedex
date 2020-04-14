@@ -5,7 +5,7 @@ import souza.home.com.pokedexapp.domain.model.PokeEvolutionChain
 
 interface EvolutionRepository {
 
-    val evolution : LiveData<PokeEvolutionChain>?
+    val evolution: LiveData<PokeEvolutionChain>?
 
     suspend fun refreshEvolutionChain(id: Int)
 }

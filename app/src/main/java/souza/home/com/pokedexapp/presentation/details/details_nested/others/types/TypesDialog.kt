@@ -17,7 +17,7 @@ import souza.home.com.pokedexapp.utils.cropPokeUrl
 
 class TypesDialog(private val pList: MutableList<NestedType>) : DialogFragment() {
 
-    private lateinit var pokesList : MutableList<NestedType>
+    private lateinit var pokesList: MutableList<NestedType>
     private lateinit var adapter: TypesDialogAdapter
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var recyclerView: RecyclerView
@@ -25,7 +25,7 @@ class TypesDialog(private val pList: MutableList<NestedType>) : DialogFragment()
     private lateinit var textViewResult: TextView
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val view : View = activity?.layoutInflater?.inflate(R.layout.fragment_poke_types_dialog, null)!!
+        val view: View = activity?.layoutInflater?.inflate(R.layout.fragment_poke_types_dialog, null)!!
 
         recyclerView = view.findViewById(R.id.recycler_view_poke_search_dialog)
         buttonDismiss = view.findViewById(R.id.button_dismiss_custom_search_dialog)
@@ -57,7 +57,7 @@ class TypesDialog(private val pList: MutableList<NestedType>) : DialogFragment()
         isCancelable = false
     }
 
-    private fun setTransitionToPokeDetails(){
+    private fun setTransitionToPokeDetails() {
         adapter.onItemClick = {
             val urlChain = it.pokemon._id
             val pokeName = it.pokemon.name

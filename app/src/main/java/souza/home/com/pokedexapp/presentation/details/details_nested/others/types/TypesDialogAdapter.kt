@@ -17,7 +17,6 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 import souza.home.com.pokedexapp.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
 import souza.home.com.pokedexapp.utils.cropPokeUrl
 
-
 class TypesDialogAdapter(private val pokes: MutableList<NestedType>?, private val context: Context) : RecyclerView.Adapter<TypesDialogAdapter.ViewHolder>() {
 
     var onItemClick: ((NestedType) -> Unit)? = null
@@ -51,22 +50,20 @@ class TypesDialogAdapter(private val pokes: MutableList<NestedType>?, private va
         private val pokeImage: ImageView = itemView.image_view_poke_sprite_recycler
         private val pokeId: TextView = itemView.text_view_id_poke_recycler
         private var formatedNumber: String = EMPTY_STRING
-        private var pokemonId : String = EMPTY_STRING
+        private var pokemonId: String = EMPTY_STRING
 
-        fun itemBind(pokes: NestedType){
+        fun itemBind(pokes: NestedType) {
             pokeName.text = pokes.pokemon.name
             pokemonId = cropPokeUrl(pokes.pokemon._id)
-            formatedNumber= FORMAT_ID_POKE_DISPLAY.format(Integer.parseInt(pokemonId))
+            formatedNumber = FORMAT_ID_POKE_DISPLAY.format(Integer.parseInt(pokemonId))
             pokeId.text = context.resources.getString(R.string.text_view_placeholder_hash, formatedNumber)
             pokeImage.loadUrl("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION")
         }
 
-        init{
-            itemView.setOnClickListener{
+        init {
+            itemView.setOnClickListener {
                 pokes?.get(adapterPosition)?.let { it1 -> onItemClick?.invoke(it1) }
             }
         }
-
     }
-
 }

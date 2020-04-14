@@ -13,7 +13,7 @@ import souza.home.com.pokedexapp.di.PokeApi
 import souza.home.com.pokedexapp.domain.model.PokeEvolutionChain
 import souza.home.com.pokedexapp.domain.repository.EvolutionRepository
 
-enum class EvolutionPokedexStatus{ LOADING, ERROR, DONE, EMPTY}
+enum class EvolutionPokedexStatus { LOADING, ERROR, DONE, EMPTY }
 
 class EvolutionRepositoryImpl(id: Int, context: Context) : EvolutionRepository {
 
@@ -21,31 +21,31 @@ class EvolutionRepositoryImpl(id: Int, context: Context) : EvolutionRepository {
 
     private val _internet = MutableLiveData<EvolutionPokedexStatus>()
 
-    val internet : LiveData<EvolutionPokedexStatus>
+    val internet: LiveData<EvolutionPokedexStatus>
         get() = _internet
 
     override val evolution: LiveData<PokeEvolutionChain>? =
         DB_INSTANCE.evolutionChainDao.getEvolutionChain(id)?.let {
-            Transformations.map(it){ evolutionObject ->
+            Transformations.map(it) { evolutionObject ->
                 evolutionObject?.let { evolutionItem -> PokedexMapper.evolutionAsDomain(evolutionItem) }
             }
         }
 
     override suspend fun refreshEvolutionChain(id: Int) {
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             _internet.postValue(EvolutionPokedexStatus.LOADING)
-            try{
+            try {
                 val pokeEvolution = PokeApi.retrofitService.getEvolutionChain(id).await()
                 DB_INSTANCE.evolutionChainDao.insertAll(PokedexMapper.evolutionChainToDatabaseModel(pokeEvolution))
 
-                if(pokeEvolution.chain.species?.name.isNullOrBlank()){
+                if (pokeEvolution.chain.species?.name.isNullOrBlank()) {
                     _internet.postValue(EvolutionPokedexStatus.EMPTY)
-                }else{
+                } else {
                     _internet.postValue(EvolutionPokedexStatus.DONE)
                 }
-            }catch(e: Exception){
+            } catch (e: Exception) {
                 _internet.postValue(EvolutionPokedexStatus.ERROR)
-                Log.i("Error" , "Message From Api on Evolution" + e.message)
+                Log.i("Error", "Message From Api on Evolution" + e.message)
             }
         }
     }

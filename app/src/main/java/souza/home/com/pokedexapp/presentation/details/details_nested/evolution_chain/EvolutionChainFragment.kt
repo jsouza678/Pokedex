@@ -14,13 +14,14 @@ import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewM
 
 class EvolutionChainFragment(var pokemon: Int) : Fragment() {
 
-    private lateinit var lvChain : ListView
-    private lateinit var adapterChain : EvolutionChainAdapter
+    private lateinit var lvChain: ListView
+    private lateinit var adapterChain: EvolutionChainAdapter
     private lateinit var evolutionArray: MutableList<Evolution>
-    private lateinit var listString : MutableList<String>
+    private lateinit var listString: MutableList<String>
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -44,11 +45,11 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
         return view
     }
 
-    private fun bindViews(view: View){
+    private fun bindViews(view: View) {
         lvChain = view.findViewById(R.id.list_view_chain)
     }
 
-    private fun initEvolutionChainViewModel(evolutionCropped: Int){
+    private fun initEvolutionChainViewModel(evolutionCropped: Int) {
         val viewModel = ViewModelProviders.of(this@EvolutionChainFragment,
             NestedViewModelFactory(
                 evolutionCropped,
@@ -59,9 +60,9 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
         initSecondaryObserver(viewModel)
     }
 
-    private fun initSecondaryObserver(viewModel: EvolutionChainViewModel){
+    private fun initSecondaryObserver(viewModel: EvolutionChainViewModel) {
         viewModel.updateEvolutionOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
-            if(it!=null){
+            if (it != null) {
                 listString = it.evolution!!
                 initChainEvolution()
                 adapterChain.submitList(listString)
@@ -69,7 +70,7 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
         })
     }
 
-    private fun initChainEvolution(){
+    private fun initChainEvolution() {
         lvChain.adapter = adapterChain
     }
 }

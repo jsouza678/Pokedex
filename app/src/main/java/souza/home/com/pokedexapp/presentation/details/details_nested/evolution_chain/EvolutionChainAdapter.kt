@@ -12,9 +12,9 @@ class EvolutionChainAdapter(private val context: Context, private val dataList: 
 
     private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-    fun submitList(newData: MutableList<String>){
+    fun submitList(newData: MutableList<String>) {
         if (dataList != null) {
-            if(dataList.isNotEmpty()){
+            if (dataList.isNotEmpty()) {
                 dataList.clear()
             }
         }
@@ -28,9 +28,9 @@ class EvolutionChainAdapter(private val context: Context, private val dataList: 
         val tv = rowView.findViewById<TextView>(R.id.text_view_item_list)
 
         if (dataList != null) {
-            if(dataList.size > 0){
+            if (dataList.size > 0) {
                 tv.text = dataItem?.capitalize()
-            }else{
+            } else {
                 tv.text = context.getString(R.string.no_poke_evolution)
             }
         }
@@ -50,7 +50,7 @@ class EvolutionChainAdapter(private val context: Context, private val dataList: 
     override fun getCount(): Int {
         if (dataList != null) {
             return dataList.size
-        }else{
+        } else {
             return 0
         }
     }

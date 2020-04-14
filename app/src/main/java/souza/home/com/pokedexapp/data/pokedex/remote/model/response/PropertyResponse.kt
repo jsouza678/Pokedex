@@ -9,8 +9,8 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 
 @JsonClass(generateAdapter = true)
 data class PropertyResponse(
-    var id : Int = 0,
-    var abilities : MutableList<AbilitiesMain>,
+    var id: Int = 0,
+    var abilities: MutableList<AbilitiesMain>,
     var name: String = EMPTY_STRING,
     var height: Int = 0,
     var sprites: Sprites,

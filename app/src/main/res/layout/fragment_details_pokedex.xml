@@ -97,7 +97,7 @@
                 app:tabTextAppearance="@style/custom_tab_text_style"
                 app:tabTextColor="@color/tab_text_color" />
 
-            <souza.home.com.pokedexapp.presentation.view_utils.DynamicHeightViewPager
+            <souza.home.com.pokedexapp.presentation.view_utils.AutoSizeViewPager
                 android:id="@+id/fragment_container_details"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/view_pager_default_height"

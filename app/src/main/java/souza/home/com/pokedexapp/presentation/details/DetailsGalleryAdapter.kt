@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.image_view_pager_item.view.*
 import souza.home.com.extensions.loadUrl
 import souza.home.com.pokedexapp.R
 
-
 class DetailsGalleryAdapter(private val context: Context, private val gallery: MutableList<String>) : PagerAdapter() {
 
     private companion object {

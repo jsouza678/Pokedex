@@ -13,7 +13,7 @@ import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 
-class DetailsViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
+class DetailsViewModel(pokemon: Int, app: Application) : AndroidViewModel(app) {
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
     private val varietiesRepository = VarietiesRepositoryImpl(pokemon, app.applicationContext)
@@ -24,11 +24,11 @@ class DetailsViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
     fun updateVariationsOnViewLiveData(): LiveData<PokeVariety?>? = varietiesRepository.varieties
     fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = propertiesRepository.properties
 
-    init{
+    init {
         getColor(pokemon)
     }
 
-    private fun getColor(pokemon: Int){
+    private fun getColor(pokemon: Int) {
         coroutineScope.launch {
             varietiesRepository.refreshVarieties(pokemon)
             propertiesRepository.refreshProperties(pokemon)

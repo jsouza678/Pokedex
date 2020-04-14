@@ -12,22 +12,22 @@ import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.data.pokedex.EvolutionRepositoryImpl
 import souza.home.com.pokedexapp.domain.model.PokeEvolutionChain
 
-class EvolutionChainViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
+class EvolutionChainViewModel(pokemon: Int, app: Application) : AndroidViewModel(app) {
 
     fun updateEvolutionOnViewLiveData(): LiveData<PokeEvolutionChain>? = chainRepository.evolution
     private var chainRepository = EvolutionRepositoryImpl(pokemon, app.applicationContext)
     private val conectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    private val activeNetwork : NetworkInfo? = conectivityManager.activeNetworkInfo
-    private val isConnected : Boolean = activeNetwork?.isConnected == true
+    private val activeNetwork: NetworkInfo? = conectivityManager.activeNetworkInfo
+    private val isConnected: Boolean = activeNetwork?.isConnected == true
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
-    init{
-        if(isConnected){
+    init {
+        if (isConnected) {
             getChainEvolution(pokemon)
         }
     }
 
-    private fun getChainEvolution(chainId: Int){
+    private fun getChainEvolution(chainId: Int) {
         coroutineScope.launch {
             chainRepository.refreshEvolutionChain(chainId)
         }

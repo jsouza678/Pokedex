@@ -8,14 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_poke_item_view.view.*
-import souza.home.com.pokedexapp.R
 import souza.home.com.extensions.loadUrl
+import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.domain.model.Poke
 import souza.home.com.pokedexapp.utils.Constants.Companion.BASTION_POKE_IMAGE_BASE_URL
 import souza.home.com.pokedexapp.utils.Constants.Companion.DEFAULT_IMAGE_FORMAT_BASTION
 import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 import souza.home.com.pokedexapp.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
-
 
 class SearchDialogAdapter(private val pokes: MutableList<Poke>?, private val context: Context) : RecyclerView.Adapter<SearchDialogAdapter.ViewHolder>() {
 
@@ -38,9 +37,9 @@ class SearchDialogAdapter(private val pokes: MutableList<Poke>?, private val con
     }
 
     override fun getItemCount(): Int {
-        if(pokes != null) {
+        if (pokes != null) {
             return pokes.size
-        }else{
+        } else {
             return 0
         }
     }
@@ -54,18 +53,18 @@ class SearchDialogAdapter(private val pokes: MutableList<Poke>?, private val con
         private val pokeImage: ImageView = itemView.image_view_poke_sprite_recycler
         private val pokeId: TextView = itemView.text_view_id_poke_recycler
         private var formattedNumber: String = EMPTY_STRING
-        private var pokemonId : Int = 0
+        private var pokemonId: Int = 0
 
-        fun itemBind(pokes: Poke){
+        fun itemBind(pokes: Poke) {
             pokeName.text = pokes.name
             pokemonId = pokes._id
-            formattedNumber= FORMAT_ID_POKE_DISPLAY.format(pokemonId)
+            formattedNumber = FORMAT_ID_POKE_DISPLAY.format(pokemonId)
             pokeId.text = context?.resources?.getString(R.string.text_view_placeholder_hash, formattedNumber)
             pokeImage.loadUrl("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION")
         }
 
-        init{
-            itemView.setOnClickListener{
+        init {
+            itemView.setOnClickListener {
                 pokes?.get(adapterPosition)?.let { item -> onItemClick?.invoke(item) }
             }
         }

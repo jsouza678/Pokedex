@@ -7,5 +7,5 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.response.PokemonRespo
 @JsonClass(generateAdapter = true)
 data class PokeRootProperty(
     @Json(name = "results")
-    var results : MutableList<PokemonResponse>? = null
+    var results: MutableList<PokemonResponse>? = null
 )

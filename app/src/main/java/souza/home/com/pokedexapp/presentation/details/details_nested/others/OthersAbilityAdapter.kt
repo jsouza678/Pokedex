@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.Types
+import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesMain
 
-class TypeAdapter (private val context: Context, private val dataList: MutableList<Types>) : BaseAdapter() {
+class OthersAbilityAdapter(private val context: Context, private val dataList: MutableList<AbilitiesMain>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-    fun submitList(newData: MutableList<Types>){
-        if(dataList.isNotEmpty()){
+    fun submitList(newData: MutableList<AbilitiesMain>) {
+        if (dataList.isNotEmpty()) {
             dataList.clear()
         }
         dataList.addAll(newData)
@@ -24,13 +24,13 @@ class TypeAdapter (private val context: Context, private val dataList: MutableLi
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val dataItem = dataList[position]
         val rowView = inflater.inflate(R.layout.list_item_row, parent, false)
-        rowView.findViewById<TextView>(R.id.text_view_item_list).text = dataItem.type.name?.capitalize()
+        rowView.findViewById<TextView>(R.id.text_view_item_list).text = dataItem.ability.name.capitalize()
 
         rowView.tag = position
         return rowView
     }
 
-    override fun getItem(position: Int): Types {
+    override fun getItem(position: Int): AbilitiesMain {
         return dataList[position]
     }
 
@@ -41,5 +41,4 @@ class TypeAdapter (private val context: Context, private val dataList: MutableLi
     override fun getCount(): Int {
         return dataList.size
     }
-
 }

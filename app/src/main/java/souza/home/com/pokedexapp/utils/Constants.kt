@@ -12,7 +12,7 @@ class Constants {
         const val VARIETY_TABLE_NAME = "variety"
         const val EVOLUTION_TABLE_NAME = "evolution"
         const val PROPERTY_TABLE_NAME = "property"
-        const val TIME_BACKGROUND_ANIMATION : Long = 400
+        const val TIME_BACKGROUND_ANIMATION: Long = 400
         const val LIMIT_NORMAL_POKES = 807
         const val LANGUAGE_DESCRIPTIONS = "en"
         const val EMPTY_STRING = ""
@@ -20,8 +20,8 @@ class Constants {
         const val IMAGE_MAX_WIDTH = 320
         const val TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW = 2
         const val ABSOLUTE_ZERO = 0
-        const val DELAY_POST_1000 : Long = 1000
-        const val DELAY_POST_2000 : Long = 2000
-        const val DELAY_POST_400 : Long = 400
+        const val DELAY_POST_1000: Long = 1000
+        const val DELAY_POST_2000: Long = 2000
+        const val DELAY_POST_400: Long = 400
     }
 }

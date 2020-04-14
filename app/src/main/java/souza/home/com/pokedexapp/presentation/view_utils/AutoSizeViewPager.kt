@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import androidx.viewpager.widget.ViewPager
 import souza.home.com.pokedexapp.utils.Constants.Companion.ABSOLUTE_ZERO
 
-class DynamicHeightViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : ViewPager(context, attrs) {
+class AutoSizeViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : ViewPager(context, attrs) {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 
