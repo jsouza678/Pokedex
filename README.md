@@ -13,6 +13,14 @@ Ao clicar em alguma descrição, rapidamente aparecerá sua descrição.
 Ao clicar em um tipo, aparecerá uma lista com todos os pokemons do mesmo tipo.
 Ao clicar na descrição do pokemon, se abrirá uma janela com a sua descrição completa.
 
+## Algumas screenshots
+![first_screen](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/first_screen.png) 
+![menu](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/menu.png) 
+![details](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/details_root.png)
+![details_stats](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/details_stats.png)
+![details_other_types](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/details_other_types.png)
+![error_search](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/error_.png)
+
 ## Ambiente de instalação
 * 1: Instale o Android Studio;
 * 2: Abra a aplicação;
