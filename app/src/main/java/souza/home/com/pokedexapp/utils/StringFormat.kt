@@ -32,26 +32,19 @@ fun optimizeDescription(it: MutableList<FlavorDescription>?): String {
     return description
 }
 
-fun optimizeChain(it: EvolutionChainResponse): MutableList<String> {
-    val croppedList = mutableListOf<String>()
+fun optimizeChain(item: EvolutionChainResponse): MutableList<String> {
+    val evolutionArray = mutableListOf<String>()
 
-    it.chain.species?.name.let { it1 ->
-        if (it1 != null) {
-            croppedList.add(it1)
-        }
+    if (item.chain.species?.name != null) { // 1 If poke has one evolution
+        evolutionArray.add(item.chain.species!!.name!!)
+        try {
+            evolutionArray.add(item.chain.evolves_to!![0].species?.name!!) // 2 If poke has the second evolution
+            try {
+                evolutionArray.add(item.chain.evolves_to!![0].evolves_to!![0].species?.name!!) // 3 If poke has the third evolution
+            } catch (e: Exception) { }
+        } catch (e: Exception) { }
     }
-    it.chain.evolves_to?.get(0)?.species?.name.let { it1 ->
-        if (it1 != null) {
-            croppedList.add(it1)
-        }
-    }
-    it.chain.evolves_to?.get(0)?.evolves_to?.get(0)?.species?.name.let { it1 ->
-        if (it1 != null) {
-            croppedList.add(it1)
-        }
-    }
-
-    return croppedList
+    return evolutionArray
 }
 
 fun isString(text: String): Boolean {

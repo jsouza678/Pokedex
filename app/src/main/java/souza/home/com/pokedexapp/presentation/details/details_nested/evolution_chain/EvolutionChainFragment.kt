@@ -8,6 +8,7 @@ import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import souza.home.com.extensions.observeOnce
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.Evolution
 import souza.home.com.pokedexapp.presentation.details.details_nested.NestedViewModelFactory
@@ -51,22 +52,22 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
 
     private fun initEvolutionChainViewModel(evolutionCropped: Int) {
         val viewModel = ViewModelProviders.of(this@EvolutionChainFragment,
-            NestedViewModelFactory(
-                evolutionCropped,
-                activity!!.application
-            )
+            activity?.application?.let {
+                NestedViewModelFactory(
+                    evolutionCropped,
+                    it
+                )
+            }
         )
             .get(EvolutionChainViewModel::class.java)
         initSecondaryObserver(viewModel)
     }
 
     private fun initSecondaryObserver(viewModel: EvolutionChainViewModel) {
-        viewModel.updateEvolutionOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
+        viewModel.updateEvolutionOnViewLiveData()?.observeOnce(viewLifecycleOwner, Observer {
                 listString = it.evolution!!
                 initChainEvolution()
                 adapterChain.submitList(listString)
-            }
         })
     }
 

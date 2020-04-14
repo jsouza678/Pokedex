@@ -103,7 +103,7 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
         when (varietiesPokedexStatus) {
             VarietiesPokedexStatus.LOADING -> {}
             VarietiesPokedexStatus.DONE -> initObserverData(viewModel, viewPager, tabs)
-            VarietiesPokedexStatus.EMPTY -> showError()
+            VarietiesPokedexStatus.EMPTY -> initObserverData(viewModel, viewPager, tabs)
             // In case of ERROR. Runs normally, because it has cache on some pokes.
             else -> {
                 initObserverData(viewModel, viewPager, tabs)
@@ -158,12 +158,16 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
     private fun showDataNormalPoke(it: PokeVariety, viewPager: ViewPager, tabs: TabLayout) {
         val backgroundColor = ColorFormat.setColor(it.color?.name, pokeId)
         animateBackground(backgroundColor)
+        val pokeChainUriPath = it.evolution_chain?.url?.let { path -> cropPokeUrl(path) }
+        val pokeChainId = pokeChainUriPath?.let { id -> Integer.parseInt(id) }
 
         val sectionsPagerAdapter =
-            fragmentManager?.let { fm -> DetailsViewPagerAdapter(
-                fm, pokeId,
-                Integer.parseInt(cropPokeUrl(it.evolution_chain?.url!!))
-            ) // Here the !! is accepted because // the pokemon has a evolution chain url.
+            fragmentManager?.let { fm ->
+                pokeChainId?.let { it ->
+                    DetailsViewPagerAdapter(
+                        fm, pokeId, it
+                    )
+                }
             }
         sectionsPagerAdapter?.let { item -> setViewPager(viewPager, item, tabs) }
         viewPager.offscreenPageLimit = OFFSCREEN_DEFAULT_VIEW_PAGER

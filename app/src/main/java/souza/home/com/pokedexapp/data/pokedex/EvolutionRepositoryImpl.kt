@@ -14,16 +14,13 @@ import souza.home.com.pokedexapp.di.PokeApi
 import souza.home.com.pokedexapp.domain.model.PokeEvolutionChain
 import souza.home.com.pokedexapp.domain.repository.EvolutionRepository
 
-enum class EvolutionPokedexStatus { LOADING, ERROR, DONE, EMPTY }
+enum class EvolutionPokedexStatus { LOADING, ERROR, DONE }
 
 class EvolutionRepositoryImpl(id: Int, private val context: Context) : EvolutionRepository {
 
     private val INSTANCE = PokemonDatabase.getDatabase(context)
 
     private val _internet = MutableLiveData<EvolutionPokedexStatus>()
-
-    val internet: LiveData<EvolutionPokedexStatus>
-        get() = _internet
 
     override val evolution: LiveData<PokeEvolutionChain>? =
         INSTANCE.evolutionChainDao.getEvolutionChain(id)?.let {
@@ -38,12 +35,7 @@ class EvolutionRepositoryImpl(id: Int, private val context: Context) : Evolution
             try {
                 val pokeEvolution = PokeApi.retrofitService.getEvolutionChain(id).await()
                 INSTANCE.evolutionChainDao.insertAll(PokedexMapper.evolutionChainToDatabaseModel(pokeEvolution))
-
-                if (pokeEvolution.chain.species?.name.isNullOrBlank()) {
-                    _internet.postValue(EvolutionPokedexStatus.EMPTY)
-                } else {
-                    _internet.postValue(EvolutionPokedexStatus.DONE)
-                }
+                _internet.postValue(EvolutionPokedexStatus.DONE)
             } catch (e: Exception) {
                 _internet.postValue(EvolutionPokedexStatus.ERROR)
                 Log.i(context.getString(R.string.error_message_log), context.getString(R.string.error_log_evolution) + e.message)
