@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesMain
@@ -86,7 +87,7 @@ class OthersFragment(var pokemon: Int) : Fragment() {
                 if (it == true) {
                     initLoadData()
                 } else {
-                    view?.let { view -> Snackbar.make(view, getString(R.string.no_internet_connection), 800).show() }
+                    view?.let { view -> Snackbar.make(view, getString(R.string.no_internet_connection), BaseTransientBottomBar.LENGTH_SHORT).show() }
                 }
             })
         }
@@ -125,7 +126,7 @@ class OthersFragment(var pokemon: Int) : Fragment() {
     }
 
     private fun openDialog(message: String?) {
-        material = MaterialAlertDialogBuilder(context).setTitle("Ability Description").setPositiveButton("Dismiss", null)
+        material = MaterialAlertDialogBuilder(context).setTitle(getString(R.string.ability_description_dialog_pokemon_in_types)).setPositiveButton(getString(R.string.button_text_dismiss), null)
         material.setMessage(message)
         material.show()
     }
@@ -161,6 +162,6 @@ class OthersFragment(var pokemon: Int) : Fragment() {
     private fun showCustomTypesDialog(list: MutableList<NestedType>) {
         val pokeTypesDialog: TypesDialog = TypesDialog(list)
 
-        fragmentManager?.let { pokeTypesDialog.show(it, "my_pokemons_in_types_fragment") }
+        fragmentManager?.let { pokeTypesDialog.show(it, getString(R.string.fragment_tag_pokemon_in_types_dialog)) }
     }
 }

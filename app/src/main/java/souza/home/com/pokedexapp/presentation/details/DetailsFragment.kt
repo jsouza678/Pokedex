@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import souza.home.com.extensions.observeOnce
@@ -39,7 +40,6 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
     private lateinit var galleryViewPagerAdapter: DetailsGalleryAdapter
     private lateinit var viewPagerGallery: ViewPager
     private lateinit var mImages: MutableList<String>
-    private var count = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -53,7 +53,7 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
         setToolbarBackButton(toolbar)
         setPokeAndIdText()
         initViewModel()
-        initObserverStatus(viewPager, tabs, view)
+        initObserverStatus(viewPager, tabs)
 
         return view
     }
@@ -66,7 +66,7 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
     }
 
     private fun setToolbarBackButton(toolbar: Toolbar) {
-        toolbar.setNavigationOnClickListener({ activity?.onBackPressed() })
+        toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
     }
 
     private fun initViewModel() {
@@ -81,7 +81,7 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
         tvPokeId.text = context?.resources?.getString(R.string.text_view_placeholder_hash, textId)
     }
 
-    private fun initObserverStatus(viewPager: ViewPager, tabs: TabLayout, view: View) {
+    private fun initObserverStatus(viewPager: ViewPager, tabs: TabLayout) {
         viewModel.apply {
             this.checkRequestVariationsStatus().observe(viewLifecycleOwner, Observer {
                 if (pokeId> LIMIT_NORMAL_POKES) { showDataEvolutionPoke(viewPager, tabs)
@@ -132,7 +132,7 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
     private fun initObserverData(viewModel: DetailsViewModel, viewPager: ViewPager, tabsDetails: TabLayout) {
         viewModel.apply {
             this.updateVariationsOnViewLiveData()?.observeOnce(viewLifecycleOwner, Observer { pokeVariety ->
-                pokeVariety?.let { pokeVariety -> showDataNormalPoke(pokeVariety, viewPager, tabsDetails) }
+                pokeVariety?.let { it -> showDataNormalPoke(it, viewPager, tabsDetails) }
             })
             this.updatePropertiesOnViewLiveData()?.observeOnce(viewLifecycleOwner, Observer {
                 loadImages(it)
@@ -147,7 +147,7 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
     }
 
     private fun showError() {
-        view?.let { Snackbar.make(it, getString(R.string.no_conectivity), 800).show() }
+        view?.let { Snackbar.make(it, getString(R.string.no_conectivity), BaseTransientBottomBar.LENGTH_SHORT).show() }
     }
 
     private fun setViewPager(viewPager: ViewPager, sectionsPagerAdapter: DetailsViewPagerAdapter, tabs: TabLayout) {

@@ -31,7 +31,7 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
         getPokes()
     }
 
-    fun getPokes() {
+    private fun getPokes() {
         isLoading = true
         coroutineScope.launch {
             pokesRepository.refreshPokes(element)
@@ -51,7 +51,7 @@ class HomeViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun itIsTheListEnd(layoutManager: GridLayoutManager): Boolean {
+    private fun itIsTheListEnd(layoutManager: GridLayoutManager): Boolean {
         val visibleItemCount = layoutManager.childCount
         val totalItemCount = layoutManager.itemCount
         val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()

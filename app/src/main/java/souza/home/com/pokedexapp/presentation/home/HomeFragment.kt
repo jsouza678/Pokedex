@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import souza.home.com.extensions.gone
 import souza.home.com.extensions.visible
@@ -85,7 +86,7 @@ class HomeFragment : Fragment() {
         when (it) {
             HomePokedexStatus.DONE -> { turnOffProgressBar() }
             HomePokedexStatus.LOADING -> turnOnProgressBar()
-            HomePokedexStatus.ERROR -> view?.let { it1 -> Snackbar.make(it1, getString(R.string.no_conectivity), 800).show() }
+            HomePokedexStatus.ERROR -> view?.let { itemView -> Snackbar.make(itemView, getString(R.string.no_conectivity), BaseTransientBottomBar.LENGTH_SHORT).show() }
             else -> turnOffProgressBar()
         }
     }

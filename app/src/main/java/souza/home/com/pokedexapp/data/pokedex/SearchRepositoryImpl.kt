@@ -6,18 +6,19 @@ import androidx.lifecycle.Transformations
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
 import souza.home.com.pokedexapp.data.pokedex.mappers.PokedexMapper
 import souza.home.com.pokedexapp.domain.model.Poke
+import souza.home.com.pokedexapp.domain.repository.SearchRepository
 
-class SearchRepositoryImpl(context: Context) {
+class SearchRepositoryImpl(context: Context) : SearchRepository {
 
     private val DB_INSTANCE = PokemonDatabase.getDatabase(context)
 
-    fun searchPokesById(poke: Int): LiveData<List<Poke>?> {
+    override fun searchPokesById(poke: Int): LiveData<List<Poke>?> {
         return Transformations.map(DB_INSTANCE.pokemonDao.getPokesById(poke)) {
             PokedexMapper.pokemonAsDomain(it)
         }
     }
 
-    fun searchPokesByName(poke: String): LiveData<List<Poke>?> {
+    override fun searchPokesByName(poke: String): LiveData<List<Poke>?> {
         return Transformations.map(DB_INSTANCE.pokemonDao.getPokesByName(poke)) {
             PokedexMapper.pokemonAsDomain(it)
         }

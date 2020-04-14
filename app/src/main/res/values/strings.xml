@@ -66,4 +66,6 @@
     <string name="black_color_name">black</string>
     <string name="choose_another_poke_spinner_error">Choose another poke</string>
     <string name="search_fragment_tag">search_fragment</string>
+    <string name="fragment_tag_pokemon_in_types_dialog">my_pokemons_in_types_fragment</string>
+    <string name="ability_description_dialog_pokemon_in_types">Ability Description</string>
 </resources>
