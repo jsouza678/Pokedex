@@ -7,19 +7,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
 import souza.home.com.pokedexapp.data.pokedex.mappers.PokedexMapper
 import souza.home.com.pokedexapp.di.PokeApi
 import souza.home.com.pokedexapp.domain.model.Poke
 import souza.home.com.pokedexapp.domain.repository.PokemonRepository
+import souza.home.com.pokedexapp.utils.CheckNetworkState
 
 enum class HomePokedexStatus { LOADING, ERROR, DONE, EMPTY }
 
-class PokemonRepositoryImpl(context: Context) : PokemonRepository {
+class PokemonRepositoryImpl(private val context: Context) : PokemonRepository {
 
-    private val DB_INSTANCE = PokemonDatabase.getDatabase(context)
+    private val INSTANCE = PokemonDatabase.getDatabase(context)
 
-    override val pokes: LiveData<List<Poke>?> = Transformations.map(DB_INSTANCE.pokemonDao.getPokes()) {
+    override val pokes: LiveData<List<Poke>?> = Transformations.map(INSTANCE.pokemonDao.getPokes()) {
         PokedexMapper.pokemonAsDomain(it)
     }
 
@@ -31,9 +33,10 @@ class PokemonRepositoryImpl(context: Context) : PokemonRepository {
     override suspend fun refreshPokes(page: Int) {
         withContext(Dispatchers.IO) {
             _internet.postValue(HomePokedexStatus.LOADING)
+            if (CheckNetworkState.checkNetworkState(context)) {
             try {
                 val pokeList = PokeApi.retrofitService.getPokes(page).await()
-                PokedexMapper.pokemonToDatabaseModel(pokeList)?.let { DB_INSTANCE.pokemonDao.insertAll(*it) }
+                PokedexMapper.pokemonToDatabaseModel(pokeList)?.let { INSTANCE.pokemonDao.insertAll(*it) }
                 if (pokeList.results.isNullOrEmpty()) {
                     _internet.postValue(HomePokedexStatus.EMPTY)
                 } else {
@@ -41,7 +44,10 @@ class PokemonRepositoryImpl(context: Context) : PokemonRepository {
                 }
             } catch (e: Exception) {
                 _internet.postValue(HomePokedexStatus.ERROR)
-                Log.i("Error", "Message From Api on Pokemon" + e.message)
+                Log.i(context.getString(R.string.error_message_log), context.getString(R.string.error_log_pokemon) + e.message)
+            }
+            } else {
+                _internet.postValue(HomePokedexStatus.ERROR)
             }
         }
     }

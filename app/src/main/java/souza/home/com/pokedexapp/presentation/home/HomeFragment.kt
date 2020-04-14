@@ -4,7 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
@@ -32,6 +37,11 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var floatingActionButton: FloatingActionButton
     private lateinit var adapter: HomeAdapter
+    private lateinit var constraintLayoutEmpty: ConstraintLayout
+    private lateinit var backgroundSprite: ImageView
+    private lateinit var toolbarHomeTop: Toolbar
+    private lateinit var pokeBallBottomCoordinatorLayout: CoordinatorLayout
+    private lateinit var buttonReload: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,6 +64,7 @@ class HomeFragment : Fragment() {
         )
             .get(HomeViewModel::class.java)
 
+        setButtonReloadClick()
         initRecyclerView(viewModel)
         setFloactingActionPokeball()
         initObservers(viewModel)
@@ -65,6 +76,17 @@ class HomeFragment : Fragment() {
         adapter = HomeAdapter(pokesList, view.context)
         recyclerView = view.findViewById(R.id.recycler_view_home)
         floatingActionButton = view.findViewById<FloatingActionButton>(R.id.floating_action_button_poke_ball_home)
+        constraintLayoutEmpty = view.findViewById(R.id.constraint_layout_empty_home)
+        backgroundSprite = view.findViewById(R.id.background_sprite_home)
+        toolbarHomeTop = view.findViewById(R.id.pokedex_toolbar_home)
+        pokeBallBottomCoordinatorLayout = view.findViewById(R.id.poke_ball_bottom_toolbar_home)
+        buttonReload = view.findViewById(R.id.button_try_again_home)
+    }
+
+    private fun setButtonReloadClick() {
+        buttonReload.setOnClickListener {
+            manager.beginTransaction().replace(R.id.nav_host_fragment_home_activity, HomeFragment()).commit()
+        }
     }
 
     private fun setFloactingActionPokeball() {
@@ -76,7 +98,11 @@ class HomeFragment : Fragment() {
     private fun initObservers(viewModel: HomeViewModel) {
         viewModel.apply {
             this.updatePokesListOnViewLiveData().observe(viewLifecycleOwner, Observer {
-                it?.toMutableList()?.let { pokesList -> adapter.submitList(pokesList) } })
+                it?.toMutableList()?.let { pokesList -> adapter.submitList(pokesList) }
+                if (it?.size == 0) {
+                    toggleEmptyListScreen()
+                }
+            })
 
             this.checkRequestStatus().observe(viewLifecycleOwner, Observer { toggleProgressBar(it) })
         }
@@ -128,5 +154,13 @@ class HomeFragment : Fragment() {
 
     private fun turnOffProgressBar() {
         progressBar.gone()
+    }
+
+    private fun toggleEmptyListScreen() {
+        recyclerView.gone()
+        backgroundSprite.gone()
+        toolbarHomeTop.gone()
+        pokeBallBottomCoordinatorLayout.gone()
+        constraintLayoutEmpty.visible()
     }
 }

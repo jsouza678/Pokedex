@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
 import souza.home.com.pokedexapp.data.pokedex.mappers.PokedexMapper
 import souza.home.com.pokedexapp.di.PokeApi
@@ -15,9 +16,9 @@ import souza.home.com.pokedexapp.domain.repository.EvolutionRepository
 
 enum class EvolutionPokedexStatus { LOADING, ERROR, DONE, EMPTY }
 
-class EvolutionRepositoryImpl(id: Int, context: Context) : EvolutionRepository {
+class EvolutionRepositoryImpl(id: Int, private val context: Context) : EvolutionRepository {
 
-    private val DB_INSTANCE = PokemonDatabase.getDatabase(context)
+    private val INSTANCE = PokemonDatabase.getDatabase(context)
 
     private val _internet = MutableLiveData<EvolutionPokedexStatus>()
 
@@ -25,7 +26,7 @@ class EvolutionRepositoryImpl(id: Int, context: Context) : EvolutionRepository {
         get() = _internet
 
     override val evolution: LiveData<PokeEvolutionChain>? =
-        DB_INSTANCE.evolutionChainDao.getEvolutionChain(id)?.let {
+        INSTANCE.evolutionChainDao.getEvolutionChain(id)?.let {
             Transformations.map(it) { evolutionObject ->
                 evolutionObject?.let { evolutionItem -> PokedexMapper.evolutionAsDomain(evolutionItem) }
             }
@@ -36,7 +37,7 @@ class EvolutionRepositoryImpl(id: Int, context: Context) : EvolutionRepository {
             _internet.postValue(EvolutionPokedexStatus.LOADING)
             try {
                 val pokeEvolution = PokeApi.retrofitService.getEvolutionChain(id).await()
-                DB_INSTANCE.evolutionChainDao.insertAll(PokedexMapper.evolutionChainToDatabaseModel(pokeEvolution))
+                INSTANCE.evolutionChainDao.insertAll(PokedexMapper.evolutionChainToDatabaseModel(pokeEvolution))
 
                 if (pokeEvolution.chain.species?.name.isNullOrBlank()) {
                     _internet.postValue(EvolutionPokedexStatus.EMPTY)
@@ -45,7 +46,7 @@ class EvolutionRepositoryImpl(id: Int, context: Context) : EvolutionRepository {
                 }
             } catch (e: Exception) {
                 _internet.postValue(EvolutionPokedexStatus.ERROR)
-                Log.i("Error", "Message From Api on Evolution" + e.message)
+                Log.i(context.getString(R.string.error_message_log), context.getString(R.string.error_log_evolution) + e.message)
             }
         }
     }

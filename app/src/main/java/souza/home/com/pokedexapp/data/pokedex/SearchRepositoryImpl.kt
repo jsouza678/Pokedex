@@ -10,16 +10,16 @@ import souza.home.com.pokedexapp.domain.repository.SearchRepository
 
 class SearchRepositoryImpl(context: Context) : SearchRepository {
 
-    private val DB_INSTANCE = PokemonDatabase.getDatabase(context)
+    private val INSTANCE = PokemonDatabase.getDatabase(context)
 
     override fun searchPokesById(poke: Int): LiveData<List<Poke>?> {
-        return Transformations.map(DB_INSTANCE.pokemonDao.getPokesById(poke)) {
+        return Transformations.map(INSTANCE.pokemonDao.getPokesById(poke)) {
             PokedexMapper.pokemonAsDomain(it)
         }
     }
 
     override fun searchPokesByName(poke: String): LiveData<List<Poke>?> {
-        return Transformations.map(DB_INSTANCE.pokemonDao.getPokesByName(poke)) {
+        return Transformations.map(INSTANCE.pokemonDao.getPokesByName(poke)) {
             PokedexMapper.pokemonAsDomain(it)
         }
     }

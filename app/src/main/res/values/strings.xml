@@ -57,8 +57,8 @@
     <string name="text_view_custom_alert_dialog_types_body">We\'ve found pokemons with this type</string>
     <string name="error_message_search_dialog">Unfortunately we have not found any pokes. \n Make your search again, or click on dismiss to discover more pokes!</string>
     <string name="ability_dialog_title">Ability Description</string>
-    <string name="misterious_poke_evolution_message">This poke is an evolution!\n We don\'t know much about him.\n All we now is that he\'s dangerous.\n\n Take care!</string>
-    <string name="content_description_misterious_poke_evolution">Poke Evolution - He\'s misterious</string>
+    <string name="mysterious_poke_evolution_message">This poke is an evolution!\n We don\'t know much about him.\n All we now is that he\'s dangerous.\n\n Take care!</string>
+    <string name="content_description_mysterious_poke_evolution">Poke Evolution - He\'s mysterious</string>
     <string name="no_conectivity">Snorlax, we got a problem! No internet</string>
     <string name="content_description_image_button_search">Search logo image search dialog</string>
     <string name="error_image_view_search_dialog">Error image on search dialog</string>
@@ -68,4 +68,10 @@
     <string name="search_fragment_tag">search_fragment</string>
     <string name="fragment_tag_pokemon_in_types_dialog">my_pokemons_in_types_fragment</string>
     <string name="ability_description_dialog_pokemon_in_types">Ability Description</string>
+    <string name="log_error_properties">Message From Api on Properties</string>
+    <string name="error_message_log">Error :</string>
+    <string name="error_log_evolution">Message From Api on Evolution</string>
+    <string name="error_log_pokemon">Message From Api on Pokemon</string>
+    <string name="error_log_varieties">Message From Api on Varieties</string>
+    <string name="try_again_button_home">Try Again</string>
 </resources>

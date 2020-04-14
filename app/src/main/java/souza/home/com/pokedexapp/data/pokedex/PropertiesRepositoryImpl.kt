@@ -7,20 +7,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
 import souza.home.com.pokedexapp.data.pokedex.mappers.PokedexMapper
 import souza.home.com.pokedexapp.di.PokeApi
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.domain.repository.PropertiesRepository
+import souza.home.com.pokedexapp.utils.CheckNetworkState
 
 enum class PropertiesPokedexStatus { LOADING, ERROR, DONE, EMPTY }
 
-class PropertiesRepositoryImpl(private val id: Int, context: Context) : PropertiesRepository {
+class PropertiesRepositoryImpl(private val id: Int, private val context: Context) : PropertiesRepository {
 
-    private val DB_INSTANCE = PokemonDatabase.getDatabase(context)
+    private val INSTANCE = PokemonDatabase.getDatabase(context)
 
     override val properties: LiveData<PokeProperty>?
-        get() = DB_INSTANCE.propertyDao.getProperty(id)?.let {
+        get() = INSTANCE.propertyDao.getProperty(id)?.let {
             Transformations.map(it) { propertyObject ->
                 propertyObject?.let { propertyItem -> PokedexMapper.propertyAsDomain(propertyItem) }
             }
@@ -33,18 +35,22 @@ class PropertiesRepositoryImpl(private val id: Int, context: Context) : Properti
 
     override suspend fun refreshProperties(id: Int) {
         withContext(Dispatchers.IO) {
+            if (CheckNetworkState.checkNetworkState(context)) {
             _internet.postValue(PropertiesPokedexStatus.LOADING)
             try {
                 val pokeProperty = PokeApi.retrofitService.getPokeStats(id).await()
-                DB_INSTANCE.propertyDao.insertAll(PokedexMapper.propertiesAsDatabase(pokeProperty))
-                if (pokeProperty.name.isNullOrBlank()) {
+                INSTANCE.propertyDao.insertAll(PokedexMapper.propertiesAsDatabase(pokeProperty))
+                if (pokeProperty.name.isBlank()) {
                     _internet.postValue(PropertiesPokedexStatus.EMPTY)
                 } else {
                     _internet.postValue(PropertiesPokedexStatus.DONE)
                 }
             } catch (e: Exception) {
                 _internet.postValue(PropertiesPokedexStatus.ERROR)
-                Log.i("Error", "Message From Api on Properties" + e.message)
+                Log.i(context.getString(R.string.error_message_log), context.getString(R.string.log_error_properties) + e.message)
+            }
+        } else {
+                _internet.postValue(PropertiesPokedexStatus.ERROR)
             }
         }
     }

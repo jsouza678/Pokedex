@@ -59,7 +59,7 @@ class SearchDialogAdapter(private val pokes: MutableList<Poke>?, private val con
             pokeName.text = pokes.name
             pokemonId = pokes._id
             formattedNumber = FORMAT_ID_POKE_DISPLAY.format(pokemonId)
-            pokeId.text = context?.resources?.getString(R.string.text_view_placeholder_hash, formattedNumber)
+            pokeId.text = context.resources?.getString(R.string.text_view_placeholder_hash, formattedNumber)
             pokeImage.loadUrl("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION")
         }
 
