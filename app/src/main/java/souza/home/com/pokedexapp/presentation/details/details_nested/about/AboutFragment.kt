@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import souza.home.com.extensions.gone
+import souza.home.com.extensions.observeOnce
 import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
@@ -45,17 +45,6 @@ class AboutFragment(var pokemon: Int) : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_about, container, false)
         bindViews(view)
-
-        viewModel = ViewModelProviders.of(this,
-            activity?.application?.let {
-                NestedViewModelFactory(
-                    pokemon,
-                    it
-                )
-            }
-        )
-            .get(AboutViewModel::class.java)
-
         varietiesArray = mutableListOf()
         pokemonsArray = mutableListOf()
 
@@ -70,7 +59,8 @@ class AboutFragment(var pokemon: Int) : Fragment() {
             constraintEvolution.visible()
         }
 
-        initObservers()
+        initViewModel()
+        initDataObserver()
 
         return view
     }
@@ -82,31 +72,36 @@ class AboutFragment(var pokemon: Int) : Fragment() {
         constraintEvolution = view.findViewById(R.id.container_misterious_about)
     }
 
-    private fun initObservers(){
+    private fun initViewModel(){
+        viewModel = ViewModelProviders.of(this,
+            activity?.application?.let {
+                NestedViewModelFactory(
+                    pokemon,
+                    it
+                )
+            }
+        )
+            .get(AboutViewModel::class.java)
+    }
+
+    private fun initDataObserver(){
         viewModel.apply {
-            this.updateVariationsOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
-                if(it!=null){
-                    initSpinner()
-                    adapterSpinner.submitList(it.varieties)
-                    pokemonsArray = it.varieties!!
-                    tvDesc.text = it.description
-                }
-            })
+            this.updateVariationsOnViewLiveData()?.observeOnce(viewLifecycleOwner, Observer {
+                initSpinner()
+                adapterSpinner.submitList(it?.varieties)
+                pokemonsArray = it?.varieties!!
+                tvDesc.text = it.description })
         }
     }
 
     private fun initSpinner() {
-
         spVariations.adapter = adapterSpinner
-
         spVariations.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, p3: Long) {
                 spinnerSelected = position - 1
                 when(position){
                     0 ->  { } // Do Nothing. This is the hint position.
-                    else-> {
-                        onSpinnerSelectedChange()
-                    }
+                    else-> { onSpinnerSelectedChange() }
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>) {/* Do nothing when not selected" */ }
@@ -119,7 +114,7 @@ class AboutFragment(var pokemon: Int) : Fragment() {
         pokePath = Integer.parseInt(cropPokeUrl(urlChain))
 
         if(pokePath == pokemon){
-            Toast.makeText(context, "Same poke", Toast.LENGTH_SHORT).show()
+            view?.let { Snackbar.make(it, getString(R.string.choose_another_poke_spinner_error), BaseTransientBottomBar.LENGTH_SHORT).show() }
         }else{
             view?.let { Snackbar.make(it, R.string.snackbar_loading_poke_evolution, BaseTransientBottomBar.LENGTH_SHORT).show() }
             val newPoke = pokemonsArray[spinnerSelected].pokemon.name

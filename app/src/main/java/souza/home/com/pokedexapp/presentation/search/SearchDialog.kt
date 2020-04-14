@@ -14,20 +14,22 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import souza.home.com.extensions.gone
+import souza.home.com.extensions.observeOnce
 import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.domain.model.Poke
 import souza.home.com.pokedexapp.presentation.details.DetailsFragment
-import souza.home.com.pokedexapp.presentation.details.details_nested.others.types.SearchDialogAdapter
 import souza.home.com.pokedexapp.presentation.home.HomeFragment
+import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_2000
 import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 import souza.home.com.pokedexapp.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
 import souza.home.com.pokedexapp.utils.isString
 
-class SearchDialog() : DialogFragment() {
+class SearchDialog : DialogFragment() {
 
     private lateinit var pokesList : MutableList<Poke>
     private lateinit var adapter: SearchDialogAdapter
@@ -38,20 +40,23 @@ class SearchDialog() : DialogFragment() {
     private lateinit var textInputArea: TextInputEditText
     private lateinit var constraintErrorLayout: ConstraintLayout
     private lateinit var constraintDefaultLayout: ConstraintLayout
+    private lateinit var viewModel: SearchDialogViewModel
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view : View = activity!!.layoutInflater.inflate(R.layout.fragment_poke_search_dialog, null)
         pokesList = mutableListOf()
         bindViews(view)
-        adapter = SearchDialogAdapter(pokesList, activity?.applicationContext)
+        adapter = activity?.applicationContext?.let { SearchDialogAdapter(pokesList, it) }!!
         val textViewResult: TextView = view.findViewById(R.id.text_view_custom_alert_dialog_label)
 
         val alert = AlertDialog.Builder(context)
         alert.setView(view)
         textInputArea = view.findViewById<TextInputEditText>(R.id.input_edit_text_search_fragment)
 
+        initViewModel()
         initSearchButtonClickListener(textViewResult)
         setTransitionToPokeDetails()
+        initRecyclerview()
         setupButtonDismiss()
 
         return alert.create()
@@ -65,43 +70,64 @@ class SearchDialog() : DialogFragment() {
         constraintDefaultLayout = view.findViewById(R.id.container_layout_default)
     }
 
+    private fun initViewModel(){
+        viewModel = ViewModelProviders.of(this,
+            activity?.application?.let { SearchFactory(it) })
+            .get(SearchDialogViewModel::class.java)
+    }
+
     private fun initSearchButtonClickListener(textViewResult: TextView){
         searchButtonDialog.setOnClickListener {
             val textSearch = textInputArea.text.toString()
             val checkString = isString(textSearch)
 
-            if (textSearch == EMPTY_STRING) {
-                textInputArea.error = getString(R.string.input_text_search_dialog)
-            } else {
+            if (textSearch == EMPTY_STRING) { textInputArea.error = getString(R.string.input_text_search_dialog) }
+            else {
                 if (checkString) {
-                    initSearch(textSearch, textViewResult)
+                    initSearchById(textSearch, textViewResult)
                     textInputArea.text?.clear()
-                }else{
-                    textInputArea.error = getString(R.string.input_text_search_dialog)
+                }else{  // is string now
+                    if(textSearch.length < 40){
+                        initSearchByName(textSearch, textViewResult)
+                        textInputArea.text?.clear()
+                    }else{
+                        textInputArea.error = getString(R.string.input_text_search_dialog)
+                        textInputArea.text?.clear()
+                    }
                 }
             }
         }
     }
 
-    private fun initSearch(textSearch : String, textViewResult: TextView){
-        val viewModel = ViewModelProviders.of(this,
-            activity?.application?.let {
-                SearchFactory(
-                    it, textSearch
-                )
+    private fun initSearchById(textSearch : String, textViewResult: TextView){
+        viewModel.searchForItemsById(Integer.parseInt(textSearch)).observeOnce(this@SearchDialog, Observer {
+            if(it?.isEmpty()!!){
+                errorMessage()
+            }else{
+                adapter.submitList(it as MutableList<Poke>)
+                val textResult = getString(R.string.pokemon_found_search_1) + it.size + getString(R.string.pokemon_found_search_3)
+                textViewResult.text = textResult
             }
-        )
-            .get(SearchByIdDialogViewModel::class.java)
+        })
+    }
 
-        initRecyclerview()
-        initObservers(viewModel, textViewResult)
+    private fun initSearchByName(textSearch : String, textViewResult: TextView){
+        viewModel.searchForItemsByName(textSearch).observeOnce(this@SearchDialog, Observer {
+            if(it?.isEmpty()!!){
+                errorMessage()
+            }else{
+                adapter.submitList(it as MutableList<Poke>)
+                val textResult = getString(R.string.pokemon_found_search_1) + it.size + getString(R.string.pokemon_found_search_4)
+                textViewResult.text = textResult
+            }
+        })
     }
 
     private fun setupButtonDismiss(){
         buttonDismiss.setOnClickListener {
             fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment, HomeFragment())?.commit()
             dismiss()
-            view?.let { view -> Snackbar.make(view, getString(R.string.redirect_search_to_home_message), 400).show() }
+            view?.let { view -> Snackbar.make(view, getString(R.string.redirect_search_to_home_message), BaseTransientBottomBar.LENGTH_SHORT).show() }
         }
     }
 
@@ -110,24 +136,6 @@ class SearchDialog() : DialogFragment() {
         recyclerView.layoutManager = layoutManager
 
         recyclerView.adapter = adapter
-    }
-
-    private fun initObservers(viewModel: SearchByIdDialogViewModel, textViewResult: TextView){
-        viewModel.apply {
-            this.updatePokeslListOnViewLiveData().observe(this@SearchDialog, Observer {
-                if(it!=null){
-                    if(it.isEmpty()){
-                        errorMessage()
-                    }else{
-                        adapter.submitList(it as MutableList<Poke>)
-                        val textResult = getString(R.string.pokemon_found_search_1) + it.size + getString(R.string.pokemon_found_search_3)
-                        textViewResult.text = textResult
-                    }
-                }else{
-                    errorMessage()
-                }
-            })
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -140,12 +148,16 @@ class SearchDialog() : DialogFragment() {
         constraintErrorLayout.visible()
     }
 
+    private fun toggleBackErrorVisibility(){
+        constraintDefaultLayout.visible()
+        constraintErrorLayout.gone()
+    }
+
     private fun errorMessage(){
-        val homeFragment = HomeFragment()
         toggleErrorVisibility()
-        Handler().postDelayed({ fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment, homeFragment)?.commit()
-            dismiss()
-        }, 2000)
+        Handler().postDelayed({
+            toggleBackErrorVisibility()
+        }, DELAY_POST_2000)
     }
 
     private fun setTransitionToPokeDetails(){

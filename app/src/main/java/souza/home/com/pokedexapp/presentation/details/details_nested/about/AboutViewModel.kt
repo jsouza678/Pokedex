@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import souza.home.com.pokedexapp.data.pokedex.VarietiesPokedexStatus
 import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 
@@ -16,6 +17,7 @@ class AboutViewModel(pokemon: Int, app: Application): AndroidViewModel(app) {
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
+    fun checkRequestStatus(): LiveData<VarietiesPokedexStatus> = varietiesRepository.internet
     fun updateVariationsOnViewLiveData(): LiveData<PokeVariety?>? = varietiesRepository.varieties
 
     private val varietiesRepository =

@@ -3,22 +3,24 @@ package souza.home.com.pokedexapp.presentation.view_utils
 import android.content.Context
 import android.util.AttributeSet
 import androidx.viewpager.widget.ViewPager
+import souza.home.com.pokedexapp.utils.Constants.Companion.ABSOLUTE_ZERO
 
 class DynamicHeightViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : ViewPager(context, attrs) {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        var heightMeasureSpec = heightMeasureSpec
 
-        var height = 0
-        for (i in 0 until childCount) {
+        var heightSpec = heightMeasureSpec
+
+        var height = ABSOLUTE_ZERO
+        for (i in ABSOLUTE_ZERO until childCount) {
             val child = getChildAt(i)
-            child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
-            val h = child.measuredHeight
-            if (h > height) height = h
+            child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(ABSOLUTE_ZERO, MeasureSpec.UNSPECIFIED))
+            val childHeight = child.measuredHeight
+            if (childHeight > height) height = childHeight
         }
-        if (height != 0) {
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
+        if (height != ABSOLUTE_ZERO) {
+            heightSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
         }
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        super.onMeasure(widthMeasureSpec, heightSpec)
     }
 }

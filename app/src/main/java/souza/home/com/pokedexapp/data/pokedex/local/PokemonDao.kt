@@ -17,6 +17,9 @@ interface PokemonDao{
     @Query("select * from $POKE_TABLE_NAME where $POKE_TABLE_NAME._id LIKE :pokeId||'%'")
     fun getPokesById(pokeId: Int): LiveData<List<PokemonResponse>?>
 
+    @Query("select * from $POKE_TABLE_NAME where $POKE_TABLE_NAME.name LIKE :pokeId||'%'")
+    fun getPokesByName(pokeId: String): LiveData<List<PokemonResponse>?>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg pokes: PokemonEntity)
 }

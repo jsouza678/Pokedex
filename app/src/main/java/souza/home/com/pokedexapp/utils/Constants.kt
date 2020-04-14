@@ -18,5 +18,9 @@ class Constants {
         const val IMAGE_MAX_HEIGHT = 320
         const val IMAGE_MAX_WIDTH = 320
         const val TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW = 2
+        const val ABSOLUTE_ZERO = 0
+        const val DELAY_POST_1000 : Long = 1000
+        const val DELAY_POST_2000 : Long = 2000
+        const val DELAY_POST_800 : Long = 800
     }
 }

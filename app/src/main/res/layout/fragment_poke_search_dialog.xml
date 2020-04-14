@@ -21,8 +21,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_edit_text_search_fragment"
             android:layout_width="match_parent"
-            android:inputType="numberSigned"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="@string/type_your_search_here_hint"
             android:maxLines="1" />
 
@@ -105,7 +104,9 @@
                     style="@style/dialog_pokes_in_search_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/material_margin_16"
                     android:layout_marginTop="@dimen/material_margin_16"
+                    android:layout_marginEnd="@dimen/material_margin_8"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -125,7 +126,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_view_custom_alert_dialog_label"
                     app:spanCount="2"
-                    tools:listitem="@layout/poke_item_view">
+                    tools:listitem="@layout/recycler_poke_item_view">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
@@ -141,4 +142,4 @@
         </com.google.android.material.card.MaterialCardView>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

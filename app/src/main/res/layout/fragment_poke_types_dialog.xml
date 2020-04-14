@@ -50,7 +50,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_view_custom_alert_dialog_label"
                 app:spanCount="2"
-                tools:listitem="@layout/poke_item_view">
+                tools:listitem="@layout/recycler_poke_item_view">
 
             </androidx.recyclerview.widget.RecyclerView>
 

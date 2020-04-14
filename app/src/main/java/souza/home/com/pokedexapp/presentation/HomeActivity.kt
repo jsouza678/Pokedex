@@ -6,8 +6,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -16,8 +14,9 @@ import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.presentation.home.HomeFragment
 import souza.home.com.pokedexapp.presentation.search.SearchDialog
+import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_1000
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     private lateinit var buttonDiscover : Button
     private lateinit var frameLayoutFragmentHost : FrameLayout
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home)
         bindViews()
         val splashFragment = SplashScreen()
         val homeFragment = HomeFragment()
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().remove(splashFragment)
             frameLayoutFragmentHost.gone()
             constraintLayoutHome.visible()
-        }, 1000)
+        }, DELAY_POST_1000)
 
         setSupportActionBar(mainToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -73,6 +72,6 @@ class MainActivity : AppCompatActivity() {
         val searchDialog = SearchDialog()
         frameLayoutFragmentHost.visible()
         constraintLayoutHome.gone()
-        searchDialog.show(supportFragmentManager, "search_fragment")
+        searchDialog.show(supportFragmentManager, getString(R.string.search_fragment_tag))
     }
 }

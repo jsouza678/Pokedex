@@ -7,11 +7,19 @@ import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
 import souza.home.com.pokedexapp.data.pokedex.mappers.PokedexMapper
 import souza.home.com.pokedexapp.domain.model.Poke
 
-class SearchRepositoryImpl(context: Context, poke: String){
+class SearchRepositoryImpl(context: Context){
 
     private val DB_INSTANCE = PokemonDatabase.getDatabase(context)
 
-    val pokesById: LiveData<List<Poke>?> = Transformations.map(DB_INSTANCE.pokemonDao.getPokesById(Integer.parseInt(poke))) {
-        PokedexMapper.pokemonAsDomain(it)
+    fun searchPokesById(poke : Int) : LiveData<List<Poke>?>{
+        return Transformations.map(DB_INSTANCE.pokemonDao.getPokesById(poke)){
+            PokedexMapper.pokemonAsDomain(it)
+        }
+    }
+
+    fun searchPokesByName(poke : String) : LiveData<List<Poke>?>{
+        return Transformations.map(DB_INSTANCE.pokemonDao.getPokesByName(poke)){
+            PokedexMapper.pokemonAsDomain(it)
+        }
     }
 }

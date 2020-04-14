@@ -1,4 +1,4 @@
-package souza.home.com.pokedexapp.presentation.details.details_nested.others.types
+package souza.home.com.pokedexapp.presentation.search
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.poke_item_view.view.*
+import kotlinx.android.synthetic.main.recycler_poke_item_view.view.*
 import souza.home.com.pokedexapp.R
 import souza.home.com.extensions.loadUrl
 import souza.home.com.pokedexapp.domain.model.Poke
@@ -17,13 +17,13 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 import souza.home.com.pokedexapp.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
 
 
-class SearchDialogAdapter(private val pokes: MutableList<Poke>?, private val context: Context?) : RecyclerView.Adapter<SearchDialogAdapter.ViewHolder>() {
+class SearchDialogAdapter(private val pokes: MutableList<Poke>?, private val context: Context) : RecyclerView.Adapter<SearchDialogAdapter.ViewHolder>() {
 
     var onItemClick: ((Poke) -> Unit)? = null
     private val imageResourceUrl = BASTION_POKE_IMAGE_BASE_URL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.poke_item_view, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.recycler_poke_item_view, parent, false)
         return ViewHolder(view)
     }
 

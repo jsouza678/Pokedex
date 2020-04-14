@@ -24,7 +24,7 @@ class EvolutionChainAdapter(private val context: Context, private val dataList: 
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val dataItem = dataList?.get(position)
-        val rowView = inflater.inflate(R.layout.list_row, parent, false)
+        val rowView = inflater.inflate(R.layout.list_item_row, parent, false)
         val tv = rowView.findViewById<TextView>(R.id.text_view_item)
 
         if (dataList != null) {

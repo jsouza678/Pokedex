@@ -52,9 +52,10 @@
     <string name="input_text_search_dialog">Error on this field.</string>
     <string name="pokemon_found_search_1">We\'ve found&#160;</string>
     <string name="pokemon_found_search_2">&#160;pokemons with this type</string>
-    <string name="pokemon_found_search_3">&#160;pokemons with this ID</string>
+    <string name="pokemon_found_search_3">&#160;pokemons with this id</string>
+    <string name="pokemon_found_search_4">&#160;pokemons with this name</string>
     <string name="text_view_custom_alert_dialog_types_body">We\'ve found pokemons with this type</string>
-    <string name="error_message_search_dialog">Unfortunately we have not found any pokes. \n You will be redirected to the Home Screen to discover more pokes!</string>
+    <string name="error_message_search_dialog">Unfortunately we have not found any pokes. \n Make your search again, or click on dismiss to discover more pokes!</string>
     <string name="ability_dialog_title">Ability Description</string>
     <string name="misterious_poke_evolution_message">This poke is an evolution!\n We don\'t know much about him.\n All we now is that he\'s dangerous.\n\n Take care!</string>
     <string name="content_description_misterious_poke_evolution">Poke Evolution - He\'s misterious</string>
@@ -63,4 +64,6 @@
     <string name="error_image_view_search_dialog">Error image on search dialog</string>
     <string name="gallery_image_view">Image view showed on gallery viewpager</string>
     <string name="black_color_name">black</string>
+    <string name="choose_another_poke_spinner_error">Choose another poke</string>
+    <string name="search_fragment_tag">search_fragment</string>
 </resources>

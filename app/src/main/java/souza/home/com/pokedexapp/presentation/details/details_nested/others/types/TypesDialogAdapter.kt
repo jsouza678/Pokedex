@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.poke_item_view.view.*
+import kotlinx.android.synthetic.main.recycler_poke_item_view.view.*
 import souza.home.com.extensions.loadUrl
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.response.NestedType
@@ -24,7 +24,7 @@ class TypesDialogAdapter(private val pokes: MutableList<NestedType>?, private va
     private val imageResourceUrl = BASTION_POKE_IMAGE_BASE_URL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.poke_item_view, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.recycler_poke_item_view, parent, false)
         return ViewHolder(view)
     }
 

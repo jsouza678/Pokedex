@@ -90,6 +90,7 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
             })
             this.checkRequestPropertiesStatus().observe(viewLifecycleOwner, Observer {
                 if(pokeId> LIMIT_NORMAL_POKES){showDataEvolutionPoke(viewPager, tabs)
+                    initObserverData(viewModel, viewPager, tabs)
                 }else{ bindRequestPropertiesStatus(it, viewPager, tabs) }
             })
         }

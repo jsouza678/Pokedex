@@ -9,17 +9,24 @@ import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.SearchRepositoryImpl
 import souza.home.com.pokedexapp.domain.model.Poke
 
-class SearchByIdDialogViewModel(app: Application, poke: String) : AndroidViewModel(app){
+class SearchDialogViewModel(app: Application) : AndroidViewModel(app){
 
-    fun updatePokeslListOnViewLiveData(): LiveData<List<Poke>?> = searchRepository.pokesById
-    private val searchRepository = SearchRepositoryImpl(app.applicationContext, poke)
+    private val searchRepository = SearchRepositoryImpl(app.applicationContext)
+
+    fun searchForItemsById(poke: Int) : LiveData<List<Poke>?> {
+        return searchRepository.searchPokesById(poke)
+    }
+
+    fun searchForItemsByName(poke: String) : LiveData<List<Poke>?> {
+        return searchRepository.searchPokesByName(poke)
+    }
 }
 
-class SearchFactory(val app: Application, val poke: String): ViewModelProvider.Factory{
+class SearchFactory(val app: Application): ViewModelProvider.Factory{
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(SearchByIdDialogViewModel::class.java)){
+        if(modelClass.isAssignableFrom(SearchDialogViewModel::class.java)){
             @Suppress("UNCHECKED_CAST")
-            return SearchByIdDialogViewModel(app, poke) as T
+            return SearchDialogViewModel(app) as T
         }
         throw IllegalArgumentException(app.applicationContext.getString(R.string.unknown_viewmodel))
     }

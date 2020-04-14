@@ -37,7 +37,7 @@ class HomeViewModel(app: Application) : AndroidViewModel(app){
         }
         Handler().postDelayed({
             isLoading = false
-        }, 800)
+        }, 400)
     }
 
     fun onRecyclerViewScrolled(dy: Int, layoutManager: GridLayoutManager){
