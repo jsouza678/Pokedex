@@ -8,6 +8,7 @@ class Constants {
         const val OFFSCREEN_DEFAULT_VIEW_PAGER = 1
         const val DEFAULT_IMAGE_FORMAT_BASTION = ".png"
         const val POKE_TABLE_NAME = "pokemon"
+        const val POKE_LIMIT = 20
         const val VARIETY_TABLE_NAME = "variety"
         const val EVOLUTION_TABLE_NAME = "evolution"
         const val PROPERTY_TABLE_NAME = "property"
@@ -21,6 +22,6 @@ class Constants {
         const val ABSOLUTE_ZERO = 0
         const val DELAY_POST_1000 : Long = 1000
         const val DELAY_POST_2000 : Long = 2000
-        const val DELAY_POST_800 : Long = 800
+        const val DELAY_POST_400 : Long = 400
     }
 }

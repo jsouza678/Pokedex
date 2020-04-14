@@ -22,7 +22,6 @@ import souza.home.com.pokedexapp.data.pokedex.PropertiesPokedexStatus
 import souza.home.com.pokedexapp.data.pokedex.VarietiesPokedexStatus
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.domain.model.PokeVariety
-import souza.home.com.pokedexapp.presentation.details.viewpager.SectionsPagerAdapter
 import souza.home.com.pokedexapp.presentation.view_utils.DynamicHeightViewPager
 import souza.home.com.pokedexapp.utils.ColorFormat
 import souza.home.com.pokedexapp.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
@@ -37,8 +36,8 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
     private lateinit var tvPokeName: TextView
     private lateinit var tvPokeId: TextView
     private lateinit var constraintLayout: ConstraintLayout
-    private lateinit var galleryViewPager: DetailsGalleryAdapter
-    private lateinit var gallery : ViewPager
+    private lateinit var galleryViewPagerAdapter: DetailsGalleryAdapter
+    private lateinit var viewPagerGallery : ViewPager
     private lateinit var mImages : MutableList<String>
     private var count = 0
 
@@ -63,11 +62,11 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
         tvPokeName = view.findViewById(R.id.text_view_poke_name_details)
         tvPokeId = view.findViewById(R.id.text_view_poke_id_details)
         constraintLayout = view.findViewById(R.id.layout_details)
-        gallery = view.findViewById(R.id.image_slider_details)
+        viewPagerGallery = view.findViewById(R.id.image_slider_details)
     }
 
     private fun setToolbarBackButton(toolbar: Toolbar){
-        toolbar.setNavigationOnClickListener(View.OnClickListener { activity?.onBackPressed() })
+        toolbar.setNavigationOnClickListener({ activity?.onBackPressed() })
     }
 
     private fun initViewModel(){
@@ -124,10 +123,10 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
         }
     }
 
-    private fun initObserverData(viewModel: DetailsViewModel, viewPager: ViewPager, tabs: TabLayout){
+    private fun initObserverData(viewModel: DetailsViewModel, viewPager: ViewPager, tabsDetails: TabLayout){
         viewModel.apply {
             this.updateVariationsOnViewLiveData()?.observeOnce(viewLifecycleOwner, Observer { pokeVariety->
-                pokeVariety?.let { pokeVariety -> showDataNormalPoke(pokeVariety, viewPager, tabs)}
+                pokeVariety?.let { pokeVariety -> showDataNormalPoke(pokeVariety, viewPager, tabsDetails)}
             })
             this.updatePropertiesOnViewLiveData()?.observeOnce(viewLifecycleOwner, Observer {
                 loadImages(it)
@@ -135,7 +134,7 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
         }
     }
 
-    private fun loadImages(it: PokeProperty){
+    private fun loadImages(it : PokeProperty){
         val imagesList = addSpritesToList(it)
         addImagesToList(imagesList)
         view?.let { it1 -> initGalleryViewPager(mImages, it1) }
@@ -155,8 +154,10 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
         animateBackground(backgroundColor)
 
         val sectionsPagerAdapter =
-            fragmentManager?.let { fm -> SectionsPagerAdapter(fm, pokeId,
-                Integer.parseInt(cropPokeUrl(it.evolution_chain?.url!!))) // Here the !! is accepted because // the pokemon has a evolution chain url.
+            fragmentManager?.let { fm -> SectionsPagerAdapter(
+                fm, pokeId,
+                Integer.parseInt(cropPokeUrl(it.evolution_chain?.url!!))
+            ) // Here the !! is accepted because // the pokemon has a evolution chain url.
             }
         sectionsPagerAdapter?.let { item -> setViewPager(viewPager, item, tabs) }
         viewPager.offscreenPageLimit = OFFSCREEN_DEFAULT_VIEW_PAGER
@@ -164,7 +165,8 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
 
     private fun showDataEvolutionPoke(viewPager: ViewPager, tabs: TabLayout){
         val sectionsPagerAdapterEvolution = fragmentManager?.let { fm ->
-            SectionsPagerAdapter(fm, pokeId, 0) }
+            SectionsPagerAdapter(fm, pokeId, 0)
+        }
         sectionsPagerAdapterEvolution?.let { item -> setViewPager(viewPager, item, tabs) }
         val backgroundColor = ColorFormat.setColor(getString(R.string.black_color_name), pokeId)
         animateBackground(backgroundColor)
@@ -202,7 +204,7 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
     }
 
     private fun initGalleryViewPager(travelGallery: MutableList<String>, view: View) {
-        galleryViewPager = DetailsGalleryAdapter(view.context, travelGallery)
-        gallery.adapter = galleryViewPager
+        galleryViewPagerAdapter = DetailsGalleryAdapter(view.context, travelGallery)
+        viewPagerGallery.adapter = galleryViewPagerAdapter
     }
 }

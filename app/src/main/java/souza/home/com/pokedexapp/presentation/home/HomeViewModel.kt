@@ -14,16 +14,17 @@ import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.HomePokedexStatus
 import souza.home.com.pokedexapp.data.pokedex.PokemonRepositoryImpl
 import souza.home.com.pokedexapp.domain.model.Poke
+import souza.home.com.pokedexapp.utils.Constants.Companion.ABSOLUTE_ZERO
+import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_400
+import souza.home.com.pokedexapp.utils.Constants.Companion.POKE_LIMIT
 
 class HomeViewModel(app: Application) : AndroidViewModel(app){
 
     private var isLoading : Boolean = false
-    private var element : Int = 0
+    private var element : Int = ABSOLUTE_ZERO
     fun updatePokesListOnViewLiveData(): LiveData<List<Poke>?> = pokesRepository.pokes
     fun checkRequestStatus(): LiveData<HomePokedexStatus> = pokesRepository.internet
-
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
-
     private val pokesRepository = PokemonRepositoryImpl(app.applicationContext)
 
     init{
@@ -37,14 +38,14 @@ class HomeViewModel(app: Application) : AndroidViewModel(app){
         }
         Handler().postDelayed({
             isLoading = false
-        }, 400)
+        }, DELAY_POST_400)
     }
 
     fun onRecyclerViewScrolled(dy: Int, layoutManager: GridLayoutManager){
-        if(dy>0){
+        if(dy>ABSOLUTE_ZERO){
             val isItTheListEnd = itIsTheListEnd(layoutManager = layoutManager)
             if(isLoading.not() && isItTheListEnd){
-                element +=20 // this will increase the elements and show the next page on API.
+                element += POKE_LIMIT // this will increase the elements and show the next page on API.
                 getPokes()
             }
         }

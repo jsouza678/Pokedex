@@ -16,7 +16,6 @@ class SearchDialogViewModel(app: Application) : AndroidViewModel(app){
     fun searchForItemsById(poke: Int) : LiveData<List<Poke>?> {
         return searchRepository.searchPokesById(poke)
     }
-
     fun searchForItemsByName(poke: String) : LiveData<List<Poke>?> {
         return searchRepository.searchPokesByName(poke)
     }
