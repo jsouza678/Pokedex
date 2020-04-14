@@ -4,10 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import souza.home.com.pokedexapp.data.pokedex.local.model.EvolutionEntity
-import souza.home.com.pokedexapp.data.pokedex.local.model.PokemonEntity
-import souza.home.com.pokedexapp.data.pokedex.local.model.PropertyEntity
-import souza.home.com.pokedexapp.data.pokedex.local.model.VarietyEntity
+import souza.home.com.pokedexapp.R
+import souza.home.com.pokedexapp.data.pokedex.local.entities.EvolutionEntity
+import souza.home.com.pokedexapp.data.pokedex.local.entities.PokemonEntity
+import souza.home.com.pokedexapp.data.pokedex.local.entities.PropertyEntity
+import souza.home.com.pokedexapp.data.pokedex.local.entities.VarietyEntity
 
 @Database(entities = [PokemonEntity::class,
     VarietyEntity::class,
@@ -25,9 +26,11 @@ abstract class PokemonDatabase : RoomDatabase() {
         fun getDatabase(context: Context): PokemonDatabase {
             synchronized(PokemonDatabase::class.java) {
                 if (!::INSTANCE.isInitialized) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext,
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
                         PokemonDatabase::class.java,
-                        "pokedex.db").build()
+                        context.getString(R.string.database_name)
+                    ).build()
                 }
             }
             return INSTANCE

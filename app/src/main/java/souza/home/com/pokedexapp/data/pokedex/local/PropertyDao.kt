@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import souza.home.com.pokedexapp.data.pokedex.local.model.PropertyEntity
+import souza.home.com.pokedexapp.data.pokedex.local.entities.PropertyEntity
 import souza.home.com.pokedexapp.utils.Constants.Companion.PROPERTY_TABLE_NAME
 
 @Dao

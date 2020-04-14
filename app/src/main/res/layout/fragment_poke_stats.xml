@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".presentation.details.details_nested.stats.StatsFragment">
+    tools:context=".presentation.detailsfragment.details_nested.stats.StatsFragment">
 
     <TextView
         android:id="@+id/text_view_detail_hp_label_stat"
@@ -164,7 +164,7 @@
         android:layout_marginStart="@dimen/material_margin_8"
         app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_special_defense_label_stat"
         app:layout_constraintStart_toEndOf="@id/text_view_detail_special_defense_label_stat"
-        tools:text="@string/mock_special_deffense" />
+        tools:text="@string/mock_special_defense" />
 
     <ProgressBar
         android:id="@+id/progress_bar_special_defense_stat"

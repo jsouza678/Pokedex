@@ -7,8 +7,9 @@ import android.os.Build
 
 class CheckNetworkState {
     companion object {
-    fun checkNetworkState(context: Context): Boolean {
-            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        fun checkNetworkState(context: Context): Boolean {
+            val connectivityManager =
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val nw = connectivityManager.activeNetwork ?: return false
                 val actNw = connectivityManager.getNetworkCapabilities(nw) ?: return false
@@ -24,3 +25,4 @@ class CheckNetworkState {
         }
     }
 }
+    

@@ -1,7 +1,7 @@
 package souza.home.com.pokedexapp.utils
 
-import souza.home.com.pokedexapp.data.pokedex.remote.model.response.EvolutionChainResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.FlavorDescription
+import souza.home.com.pokedexapp.data.pokedex.remote.response.EvolutionChainResponse
 import souza.home.com.pokedexapp.utils.Constants.Companion.ABSOLUTE_ZERO
 import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 import souza.home.com.pokedexapp.utils.Constants.Companion.LANGUAGE_DESCRIPTIONS

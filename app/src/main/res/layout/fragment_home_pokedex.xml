@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/real_white"
     android:visibility="visible"
-    tools:context=".presentation.home.HomeFragment">
+    tools:context=".presentation.homefragment.HomeFragment">
 
     <ImageView
         android:id="@+id/background_sprite_home"
@@ -116,50 +116,5 @@
         </RelativeLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_layout_empty_home"
-        android:layout_width="@dimen/match_constraint"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/image_view_no_connection_home"
-            android:layout_width="@dimen/no_list_image"
-            android:layout_height="@dimen/no_list_image"
-            android:layout_gravity="center"
-            android:contentDescription="@string/content_description_image_view_empty_pokes_list"
-            android:src="@drawable/sleeping_snorlax_no_connection"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_view_no_connection_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/text_no_pokes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_no_connection_home" />
-
-        <Button
-            android:id="@+id/button_try_again_home"
-            style="@style/button_default"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/try_again_button_home"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_no_connection_home" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

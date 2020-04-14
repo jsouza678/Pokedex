@@ -12,7 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import souza.home.com.extensions.gone
 import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.presentation.home.HomeFragment
+import souza.home.com.pokedexapp.presentation.homefragment.HomeFragment
 import souza.home.com.pokedexapp.presentation.search.SearchDialog
 import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_1000
 

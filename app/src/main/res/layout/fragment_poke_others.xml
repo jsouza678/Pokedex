@@ -6,18 +6,20 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/layout_padding_16"
     android:layout_marginBottom="@dimen/material_margin_16"
-    tools:context=".presentation.details.details_nested.evolution_chain.EvolutionChainFragment">
+    tools:context=".presentation.detailsfragment.details_nested.evolution_chain.EvolutionChainFragment">
 
     <TextView
         android:id="@+id/text_view_type_others"
+        style="@style/poke_name_detail_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/material_margin_16"
         android:layout_marginTop="@dimen/material_margin_16"
         android:layout_marginEnd="@dimen/material_margin_16"
+        android:layout_marginBottom="@dimen/material_margin_8"
         android:text="@string/title_type"
-        style="@style/poke_name_detail_style"
+        app:layout_constraintBottom_toTopOf="@+id/list_view_types_others"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,14 +39,16 @@
 
     <TextView
         android:id="@+id/text_view_ability_others"
+        style="@style/poke_name_detail_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/material_margin_16"
         android:layout_marginTop="@dimen/material_margin_16"
         android:layout_marginEnd="@dimen/material_margin_16"
+        android:layout_marginBottom="@dimen/material_margin_8"
         android:text="@string/title_ability"
-        style="@style/poke_name_detail_style"
+        app:layout_constraintBottom_toTopOf="@+id/list_view_abilities_others"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/list_view_types_others" />

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:visibility="visible"
-    tools:context=".presentation.details.details_nested.about.AboutFragment">
+    tools:context=".presentation.detailsfragment.details_nested.about.AboutFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_layout_mysterious_about"
@@ -65,6 +65,7 @@
             android:layout_marginTop="@dimen/material_margin_8"
             android:layout_marginEnd="@dimen/material_margin_16"
             android:layout_marginBottom="@dimen/material_margin_16"
+            android:clickable="true"
             android:ellipsize="end"
             android:maxLines="3"
             android:textAlignment="center"
@@ -72,7 +73,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/mock_body_desc" />
+            tools:text="@string/mock_body_desc"
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/text_view_variations_about"

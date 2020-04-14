@@ -1,48 +1,37 @@
 <resources>
+
     <string name="app_name">Pokedex</string>
+    <!-- Mock -->
     <string name="mock_header_text">Pokedex Nav</string>
     <string name="mock_poke_name">Charmander</string>
-    <string name="poke_hp_label">HP:</string>
-    <string name="poke_attack_label">ATTACK:</string>
-    <string name="poke_defense_label">DEFENSE:</string>
-    <string name="poke_special_attack_label">SPECIAL ATTACK:</string>
-    <string name="poke_special_defense_label">SPECIAL DEFENSE:</string>
-    <string name="poke_weight_label">WEIGHT:</string>
-    <string name="poke_height_label">HEIGHT:</string>
-    <string name="poke_speed_label">SPEED:</string>
     <string name="mock_hp">85</string>
     <string name="mock_attack">40</string>
     <string name="mock_defense">50</string>
     <string name="mock_special_attack">120</string>
-    <string name="mock_special_deffense">80</string>
+    <string name="mock_special_defense">80</string>
     <string name="mock_speed">190</string>
     <string name="mock_ability">Ability Grown</string>
-    <string name="title_type">Types</string>
-    <string name="title_ability">Abilities</string>
     <string name="mock_spinner_item">Pikachu</string>
-    <string name="content_description_image_view_poke_sprite">Pokemon Sprite, Home Screen</string>
-    <string name="content_description_image_view_empty_pokes_list">Empty Pokes List Image</string>
-    <string name="text_no_pokes">No Pokes! \nSnorlax is sleeping! \nCome back later!</string>
     <string name="mock_poke_name_details">Pikachu</string>
     <string name="mock_body_desc">Lorem ipsum sit dolor amet gravida sit dolor amet bloco sit dolor amet gravida sit dolor amet blocd sit dolor amet gravida sit dolor amet bloc bloco sit dolor amet</string>
-    <string name="text_view_poke_variations">Poke Variations</string>
-    <string name="text_view_evolution_chain_title">Evolution Chain</string>
-    <string name="text_view_placeholder_hash">#%1$s</string>
-    <string name="mock_weight">120</string>
-    <string name="mock_height">80</string>
-    <string name="snackbar_loading_poke_evolution">Loading poke evolution!</string>
-    <string name="no_poke_evolution">This Poke does not evolutes</string>
-    <string name="button_text_dismiss">Dismiss</string>
-    <string name="content_description_sprite_background">Sprite background used on home and details screen</string>
-    <string name="unknown_viewmodel">Unknown ViewModel Class</string>
-    <string name="no_internet_connection">No Internet Connection</string>
     <string-array name="poke_spinner_mock">
         <item>None</item>
         <item>Pikachu</item>
         <item>Charmander</item>
     </string-array>
-    <string name="content_description_poke_ball_image_view_splash">Poke Ball image on splash screen</string>
     <string name="mock_text_view_poke_id_details">#001</string>
+    <string name="mock_weight">120</string>
+    <string name="mock_height">80</string>
+
+    <!-- Others -->
+    <string name="title_type">Types</string>
+    <string name="title_ability">Abilities</string>
+    <string name="text_view_poke_variations">Poke Variations</string>
+    <string name="text_view_evolution_chain_title">Evolution Chain</string>
+    <string name="text_view_placeholder_hash">#%1$s</string>
+    <string name="snackbar_loading_poke_evolution">Loading poke evolution!</string>
+    <string name="button_text_dismiss">Dismiss</string>
+    <string name="unknown_viewmodel">Unknown ViewModel Class</string>
     <string name="spinner_hint">Select one item</string>
     <string name="welcome_screen_message">Welcome! \n Gotta Catch \'Em All!</string>
     <string name="button_activity_discover_pokes">Discover Pokes</string>
@@ -55,23 +44,44 @@
     <string name="pokemon_found_search_3">&#160;pokemons with this id</string>
     <string name="pokemon_found_search_4">&#160;pokemons with this name</string>
     <string name="text_view_custom_alert_dialog_types_body">We\'ve found pokemons with this type</string>
-    <string name="error_message_search_dialog">Unfortunately we have not found any pokes. \n Make your search again, or click on dismiss to discover more pokes!</string>
     <string name="ability_dialog_title">Ability Description</string>
     <string name="mysterious_poke_evolution_message">This poke is an evolution!\n We don\'t know much about him.\n All we now is that he\'s dangerous.\n\n Take care!</string>
-    <string name="content_description_mysterious_poke_evolution">Poke Evolution - He\'s mysterious</string>
-    <string name="no_conectivity">Snorlax, we got a problem! No internet</string>
-    <string name="content_description_image_button_search">Search logo image search dialog</string>
-    <string name="error_image_view_search_dialog">Error image on search dialog</string>
     <string name="gallery_image_view">Image view showed on gallery viewpager</string>
     <string name="black_color_name">black</string>
     <string name="choose_another_poke_spinner_error">Choose another poke</string>
     <string name="search_fragment_tag">search_fragment</string>
     <string name="fragment_tag_pokemon_in_types_dialog">my_pokemons_in_types_fragment</string>
     <string name="ability_description_dialog_pokemon_in_types">Ability Description</string>
+    <string name="pokemon_description_dialog_pokemon_in_types">Pokemon Description</string>
+    <string name="poke_hp_label">HP:</string>
+    <string name="poke_attack_label">ATTACK:</string>
+    <string name="poke_defense_label">DEFENSE:</string>
+    <string name="poke_special_attack_label">SPECIAL ATTACK:</string>
+    <string name="poke_special_defense_label">SPECIAL DEFENSE:</string>
+    <string name="poke_weight_label">WEIGHT:</string>
+    <string name="poke_height_label">HEIGHT:</string>
+    <string name="poke_speed_label">SPEED:</string>
+
+    <!-- Content Descriptions -->
+    <string name="content_description_image_view_poke_sprite">Pokemon Sprite, Home Screen</string>
+    <string name="content_description_image_view_empty_pokes_list">Empty Pokes List Image</string>
+    <string name="content_description_mysterious_poke_evolution">Poke Evolution - He\'s mysterious</string>
+    <string name="content_description_poke_ball_image_view_splash">Poke Ball image on splash screen</string>
+    <string name="content_description_sprite_background">Sprite background used on home and details screen</string>
+    <string name="content_description_image_button_search">Search logo image search dialog</string>
+
+    <!-- Error Messages -->
+    <string name="error_message_search_dialog">Unfortunately we have not found any pokes. \n Make your search again, or click on dismiss to discover more pokes!</string>
     <string name="log_error_properties">Message From Api on Properties</string>
     <string name="error_message_log">Error :</string>
     <string name="error_log_evolution">Message From Api on Evolution</string>
     <string name="error_log_pokemon">Message From Api on Pokemon</string>
     <string name="error_log_varieties">Message From Api on Varieties</string>
     <string name="try_again_button_home">Try Again</string>
+    <string name="text_no_pokes">No Pokes! \nSnorlax is sleeping! \nCome back later!</string>
+    <string name="error_image_view_search_dialog">Error image on search dialog</string>
+    <string name="no_conectivity">Snorlax, we got a problem! No internet</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="database_name">pokedex.db</string>
+
 </resources>

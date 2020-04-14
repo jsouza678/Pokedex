@@ -22,8 +22,8 @@ import souza.home.com.extensions.observeOnce
 import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.domain.model.Poke
-import souza.home.com.pokedexapp.presentation.details.DetailsFragment
-import souza.home.com.pokedexapp.presentation.home.HomeFragment
+import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsFragment
+import souza.home.com.pokedexapp.presentation.homefragment.HomeFragment
 import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_2000
 import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 import souza.home.com.pokedexapp.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
