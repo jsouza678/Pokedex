@@ -24,7 +24,7 @@ class TypeAdapter (private val context: Context, private val dataList: MutableLi
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val dataItem = dataList[position]
         val rowView = inflater.inflate(R.layout.list_item_row, parent, false)
-        rowView.findViewById<TextView>(R.id.text_view_item).text = dataItem.type.name?.capitalize()
+        rowView.findViewById<TextView>(R.id.text_view_item_list).text = dataItem.type.name?.capitalize()
 
         rowView.tag = position
         return rowView

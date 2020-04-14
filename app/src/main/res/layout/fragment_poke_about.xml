@@ -8,7 +8,7 @@
     tools:context=".presentation.details.details_nested.about.AboutFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container_misterious_about"
+        android:id="@+id/constraint_layout_mysterious_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/text_view_misterious_poke"
+            android:id="@+id/text_view_mysterious_poke_about"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/material_margin_8"
@@ -32,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/image_view_misterious_poke"
+            android:id="@+id/image_view_mysterious_poke_about"
             android:layout_width="@dimen/background_sprite_size"
             android:layout_height="@dimen/background_sprite_size"
             android:layout_marginStart="@dimen/material_margin_8"
@@ -44,11 +44,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_view_misterious_poke" />
+            app:layout_constraintTop_toBottomOf="@id/text_view_mysterious_poke_about" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container_default_about"
+        android:id="@+id/constraint_layout_default_about"
         android:layout_width="match_parent"
         android:layout_height="@dimen/about_poke_description"
         android:visibility="visible"
@@ -58,7 +58,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tv_poke_desc"
+            android:id="@+id/text_view_poke_desc_about"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/material_margin_16"
@@ -68,14 +68,14 @@
             android:ellipsize="end"
             android:maxLines="3"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@id/tv_variations"
+            app:layout_constraintBottom_toTopOf="@id/text_view_variations_about"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/mock_body_desc" />
 
         <TextView
-            android:id="@+id/tv_variations"
+            android:id="@+id/text_view_variations_about"
             style="@style/poke_name_detail_style"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
@@ -86,10 +86,10 @@
             android:text="@string/text_view_poke_variations"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_poke_desc" />
+            app:layout_constraintTop_toBottomOf="@id/text_view_poke_desc_about" />
 
         <Spinner
-            android:id="@+id/spinner_variations"
+            android:id="@+id/spinner_variations_about"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/material_margin_16"
@@ -99,7 +99,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_variations"
+            app:layout_constraintTop_toBottomOf="@id/text_view_variations_about"
             tools:listitem="@tools:sample/cities[0]" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

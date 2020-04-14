@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home_pokedex, container, false)
         pokesList = mutableListOf()
-        progressBar = view.findViewById(R.id.progressBar)
+        progressBar = view.findViewById(R.id.progress_bar_home)
         manager = activity?.supportFragmentManager!!
         bindViews(view)
 
@@ -59,8 +59,8 @@ class HomeFragment : Fragment() {
 
     private fun bindViews(view: View){
         adapter = HomeAdapter(pokesList, view.context)
-        recyclerView = view.findViewById(R.id.poke_recycler_view)
-        floatingActionButton = view.findViewById(R.id.image_view_floating_action_button_poke_ball)
+        recyclerView = view.findViewById(R.id.recycler_view_home)
+        floatingActionButton = view.findViewById(R.id.floating_action_button_poke_ball_home)
     }
 
     private fun setFloactingActionPokeball(){
@@ -114,7 +114,7 @@ class HomeFragment : Fragment() {
             val pokeName = it.name
             val details = DetailsFragment(pokeId, pokeName)
 
-            manager.beginTransaction().replace(R.id.nav_host_fragment, details).addToBackStack(null).commit()
+            manager.beginTransaction().replace(R.id.nav_host_fragment_home_activity, details).addToBackStack(null).commit()
         }
     }
 

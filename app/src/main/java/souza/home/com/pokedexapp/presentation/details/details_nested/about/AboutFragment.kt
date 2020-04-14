@@ -66,10 +66,10 @@ class AboutFragment(var pokemon: Int) : Fragment() {
     }
 
     private fun bindViews(view: View){
-        tvDesc = view.findViewById(R.id.tv_poke_desc)
-        spVariations = view.findViewById(R.id.spinner_variations)
-        constraintDefault = view.findViewById(R.id.container_default_about)
-        constraintEvolution = view.findViewById(R.id.container_misterious_about)
+        tvDesc = view.findViewById(R.id.text_view_poke_desc_about)
+        spVariations = view.findViewById(R.id.spinner_variations_about)
+        constraintDefault = view.findViewById(R.id.constraint_layout_default_about)
+        constraintEvolution = view.findViewById(R.id.constraint_layout_mysterious_about)
     }
 
     private fun initViewModel(){
@@ -121,7 +121,7 @@ class AboutFragment(var pokemon: Int) : Fragment() {
             val details = DetailsFragment(pokePath, newPoke)
 
             fragmentManager?.beginTransaction()
-                ?.replace(R.id.nav_host_fragment, details)?.commit()
+                ?.replace(R.id.nav_host_fragment_home_activity, details)?.commit()
         }
     }
 }

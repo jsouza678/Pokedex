@@ -74,7 +74,7 @@ class HomeAdapter(private val pokes: MutableList<Poke>?, private val context: Co
         private val pokeName: TextView = itemView.text_view_name_poke_recycler
         private val pokeImage: ImageView = itemView.image_view_poke_sprite_recycler
         private val pokeId: TextView = itemView.text_view_id_poke_recycler
-        private val pokeCv: CardView = itemView.card_view_poke_item_home
+        private val pokeCv: CardView = itemView.card_view_poke_item
         private var formatedNumber: String = ""
         private var pokemonId : Int = 0
 

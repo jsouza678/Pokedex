@@ -25,16 +25,15 @@ class EvolutionChainAdapter(private val context: Context, private val dataList: 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val dataItem = dataList?.get(position)
         val rowView = inflater.inflate(R.layout.list_item_row, parent, false)
-        val tv = rowView.findViewById<TextView>(R.id.text_view_item)
+        val tv = rowView.findViewById<TextView>(R.id.text_view_item_list)
 
         if (dataList != null) {
             if(dataList.size > 0){
-                tv.text = dataItem
+                tv.text = dataItem?.capitalize()
             }else{
                 tv.text = context.getString(R.string.no_poke_evolution)
             }
         }
-
         rowView.tag = position
 
         return rowView

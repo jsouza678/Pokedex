@@ -47,8 +47,8 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
         val view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
         bindViews(view)
         val viewPager: DynamicHeightViewPager = view.findViewById(R.id.fragment_container_details)
-        val tabs: TabLayout = view.findViewById(R.id.tab_layout_details_fragments)
-        val toolbar = view.findViewById<Toolbar>(R.id.toolbar_details_fragment)
+        val tabs: TabLayout = view.findViewById(R.id.tab_layout_details)
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar_details)
         mImages = ArrayList()
 
         setToolbarBackButton(toolbar)
@@ -60,10 +60,10 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
     }
 
     private fun bindViews(view: View){
-        tvPokeName = view.findViewById(R.id.text_view_poke_name_detail)
-        tvPokeId = view.findViewById(R.id.text_view_poke_id_detail)
+        tvPokeName = view.findViewById(R.id.text_view_poke_name_details)
+        tvPokeId = view.findViewById(R.id.text_view_poke_id_details)
         constraintLayout = view.findViewById(R.id.layout_details)
-        gallery = view.findViewById(R.id.image_slider_detail_fragment)
+        gallery = view.findViewById(R.id.image_slider_details)
     }
 
     private fun setToolbarBackButton(toolbar: Toolbar){

@@ -57,20 +57,20 @@ class StatsFragment(var pokemon: Int) : Fragment() {
     }
 
     private fun bindViews(view: View){
-        pbHp = view.findViewById(R.id.progress_bar_hp)
-        pbAttack = view.findViewById(R.id.progress_bar_attack)
-        pbDefense = view.findViewById(R.id.progress_bar_defense)
-        pbSpecialAttack = view.findViewById(R.id.progress_bar_special_attack)
-        pbSpecialDefense = view.findViewById(R.id.progress_bar_special_defense)
-        pbSpeed = view.findViewById(R.id.progress_bar_speed)
-        tvAttack = view.findViewById(R.id.text_view_poke_attack)
-        tvHp = view.findViewById(R.id.text_view_poke_hp)
-        tvDefense = view.findViewById(R.id.text_view_poke_defense)
-        tvSpecialAttack = view.findViewById(R.id.text_view_poke_special_attack)
-        tvSpecialDefense = view.findViewById(R.id.text_view_poke_special_deffense)
-        tvSpeed = view.findViewById(R.id.text_view_poke_speed)
-        tvWeight = view.findViewById(R.id.text_view_detail_weight)
-        tvHeight = view.findViewById(R.id.text_view_detail_height)
+        pbHp = view.findViewById(R.id.progress_bar_hp_stat)
+        pbAttack = view.findViewById(R.id.progress_bar_attack_stat)
+        pbDefense = view.findViewById(R.id.progress_bar_defense_stat)
+        pbSpecialAttack = view.findViewById(R.id.progress_bar_special_attack_stat)
+        pbSpecialDefense = view.findViewById(R.id.progress_bar_special_defense_stat)
+        pbSpeed = view.findViewById(R.id.progress_bar_speed_stat)
+        tvAttack = view.findViewById(R.id.text_view_poke_attack_stat)
+        tvHp = view.findViewById(R.id.text_view_poke_hp_stat)
+        tvDefense = view.findViewById(R.id.text_view_poke_defense_stat)
+        tvSpecialAttack = view.findViewById(R.id.text_view_poke_special_attack_stat)
+        tvSpecialDefense = view.findViewById(R.id.text_view_poke_special_defense_stat)
+        tvSpeed = view.findViewById(R.id.text_view_poke_speed_stat)
+        tvWeight = view.findViewById(R.id.text_view_detail_weight_stat)
+        tvHeight = view.findViewById(R.id.text_view_detail_height_stat)
     }
 
     private fun initObservers(){

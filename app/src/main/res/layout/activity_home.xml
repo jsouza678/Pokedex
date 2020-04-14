@@ -8,9 +8,9 @@
     tools:context=".presentation.HomeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_layout_main_activity"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/constraint_layout_home_activity"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_main_activity"
+            android:id="@+id/toolbar_home_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
@@ -37,7 +37,7 @@
                 tools:layout_editor_absoluteX="16dp">
 
                 <TextView
-                    android:id="@+id/text_view_app_name_main_activity"
+                    android:id="@+id/text_view_app_name_home_activity"
                     style="@style/pokemon_logo_style_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
         </androidx.appcompat.widget.Toolbar>
 
         <TextView
-            android:id="@+id/welcome_text_view_main_activity"
+            android:id="@+id/welcome_text_view_home_activity"
             style="@style/style_welcome_text_main_activity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,10 +62,10 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_main_activity" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar_home_activity" />
 
         <ImageView
-            android:id="@+id/image_view_snorlax_welcome"
+            android:id="@+id/image_view_snorlax_welcome_home_activity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/material_margin_16"
@@ -74,11 +74,11 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/welcome_text_view_main_activity"
+            app:layout_constraintTop_toBottomOf="@+id/welcome_text_view_home_activity"
             app:srcCompat="@drawable/first_time_snorlax" />
 
         <Button
-            android:id="@+id/button_discover_pokes_main_activity"
+            android:id="@+id/button_discover_pokes_home_activity"
             style="@style/button_default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,11 +91,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_snorlax_welcome" />
+            app:layout_constraintTop_toBottomOf="@+id/image_view_snorlax_welcome_home_activity" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
-        android:id="@+id/nav_host_fragment"
+        android:id="@+id/nav_host_fragment_home_activity"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/match_constraint"
         android:visibility="visible"
@@ -106,4 +106,4 @@
 
     </FrameLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

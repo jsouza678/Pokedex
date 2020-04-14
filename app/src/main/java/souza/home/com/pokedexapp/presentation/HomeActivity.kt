@@ -30,7 +30,7 @@ class HomeActivity : AppCompatActivity() {
         val splashFragment = SplashScreen()
         val homeFragment = HomeFragment()
 
-        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, splashFragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_home_activity, splashFragment).commit()
         Handler().postDelayed({
             supportFragmentManager.beginTransaction().remove(splashFragment)
             frameLayoutFragmentHost.gone()
@@ -42,16 +42,16 @@ class HomeActivity : AppCompatActivity() {
 
         buttonDiscover.setOnClickListener {
             constraintLayoutHome.gone()
-            supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment, homeFragment).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_home_activity, homeFragment).commit()
             frameLayoutFragmentHost.visible()
         }
     }
 
     private fun bindViews(){
-        buttonDiscover = findViewById(R.id.button_discover_pokes_main_activity)
-        frameLayoutFragmentHost = findViewById(R.id.nav_host_fragment)
-        mainToolbar = findViewById(R.id.toolbar_main_activity)
-        constraintLayoutHome = findViewById(R.id.constraint_layout_main_activity)
+        buttonDiscover = findViewById(R.id.button_discover_pokes_home_activity)
+        frameLayoutFragmentHost = findViewById(R.id.nav_host_fragment_home_activity)
+        mainToolbar = findViewById(R.id.toolbar_home_activity)
+        constraintLayoutHome = findViewById(R.id.constraint_layout_home_activity)
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_menu, menu)

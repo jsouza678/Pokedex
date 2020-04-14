@@ -30,4 +30,8 @@
     <dimen name="padding_recycler_text_home">5dp</dimen>
     <dimen name="text_size_recycler_text_view">18sp</dimen>
     <dimen name="text_size_recycler_text_view_id">12sp</dimen>
+    <dimen name="button_search_dialog_fragment">30dp</dimen>
+    <dimen name="recycler_view_height_search_dialog">280dp</dimen>
+    <dimen name="layout_padding_4">4dp</dimen>
+    <dimen name="recycler_view_search_dialog">280dp</dimen>
 </resources>

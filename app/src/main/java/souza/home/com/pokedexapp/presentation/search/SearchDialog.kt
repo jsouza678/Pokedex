@@ -43,15 +43,15 @@ class SearchDialog : DialogFragment() {
     private lateinit var viewModel: SearchDialogViewModel
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val view : View = activity!!.layoutInflater.inflate(R.layout.fragment_poke_search_dialog, null)
-        pokesList = mutableListOf()
+        val view : View = activity?.layoutInflater!!.inflate(R.layout.fragment_poke_search_dialog, null)
         bindViews(view)
+        pokesList = mutableListOf()
         adapter = activity?.applicationContext?.let { SearchDialogAdapter(pokesList, it) }!!
-        val textViewResult: TextView = view.findViewById(R.id.text_view_custom_alert_dialog_label)
+        val textViewResult: TextView = view.findViewById(R.id.text_view_label_search_dialog)
 
         val alert = AlertDialog.Builder(context)
         alert.setView(view)
-        textInputArea = view.findViewById<TextInputEditText>(R.id.input_edit_text_search_fragment)
+        textInputArea = view.findViewById<TextInputEditText>(R.id.input_edit_text_search_dialog)
 
         initViewModel()
         initSearchButtonClickListener(textViewResult)
@@ -63,11 +63,11 @@ class SearchDialog : DialogFragment() {
     }
 
     private fun bindViews(view: View){
-        recyclerView = view.findViewById(R.id.recycler_view_poke_search_alert)
+        recyclerView = view.findViewById(R.id.recycler_view_poke_search_dialog)
         buttonDismiss = view.findViewById(R.id.button_dismiss_custom_search_dialog)
-        searchButtonDialog = view.findViewById(R.id.search_button_dialog)
-        constraintErrorLayout = view.findViewById(R.id.container_layout_error)
-        constraintDefaultLayout = view.findViewById(R.id.container_layout_default)
+        searchButtonDialog = view.findViewById(R.id.search_button_search_dialog)
+        constraintErrorLayout = view.findViewById(R.id.container_layout_error_search_dialog)
+        constraintDefaultLayout = view.findViewById(R.id.container_layout_default_search_dialog)
     }
 
     private fun initViewModel(){
@@ -87,9 +87,11 @@ class SearchDialog : DialogFragment() {
                     initSearchById(textSearch, textViewResult)
                     textInputArea.text?.clear()
                 }else{  // is string now
-                    if(textSearch.length < 40){
-                        initSearchByName(textSearch, textViewResult)
-                        textInputArea.text?.clear()
+                    if(textSearch.length < 20){
+                        if(!textSearch.matches("-?\\d+(\\.\\d+)?".toRegex())){
+                            initSearchByName(textSearch, textViewResult)
+                            textInputArea.text?.clear()
+                        }
                     }else{
                         textInputArea.error = getString(R.string.input_text_search_dialog)
                         textInputArea.text?.clear()
@@ -125,7 +127,7 @@ class SearchDialog : DialogFragment() {
 
     private fun setupButtonDismiss(){
         buttonDismiss.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment, HomeFragment())?.commit()
+            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_home_activity, HomeFragment())?.commit()
             dismiss()
             view?.let { view -> Snackbar.make(view, getString(R.string.redirect_search_to_home_message), BaseTransientBottomBar.LENGTH_SHORT).show() }
         }
@@ -166,7 +168,7 @@ class SearchDialog : DialogFragment() {
             val pokeName = it.name
             val details = DetailsFragment(idPoke, pokeName)
 
-            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment, details)?.addToBackStack(null)?.commit()
+            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_home_activity, details)?.addToBackStack(null)?.commit()
             dismiss()
         }
     }

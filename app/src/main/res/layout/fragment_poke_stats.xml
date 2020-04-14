@@ -7,7 +7,7 @@
     tools:context=".presentation.details.details_nested.stats.StatsFragment">
 
     <TextView
-        android:id="@+id/text_view_detail_hp_label"
+        android:id="@+id/text_view_detail_hp_label_stat"
         style="@style/stat_label"
         android:layout_marginStart="@dimen/material_margin_16"
         android:layout_marginTop="@dimen/material_margin_16"
@@ -16,17 +16,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_view_poke_hp"
+        android:id="@+id/text_view_poke_hp_stat"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin_8"
         style="@style/stat_value"
-        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_hp_label"
-        app:layout_constraintStart_toEndOf="@id/text_view_detail_hp_label"
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_hp_label_stat"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_hp_label_stat"
         tools:text="@string/mock_hp" />
 
     <ProgressBar
-        android:id="@+id/progress_bar_hp"
+        android:id="@+id/progress_bar_hp_stat"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/match_constraint"
@@ -35,13 +35,13 @@
         android:indeterminate="false"
         android:max="100"
         android:progress="85"
-        app:layout_constraintBottom_toBottomOf="@id/text_view_poke_hp"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_poke_hp_stat"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/text_view_poke_hp"
-        app:layout_constraintTop_toTopOf="@id/text_view_detail_hp_label" />
+        app:layout_constraintStart_toEndOf="@id/text_view_poke_hp_stat"
+        app:layout_constraintTop_toTopOf="@id/text_view_detail_hp_label_stat" />
 
     <TextView
-        android:id="@+id/text_view_detail_attack_label"
+        android:id="@+id/text_view_detail_attack_label_stat"
         style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,20 +49,20 @@
         android:layout_marginTop="@dimen/material_margin_8"
         android:text="@string/poke_attack_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_detail_hp_label" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_detail_hp_label_stat" />
 
     <TextView
-        android:id="@+id/text_view_poke_attack"
+        android:id="@+id/text_view_poke_attack_stat"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin_8"
         style="@style/stat_value"
         tools:text="@string/mock_attack"
-        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_attack_label"
-        app:layout_constraintStart_toEndOf="@id/text_view_detail_attack_label" />
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_attack_label_stat"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_attack_label_stat" />
 
     <ProgressBar
-        android:id="@+id/progress_bar_attack"
+        android:id="@+id/progress_bar_attack_stat"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/match_constraint"
@@ -70,13 +70,13 @@
         android:layout_marginEnd="@dimen/material_margin_16"
         android:max="100"
         android:progress="40"
-        app:layout_constraintBottom_toBottomOf="@id/text_view_detail_attack_label"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_detail_attack_label_stat"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/text_view_poke_attack"
-        app:layout_constraintTop_toTopOf="@id/text_view_detail_attack_label" />
+        app:layout_constraintStart_toEndOf="@id/text_view_poke_attack_stat"
+        app:layout_constraintTop_toTopOf="@id/text_view_detail_attack_label_stat" />
 
     <TextView
-        android:id="@+id/text_view_detail_defense_label"
+        android:id="@+id/text_view_detail_defense_label_stat"
         style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,20 +84,20 @@
         android:layout_marginTop="@dimen/material_margin_8"
         android:text="@string/poke_defense_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_detail_attack_label" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_detail_attack_label_stat" />
 
     <TextView
-        android:id="@+id/text_view_poke_defense"
+        android:id="@+id/text_view_poke_defense_stat"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
         style="@style/stat_value"
         android:layout_marginStart="@dimen/material_margin_8"
-        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_defense_label"
-        app:layout_constraintStart_toEndOf="@id/text_view_detail_defense_label"
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_defense_label_stat"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_defense_label_stat"
         tools:text="@string/mock_defense" />
 
     <ProgressBar
-        android:id="@+id/progress_bar_defense"
+        android:id="@+id/progress_bar_defense_stat"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/match_constraint"
@@ -105,13 +105,13 @@
         android:layout_marginEnd="@dimen/material_margin_16"
         android:max="100"
         android:progress="50"
-        app:layout_constraintBottom_toBottomOf="@id/text_view_detail_defense_label"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_detail_defense_label_stat"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/text_view_poke_defense"
-        app:layout_constraintTop_toTopOf="@id/text_view_detail_defense_label" />
+        app:layout_constraintStart_toEndOf="@id/text_view_poke_defense_stat"
+        app:layout_constraintTop_toTopOf="@id/text_view_detail_defense_label_stat" />
 
     <TextView
-        android:id="@+id/text_view_detail_special_attack_label"
+        android:id="@+id/text_view_detail_special_attack_label_stat"
         style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -119,20 +119,20 @@
         android:layout_marginTop="@dimen/material_margin_8"
         android:text="@string/poke_special_attack_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_detail_defense_label" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_detail_defense_label_stat" />
 
     <TextView
-        android:id="@+id/text_view_poke_special_attack"
+        android:id="@+id/text_view_poke_special_attack_stat"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin_8"
         style="@style/stat_value"
         tools:text="@string/mock_special_attack"
-        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_special_attack_label"
-        app:layout_constraintStart_toEndOf="@id/text_view_detail_special_attack_label" />
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_special_attack_label_stat"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_special_attack_label_stat" />
 
     <ProgressBar
-        android:id="@+id/progress_bar_special_attack"
+        android:id="@+id/progress_bar_special_attack_stat"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/match_constraint"
@@ -140,13 +140,13 @@
         android:layout_marginEnd="@dimen/material_margin_16"
         android:max="200"
         android:progress="120"
-        app:layout_constraintBottom_toBottomOf="@id/text_view_detail_special_attack_label"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_detail_special_attack_label_stat"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/text_view_poke_special_attack"
-        app:layout_constraintTop_toTopOf="@id/text_view_detail_special_attack_label" />
+        app:layout_constraintStart_toEndOf="@id/text_view_poke_special_attack_stat"
+        app:layout_constraintTop_toTopOf="@id/text_view_detail_special_attack_label_stat" />
 
     <TextView
-        android:id="@+id/text_view_detail_special_defense_label"
+        android:id="@+id/text_view_detail_special_defense_label_stat"
         style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -154,20 +154,20 @@
         android:layout_marginTop="@dimen/material_margin_8"
         android:text="@string/poke_special_defense_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_detail_special_attack_label" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_detail_special_attack_label_stat" />
 
     <TextView
-        android:id="@+id/text_view_poke_special_deffense"
+        android:id="@+id/text_view_poke_special_defense_stat"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
         style="@style/stat_value"
         android:layout_marginStart="@dimen/material_margin_8"
-        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_special_defense_label"
-        app:layout_constraintStart_toEndOf="@id/text_view_detail_special_defense_label"
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_special_defense_label_stat"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_special_defense_label_stat"
         tools:text="@string/mock_special_deffense" />
 
     <ProgressBar
-        android:id="@+id/progress_bar_special_defense"
+        android:id="@+id/progress_bar_special_defense_stat"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/match_constraint"
@@ -175,14 +175,14 @@
         android:layout_marginEnd="@dimen/material_margin_16"
         android:max="200"
         android:progress="80"
-        app:layout_constraintBottom_toBottomOf="@id/text_view_poke_special_deffense"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_poke_special_defense_stat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@id/text_view_poke_special_deffense"
-        app:layout_constraintTop_toTopOf="@id/text_view_detail_special_defense_label" />
+        app:layout_constraintStart_toEndOf="@id/text_view_poke_special_defense_stat"
+        app:layout_constraintTop_toTopOf="@id/text_view_detail_special_defense_label_stat" />
 
     <TextView
-        android:id="@+id/text_view_detail_speed_label"
+        android:id="@+id/text_view_detail_speed_label_stat"
         style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -190,21 +190,21 @@
         android:layout_marginTop="@dimen/material_margin_16"
         android:text="@string/poke_speed_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_detail_special_defense_label" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_detail_special_defense_label_stat" />
 
     <TextView
-        android:id="@+id/text_view_poke_speed"
+        android:id="@+id/text_view_poke_speed_stat"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin_16"
         style="@style/stat_value"
-        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_speed_label"
-        app:layout_constraintStart_toEndOf="@id/text_view_detail_speed_label"
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_speed_label_stat"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_speed_label_stat"
         tools:text="@string/mock_speed" />
 
 
     <ProgressBar
-        android:id="@+id/progress_bar_speed"
+        android:id="@+id/progress_bar_speed_stat"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/match_constraint"
@@ -212,13 +212,13 @@
         android:layout_marginEnd="@dimen/material_margin_16"
         android:max="200"
         android:progress="190"
-        app:layout_constraintBottom_toBottomOf="@id/text_view_poke_speed"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_poke_speed_stat"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/text_view_poke_speed"
-        app:layout_constraintTop_toTopOf="@id/text_view_poke_speed" />
+        app:layout_constraintStart_toEndOf="@id/text_view_poke_speed_stat"
+        app:layout_constraintTop_toTopOf="@id/text_view_poke_speed_stat" />
 
     <TextView
-        android:id="@+id/text_view_detail_weight_label"
+        android:id="@+id/text_view_detail_weight_label_stat"
         style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -226,20 +226,20 @@
         android:layout_marginTop="@dimen/material_margin_8"
         android:text="@string/poke_weight_label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_detail_speed_label" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_detail_speed_label_stat" />
 
     <TextView
-        android:id="@+id/text_view_detail_weight"
+        android:id="@+id/text_view_detail_weight_stat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin_8"
         tools:text="@string/mock_weight"
         style="@style/stat_value"
-        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_weight_label"
-        app:layout_constraintStart_toEndOf="@id/text_view_detail_weight_label" />
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_weight_label_stat"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_weight_label_stat" />
 
     <TextView
-        android:id="@+id/text_view_detail_height_label"
+        android:id="@+id/text_view_detail_height_label_stat"
         style="@style/stat_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -249,17 +249,16 @@
         android:text="@string/poke_height_label"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_detail_weight_label" />
+        app:layout_constraintTop_toBottomOf="@id/text_view_detail_weight_label_stat" />
 
     <TextView
-        android:id="@+id/text_view_detail_height"
+        android:id="@+id/text_view_detail_height_stat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin_8"
         style="@style/stat_value"
         tools:text="@string/mock_height"
-        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_height_label"
-        app:layout_constraintStart_toEndOf="@id/text_view_detail_height_label" />
-
+        app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_height_label_stat"
+        app:layout_constraintStart_toEndOf="@id/text_view_detail_height_label_stat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

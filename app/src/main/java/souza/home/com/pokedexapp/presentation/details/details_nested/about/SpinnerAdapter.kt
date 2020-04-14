@@ -26,7 +26,7 @@ class SpinnerAdapter (private val context: Context, private val dataList: Mutabl
         if(rowView == null) {
             val dataItem = dataList[position]
             rowView = inflater.inflate(R.layout.list_item_row, parent, false)
-            rowView.findViewById<TextView>(R.id.text_view_item).text = dataItem.pokemon.name.capitalize()
+            rowView.findViewById<TextView>(R.id.text_view_item_list).text = dataItem.pokemon.name.capitalize()
             rowView.tag = position
         }
 

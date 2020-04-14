@@ -27,9 +27,9 @@ class TypesDialog(private val pList: MutableList<NestedType>) : DialogFragment()
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view : View = activity?.layoutInflater?.inflate(R.layout.fragment_poke_types_dialog, null)!!
 
-        recyclerView = view.findViewById(R.id.recycler_view_poke_search_alert)
+        recyclerView = view.findViewById(R.id.recycler_view_poke_search_dialog)
         buttonDismiss = view.findViewById(R.id.button_dismiss_custom_search_dialog)
-        textViewResult = view.findViewById(R.id.text_view_custom_alert_dialog_label)
+        textViewResult = view.findViewById(R.id.text_view_label_search_dialog)
 
         pokesList = pList
         val alert = AlertDialog.Builder(activity)
@@ -64,7 +64,7 @@ class TypesDialog(private val pList: MutableList<NestedType>) : DialogFragment()
             val pokePath = Integer.parseInt(cropPokeUrl(urlChain))
             val details = DetailsFragment(pokePath, pokeName)
 
-            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment, details)?.commit()
+            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_home_activity, details)?.commit()
             dismiss()
         }
     }

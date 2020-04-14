@@ -62,8 +62,8 @@ class OthersFragment(var pokemon: Int) : Fragment() {
     }
 
     private fun bindViews(view: View){
-        lvTypes = view.findViewById(R.id.list_view_types)
-        lvAbilities = view.findViewById(R.id.list_view_abilities)
+        lvTypes = view.findViewById(R.id.list_view_types_others)
+        lvAbilities = view.findViewById(R.id.list_view_abilities_others)
     }
 
     private fun initializeAdapters(view: View){

@@ -27,7 +27,7 @@
             tools:context=".presentation.search.SearchDialog">
 
             <TextView
-                android:id="@+id/text_view_custom_alert_dialog_label"
+                android:id="@+id/text_view_label_search_dialog"
                 style="@style/dialog_pokes_in_search_text"
                 android:layout_width="@dimen/match_constraint"
                 android:layout_height="wrap_content"
@@ -38,18 +38,16 @@
                 tools:text="@string/text_view_custom_alert_dialog_types_body" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_poke_search_alert"
+                android:id="@+id/recycler_view_poke_search_dialog"
                 android:layout_width="@dimen/match_constraint"
-                android:layout_height="280dp"
+                android:layout_height="@dimen/recycler_view_search_dialog"
                 android:layout_marginStart="@dimen/material_margin_16"
                 android:layout_marginTop="@dimen/material_margin_8"
                 android:layout_marginEnd="@dimen/material_margin_16"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_custom_alert_dialog_label"
-                app:spanCount="2"
+                app:layout_constraintTop_toBottomOf="@id/text_view_label_search_dialog"
                 tools:listitem="@layout/recycler_poke_item_view">
 
             </androidx.recyclerview.widget.RecyclerView>
@@ -61,7 +59,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recycler_view_poke_search_alert" />
+                app:layout_constraintTop_toBottomOf="@id/recycler_view_poke_search_dialog" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 

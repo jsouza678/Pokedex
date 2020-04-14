@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/mock_background_sprite_poke" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/pokedex_home_toolbar"
+        android:id="@+id/pokedex_toolbar_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/translucent"
@@ -39,7 +39,7 @@
             tools:layout_editor_absoluteX="16dp">
 
             <TextView
-                android:id="@+id/text_view_app_name_main_activity"
+                android:id="@+id/text_view_app_name_home_activity"
                 style="@style/pokemon_logo_style_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/poke_recycler_view"
+        android:id="@+id/recycler_view_home"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/match_constraint"
         android:layout_marginStart="@dimen/material_margin_8"
@@ -61,15 +61,15 @@
         android:layout_marginBottom="@dimen/material_margin_8"
         android:clipToPadding="false"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/poke_ball_toolbar"
+        app:layout_constraintBottom_toTopOf="@id/poke_ball_bottom_toolbar_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pokedex_home_toolbar"
+        app:layout_constraintTop_toBottomOf="@id/pokedex_toolbar_home"
         tools:listitem="@layout/recycler_poke_item_view" />
 
     <!-- In case of Empty list -->
     <ImageView
-        android:id="@+id/image_view_no_conection"
+        android:id="@+id/image_view_no_connection_home"
         android:layout_width="@dimen/no_list_image"
         android:layout_height="@dimen/no_list_image"
         android:layout_gravity="center"
@@ -83,7 +83,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_view_no_conection"
+        android:id="@+id/text_view_no_connection_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/material_margin_16"
@@ -93,21 +93,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_view_no_conection"
+        app:layout_constraintTop_toBottomOf="@id/image_view_no_connection_home"
         app:layout_constraintVertical_bias="0.026" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/poke_ball_toolbar"
+        android:id="@+id/poke_ball_bottom_toolbar_home"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/poke_ball_container_layout_height"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/poke_recycler_view">
+        app:layout_constraintTop_toBottomOf="@id/recycler_view_home">
 
         <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottom_app_bar"
+            android:id="@+id/bottom_app_bar_home"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_bar_home_height"
             android:layout_gravity="bottom"
@@ -121,11 +121,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/material_margin_8"
             android:visibility="visible"
-            app:layout_anchor="@id/bottom_app_bar"
+            app:layout_anchor="@id/bottom_app_bar_home"
             app:layout_anchorGravity="center">
 
             <ProgressBar
-                android:id="@+id/progressBar"
+                android:id="@+id/progress_bar_home"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="@dimen/progress_bar_size_home"
                 android:layout_height="@dimen/progress_bar_size_home"
@@ -133,7 +133,7 @@
                 android:visibility="visible" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/image_view_floating_action_button_poke_ball"
+                android:id="@+id/floating_action_button_poke_ball_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
