@@ -8,18 +8,24 @@ import androidx.lifecycle.Transformations
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import souza.home.com.pokedexapp.R
+import souza.home.com.pokedexapp.data.pokedex.local.PokemonDao
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
 import souza.home.com.pokedexapp.data.pokedex.mapper.PokedexMapper
 import souza.home.com.pokedexapp.data.pokedex.remote.PokeApi
+import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
 import souza.home.com.pokedexapp.domain.model.Poke
 import souza.home.com.pokedexapp.domain.repository.PokemonRepository
 
-class PokemonRepositoryImpl(private val context: Context) : PokemonRepository {
+class PokemonRepositoryImpl(private val context: Context,
+    private val pokedexService: PokedexService,
+    private val pokemonDao: PokemonDao
+) : PokemonRepository {
 
-    private val INSTANCE = PokemonDatabase.getDatabase(context)
-
-    override val pokes: LiveData<List<Poke>?> = Transformations.map(INSTANCE.pokemonDao.getPokes()) {
-        PokedexMapper.pokemonAsDomain(it)
+    override fun getAllPokes(): LiveData<List<Poke>?> {
+        val pokes =  Transformations.map(pokemonDao.getPokes()) {
+            PokedexMapper.pokemonAsDomain(it)
+        }
+        return pokes
     }
 
     private val _internet = MutableLiveData<HomePokedexStatus>()
@@ -31,9 +37,9 @@ class PokemonRepositoryImpl(private val context: Context) : PokemonRepository {
         withContext(Dispatchers.IO) {
             _internet.postValue(HomePokedexStatus.LOADING)
             try {
-                val pokeList = PokeApi.retrofitService.getPokes(page).await()
+                val pokeList = pokedexService.getPokes(page).await()
                 PokedexMapper.pokemonToDatabaseModel(pokeList)
-                    ?.let { INSTANCE.pokemonDao.insertAll(*it) }
+                    ?.let { pokemonDao.insertAll(*it) }
                 _internet.postValue(HomePokedexStatus.DONE)
             } catch (e: Exception) {
                 _internet.postValue(HomePokedexStatus.ERROR)

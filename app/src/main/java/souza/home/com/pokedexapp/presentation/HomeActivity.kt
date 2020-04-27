@@ -9,9 +9,16 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import org.koin.android.BuildConfig
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.logger.AndroidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.logger.EmptyLogger
+import org.koin.core.logger.Logger
 import souza.home.com.extensions.gone
 import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
+import souza.home.com.pokedexapp.di.pokedexModule
 import souza.home.com.pokedexapp.presentation.homefragment.HomeFragment
 import souza.home.com.pokedexapp.presentation.search.SearchDialog
 import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_1000
@@ -45,7 +52,19 @@ class HomeActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_home_activity, homeFragment).commit()
             frameLayoutFragmentHost.visible()
         }
+
+        startKoin{
+            androidContext(this@HomeActivity)
+            logger(koinLogger())
+            modules(
+                listOf(
+                    pokedexModule
+                )
+            )
+        }
     }
+
+    private fun koinLogger(): Logger = if (BuildConfig.DEBUG) AndroidLogger() else EmptyLogger()
 
     private fun bindViews() {
         buttonDiscover = findViewById(R.id.button_discover_pokes_home_activity)

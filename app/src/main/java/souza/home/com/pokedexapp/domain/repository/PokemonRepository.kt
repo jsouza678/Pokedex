@@ -5,7 +5,7 @@ import souza.home.com.pokedexapp.domain.model.Poke
 
 interface PokemonRepository {
 
-    val pokes: LiveData<List<Poke>?>
+    fun getAllPokes(): LiveData<List<Poke>?>
 
     suspend fun refreshPokes(page: Int)
 }

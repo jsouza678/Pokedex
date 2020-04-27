@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
 import souza.home.com.pokedexapp.data.pokedex.mapper.PokedexMapper
-import souza.home.com.pokedexapp.data.pokedex.remote.PokeApi
+
 import souza.home.com.pokedexapp.domain.model.PokeEvolutionChain
 import souza.home.com.pokedexapp.domain.repository.EvolutionRepository
 import souza.home.com.pokedexapp.utils.CheckNetworkState
@@ -30,10 +30,10 @@ class EvolutionRepositoryImpl(id: Int, private val context: Context) : Evolution
 
     override suspend fun refreshEvolutionChain(id: Int) {
         withContext(Dispatchers.IO) {
-            if (CheckNetworkState.checkNetworkState(context)) {
+        /*    if (CheckNetworkState.checkNetworkState(context)) {
                 _internet.postValue(EvolutionPokedexStatus.LOADING)
                 try {
-                    val pokeEvolution = PokeApi.retrofitService.getEvolutionChain(id).await()
+                    val pokeEvolution = retrofitService.getEvolutionChain(id).await()
                     INSTANCE.evolutionChainDao.insertAll(PokedexMapper.evolutionChainToDatabaseModel(pokeEvolution))
                     _internet.postValue(EvolutionPokedexStatus.DONE)
                 } catch (e: Exception) {
@@ -42,7 +42,7 @@ class EvolutionRepositoryImpl(id: Int, private val context: Context) : Evolution
                 }
             } else {
                 _internet.postValue(EvolutionPokedexStatus.ERROR)
-            }
+            }*/
         }
     }
 }

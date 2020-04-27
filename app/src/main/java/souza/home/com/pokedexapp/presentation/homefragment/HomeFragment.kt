@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import org.koin.android.viewmodel.ext.android.viewModel
 import souza.home.com.extensions.gone
 import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
@@ -36,6 +37,7 @@ class HomeFragment : Fragment() {
     private lateinit var floatingActionButton: FloatingActionButton
     private lateinit var adapter: HomeAdapter
     private lateinit var toolbarHomeTop: Toolbar
+    private val viewModel by viewModel<HomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,15 +49,6 @@ class HomeFragment : Fragment() {
         pokesList = mutableListOf()
         progressBar = view.findViewById(R.id.progress_bar_home)
         bindViews(view)
-
-        val viewModel = ViewModelProviders.of(this,
-            activity?.application?.let {
-                HomeViewModel.Factory(
-                    it
-                )
-            }
-        )
-            .get(HomeViewModel::class.java)
 
         initRecyclerView(viewModel)
         setFloactingActionPokeball()
@@ -83,8 +76,7 @@ class HomeFragment : Fragment() {
                 it?.toMutableList()?.let { pokesList -> adapter.submitList(pokesList)
                 }
             })
-
-            this.checkRequestStatus().observe(viewLifecycleOwner, Observer { toggleProgressBar(it) })
+            //this.checkRequestStatus().observe(viewLifecycleOwner, Observer { toggleProgressBar(it) })
         }
     }
 
