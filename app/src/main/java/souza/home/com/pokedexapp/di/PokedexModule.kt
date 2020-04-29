@@ -10,21 +10,26 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.PokemonRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.SearchRepositoryImpl
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDao
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
 import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
 import souza.home.com.pokedexapp.domain.repository.PokemonRepository
+import souza.home.com.pokedexapp.domain.repository.SearchRepository
 import souza.home.com.pokedexapp.domain.usecase.FetchPokesFromApi
 import souza.home.com.pokedexapp.domain.usecase.GetPokesFromDatabase
+import souza.home.com.pokedexapp.domain.usecase.SearchPokesById
+import souza.home.com.pokedexapp.domain.usecase.SearchPokesByName
 import souza.home.com.pokedexapp.presentation.homefragment.HomeViewModel
+import souza.home.com.pokedexapp.presentation.search.SearchViewModel
 import souza.home.com.pokedexapp.utils.Constants
 
 private const val pokemonDatabase = "POKEMON_DATABASE"
 
 val pokedexModule = module {
 
+    //ViewModels
     viewModel {
        HomeViewModel(
            get<GetPokesFromDatabase>(),
@@ -32,9 +37,23 @@ val pokedexModule = module {
        )
     }
 
+    viewModel {
+        SearchViewModel(
+            get<SearchPokesByName>(),
+            get<SearchPokesById>()
+        )
+    }
+
+    //UseCases
     factory {
-        GetPokesFromDatabase(
-            get<PokemonRepository>()
+        SearchPokesById(
+            get<SearchRepository>()
+        )
+    }
+
+    factory {
+        SearchPokesByName(
+            get<SearchRepository>()
         )
     }
 
@@ -44,10 +63,7 @@ val pokedexModule = module {
         )
     }
 
-    single {
-        get<PokemonDatabase>(named(pokemonDatabase)).pokemonDao
-    }
-
+    //Home
     factory {
         PokemonRepositoryImpl(
             context = get(),
@@ -56,6 +72,15 @@ val pokedexModule = module {
         ) as PokemonRepository
     }
 
+    //Search
+    factory {
+        SearchRepositoryImpl(
+            context = get(),
+            pokemonDao = get<PokemonDao>()
+        ) as SearchRepository
+    }
+
+    //Retrofit
     single {
         getRetrofitService(
             get<Retrofit>()
@@ -64,6 +89,11 @@ val pokedexModule = module {
 
     single {
         createRetrofit()
+    }
+
+    //DB
+    single {
+        get<PokemonDatabase>(named(pokemonDatabase)).pokemonDao
     }
 
     single(named(pokemonDatabase)) {

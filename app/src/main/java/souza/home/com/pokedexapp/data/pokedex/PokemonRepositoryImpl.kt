@@ -9,16 +9,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDao
-import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
 import souza.home.com.pokedexapp.data.pokedex.mapper.PokedexMapper
-import souza.home.com.pokedexapp.data.pokedex.remote.PokeApi
 import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
 import souza.home.com.pokedexapp.domain.model.Poke
 import souza.home.com.pokedexapp.domain.repository.PokemonRepository
 
 class PokemonRepositoryImpl(private val context: Context,
-    private val pokedexService: PokedexService,
-    private val pokemonDao: PokemonDao
+                            private val pokedexService: PokedexService,
+                            private val pokemonDao: PokemonDao
 ) : PokemonRepository {
 
     override fun getAllPokes(): LiveData<List<Poke>?> {

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import org.koin.android.viewmodel.ext.android.viewModel
 import souza.home.com.extensions.gone
 import souza.home.com.extensions.observeOnce
 import souza.home.com.extensions.visible
@@ -40,7 +41,7 @@ class SearchDialog : DialogFragment() {
     private lateinit var textInputArea: TextInputEditText
     private lateinit var constraintErrorLayout: ConstraintLayout
     private lateinit var constraintDefaultLayout: ConstraintLayout
-    private lateinit var viewModel: SearchDialogViewModel
+    private val viewModel by viewModel<SearchViewModel>()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view: View = activity?.layoutInflater!!.inflate(R.layout.fragment_poke_search_dialog, null)
@@ -53,7 +54,6 @@ class SearchDialog : DialogFragment() {
         alert.setView(view)
         textInputArea = view.findViewById<TextInputEditText>(R.id.input_edit_text_search_dialog)
 
-        initViewModel()
         initSearchButtonClickListener(textViewResult)
         setTransitionToPokeDetails()
         initRecyclerview()
@@ -68,12 +68,6 @@ class SearchDialog : DialogFragment() {
         searchButtonDialog = view.findViewById(R.id.search_button_search_dialog)
         constraintErrorLayout = view.findViewById(R.id.container_layout_error_search_dialog)
         constraintDefaultLayout = view.findViewById(R.id.container_layout_default_search_dialog)
-    }
-
-    private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this,
-            activity?.application?.let { SearchViewModelFactory(it) })
-            .get(SearchDialogViewModel::class.java)
     }
 
     private fun initSearchButtonClickListener(textViewResult: TextView) {
