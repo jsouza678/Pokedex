@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsViewModel
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.about.AboutViewModel
-import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.evolution_chain.EvolutionChainViewModel
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.others.OthersViewModel
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.stats.StatsViewModel
 
@@ -20,12 +19,8 @@ class NestedViewModelFactory(private val pokemon: Int, private val application: 
             return StatsViewModel(pokemon, application) as T
         } else if (modelClass.isAssignableFrom(AboutViewModel::class.java)) {
             return AboutViewModel(pokemon, application) as T
-        } else if (modelClass.isAssignableFrom(EvolutionChainViewModel::class.java)) {
-            return EvolutionChainViewModel(pokemon, application) as T
         } else if (modelClass.isAssignableFrom(OthersViewModel::class.java)) {
             return OthersViewModel(pokemon, application) as T
-        } else if (modelClass.isAssignableFrom(EvolutionChainViewModel::class.java)) {
-            return EvolutionChainViewModel(pokemon, application) as T
         }
 
         throw IllegalArgumentException(application.applicationContext.getString(R.string.unknown_viewmodel))

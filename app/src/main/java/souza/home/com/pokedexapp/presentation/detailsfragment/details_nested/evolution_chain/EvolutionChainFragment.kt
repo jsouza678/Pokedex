@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import souza.home.com.extensions.observeOnce
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.Evolution
-import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.NestedViewModelFactory
 
 class EvolutionChainFragment(var pokemon: Int) : Fragment() {
 
@@ -19,6 +19,7 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
     private lateinit var adapterChain: EvolutionChainAdapter
     private lateinit var evolutionArray: MutableList<Evolution>
     private lateinit var listString: MutableList<String>
+    private val viewModel by viewModel<EvolutionChainViewModel>{ parametersOf(pokemon)}
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +42,7 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
                 listString
             )
 
-        initEvolutionChainViewModel(pokemon)
+        initObserver()
 
         return view
     }
@@ -50,24 +51,11 @@ class EvolutionChainFragment(var pokemon: Int) : Fragment() {
         lvChain = view.findViewById(R.id.list_view_chain)
     }
 
-    private fun initEvolutionChainViewModel(evolutionCropped: Int) {
-        val viewModel = ViewModelProviders.of(this@EvolutionChainFragment,
-            activity?.application?.let {
-                NestedViewModelFactory(
-                    evolutionCropped,
-                    it
-                )
-            }
-        )
-            .get(EvolutionChainViewModel::class.java)
-        initSecondaryObserver(viewModel)
-    }
-
-    private fun initSecondaryObserver(viewModel: EvolutionChainViewModel) {
+    private fun initObserver() {
         viewModel.updateEvolutionOnViewLiveData()?.observeOnce(viewLifecycleOwner, Observer {
-                listString = it.evolution!!
-                initChainEvolution()
-                adapterChain.submitList(listString)
+            listString = it.evolution!!
+            initChainEvolution()
+            adapterChain.submitList(listString)
         })
     }
 
