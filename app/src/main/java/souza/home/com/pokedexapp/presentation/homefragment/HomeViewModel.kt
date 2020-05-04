@@ -15,8 +15,8 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_400
 import souza.home.com.pokedexapp.utils.Constants.Companion.POKE_LIMIT
 
 class HomeViewModel(
-    var getPokesFromDatabase: GetPokesFromDatabase,
-    var fetchPokesFromApi: GetPokesFromApi
+    private val getPokesFromDatabase: GetPokesFromDatabase,
+    private val fetchPokesFromApi: GetPokesFromApi
 ): ViewModel() {
 
     private var isLoading: Boolean = false

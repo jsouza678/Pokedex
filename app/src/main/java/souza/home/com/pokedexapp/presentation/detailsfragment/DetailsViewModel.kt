@@ -12,11 +12,11 @@ import souza.home.com.pokedexapp.domain.usecase.GetPropertiesFromDatabase
 import souza.home.com.pokedexapp.domain.usecase.GetVarietiesFromApi
 import souza.home.com.pokedexapp.domain.usecase.GetVarietiesFromDatabase
 
-class DetailsViewModel(var pokemon: Int,
-                       var getVarietiesFromApi: GetVarietiesFromApi,
-                       var getVarietiesFromDatabase: GetVarietiesFromDatabase,
-                       var getPropertiesFromApi: GetPropertiesFromApi,
-                       var getPropertiesFromDatabase: GetPropertiesFromDatabase
+class DetailsViewModel(private val pokemon: Int,
+                       private val getVarietiesFromApi: GetVarietiesFromApi,
+                       private val getVarietiesFromDatabase: GetVarietiesFromDatabase,
+                       private val getPropertiesFromApi: GetPropertiesFromApi,
+                       private val getPropertiesFromDatabase: GetPropertiesFromDatabase
 ) : ViewModel() {
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)

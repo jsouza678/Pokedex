@@ -21,7 +21,7 @@ import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.oth
 import souza.home.com.pokedexapp.utils.cropAbilityUrl
 import souza.home.com.pokedexapp.utils.cropTypeUrl
 
-class OthersFragment(var pokemon: Int) : Fragment() {
+class OthersFragment(private val pokemon: Int) : Fragment() {
 
     private val viewModel by viewModel<OthersViewModel>{ parametersOf(pokemon)}
     private lateinit var lvAbilities: ListView
@@ -47,7 +47,8 @@ class OthersFragment(var pokemon: Int) : Fragment() {
 
         initType()
         initAbilities()
-        initObservers()
+        initLoadData()
+        //initObservers()
 
         return view
     }
@@ -71,7 +72,7 @@ class OthersFragment(var pokemon: Int) : Fragment() {
             )
     }
 
-    private fun initObservers() {
+/*    private fun initObservers() {
         viewModel.apply {
             this.internetStatus.observe(viewLifecycleOwner, Observer {
                 if (it == true) {
@@ -81,7 +82,7 @@ class OthersFragment(var pokemon: Int) : Fragment() {
                 }
             })
         }
-    }
+    }*/
 
     private fun initLoadData() {
         viewModel.apply {

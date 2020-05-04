@@ -24,7 +24,12 @@ import souza.home.com.pokedexapp.presentation.homefragment.HomeViewModel
 import souza.home.com.pokedexapp.presentation.search.SearchViewModel
 import souza.home.com.pokedexapp.utils.Constants
 
+private const val pokedexRetrofit = "POKEDEX_RETROFIT"
 private const val pokemonDatabase = "POKEMON_DATABASE"
+private const val pokemonDao = "POKEMON_DAO"
+private const val varietyDao = "VARIETY_DAO"
+private const val propertyDao = "PROPERTY_DAO"
+private const val evolutionDao = "EVOLUTION_CHAIN_DAO"
 
 val pokedexModule = module {
 
@@ -151,7 +156,7 @@ val pokedexModule = module {
         PokemonRepositoryImpl(
             context = get(),
             pokedexService = get<PokedexService>(),
-            pokemonDao = get<PokemonDao>()
+            pokemonDao = get<PokemonDao>(named(pokemonDao))
         ) as PokemonRepository
     }
 
@@ -161,7 +166,7 @@ val pokedexModule = module {
         EvolutionRepositoryImpl(
             context = get(),
             pokedexService = get<PokedexService>(),
-            evolutionChainDao = get<EvolutionChainDao>()
+            evolutionChainDao = get<EvolutionChainDao>(named(evolutionDao))
         ) as EvolutionRepository
     }
 
@@ -170,7 +175,7 @@ val pokedexModule = module {
         VarietiesRepositoryImpl(
             context = get(),
             pokedexService = get<PokedexService>(),
-            varietiesDao = get<VarietiesDao>()
+            varietiesDao = get<VarietiesDao>(named(varietyDao))
         ) as VarietiesRepository
     }
 
@@ -179,7 +184,7 @@ val pokedexModule = module {
         PropertiesRepositoryImpl(
             context = get(),
             pokedexService = get<PokedexService>(),
-            propertyDao = get<PropertyDao>()
+            propertyDao = get<PropertyDao>(named(propertyDao))
         ) as PropertiesRepository
     }
 
@@ -187,44 +192,45 @@ val pokedexModule = module {
     factory {
         SearchRepositoryImpl(
             context = get(),
-            pokemonDao = get<PokemonDao>()
+            pokemonDao = get<PokemonDao>(named(pokemonDao))
         ) as SearchRepository
     }
 
     //Retrofit
     single {
         getRetrofitService(
-            get<Retrofit>()
+            get<Retrofit>(named(pokedexRetrofit))
         )
     }
 
-    single {
+    single (named(pokedexRetrofit)){
         createRetrofit()
     }
 
     //DB
-    single {
-        get<PokemonDatabase>(named(pokemonDatabase)).pokemonDao
-    }
-
-    single {
-        get<PokemonDatabase>(named(pokemonDatabase)).evolutionChainDao
-    }
-
-    single {
-        get<PokemonDatabase>(named(pokemonDatabase)).propertyDao
-    }
-
-    single {
-        get<PokemonDatabase>(named(pokemonDatabase)).varietiesDao
-    }
-
     single(named(pokemonDatabase)) {
         Room.databaseBuilder(
             androidContext(),
             PokemonDatabase::class.java,
-            "teste"
+            "poke.db" //context.getString(R.string.database_name)
         ).build()
+    }
+
+    //DAO
+    single (named(pokemonDao)){
+        get<PokemonDatabase>(named(pokemonDatabase)).pokemonDao
+    }
+
+    single (named(evolutionDao)){
+        get<PokemonDatabase>(named(pokemonDatabase)).evolutionChainDao
+    }
+
+    single (named(propertyDao)){
+        get<PokemonDatabase>(named(pokemonDatabase)).propertyDao
+    }
+
+    single (named(varietyDao)){
+        get<PokemonDatabase>(named(pokemonDatabase)).varietiesDao
     }
 }
 

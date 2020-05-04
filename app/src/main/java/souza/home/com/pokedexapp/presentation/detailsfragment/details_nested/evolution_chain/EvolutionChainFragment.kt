@@ -13,7 +13,7 @@ import souza.home.com.extensions.observeOnce
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.Evolution
 
-class EvolutionChainFragment(var pokemon: Int) : Fragment() {
+class EvolutionChainFragment(private val pokemon: Int) : Fragment() {
 
     private lateinit var lvChain: ListView
     private lateinit var adapterChain: EvolutionChainAdapter

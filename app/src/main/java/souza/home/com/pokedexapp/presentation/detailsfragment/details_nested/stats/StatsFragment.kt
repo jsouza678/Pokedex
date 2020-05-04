@@ -14,7 +14,7 @@ import org.koin.core.parameter.parametersOf
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 
-class StatsFragment(var pokemon: Int) : Fragment() {
+class StatsFragment(private val pokemon: Int) : Fragment() {
 
     private val viewModel by viewModel<StatsViewModel>{ parametersOf(pokemon)}
     private lateinit var tvHp: TextView

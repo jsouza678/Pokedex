@@ -31,7 +31,7 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.OFFSCREEN_DEFAULT_VIE
 import souza.home.com.pokedexapp.utils.Constants.Companion.TIME_BACKGROUND_ANIMATION
 import souza.home.com.pokedexapp.utils.cropPokeUrl
 
-class DetailsFragment(private var pokeId: Int, private var pokeName: String) : Fragment() {
+class DetailsFragment(private val pokeId: Int, private val pokeName: String) : Fragment() {
 
     private lateinit var tvPokeName: TextView
     private lateinit var tvPokeId: TextView

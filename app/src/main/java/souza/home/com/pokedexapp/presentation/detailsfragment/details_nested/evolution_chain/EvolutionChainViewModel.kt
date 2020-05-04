@@ -9,9 +9,9 @@ import souza.home.com.pokedexapp.domain.model.PokeEvolutionChain
 import souza.home.com.pokedexapp.domain.usecase.GetEvolutionChainFromApi
 import souza.home.com.pokedexapp.domain.usecase.GetEvolutionChainFromDatabase
 
-class EvolutionChainViewModel(var pokemon: Int,
-                              var getEvolutionChainFromApi: GetEvolutionChainFromApi,
-                              var getEvolutionChainFromDatabase: GetEvolutionChainFromDatabase
+class EvolutionChainViewModel(private val pokemon: Int,
+                              private val getEvolutionChainFromApi: GetEvolutionChainFromApi,
+                              private val getEvolutionChainFromDatabase: GetEvolutionChainFromDatabase
 ) : ViewModel() {
 
     fun updateEvolutionOnViewLiveData(): LiveData<PokeEvolutionChain>? = getEvolutionChainFromDatabase(pokemon)
