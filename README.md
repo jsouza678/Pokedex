@@ -61,6 +61,9 @@ O `./gradlew ktlintFormat` roda uma rotina que formata o código de acordo com o
  **Material Design** - _layout intuitivo e clean_
  <p>O aplicativo segue os padrões do MaterialDesign para uma melhor experiência do usuário em sua utilização.</p>
  
+ ** Em Andamento **
+ Injeção de Dependência com Koin.
+ 
 ## O que eu gostaria de ter feito
 
  * _criado testes unitários;_
