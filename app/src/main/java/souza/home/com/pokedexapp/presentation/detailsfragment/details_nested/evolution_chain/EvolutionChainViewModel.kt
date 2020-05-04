@@ -6,11 +6,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.domain.model.PokeEvolutionChain
-import souza.home.com.pokedexapp.domain.usecase.FetchEvolutionChainFromApi
+import souza.home.com.pokedexapp.domain.usecase.GetEvolutionChainFromApi
 import souza.home.com.pokedexapp.domain.usecase.GetEvolutionChainFromDatabase
 
 class EvolutionChainViewModel(var pokemon: Int,
-                              var fetchEvolutionChainFromApi: FetchEvolutionChainFromApi,
+                              var getEvolutionChainFromApi: GetEvolutionChainFromApi,
                               var getEvolutionChainFromDatabase: GetEvolutionChainFromDatabase
 ) : ViewModel() {
 
@@ -23,7 +23,7 @@ class EvolutionChainViewModel(var pokemon: Int,
 
     private fun getChainEvolution(chainId: Int) {
         coroutineScope.launch {
-            fetchEvolutionChainFromApi(chainId)
+            getEvolutionChainFromApi(chainId)
         }
     }
 }

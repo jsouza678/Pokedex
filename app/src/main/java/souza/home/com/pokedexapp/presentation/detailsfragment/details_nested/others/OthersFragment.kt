@@ -11,18 +11,19 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesMain
 import souza.home.com.pokedexapp.data.pokedex.remote.model.type.Types
 import souza.home.com.pokedexapp.data.pokedex.remote.response.NestedTypeResponse
-import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.NestedViewModelFactory
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.others.types.TypesDialog
 import souza.home.com.pokedexapp.utils.cropAbilityUrl
 import souza.home.com.pokedexapp.utils.cropTypeUrl
 
 class OthersFragment(var pokemon: Int) : Fragment() {
 
-    private lateinit var viewModel: OthersViewModel
+    private val viewModel by viewModel<OthersViewModel>{ parametersOf(pokemon)}
     private lateinit var lvAbilities: ListView
     private lateinit var lvTypes: ListView
     private lateinit var adapterTypes: OthersTypeAdapter
@@ -43,17 +44,6 @@ class OthersFragment(var pokemon: Int) : Fragment() {
         abilitiesArray = ArrayList()
 
         initializeAdapters(view)
-
-        viewModel = activity?.let {
-            ViewModelProviders.of(
-                it,
-                NestedViewModelFactory(
-                    pokemon,
-                    activity!!.application
-                )
-            )
-                .get(OthersViewModel::class.java)
-        }!!
 
         initType()
         initAbilities()

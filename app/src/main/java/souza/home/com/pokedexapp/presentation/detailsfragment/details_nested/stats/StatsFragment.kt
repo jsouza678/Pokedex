@@ -9,14 +9,14 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.domain.model.PokeProperty
-import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.NestedViewModelFactory
 
 class StatsFragment(var pokemon: Int) : Fragment() {
 
-    private lateinit var viewModel: StatsViewModel
+    private val viewModel by viewModel<StatsViewModel>{ parametersOf(pokemon)}
     private lateinit var tvHp: TextView
     private lateinit var pbHp: ProgressBar
     private lateinit var tvAttack: TextView
@@ -40,17 +40,6 @@ class StatsFragment(var pokemon: Int) : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_stats, container, false)
         bindViews(view)
-
-        viewModel = ViewModelProviders.of(this,
-            activity?.application?.let {
-                NestedViewModelFactory(
-                    pokemon,
-                    it
-                )
-            }
-        )
-            .get(StatsViewModel::class.java)
-
         initObservers()
 
         return view

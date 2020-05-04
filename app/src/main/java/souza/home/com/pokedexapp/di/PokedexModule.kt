@@ -10,18 +10,16 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import souza.home.com.pokedexapp.data.pokedex.EvolutionRepositoryImpl
-import souza.home.com.pokedexapp.data.pokedex.PokemonRepositoryImpl
-import souza.home.com.pokedexapp.data.pokedex.SearchRepositoryImpl
-import souza.home.com.pokedexapp.data.pokedex.local.EvolutionChainDao
-import souza.home.com.pokedexapp.data.pokedex.local.PokemonDao
-import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
+import souza.home.com.pokedexapp.data.pokedex.*
+import souza.home.com.pokedexapp.data.pokedex.local.*
 import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
-import souza.home.com.pokedexapp.domain.repository.EvolutionRepository
-import souza.home.com.pokedexapp.domain.repository.PokemonRepository
-import souza.home.com.pokedexapp.domain.repository.SearchRepository
+import souza.home.com.pokedexapp.domain.repository.*
 import souza.home.com.pokedexapp.domain.usecase.*
+import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsViewModel
+import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.about.AboutViewModel
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.evolution_chain.EvolutionChainViewModel
+import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.others.OthersViewModel
+import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.stats.StatsViewModel
 import souza.home.com.pokedexapp.presentation.homefragment.HomeViewModel
 import souza.home.com.pokedexapp.presentation.search.SearchViewModel
 import souza.home.com.pokedexapp.utils.Constants
@@ -34,7 +32,7 @@ val pokedexModule = module {
     viewModel {
         HomeViewModel(
             get<GetPokesFromDatabase>(),
-            get<FetchPokesFromApi>()
+            get<GetPokesFromApi>()
         )
     }
 
@@ -48,15 +46,73 @@ val pokedexModule = module {
     viewModel { (chainId: Int) ->
         EvolutionChainViewModel(
             chainId,
-            get<FetchEvolutionChainFromApi>(),
+            get<GetEvolutionChainFromApi>(),
             get<GetEvolutionChainFromDatabase>()
+        )
+    }
+
+    viewModel { (pokeId: Int) ->
+        AboutViewModel(
+            pokeId,
+            get<GetVarietiesFromApi>(),
+            get<GetVarietiesFromDatabase>()
+        )
+    }
+
+    viewModel { (pokeId: Int) ->
+        StatsViewModel(
+            pokeId,
+            get<GetPropertiesFromApi>(),
+            get<GetPropertiesFromDatabase>()
+        )
+    }
+
+    viewModel { (pokeId: Int) ->
+        OthersViewModel(
+            pokeId,
+            get<GetPropertiesFromApi>(),
+            get<GetPropertiesFromDatabase>()
+        )
+    }
+
+    viewModel { (pokeId: Int) ->
+        DetailsViewModel(
+            pokeId,
+            get<GetVarietiesFromApi>(),
+            get<GetVarietiesFromDatabase>(),
+            get<GetPropertiesFromApi>(),
+            get<GetPropertiesFromDatabase>()
         )
     }
 
     //UseCases
     factory {
-        FetchEvolutionChainFromApi(
+        GetEvolutionChainFromApi(
             get<EvolutionRepository>()
+        )
+    }
+
+    factory {
+        GetVarietiesFromApi(
+            get<VarietiesRepository>()
+        )
+    }
+
+    factory {
+        GetVarietiesFromDatabase(
+            get<VarietiesRepository>()
+        )
+    }
+
+    factory {
+        GetPropertiesFromApi(
+            get<PropertiesRepository>()
+        )
+    }
+
+    factory {
+        GetPropertiesFromDatabase(
+            get<PropertiesRepository>()
         )
     }
 
@@ -73,7 +129,7 @@ val pokedexModule = module {
     }
 
     factory {
-        FetchPokesFromApi(
+        GetPokesFromApi(
             get<PokemonRepository>()
         )
     }
@@ -109,6 +165,24 @@ val pokedexModule = module {
         ) as EvolutionRepository
     }
 
+    //Varieties
+    factory {
+        VarietiesRepositoryImpl(
+            context = get(),
+            pokedexService = get<PokedexService>(),
+            varietiesDao = get<VarietiesDao>()
+        ) as VarietiesRepository
+    }
+
+    //Properties
+    factory {
+        PropertiesRepositoryImpl(
+            context = get(),
+            pokedexService = get<PokedexService>(),
+            propertyDao = get<PropertyDao>()
+        ) as PropertiesRepository
+    }
+
     //Search
     factory {
         SearchRepositoryImpl(
@@ -135,6 +209,14 @@ val pokedexModule = module {
 
     single {
         get<PokemonDatabase>(named(pokemonDatabase)).evolutionChainDao
+    }
+
+    single {
+        get<PokemonDatabase>(named(pokemonDatabase)).propertyDao
+    }
+
+    single {
+        get<PokemonDatabase>(named(pokemonDatabase)).varietiesDao
     }
 
     single(named(pokemonDatabase)) {

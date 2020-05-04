@@ -8,24 +8,28 @@ import androidx.lifecycle.Transformations
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
+import souza.home.com.pokedexapp.data.pokedex.local.VarietiesDao
 import souza.home.com.pokedexapp.data.pokedex.mapper.PokedexMapper
-import souza.home.com.pokedexapp.data.pokedex.remote.PokeApi
+import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 import souza.home.com.pokedexapp.domain.repository.VarietiesRepository
 import souza.home.com.pokedexapp.utils.CheckNetworkState
 
-class VarietiesRepositoryImpl(id: Int, private val context: Context) : VarietiesRepository {
-
-    private val INSTANCE = PokemonDatabase.getDatabase(context)
+class VarietiesRepositoryImpl(private val context: Context,
+                              private val varietiesDao: VarietiesDao,
+                              private val pokedexService: PokedexService
+) : VarietiesRepository {
 
     private val _internet = MutableLiveData<VarietiesPokedexStatus>()
 
     val internet: LiveData<VarietiesPokedexStatus>
         get() = _internet
 
-    override val varieties: LiveData<PokeVariety?>? = Transformations.map(INSTANCE.varietiesDao.getVariety(id)) {
-        it?.let { varietiesItem -> PokedexMapper.variationsAsDomain(varietiesItem) }
+    override fun getVarieties(id: Int): LiveData<PokeVariety?>? {
+        val varieties = Transformations.map(varietiesDao.getVariety(id)) {
+            it?.let { varietiesItem -> PokedexMapper.variationsAsDomain(varietiesItem) }
+        }
+        return varieties
     }
 
     override suspend fun refreshVarieties(id: Int) {
@@ -33,8 +37,8 @@ class VarietiesRepositoryImpl(id: Int, private val context: Context) : Varieties
             if (CheckNetworkState.checkNetworkState(context)) {
                 _internet.postValue(VarietiesPokedexStatus.LOADING)
                 try {
-                    val pokeVariations = PokeApi.retrofitService.getVariations(id).await()
-                    INSTANCE.varietiesDao.insertAll(
+                    val pokeVariations = pokedexService.getVariations(id).await()
+                    varietiesDao.insertAll(
                         PokedexMapper.variationsAsDatabase(
                             pokeVariations
                         )

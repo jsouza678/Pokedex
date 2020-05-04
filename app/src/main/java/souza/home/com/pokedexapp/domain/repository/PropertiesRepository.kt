@@ -5,7 +5,7 @@ import souza.home.com.pokedexapp.domain.model.PokeProperty
 
 interface PropertiesRepository {
 
-    val properties: LiveData<PokeProperty>?
+    fun getProperties(id: Int): LiveData<PokeProperty>?
 
     suspend fun refreshProperties(id: Int)
 }

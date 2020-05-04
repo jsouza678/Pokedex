@@ -1,28 +1,30 @@
 package souza.home.com.pokedexapp.presentation.detailsfragment
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import souza.home.com.pokedexapp.data.pokedex.PropertiesPokedexStatus
-import souza.home.com.pokedexapp.data.pokedex.PropertiesRepositoryImpl
-import souza.home.com.pokedexapp.data.pokedex.VarietiesPokedexStatus
-import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.domain.model.PokeVariety
+import souza.home.com.pokedexapp.domain.usecase.GetPropertiesFromApi
+import souza.home.com.pokedexapp.domain.usecase.GetPropertiesFromDatabase
+import souza.home.com.pokedexapp.domain.usecase.GetVarietiesFromApi
+import souza.home.com.pokedexapp.domain.usecase.GetVarietiesFromDatabase
 
-class DetailsViewModel(pokemon: Int, app: Application) : AndroidViewModel(app) {
+class DetailsViewModel(var pokemon: Int,
+                       var getVarietiesFromApi: GetVarietiesFromApi,
+                       var getVarietiesFromDatabase: GetVarietiesFromDatabase,
+                       var getPropertiesFromApi: GetPropertiesFromApi,
+                       var getPropertiesFromDatabase: GetPropertiesFromDatabase
+) : ViewModel() {
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
-    private val varietiesRepository = VarietiesRepositoryImpl(pokemon, app.applicationContext)
-    private val propertiesRepository = PropertiesRepositoryImpl(pokemon, app.applicationContext)
 
-    fun checkRequestPropertiesStatus(): LiveData<PropertiesPokedexStatus> = propertiesRepository.internet
-    fun checkRequestVariationsStatus(): LiveData<VarietiesPokedexStatus> = varietiesRepository.internet
-    fun updateVariationsOnViewLiveData(): LiveData<PokeVariety?>? = varietiesRepository.varieties
-    fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = propertiesRepository.properties
+/*    fun checkRequestPropertiesStatus(): LiveData<PropertiesPokedexStatus> = propertiesRepository.internet
+    fun checkRequestVariationsStatus(): LiveData<VarietiesPokedexStatus> = varietiesRepository.internet*/
+    fun updateVariationsOnViewLiveData(): LiveData<PokeVariety?>? = getVarietiesFromDatabase(pokemon)
+    fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = getPropertiesFromDatabase(pokemon)
 
     init {
         getColor(pokemon)
@@ -30,8 +32,8 @@ class DetailsViewModel(pokemon: Int, app: Application) : AndroidViewModel(app) {
 
     private fun getColor(pokemon: Int) {
         coroutineScope.launch {
-            varietiesRepository.refreshVarieties(pokemon)
-            propertiesRepository.refreshProperties(pokemon)
+            getVarietiesFromApi(pokemon)
+            getPropertiesFromApi(pokemon)
         }
     }
 }

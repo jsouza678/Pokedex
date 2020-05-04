@@ -9,35 +9,38 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
+import souza.home.com.pokedexapp.data.pokedex.local.PropertyDao
 import souza.home.com.pokedexapp.data.pokedex.mapper.PokedexMapper
 import souza.home.com.pokedexapp.data.pokedex.remote.PokeApi
+import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.domain.repository.PropertiesRepository
 import souza.home.com.pokedexapp.utils.CheckNetworkState
 
-class PropertiesRepositoryImpl(private val id: Int, private val context: Context) : PropertiesRepository {
-
-    private val INSTANCE = PokemonDatabase.getDatabase(context)
-
-    override val properties: LiveData<PokeProperty>?
-        get() = INSTANCE.propertyDao.getProperty(id)?.let {
-            Transformations.map(it) { propertyObject ->
-                propertyObject?.let { propertyItem -> PokedexMapper.propertyAsDomain(propertyItem) }
-            }
-        }
+class PropertiesRepositoryImpl(private val context: Context,
+    private val pokedexService: PokedexService,
+    private val propertyDao: PropertyDao) : PropertiesRepository {
 
     private val _internet = MutableLiveData<PropertiesPokedexStatus>()
 
     val internet: LiveData<PropertiesPokedexStatus>
         get() = _internet
 
+    override fun getProperties(id: Int): LiveData<PokeProperty>? {
+        return propertyDao.getProperty(id)?.let {
+            Transformations.map(it) { propertyObject ->
+                propertyObject?.let { propertyItem -> PokedexMapper.propertyAsDomain(propertyItem) }
+            }
+        }
+    }
+
     override suspend fun refreshProperties(id: Int) {
         withContext(Dispatchers.IO) {
             if (CheckNetworkState.checkNetworkState(context)) {
                 _internet.postValue(PropertiesPokedexStatus.LOADING)
                 try {
-                    val pokeProperty = PokeApi.retrofitService.getPokeStats(id).await()
-                    INSTANCE.propertyDao.insertAll(PokedexMapper.propertiesAsDatabase(pokeProperty))
+                    val pokeProperty = pokedexService.getPokeStats(id).await()
+                    propertyDao.insertAll(PokedexMapper.propertiesAsDatabase(pokeProperty))
                     if (pokeProperty.name.isBlank()) {
                         _internet.postValue(PropertiesPokedexStatus.EMPTY)
                     } else {

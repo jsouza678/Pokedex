@@ -12,11 +12,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import souza.home.com.extensions.observeOnce
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.PropertiesPokedexStatus
@@ -32,13 +33,13 @@ import souza.home.com.pokedexapp.utils.cropPokeUrl
 
 class DetailsFragment(private var pokeId: Int, private var pokeName: String) : Fragment() {
 
-    private lateinit var viewModel: DetailsViewModel
     private lateinit var tvPokeName: TextView
     private lateinit var tvPokeId: TextView
     private lateinit var constraintLayout: ConstraintLayout
     private lateinit var galleryViewPagerAdapter: DetailsGalleryAdapter
     private lateinit var viewPagerGallery: ViewPager
     private lateinit var mImages: MutableList<String>
+    private val viewModel by viewModel<DetailsViewModel>{ parametersOf(pokeId)}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -51,8 +52,14 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
 
         setToolbarBackButton(toolbar)
         setPokeAndIdText()
-        initViewModel()
-        initObserverStatus(viewPager, tabs)
+        //initObserverStatus(viewPager, tabs)
+
+        if (pokeId> LIMIT_NORMAL_POKES) { showDataEvolutionPoke(viewPager, tabs)
+        } else { bindRequestVarietiesStatus(VarietiesPokedexStatus.DONE, viewPager, tabs) }
+
+        if (pokeId> LIMIT_NORMAL_POKES) { showDataEvolutionPoke(viewPager, tabs)
+            initObserverData(viewModel, viewPager, tabs)
+        } else { bindRequestPropertiesStatus(PropertiesPokedexStatus.DONE, viewPager, tabs) }
 
         return view
     }
@@ -68,18 +75,12 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
         toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
     }
 
-    private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, activity?.application?.let {
-            DetailsViewModelFactory(pokeId, it)
-        }).get(DetailsViewModel::class.java)
-    }
-
     private fun setPokeAndIdText() {
         tvPokeName.text = pokeName.capitalize()
         val textId = FORMAT_ID_POKE_DISPLAY.format(pokeId)
         tvPokeId.text = context?.resources?.getString(R.string.text_view_placeholder_hash, textId)
     }
-
+/*
     private fun initObserverStatus(viewPager: ViewPager, tabs: TabLayout) {
         viewModel.apply {
             this.checkRequestVariationsStatus().observe(viewLifecycleOwner, Observer {
@@ -92,7 +93,7 @@ class DetailsFragment(private var pokeId: Int, private var pokeName: String) : F
                 } else { bindRequestPropertiesStatus(it, viewPager, tabs) }
             })
         }
-    }
+    }*/
 
     private fun bindRequestVarietiesStatus(
         varietiesPokedexStatus: VarietiesPokedexStatus,

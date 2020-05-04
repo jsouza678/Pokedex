@@ -10,25 +10,25 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import souza.home.com.extensions.gone
 import souza.home.com.extensions.observeOnce
 import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
 import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsFragment
-import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.NestedViewModelFactory
 import souza.home.com.pokedexapp.utils.Constants.Companion.ABSOLUTE_ZERO
 import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 import souza.home.com.pokedexapp.utils.Constants.Companion.LIMIT_NORMAL_POKES
 import souza.home.com.pokedexapp.utils.cropPokeUrl
 
-class AboutFragment(var pokemon: Int) : Fragment() {
+class AboutFragment(private val pokemon: Int) : Fragment() {
 
-    private lateinit var viewModel: AboutViewModel
+    private val viewModel by viewModel<AboutViewModel>{ parametersOf(pokemon)}
     private lateinit var spVariations: Spinner
     private lateinit var tvDesc: TextView
     private lateinit var varietiesArray: MutableList<Varieties>
@@ -63,7 +63,6 @@ class AboutFragment(var pokemon: Int) : Fragment() {
             constraintEvolution.visible()
         }
 
-        initViewModel()
         initDataObserver()
 
         return view
@@ -86,18 +85,6 @@ class AboutFragment(var pokemon: Int) : Fragment() {
         material = MaterialAlertDialogBuilder(context).setTitle(getString(R.string.pokemon_description_dialog_pokemon_in_types)).setPositiveButton(getString(R.string.button_text_dismiss), null)
         material.setMessage(message)
         material.show()
-    }
-
-    private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this,
-            activity?.application?.let {
-                NestedViewModelFactory(
-                    pokemon,
-                    it
-                )
-            }
-        )
-            .get(AboutViewModel::class.java)
     }
 
     private fun initDataObserver() {

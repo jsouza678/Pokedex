@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -12,9 +13,14 @@ import souza.home.com.pokedexapp.data.pokedex.PropertiesRepositoryImpl
 import souza.home.com.pokedexapp.data.pokedex.remote.PokeApi
 import souza.home.com.pokedexapp.data.pokedex.remote.response.NestedTypeResponse
 import souza.home.com.pokedexapp.domain.model.PokeProperty
+import souza.home.com.pokedexapp.domain.usecase.GetPropertiesFromApi
+import souza.home.com.pokedexapp.domain.usecase.GetPropertiesFromDatabase
 import souza.home.com.pokedexapp.utils.CheckNetworkState
 
-class OthersViewModel(pokemon: Int, app: Application) : AndroidViewModel(app) {
+class OthersViewModel(private val pokemon: Int,
+                      private val getPropertiesFromApi: GetPropertiesFromApi,
+                      private val getPropertiesFromDatabase: GetPropertiesFromDatabase
+) : ViewModel() {
 
     private val _internetStatus = MutableLiveData<Boolean>()
     val internetStatus: LiveData<Boolean>
@@ -31,22 +37,20 @@ class OthersViewModel(pokemon: Int, app: Application) : AndroidViewModel(app) {
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-    private val propertiesRepository =
-        PropertiesRepositoryImpl(pokemon, app.applicationContext)
 
-    fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = propertiesRepository.properties
+    fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = getPropertiesFromDatabase(pokemon)
 
     init {
-        _internetStatus.postValue(CheckNetworkState.checkNetworkState(app.applicationContext))
-        if (CheckNetworkState.checkNetworkState(app.applicationContext)) {
+    //    _internetStatus.postValue(CheckNetworkState.checkNetworkState(app.applicationContext))
+     //   if (CheckNetworkState.checkNetworkState(app.applicationContext)) {
             _pokeTypes.value = mutableListOf()
             getOtherProperties(pokemon)
-        }
+      //  }
     }
 
     private fun getOtherProperties(pokemon: Int) {
         coroutineScope.launch {
-            propertiesRepository.refreshProperties(pokemon)
+            getPropertiesFromApi(pokemon)
         }
     }
 

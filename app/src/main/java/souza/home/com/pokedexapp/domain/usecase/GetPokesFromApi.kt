@@ -4,6 +4,6 @@ import androidx.lifecycle.LiveData
 import souza.home.com.pokedexapp.domain.model.Poke
 import souza.home.com.pokedexapp.domain.repository.PokemonRepository
 
-class FetchPokesFromApi (private val pokemonRepository: PokemonRepository) {
+class GetPokesFromApi (private val pokemonRepository: PokemonRepository) {
     suspend operator fun invoke(page: Int) = pokemonRepository.refreshPokes(page)
 }

@@ -20,17 +20,7 @@ class EvolutionRepositoryImpl(private val context: Context,
                               private val pokedexService: PokedexService
 ) : EvolutionRepository {
 
-    //private val INSTANCE = PokemonDatabase.getDatabase(context)
-
     private val _internet = MutableLiveData<EvolutionPokedexStatus>()
-/*
-    override val evolution: LiveData<PokeEvolutionChain>? =
-        INSTANCE.evolutionChainDao.getEvolutionChain(id)?.let {
-            Transformations.map(it) { evolutionObject ->
-                evolutionObject?.let { evolutionItem -> PokedexMapper.evolutionAsDomain(evolutionItem) }
-            }
-        }
-    */
 
     override fun getEvolutionChain(id: Int): LiveData<PokeEvolutionChain>? {
         return evolutionChainDao.getEvolutionChain(id)?.let {
