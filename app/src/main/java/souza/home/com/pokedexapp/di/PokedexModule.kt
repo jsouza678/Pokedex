@@ -20,7 +20,6 @@ import souza.home.com.pokedexapp.domain.repository.*
 import souza.home.com.pokedexapp.domain.usecase.*
 import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsGalleryAdapter
 import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsViewModel
-import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsViewPagerAdapter
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.about.AboutSpinnerAdapter
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.about.AboutViewModel
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.evolution_chain.EvolutionChainAdapter

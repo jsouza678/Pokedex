@@ -18,9 +18,7 @@ class AboutViewModel(private val pokemon: Int,
     fun updateVariationsOnViewLiveData(): LiveData<PokeVariety?>? = getVarietiesFromDatabase(pokemon)
 
     init {
-        //if (CheckNetworkState.checkNetworkState(app.applicationContext)) {
         getVarieties(pokemon)
-        //  }
     }
 
     fun getVarieties(pokemon: Int) {

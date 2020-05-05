@@ -21,8 +21,6 @@ class DetailsViewModel(private val pokemon: Int,
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
-/*    fun checkRequestPropertiesStatus(): LiveData<PropertiesPokedexStatus> = propertiesRepository.internet
-    fun checkRequestVariationsStatus(): LiveData<VarietiesPokedexStatus> = varietiesRepository.internet*/
     fun updateVariationsOnViewLiveData(): LiveData<PokeVariety?>? = getVarietiesFromDatabase(pokemon)
     fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = getPropertiesFromDatabase(pokemon)
 
