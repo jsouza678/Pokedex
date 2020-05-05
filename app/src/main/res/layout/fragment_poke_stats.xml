@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".presentation.detailsfragment.details_nested.stats.StatsFragment">
+    tools:context=".presentation.pokedetail.detailsnested.stats.StatsFragment">
 
     <TextView
         android:id="@+id/text_view_detail_hp_label_stat"

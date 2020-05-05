@@ -15,9 +15,10 @@ import souza.home.com.pokedexapp.domain.model.PokeVariety
 import souza.home.com.pokedexapp.domain.repository.VarietiesRepository
 import souza.home.com.pokedexapp.utils.CheckNetworkState
 
-class VarietiesRepositoryImpl(private val context: Context,
-                              private val varietiesDao: VarietiesDao,
-                              private val pokedexService: PokedexService
+class VarietiesRepositoryImpl(
+    private val context: Context,
+    private val varietiesDao: VarietiesDao,
+    private val pokedexService: PokedexService
 ) : VarietiesRepository {
 
     private val _internet = MutableLiveData<VarietiesPokedexStatus>()

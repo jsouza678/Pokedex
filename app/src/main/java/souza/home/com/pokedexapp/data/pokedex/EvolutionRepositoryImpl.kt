@@ -15,9 +15,10 @@ import souza.home.com.pokedexapp.domain.model.PokeEvolutionChain
 import souza.home.com.pokedexapp.domain.repository.EvolutionRepository
 import souza.home.com.pokedexapp.utils.CheckNetworkState
 
-class EvolutionRepositoryImpl(private val context: Context,
-                              private val evolutionChainDao: EvolutionChainDao,
-                              private val pokedexService: PokedexService
+class EvolutionRepositoryImpl(
+    private val context: Context,
+    private val evolutionChainDao: EvolutionChainDao,
+    private val pokedexService: PokedexService
 ) : EvolutionRepository {
 
     private val _internet = MutableLiveData<EvolutionPokedexStatus>()

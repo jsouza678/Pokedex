@@ -11,7 +11,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -23,8 +22,8 @@ import souza.home.com.extensions.observeOnce
 import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.domain.model.Poke
-import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsFragment
-import souza.home.com.pokedexapp.presentation.homefragment.HomeFragment
+import souza.home.com.pokedexapp.presentation.pokecatalog.PokeCatalogFragment
+import souza.home.com.pokedexapp.presentation.pokedetail.DetailsFragment
 import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_2000
 import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 import souza.home.com.pokedexapp.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
@@ -120,7 +119,7 @@ class SearchDialog : DialogFragment() {
 
     private fun setupButtonDismiss() {
         buttonDismiss.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_home_activity, HomeFragment())?.commit()
+            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_home_activity, PokeCatalogFragment())?.commit()
             dismiss()
             view?.let { view -> Snackbar.make(view, getString(R.string.redirect_search_to_home_message), BaseTransientBottomBar.LENGTH_SHORT).show() }
         }

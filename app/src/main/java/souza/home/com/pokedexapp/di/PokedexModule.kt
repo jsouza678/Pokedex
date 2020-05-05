@@ -18,17 +18,18 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.type.Types
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
 import souza.home.com.pokedexapp.domain.repository.*
 import souza.home.com.pokedexapp.domain.usecase.*
-import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsGalleryAdapter
-import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsViewModel
-import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.about.AboutSpinnerAdapter
-import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.about.AboutViewModel
-import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.evolution_chain.EvolutionChainAdapter
-import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.evolution_chain.EvolutionChainViewModel
-import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.others.OthersAbilityAdapter
-import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.others.OthersTypeAdapter
-import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.others.OthersViewModel
-import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.stats.StatsViewModel
-import souza.home.com.pokedexapp.presentation.homefragment.HomeViewModel
+import souza.home.com.pokedexapp.presentation.home.HomeViewModel
+import souza.home.com.pokedexapp.presentation.pokecatalog.PokeCatalogViewModel
+import souza.home.com.pokedexapp.presentation.pokedetail.DetailsGalleryAdapter
+import souza.home.com.pokedexapp.presentation.pokedetail.DetailsViewModel
+import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.about.AboutSpinnerAdapter
+import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.about.AboutViewModel
+import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.evolution_chain.EvolutionChainAdapter
+import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.evolution_chain.EvolutionChainViewModel
+import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.others.OthersAbilityAdapter
+import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.others.OthersTypeAdapter
+import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.others.OthersViewModel
+import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.stats.StatsViewModel
 import souza.home.com.pokedexapp.presentation.search.SearchViewModel
 import souza.home.com.pokedexapp.utils.Constants
 
@@ -42,9 +43,9 @@ private const val evolutionDao = "EVOLUTION_CHAIN_DAO"
 @Suppress("RemoveExplicitTypeArguments", "USELESS_CAST")
 val pokedexModule = module {
 
-    //ViewModels
+    // ViewModels
     viewModel {
-        HomeViewModel(
+        PokeCatalogViewModel(
             get<GetPokesFromDatabase>(),
             get<GetPokesFromApi>()
         )
@@ -99,43 +100,43 @@ val pokedexModule = module {
         )
     }
 
-    //Adapter
-    factory{ (dataList: MutableList<Varieties>) ->
+    // Adapter
+    factory { (dataList: MutableList<Varieties>) ->
         AboutSpinnerAdapter(
             context = get(),
             dataList = dataList
         )
     }
 
-    factory{ (dataList: MutableList<String>) ->
+    factory { (dataList: MutableList<String>) ->
         EvolutionChainAdapter(
             context = get(),
             dataList = dataList
         )
     }
 
-    factory{ (dataList: MutableList<Types>) ->
+    factory { (dataList: MutableList<Types>) ->
         OthersTypeAdapter(
             context = get(),
             dataList = dataList
         )
     }
 
-    factory{ (dataList: MutableList<AbilitiesMain>) ->
+    factory { (dataList: MutableList<AbilitiesMain>) ->
         OthersAbilityAdapter(
             context = get(),
             dataList = dataList
         )
     }
 
-    factory{ (dataList: MutableList<String>) ->
+    factory { (dataList: MutableList<String>) ->
         DetailsGalleryAdapter(
             context = get(),
             gallery = dataList
         )
     }
 
-    //UseCases
+    // UseCases
     factory {
         GetEvolutionChainFromApi(
             get<EvolutionRepository>()
@@ -196,7 +197,7 @@ val pokedexModule = module {
         )
     }
 
-    //Home
+    // Home
     factory {
         PokemonRepositoryImpl(
             context = get(),
@@ -205,8 +206,8 @@ val pokedexModule = module {
         ) as PokemonRepository
     }
 
-    //Details
-    //EvolutionChain
+    // Details
+    // EvolutionChain
     factory {
         EvolutionRepositoryImpl(
             context = get(),
@@ -215,7 +216,7 @@ val pokedexModule = module {
         ) as EvolutionRepository
     }
 
-    //Varieties
+    // Varieties
     factory {
         VarietiesRepositoryImpl(
             context = get(),
@@ -224,7 +225,7 @@ val pokedexModule = module {
         ) as VarietiesRepository
     }
 
-    //Properties
+    // Properties
     factory {
         PropertiesRepositoryImpl(
             context = get(),
@@ -233,7 +234,7 @@ val pokedexModule = module {
         ) as PropertiesRepository
     }
 
-    //Search
+    // Search
     factory {
         SearchRepositoryImpl(
             context = get(),
@@ -241,40 +242,40 @@ val pokedexModule = module {
         ) as SearchRepository
     }
 
-    //Retrofit
+    // Retrofit
     single {
         getRetrofitService(
             get<Retrofit>(named(pokedexRetrofit))
         )
     }
 
-    single (named(pokedexRetrofit)){
+    single(named(pokedexRetrofit)) {
         createRetrofit()
     }
 
-    //DB
+    // DB
     single(named(pokemonDatabase)) {
         Room.databaseBuilder(
             androidContext(),
             PokemonDatabase::class.java,
-            "poke.db" //context.getString(R.string.database_name)
+            "poke.db" // context.getString(R.string.database_name)
         ).build()
     }
 
-    //DAO
-    single (named(pokemonDao)){
+    // DAO
+    single(named(pokemonDao)) {
         get<PokemonDatabase>(named(pokemonDatabase)).pokemonDao
     }
 
-    single (named(evolutionDao)){
+    single(named(evolutionDao)) {
         get<PokemonDatabase>(named(pokemonDatabase)).evolutionChainDao
     }
 
-    single (named(propertyDao)){
+    single(named(propertyDao)) {
         get<PokemonDatabase>(named(pokemonDatabase)).propertyDao
     }
 
-    single (named(varietyDao)){
+    single(named(varietyDao)) {
         get<PokemonDatabase>(named(pokemonDatabase)).varietiesDao
     }
 }
@@ -283,7 +284,7 @@ private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
 
-private fun createRetrofit() : Retrofit =  Retrofit.Builder()
+private fun createRetrofit(): Retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .addCallAdapterFactory(CoroutineCallAdapterFactory())
     .baseUrl(Constants.POKE_API_BASE_URL)

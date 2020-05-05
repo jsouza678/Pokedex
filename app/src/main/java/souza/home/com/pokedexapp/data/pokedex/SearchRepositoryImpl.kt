@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDao
-import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
 import souza.home.com.pokedexapp.data.pokedex.mapper.PokedexMapper
 import souza.home.com.pokedexapp.domain.model.Poke
 import souza.home.com.pokedexapp.domain.repository.SearchRepository
 
-class SearchRepositoryImpl(context: Context,
+class SearchRepositoryImpl(
+    context: Context,
     private val pokemonDao: PokemonDao
 ) : SearchRepository {
 

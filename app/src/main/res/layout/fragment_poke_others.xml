@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/layout_padding_16"
     android:layout_marginBottom="@dimen/material_margin_16"
-    tools:context=".presentation.detailsfragment.details_nested.evolution_chain.EvolutionChainFragment">
+    tools:context=".presentation.pokedetail.detailsnested.evolution_chain.EvolutionChainFragment">
 
     <TextView
         android:id="@+id/text_view_type_others"

@@ -14,13 +14,14 @@ import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
 import souza.home.com.pokedexapp.domain.model.Poke
 import souza.home.com.pokedexapp.domain.repository.PokemonRepository
 
-class PokemonRepositoryImpl(private val context: Context,
-                            private val pokedexService: PokedexService,
-                            private val pokemonDao: PokemonDao
+class PokemonRepositoryImpl(
+    private val context: Context,
+    private val pokedexService: PokedexService,
+    private val pokemonDao: PokemonDao
 ) : PokemonRepository {
 
     override fun getAllPokes(): LiveData<List<Poke>?> {
-        val pokes =  Transformations.map(pokemonDao.getPokes()) {
+        val pokes = Transformations.map(pokemonDao.getPokes()) {
             PokedexMapper.pokemonAsDomain(it)
         }
         return pokes
@@ -50,4 +51,4 @@ class PokemonRepositoryImpl(private val context: Context,
     }
 }
 
-enum class HomePokedexStatus { LOADING, ERROR, DONE}
+enum class HomePokedexStatus { LOADING, ERROR, DONE }

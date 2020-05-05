@@ -8,18 +8,18 @@ import androidx.lifecycle.Transformations
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
 import souza.home.com.pokedexapp.data.pokedex.local.PropertyDao
 import souza.home.com.pokedexapp.data.pokedex.mapper.PokedexMapper
-import souza.home.com.pokedexapp.data.pokedex.remote.PokeApi
 import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.domain.repository.PropertiesRepository
 import souza.home.com.pokedexapp.utils.CheckNetworkState
 
-class PropertiesRepositoryImpl(private val context: Context,
+class PropertiesRepositoryImpl(
+    private val context: Context,
     private val pokedexService: PokedexService,
-    private val propertyDao: PropertyDao) : PropertiesRepository {
+    private val propertyDao: PropertyDao
+) : PropertiesRepository {
 
     private val _internet = MutableLiveData<PropertiesPokedexStatus>()
 
