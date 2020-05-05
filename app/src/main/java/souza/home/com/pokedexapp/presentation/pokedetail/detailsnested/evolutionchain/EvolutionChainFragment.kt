@@ -1,4 +1,4 @@
-package souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.evolution_chain
+package souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.evolutionchain
 
 import android.os.Bundle
 import android.view.LayoutInflater

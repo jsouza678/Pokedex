@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.about.AboutFragment
-import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.evolution_chain.EvolutionChainFragment
+import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.evolutionchain.EvolutionChainFragment
 import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.others.OthersFragment
 import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.stats.StatsFragment
 import souza.home.com.pokedexapp.utils.Constants.Companion.LIMIT_NORMAL_POKES

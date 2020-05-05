@@ -24,8 +24,8 @@ import souza.home.com.pokedexapp.presentation.pokedetail.DetailsGalleryAdapter
 import souza.home.com.pokedexapp.presentation.pokedetail.DetailsViewModel
 import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.about.AboutSpinnerAdapter
 import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.about.AboutViewModel
-import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.evolution_chain.EvolutionChainAdapter
-import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.evolution_chain.EvolutionChainViewModel
+import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.evolutionchain.EvolutionChainAdapter
+import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.evolutionchain.EvolutionChainViewModel
 import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.others.OthersAbilityAdapter
 import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.others.OthersTypeAdapter
 import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.others.OthersViewModel
