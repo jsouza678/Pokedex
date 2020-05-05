@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import souza.home.com.extensions.observeOnce
@@ -38,9 +39,9 @@ class DetailsFragment(private val pokeId: Int, private val pokeName: String) : F
     private lateinit var constraintLayout: ConstraintLayout
     private lateinit var viewPager: ViewPager
     private lateinit var tabs: TabLayout
-    private lateinit var galleryViewPagerAdapter: DetailsGalleryAdapter
+    private var mImages: MutableList<String> = mutableListOf()
+    private val galleryViewPagerAdapter by inject<DetailsGalleryAdapter>{ parametersOf(mImages)}
     private lateinit var viewPagerGallery: ViewPager
-    private lateinit var mImages: MutableList<String>
     private val viewModel by viewModel<DetailsViewModel>{ parametersOf(pokeId)}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -54,6 +55,7 @@ class DetailsFragment(private val pokeId: Int, private val pokeName: String) : F
 
         setToolbarBackButton(toolbar)
         setPokeAndIdText()
+        initGalleryViewPager()
         //initObserverStatus(viewPager, tabs)
 
         if (pokeId> LIMIT_NORMAL_POKES) { showDataEvolutionPoke(viewPager, tabs)
@@ -81,6 +83,10 @@ class DetailsFragment(private val pokeId: Int, private val pokeName: String) : F
         tvPokeName.text = pokeName.capitalize()
         val textId = FORMAT_ID_POKE_DISPLAY.format(pokeId)
         tvPokeId.text = context?.resources?.getString(R.string.text_view_placeholder_hash, textId)
+    }
+
+    private fun initGalleryViewPager() {
+        viewPagerGallery.adapter = galleryViewPagerAdapter
     }
 /*
     private fun initObserverStatus(viewPager: ViewPager, tabs: TabLayout) {
@@ -142,10 +148,10 @@ class DetailsFragment(private val pokeId: Int, private val pokeName: String) : F
         }
     }
 
-    private fun loadImages(it: PokeProperty) {
+    private fun loadImages(it: PokeProperty){
         val imagesList = addSpritesToList(it)
         addImagesToList(imagesList)
-        view?.let { it1 -> initGalleryViewPager(mImages, it1) }
+        //view?.let { it1 -> initGalleryViewPager(mImages, it1) }
     }
 
     private fun showError() {
@@ -201,6 +207,7 @@ class DetailsFragment(private val pokeId: Int, private val pokeName: String) : F
 
     private fun addImagesToList(it: MutableList<String>) {
         mImages.addAll(it)
+        galleryViewPagerAdapter.notifyDataSetChanged()
     }
 
     private fun animateBackground(colorV: Int) {
@@ -213,10 +220,5 @@ class DetailsFragment(private val pokeId: Int, private val pokeName: String) : F
 
         backgroundColorAnimator.duration = TIME_BACKGROUND_ANIMATION
         backgroundColorAnimator.start()
-    }
-
-    private fun initGalleryViewPager(travelGallery: MutableList<String>, view: View) {
-        galleryViewPagerAdapter = DetailsGalleryAdapter(view.context, travelGallery)
-        viewPagerGallery.adapter = galleryViewPagerAdapter
     }
 }

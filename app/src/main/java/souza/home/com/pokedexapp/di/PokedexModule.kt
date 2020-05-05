@@ -18,6 +18,7 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.type.Types
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
 import souza.home.com.pokedexapp.domain.repository.*
 import souza.home.com.pokedexapp.domain.usecase.*
+import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsGalleryAdapter
 import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsViewModel
 import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsViewPagerAdapter
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.about.AboutSpinnerAdapter
@@ -125,6 +126,21 @@ val pokedexModule = module {
         OthersAbilityAdapter(
             context = get(),
             dataList = dataList
+        )
+    }
+
+    factory{ (dataList: MutableList<String>) ->
+        DetailsGalleryAdapter(
+            context = get(),
+            gallery = dataList
+        )
+    }
+
+    factory{ (pokeId: Int, chainId: Int) ->
+        DetailsViewPagerAdapter(
+            fm = get(),
+            pokeId = pokeId,
+            pokeChainId = chainId
         )
     }
 
