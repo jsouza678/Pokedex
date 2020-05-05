@@ -136,14 +136,6 @@ val pokedexModule = module {
         )
     }
 
-    factory{ (pokeId: Int, chainId: Int) ->
-        DetailsViewPagerAdapter(
-            fm = get(),
-            pokeId = pokeId,
-            pokeChainId = chainId
-        )
-    }
-
     //UseCases
     factory {
         GetEvolutionChainFromApi(
