@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.koin.android.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.logger.AndroidLogger
+import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.context.startKoin
 import org.koin.core.logger.EmptyLogger
 import org.koin.core.logger.Logger
@@ -37,7 +38,7 @@ class HomeActivity : AppCompatActivity() {
     private var hasNetworkConnectivity = true
     private lateinit var connectivity: Connectivity
     private lateinit var constraintLayoutHome: ConstraintLayout
-    private lateinit var viewModel : HomeViewModel
+    private val viewModel by viewModel<HomeViewModel>()
     private val splashFragment =
         SplashScreen()
     private val homeFragment = PokeCatalogFragment()
@@ -45,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+
         initKoin()
         bindViews()
         initSplashScreen()

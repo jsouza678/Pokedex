@@ -52,6 +52,10 @@ val pokedexModule = module {
     }
 
     viewModel {
+        HomeViewModel()
+    }
+
+    viewModel {
         SearchViewModel(
             get<SearchPokesByName>(),
             get<SearchPokesById>()
