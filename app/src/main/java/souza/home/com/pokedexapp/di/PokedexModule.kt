@@ -13,13 +13,19 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import souza.home.com.pokedexapp.data.pokedex.*
 import souza.home.com.pokedexapp.data.pokedex.local.*
 import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
+import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesMain
+import souza.home.com.pokedexapp.data.pokedex.remote.model.type.Types
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
 import souza.home.com.pokedexapp.domain.repository.*
 import souza.home.com.pokedexapp.domain.usecase.*
 import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsViewModel
+import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsViewPagerAdapter
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.about.AboutSpinnerAdapter
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.about.AboutViewModel
+import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.evolution_chain.EvolutionChainAdapter
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.evolution_chain.EvolutionChainViewModel
+import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.others.OthersAbilityAdapter
+import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.others.OthersTypeAdapter
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.others.OthersViewModel
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.stats.StatsViewModel
 import souza.home.com.pokedexapp.presentation.homefragment.HomeViewModel
@@ -96,6 +102,27 @@ val pokedexModule = module {
     //Adapter
     factory{ (dataList: MutableList<Varieties>) ->
         AboutSpinnerAdapter(
+            context = get(),
+            dataList = dataList
+        )
+    }
+
+    factory{ (dataList: MutableList<String>) ->
+        EvolutionChainAdapter(
+            context = get(),
+            dataList = dataList
+        )
+    }
+
+    factory{ (dataList: MutableList<Types>) ->
+        OthersTypeAdapter(
+            context = get(),
+            dataList = dataList
+        )
+    }
+
+    factory{ (dataList: MutableList<AbilitiesMain>) ->
+        OthersAbilityAdapter(
             context = get(),
             dataList = dataList
         )

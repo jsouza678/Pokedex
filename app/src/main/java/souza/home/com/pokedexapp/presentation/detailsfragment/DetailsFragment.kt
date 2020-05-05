@@ -36,6 +36,8 @@ class DetailsFragment(private val pokeId: Int, private val pokeName: String) : F
     private lateinit var tvPokeName: TextView
     private lateinit var tvPokeId: TextView
     private lateinit var constraintLayout: ConstraintLayout
+    private lateinit var viewPager: ViewPager
+    private lateinit var tabs: TabLayout
     private lateinit var galleryViewPagerAdapter: DetailsGalleryAdapter
     private lateinit var viewPagerGallery: ViewPager
     private lateinit var mImages: MutableList<String>
@@ -45,8 +47,8 @@ class DetailsFragment(private val pokeId: Int, private val pokeName: String) : F
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
         bindViews(view)
-        val viewPager: ViewPager = view.findViewById(R.id.fragment_container_details)
-        val tabs: TabLayout = view.findViewById<TabLayout>(R.id.tab_layout_details)
+        viewPager = view.findViewById(R.id.fragment_container_details)
+        tabs = view.findViewById<TabLayout>(R.id.tab_layout_details)
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar_details)
         mImages = ArrayList()
 

@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import souza.home.com.pokedexapp.R
@@ -26,10 +27,10 @@ class OthersFragment(private val pokemon: Int) : Fragment() {
     private val viewModel by viewModel<OthersViewModel>{ parametersOf(pokemon)}
     private lateinit var lvAbilities: ListView
     private lateinit var lvTypes: ListView
-    private lateinit var adapterTypes: OthersTypeAdapter
-    private lateinit var adapterAbilities: OthersAbilityAdapter
-    private lateinit var typesArray: MutableList<Types>
-    private lateinit var abilitiesArray: MutableList<AbilitiesMain>
+    private val adapterTypes by inject<OthersTypeAdapter>{ parametersOf(typesArray) }
+    private val adapterAbilities by inject<OthersAbilityAdapter>{ parametersOf(abilitiesArray) }
+    private var typesArray: MutableList<Types> = mutableListOf()
+    private var abilitiesArray: MutableList<AbilitiesMain> = mutableListOf()
     private lateinit var material: MaterialAlertDialogBuilder
 
     override fun onCreateView(
@@ -40,10 +41,6 @@ class OthersFragment(private val pokemon: Int) : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_others, container, false)
         bindViews(view)
-        typesArray = ArrayList()
-        abilitiesArray = ArrayList()
-
-        initializeAdapters(view)
 
         initType()
         initAbilities()
@@ -56,20 +53,6 @@ class OthersFragment(private val pokemon: Int) : Fragment() {
     private fun bindViews(view: View) {
         lvTypes = view.findViewById(R.id.list_view_types_others)
         lvAbilities = view.findViewById(R.id.list_view_abilities_others)
-    }
-
-    private fun initializeAdapters(view: View) {
-        adapterTypes =
-            OthersTypeAdapter(
-                view.context,
-                typesArray
-            )
-
-        adapterAbilities =
-            OthersAbilityAdapter(
-                view.context,
-                abilitiesArray
-            )
     }
 
 /*    private fun initObservers() {

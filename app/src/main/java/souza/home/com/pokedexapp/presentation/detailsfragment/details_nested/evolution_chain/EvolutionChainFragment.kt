@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import souza.home.com.extensions.observeOnce
@@ -16,9 +18,8 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.evolution_chain.Evolu
 class EvolutionChainFragment(private val pokemon: Int) : Fragment() {
 
     private lateinit var lvChain: ListView
-    private lateinit var adapterChain: EvolutionChainAdapter
-    private lateinit var evolutionArray: MutableList<Evolution>
-    private lateinit var listString: MutableList<String>
+    private var listString: MutableList<String> = mutableListOf()
+    private val adapterChain by inject<EvolutionChainAdapter>{ parametersOf(listString) }
     private val viewModel by viewModel<EvolutionChainViewModel>{ parametersOf(pokemon)}
 
     override fun onCreateView(
@@ -29,20 +30,8 @@ class EvolutionChainFragment(private val pokemon: Int) : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_chain, container, false)
         bindViews(view)
-        listString = mutableListOf<String>()
-
-        evolutionArray = mutableListOf<Evolution>()
-        evolutionArray.clear()
-
-        listString = mutableListOf()
-
-        adapterChain =
-            EvolutionChainAdapter(
-                view.context,
-                listString
-            )
-
         initObserver()
+        initChainEvolution()
 
         return view
     }
@@ -54,7 +43,6 @@ class EvolutionChainFragment(private val pokemon: Int) : Fragment() {
     private fun initObserver() {
         viewModel.updateEvolutionOnViewLiveData()?.observeOnce(viewLifecycleOwner, Observer {
             listString = it.evolution!!
-            initChainEvolution()
             adapterChain.submitList(listString)
         })
     }
