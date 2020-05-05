@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import souza.home.com.extensions.gone
@@ -32,8 +33,8 @@ class AboutFragment(private val pokemon: Int) : Fragment() {
     private lateinit var spVariations: Spinner
     private lateinit var tvDesc: TextView
     private lateinit var varietiesArray: MutableList<Varieties>
-    private lateinit var pokemonsArray: MutableList<Varieties>
-    private lateinit var adapterSpinner: AboutSpinnerAdapter
+    private var pokemonsArray: MutableList<Varieties> = mutableListOf()
+    private val adapterSpinner by inject<AboutSpinnerAdapter>{ parametersOf(pokemonsArray) }
     private lateinit var constraintDefault: ConstraintLayout
     private lateinit var constraintEvolution: ConstraintLayout
     private var pokePath: Int = ABSOLUTE_ZERO
@@ -50,13 +51,6 @@ class AboutFragment(private val pokemon: Int) : Fragment() {
         val view = inflater.inflate(R.layout.fragment_poke_about, container, false)
         bindViews(view)
         varietiesArray = mutableListOf()
-        pokemonsArray = mutableListOf()
-
-        adapterSpinner =
-            AboutSpinnerAdapter(
-                view.context,
-                pokemonsArray
-            )
 
         if (pokemon > LIMIT_NORMAL_POKES) {
             constraintDefault.gone()

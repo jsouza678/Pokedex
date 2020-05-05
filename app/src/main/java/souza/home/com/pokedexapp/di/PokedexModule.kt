@@ -13,9 +13,11 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import souza.home.com.pokedexapp.data.pokedex.*
 import souza.home.com.pokedexapp.data.pokedex.local.*
 import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
+import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
 import souza.home.com.pokedexapp.domain.repository.*
 import souza.home.com.pokedexapp.domain.usecase.*
 import souza.home.com.pokedexapp.presentation.detailsfragment.DetailsViewModel
+import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.about.AboutSpinnerAdapter
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.about.AboutViewModel
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.evolution_chain.EvolutionChainViewModel
 import souza.home.com.pokedexapp.presentation.detailsfragment.details_nested.others.OthersViewModel
@@ -31,6 +33,7 @@ private const val varietyDao = "VARIETY_DAO"
 private const val propertyDao = "PROPERTY_DAO"
 private const val evolutionDao = "EVOLUTION_CHAIN_DAO"
 
+@Suppress("RemoveExplicitTypeArguments", "USELESS_CAST")
 val pokedexModule = module {
 
     //ViewModels
@@ -87,6 +90,14 @@ val pokedexModule = module {
             get<GetVarietiesFromDatabase>(),
             get<GetPropertiesFromApi>(),
             get<GetPropertiesFromDatabase>()
+        )
+    }
+
+    //Adapter
+    factory{ (dataList: MutableList<Varieties>) ->
+        AboutSpinnerAdapter(
+            context = get(),
+            dataList = dataList
         )
     }
 
