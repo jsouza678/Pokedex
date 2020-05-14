@@ -13,7 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.qualifier.named
+import souza.home.com.connectivity.Connectivity
 import souza.home.com.extensions.gone
 import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
@@ -29,6 +32,7 @@ class PokeCatalogFragment : Fragment() {
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
+    private val connectivity by inject<Connectivity>()
     private lateinit var floatingActionButton: FloatingActionButton
     private lateinit var adapter: PokeCatalogAdapter
     private lateinit var toolbarHomeTop: Toolbar
@@ -48,6 +52,7 @@ class PokeCatalogFragment : Fragment() {
         initRecyclerView(viewModel)
         setFloactingActionPokeball()
         initObservers(viewModel)
+        initConnectivityObserver()
 
         return view
     }
@@ -72,6 +77,12 @@ class PokeCatalogFragment : Fragment() {
                 }
             })
         }
+    }
+
+    private fun initConnectivityObserver() {
+        connectivity.observe(viewLifecycleOwner, Observer { hasNetworkConnectivity ->
+            viewModel.updateConnectivityStatus(hasNetworkConnectivity = hasNetworkConnectivity)
+        })
     }
 
     private fun toggleProgressBar(it: HomePokedexStatus) {

@@ -11,20 +11,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
-import org.koin.android.BuildConfig
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.logger.AndroidLogger
 import org.koin.android.viewmodel.ext.android.viewModel
-import org.koin.core.context.startKoin
-import org.koin.core.logger.EmptyLogger
-import org.koin.core.logger.Logger
 import souza.home.com.connectivity.Connectivity
 import souza.home.com.extensions.gone
 import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.di.pokedexModule
 import souza.home.com.pokedexapp.presentation.pokecatalog.PokeCatalogFragment
 import souza.home.com.pokedexapp.presentation.search.SearchDialog
 import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_1000
@@ -47,7 +39,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        initKoin()
         bindViews()
         initSplashScreen()
         setToolbar()
@@ -56,20 +47,6 @@ class HomeActivity : AppCompatActivity() {
         initConnectivitySnackbar()
         initConnectivityObserver()
     }
-
-    private fun initKoin() {
-        startKoin {
-            androidContext(this@HomeActivity)
-            logger(koinLogger())
-            modules(
-                listOf(
-                    pokedexModule
-                )
-            )
-        }
-    }
-
-    private fun koinLogger(): Logger = if (BuildConfig.DEBUG) AndroidLogger() else EmptyLogger()
 
     private fun bindViews() {
         buttonDiscover = findViewById(R.id.button_discover_pokes_home_activity)

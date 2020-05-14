@@ -24,12 +24,14 @@ class PokeCatalogViewModel(
     private var element: Int = ABSOLUTE_ZERO
     fun updatePokesListOnViewLiveData(): LiveData<List<Poke>?> = getPokesFromDatabase()
     private val coroutineScope = Dispatchers.IO
+    private var hasNetworkConnectivity = true
 
     init {
         getPokes()
     }
 
     private fun getPokes() {
+        if (hasNetworkConnectivity.not()) return
         isLoading = true
         viewModelScope.launch(coroutineScope) {
             fetchPokesFromApi(element)
@@ -42,7 +44,7 @@ class PokeCatalogViewModel(
     fun onRecyclerViewScrolled(dy: Int, layoutManager: GridLayoutManager) {
         if (dy> ABSOLUTE_ZERO) {
             val isItTheListEnd = itIsTheListEnd(layoutManager = layoutManager)
-            if (isLoading.not() && isItTheListEnd) {
+            if (isLoading.not() && isItTheListEnd && hasNetworkConnectivity) {
                 element += POKE_LIMIT // this will increase the elements and show the next page on API.
                 getPokes()
             }
@@ -55,5 +57,9 @@ class PokeCatalogViewModel(
         val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
 
         return visibleItemCount + firstVisibleItemPosition >= totalItemCount
+    }
+
+    fun updateConnectivityStatus(hasNetworkConnectivity: Boolean) {
+        this.hasNetworkConnectivity = hasNetworkConnectivity
     }
 }

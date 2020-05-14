@@ -1,15 +1,18 @@
 package souza.home.com.pokedexapp.di
 
+import android.app.Application
 import androidx.room.Room
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import souza.home.com.connectivity.Connectivity
 import souza.home.com.pokedexapp.data.pokedex.*
 import souza.home.com.pokedexapp.data.pokedex.local.*
 import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
@@ -244,6 +247,13 @@ val pokedexModule = module {
             context = get(),
             pokemonDao = get<PokemonDao>(named(pokemonDao))
         ) as SearchRepository
+    }
+
+    // Connectivity
+    factory() {
+        Connectivity(
+            androidApplication()
+        )
     }
 
     // Retrofit
