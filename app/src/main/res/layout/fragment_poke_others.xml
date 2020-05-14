@@ -8,63 +8,83 @@
     android:layout_marginBottom="@dimen/material_margin_16"
     tools:context=".presentation.pokedetail.detailsnested.evolutionchain.EvolutionChainFragment">
 
-    <TextView
-        android:id="@+id/text_view_type_others"
-        style="@style/poke_name_detail_style"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="@dimen/material_margin_16"
-        android:layout_marginTop="@dimen/material_margin_16"
-        android:layout_marginEnd="@dimen/material_margin_16"
-        android:layout_marginBottom="@dimen/material_margin_8"
-        android:text="@string/title_type"
-        app:layout_constraintBottom_toTopOf="@+id/list_view_types_others"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ListView
-        android:id="@+id/list_view_types_others"
-        android:layout_width="@dimen/match_constraint"
-        android:layout_height="@dimen/default_list_view_height"
-        android:layout_marginStart="@dimen/material_margin_16"
-        android:layout_marginTop="@dimen/material_margin_8"
-        android:layout_marginEnd="@dimen/material_margin_16"
-        android:layout_weight="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_type_others"
-        tools:listitem="@tools:sample/cities[0]" />
-
-    <TextView
-        android:id="@+id/text_view_ability_others"
-        style="@style/poke_name_detail_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="@dimen/material_margin_16"
-        android:layout_marginTop="@dimen/material_margin_16"
-        android:layout_marginEnd="@dimen/material_margin_16"
-        android:layout_marginBottom="@dimen/material_margin_8"
-        android:text="@string/title_ability"
-        app:layout_constraintBottom_toTopOf="@+id/list_view_abilities_others"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/list_view_types_others" />
-
-    <ListView
-        android:id="@+id/list_view_abilities_others"
-        android:layout_width="@dimen/match_constraint"
-        android:layout_height="@dimen/default_list_view_height"
-        android:layout_marginStart="@dimen/material_margin_16"
-        android:layout_marginTop="@dimen/material_margin_8"
-        android:layout_marginEnd="@dimen/material_margin_16"
-        android:layout_marginBottom="@dimen/material_margin_16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_ability_others"
-        tools:listitem="@tools:sample/cities[0]" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp">
+
+            <TextView
+                android:id="@+id/text_view_type_others"
+                style="@style/poke_name_detail_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/material_margin_16"
+                android:layout_marginTop="@dimen/material_margin_16"
+                android:layout_marginEnd="@dimen/material_margin_16"
+                android:layout_marginBottom="@dimen/material_margin_8"
+                android:text="@string/title_type"
+                app:layout_constraintBottom_toTopOf="@+id/list_view_types_others"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ListView
+                android:id="@+id/list_view_types_others"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/default_list_view_height"
+                android:layout_marginStart="@dimen/material_margin_16"
+                android:layout_marginTop="@dimen/material_margin_8"
+                android:layout_marginEnd="@dimen/material_margin_16"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_ability_others"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_type_others"
+                tools:listitem="@tools:sample/cities[0]" />
+
+            <TextView
+                android:id="@+id/text_view_ability_others"
+                style="@style/poke_name_detail_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/material_margin_16"
+                android:layout_marginTop="@dimen/material_margin_16"
+                android:layout_marginEnd="@dimen/material_margin_16"
+                android:layout_marginBottom="@dimen/material_margin_8"
+                android:text="@string/title_ability"
+                app:layout_constraintBottom_toTopOf="@+id/list_view_abilities_others"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/list_view_types_others" />
+
+            <ListView
+                android:id="@+id/list_view_abilities_others"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/default_list_view_height"
+                android:layout_marginStart="@dimen/material_margin_16"
+                android:layout_marginTop="@dimen/material_margin_8"
+                android:layout_marginEnd="@dimen/material_margin_16"
+                android:layout_marginBottom="@dimen/material_margin_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_ability_others"
+                tools:listitem="@tools:sample/cities[0]" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

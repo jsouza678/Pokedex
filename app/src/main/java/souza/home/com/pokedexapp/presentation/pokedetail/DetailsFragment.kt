@@ -38,7 +38,8 @@ class DetailsFragment(private val pokeId: Int, private val pokeName: String) : F
     private lateinit var tvPokeId: TextView
     private lateinit var constraintLayout: ConstraintLayout
     private lateinit var viewPager: ViewPager
-    private lateinit var tabs: TabLayout
+    private lateinit var tabsViewPager: TabLayout
+     private lateinit var tabsCarousel: TabLayout
     private var mImages: MutableList<String> = mutableListOf()
     private val galleryViewPagerAdapter by inject<DetailsGalleryAdapter> { parametersOf(mImages) }
     private lateinit var viewPagerGallery: ViewPager
@@ -49,21 +50,21 @@ class DetailsFragment(private val pokeId: Int, private val pokeName: String) : F
         val view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
         bindViews(view)
         viewPager = view.findViewById(R.id.fragment_container_details)
-        tabs = view.findViewById<TabLayout>(R.id.tab_layout_details)
+        tabsViewPager = view.findViewById<TabLayout>(R.id.tab_layout_details)
+        tabsCarousel = view.findViewById<TabLayout>(R.id.tab_layout_carousel_details)
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar_details)
         mImages = ArrayList()
 
         setToolbarBackButton(toolbar)
         setPokeAndIdText()
         initGalleryViewPager()
-        // initObserverStatus(viewPager, tabs)
 
-        if (pokeId> LIMIT_NORMAL_POKES) { showDataEvolutionPoke(viewPager, tabs)
-        } else { bindRequestVarietiesStatus(VarietiesPokedexStatus.DONE, viewPager, tabs) }
+        if (pokeId> LIMIT_NORMAL_POKES) { showDataEvolutionPoke(viewPager, tabsViewPager)
+        } else { bindRequestVarietiesStatus(VarietiesPokedexStatus.DONE, viewPager, tabsViewPager) }
 
-        if (pokeId> LIMIT_NORMAL_POKES) { showDataEvolutionPoke(viewPager, tabs)
-            initObserverData(viewModel, viewPager, tabs)
-        } else { bindRequestPropertiesStatus(PropertiesPokedexStatus.DONE, viewPager, tabs) }
+        if (pokeId> LIMIT_NORMAL_POKES) { showDataEvolutionPoke(viewPager, tabsViewPager)
+            initObserverData(viewModel, viewPager, tabsViewPager)
+        } else { bindRequestPropertiesStatus(PropertiesPokedexStatus.DONE, viewPager, tabsViewPager) }
 
         return view
     }
@@ -87,7 +88,9 @@ class DetailsFragment(private val pokeId: Int, private val pokeName: String) : F
 
     private fun initGalleryViewPager() {
         viewPagerGallery.adapter = galleryViewPagerAdapter
+        tabsCarousel.setupWithViewPager(viewPagerGallery, true)
     }
+
 /*
     private fun initObserverStatus(viewPager: ViewPager, tabs: TabLayout) {
         viewModel.apply {

@@ -27,9 +27,7 @@ class StatsViewModel(
     fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = getPropertiesFromDatabase(pokemon)
 
     init {
-        //    if (CheckNetworkState.checkNetworkState(app.applicationContext)) {
         getStats(pokemon)
-        //      }
     }
 
     private fun getStats(pokemon: Int) {

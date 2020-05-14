@@ -42,7 +42,6 @@ class OthersFragment(private val pokemon: Int) : Fragment() {
         initType()
         initAbilities()
         initLoadData()
-        // initObservers()
 
         return view
     }
@@ -51,18 +50,6 @@ class OthersFragment(private val pokemon: Int) : Fragment() {
         lvTypes = view.findViewById(R.id.list_view_types_others)
         lvAbilities = view.findViewById(R.id.list_view_abilities_others)
     }
-
-/*    private fun initObservers() {
-        viewModel.apply {
-            this.internetStatus.observe(viewLifecycleOwner, Observer {
-                if (it == true) {
-                    initLoadData()
-                } else {
-                    view?.let { view -> Snackbar.make(view, getString(R.string.no_internet_connection), BaseTransientBottomBar.LENGTH_SHORT).show() }
-                }
-            })
-        }
-    }*/
 
     private fun initLoadData() {
         viewModel.apply {

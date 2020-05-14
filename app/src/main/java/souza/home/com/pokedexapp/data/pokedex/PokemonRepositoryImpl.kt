@@ -21,7 +21,7 @@ class PokemonRepositoryImpl(
 ) : PokemonRepository {
 
     override fun getAllPokes(): LiveData<List<Poke>?> {
-        val pokes = Transformations.map(pokemonDao.getPokes()) {
+        val pokes = Transformations.map(pokemonDao.getPokes()) { it ->
             PokedexMapper.pokemonAsDomain(it)
         }
         return pokes

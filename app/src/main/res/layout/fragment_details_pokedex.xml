@@ -41,10 +41,25 @@
         android:layout_marginEnd="@dimen/material_margin_16"
         android:layout_marginBottom="@dimen/material_margin_16"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@id/cardview_down_details"
+        app:layout_constraintBottom_toTopOf="@id/tab_layout_carousel_details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar_details" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout_carousel_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginEnd="@dimen/material_margin_16"
+        app:tabBackground="@drawable/tab_selector"
+        android:background="@color/translucent"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cardview_down_details"
+        app:layout_constraintTop_toBottomOf="@id/image_slider_details" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardview_down_details"
