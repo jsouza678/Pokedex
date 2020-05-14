@@ -3,6 +3,7 @@ package souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.others
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -32,8 +33,7 @@ class OthersViewModel(
     val pokeTypes: LiveData<MutableList<NestedTypeResponse>>
         get() = _pokeTypes
 
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    private val coroutineScope = Dispatchers.IO
 
     fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = getPropertiesFromDatabase(pokemon)
 
@@ -43,7 +43,7 @@ class OthersViewModel(
     }
 
     private fun getOtherProperties(pokemon: Int) {
-        coroutineScope.launch {
+        viewModelScope.launch(coroutineScope) {
             getPropertiesFromApi(pokemon)
         }
     }
@@ -59,7 +59,7 @@ class OthersViewModel(
     private fun getAbilityData(abilityId: Int) {
         _statusAb.value = AbilityPokedexStatus.LOADING
 
-        coroutineScope.launch {
+        viewModelScope.launch(coroutineScope) {
             val getAbilityDeferred = PokeApi.retrofitService.getAbilityData(abilityId)
 
             try {
@@ -78,7 +78,7 @@ class OthersViewModel(
 
         _statusAb.value = AbilityPokedexStatus.LOADING
 
-        coroutineScope.launch {
+        viewModelScope.launch(coroutineScope) {
             val getTypesDeferred = PokeApi.retrofitService.getTypeData(typeId)
 
             try {
@@ -91,11 +91,6 @@ class OthersViewModel(
                 _statusAb.value = AbilityPokedexStatus.ERROR
             }
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        Job().cancel()
     }
 }
 

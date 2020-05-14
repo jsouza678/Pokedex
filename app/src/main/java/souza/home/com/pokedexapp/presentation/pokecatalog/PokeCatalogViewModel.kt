@@ -3,6 +3,7 @@ package souza.home.com.pokedexapp.presentation.pokecatalog
 import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +23,7 @@ class PokeCatalogViewModel(
     private var isLoading: Boolean = false
     private var element: Int = ABSOLUTE_ZERO
     fun updatePokesListOnViewLiveData(): LiveData<List<Poke>?> = getPokesFromDatabase()
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+    private val coroutineScope = Dispatchers.IO
 
     init {
         getPokes()
@@ -30,7 +31,7 @@ class PokeCatalogViewModel(
 
     private fun getPokes() {
         isLoading = true
-        coroutineScope.launch {
+        viewModelScope.launch(coroutineScope) {
             fetchPokesFromApi(element)
         }
         Handler().postDelayed({

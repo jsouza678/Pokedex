@@ -3,6 +3,7 @@ package souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.stats
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,7 +23,7 @@ class StatsViewModel(
     val stats: LiveData<PropertyResponse>
         get() = _stats
 
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
+    private val coroutineScope = Dispatchers.IO
 
     fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = getPropertiesFromDatabase(pokemon)
 
@@ -31,7 +32,7 @@ class StatsViewModel(
     }
 
     private fun getStats(pokemon: Int) {
-        coroutineScope.launch {
+        viewModelScope.launch(coroutineScope) {
             getPropertiesFromApi(pokemon)
         }
     }

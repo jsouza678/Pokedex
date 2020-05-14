@@ -2,6 +2,7 @@ package souza.home.com.pokedexapp.presentation.pokedetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,8 +21,7 @@ class DetailsViewModel(
     private val getPropertiesFromDatabase: GetPropertiesFromDatabase
 ) : ViewModel() {
 
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
-
+    private val coroutineScope = Dispatchers.IO
     fun updateVariationsOnViewLiveData(): LiveData<PokeVariety?>? = getVarietiesFromDatabase(pokemon)
     fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = getPropertiesFromDatabase(pokemon)
 
@@ -30,7 +30,7 @@ class DetailsViewModel(
     }
 
     private fun getColor(pokemon: Int) {
-        coroutineScope.launch {
+        viewModelScope.launch(coroutineScope) {
             getVarietiesFromApi(pokemon)
             getPropertiesFromApi(pokemon)
         }
