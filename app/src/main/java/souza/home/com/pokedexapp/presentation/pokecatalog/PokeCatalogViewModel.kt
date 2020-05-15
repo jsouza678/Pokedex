@@ -2,17 +2,17 @@ package souza.home.com.pokedexapp.presentation.pokecatalog
 
 import android.os.Handler
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.domain.model.Poke
 import souza.home.com.pokedexapp.domain.usecase.GetPokesFromApi
 import souza.home.com.pokedexapp.domain.usecase.GetPokesFromDatabase
 import souza.home.com.pokedexapp.utils.Constants.Companion.ABSOLUTE_ZERO
-import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_400
+import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_1000
 import souza.home.com.pokedexapp.utils.Constants.Companion.POKE_LIMIT
 
 class PokeCatalogViewModel(
@@ -25,6 +25,9 @@ class PokeCatalogViewModel(
     fun updatePokesListOnViewLiveData(): LiveData<List<Poke>?> = getPokesFromDatabase()
     private val coroutineScope = Dispatchers.IO
     private var hasNetworkConnectivity = true
+    internal var turnOnProgressBar = MutableLiveData<Unit>()
+    internal var turnOffProgressBar = MutableLiveData<Unit>()
+    internal var checkEndOfList = MutableLiveData<Unit>()
 
     init {
         getPokes()
@@ -33,20 +36,23 @@ class PokeCatalogViewModel(
     private fun getPokes() {
         if (hasNetworkConnectivity.not()) return
         isLoading = true
+        turnOnProgressBar.postValue(Unit)
         viewModelScope.launch(coroutineScope) {
             fetchPokesFromApi(element)
         }
+        isLoading = false
         Handler().postDelayed({
-            isLoading = false
-        }, DELAY_POST_400)
+            turnOffProgressBar.postValue(Unit)
+        }, DELAY_POST_1000)
     }
 
     fun onRecyclerViewScrolled(dy: Int, layoutManager: GridLayoutManager) {
         if (dy> ABSOLUTE_ZERO) {
             val isItTheListEnd = itIsTheListEnd(layoutManager = layoutManager)
             if (isLoading.not() && isItTheListEnd && hasNetworkConnectivity) {
-                element += POKE_LIMIT // this will increase the elements and show the next page on API.
-                getPokes()
+                    //checkEndOfList.postValue(Unit)
+                    element += POKE_LIMIT // this will increase the elements and show the next page on API.
+                    getPokes()
             }
         }
     }

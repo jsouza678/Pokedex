@@ -51,7 +51,7 @@ class PokeCatalogFragment : Fragment() {
 
         initRecyclerView(viewModel)
         setFloactingActionPokeball()
-        initObservers(viewModel)
+        initObservers(viewModel, view)
         initConnectivityObserver()
 
         return view
@@ -70,12 +70,17 @@ class PokeCatalogFragment : Fragment() {
         }
     }
 
-    private fun initObservers(viewModel: PokeCatalogViewModel) {
+    private fun initObservers(viewModel: PokeCatalogViewModel, view: View) {
         viewModel.apply {
             this.updatePokesListOnViewLiveData().observe(viewLifecycleOwner, Observer {
                 it?.toMutableList()?.let { pokesList -> adapter.submitList(pokesList)
                 }
             })
+            this.turnOffProgressBar.observe(viewLifecycleOwner, Observer { turnOffProgressBar() })
+
+            this.turnOnProgressBar.observe(viewLifecycleOwner, Observer { turnOnProgressBar() })
+
+            this.checkEndOfList.observe(viewLifecycleOwner, Observer { turnOnEndListMessage(view) })
         }
     }
 
@@ -83,14 +88,6 @@ class PokeCatalogFragment : Fragment() {
         connectivity.observe(viewLifecycleOwner, Observer { hasNetworkConnectivity ->
             viewModel.updateConnectivityStatus(hasNetworkConnectivity = hasNetworkConnectivity)
         })
-    }
-
-    private fun toggleProgressBar(it: HomePokedexStatus) {
-        when (it) {
-            HomePokedexStatus.DONE -> { turnOffProgressBar() }
-            HomePokedexStatus.LOADING -> turnOnProgressBar()
-            HomePokedexStatus.ERROR -> view?.let { itemView -> Snackbar.make(itemView, getString(R.string.no_conectivity), BaseTransientBottomBar.LENGTH_SHORT).show() }
-        }
     }
 
     private fun initRecyclerView(viewModel: PokeCatalogViewModel) {
@@ -131,5 +128,10 @@ class PokeCatalogFragment : Fragment() {
 
     private fun turnOffProgressBar() {
         progressBar.gone()
+    }
+
+    private fun turnOnEndListMessage(view: View) {
+        progressBar.gone()
+        Snackbar.make(view, "You hit the end of the list.", BaseTransientBottomBar.LENGTH_SHORT).show()
     }
 }
