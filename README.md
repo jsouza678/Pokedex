@@ -61,8 +61,8 @@ O `./gradlew ktlintFormat` roda uma rotina que formata o código de acordo com o
  **Material Design** - _layout intuitivo e clean_
  <p>O aplicativo segue os padrões do MaterialDesign para uma melhor experiência do usuário em sua utilização.</p>
  
- ** Em Andamento **
- Injeção de Dependência com Koin.
+ **Koin** _injeção de dependência_
+ <p>Escolhida por sua simples implementação comparada ao Dagger (E recentemente com o Koin 2.0, o desempenho não é muito diferente).</p>
  
 ## O que eu gostaria de ter feito
 
@@ -70,7 +70,7 @@ O `./gradlew ktlintFormat` roda uma rotina que formata o código de acordo com o
  
  * _criado testes de ui;_
  
- * _implementado injeção de dependência_
+ * _CI_
  
  * _implementado animações e transições entre as telas da aplicação;_  
  
