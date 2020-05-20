@@ -19,11 +19,11 @@ import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.presentation.pokecatalog.PokeCatalogFragment
 import souza.home.com.pokedexapp.presentation.search.SearchDialog
-import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_1000
+import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_MEDIUM
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var buttonDiscover: Button
+    private lateinit var buttonDiscoverNewPokes: Button
     private lateinit var frameLayoutFragmentHost: FrameLayout
     private lateinit var mainToolbar: Toolbar
     private lateinit var snackbar: Snackbar
@@ -31,7 +31,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var connectivity: Connectivity
     private lateinit var constraintLayoutHome: ConstraintLayout
     private val viewModel by viewModel<HomeViewModel>()
-    private val splashFragment =
+    private val splashScreenFragment =
         SplashScreen()
     private val homeFragment = PokeCatalogFragment()
 
@@ -41,15 +41,15 @@ class HomeActivity : AppCompatActivity() {
 
         bindViews()
         initSplashScreen()
-        setToolbar()
-        initButtonDiscoverPokes()
+        setupToolbar()
+        setupButtonDiscoverPokes()
         initConnectivityCallback()
         initConnectivitySnackbar()
         initConnectivityObserver()
     }
 
     private fun bindViews() {
-        buttonDiscover = findViewById(R.id.button_discover_pokes_home_activity)
+        buttonDiscoverNewPokes = findViewById(R.id.button_discover_pokes_home_activity)
         frameLayoutFragmentHost = findViewById(R.id.nav_host_fragment_home_activity)
         mainToolbar = findViewById(R.id.toolbar_home_activity)
         constraintLayoutHome = findViewById(R.id.constraint_layout_home_activity)
@@ -59,20 +59,20 @@ class HomeActivity : AppCompatActivity() {
         openSplashFragment()
         Handler().postDelayed({
             closeSplashFragment()
-        }, DELAY_POST_1000)
+        }, DELAY_MEDIUM)
     }
 
     private fun openSplashFragment() {
-        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_home_activity, splashFragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_home_activity, splashScreenFragment).commit()
     }
 
     private fun closeSplashFragment() {
-        supportFragmentManager.beginTransaction().remove(splashFragment)
+        supportFragmentManager.beginTransaction().remove(splashScreenFragment)
         frameLayoutFragmentHost.gone()
         constraintLayoutHome.visible()
     }
 
-    private fun setToolbar() {
+    private fun setupToolbar() {
         setSupportActionBar(mainToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
@@ -86,15 +86,15 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.search_menu_icon -> {
-                openSearchDialog()
+                openSearchPokesDialog()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun initButtonDiscoverPokes() {
-        buttonDiscover.setOnClickListener {
+    private fun setupButtonDiscoverPokes() {
+        buttonDiscoverNewPokes.setOnClickListener {
             constraintLayoutHome.gone()
             supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_home_activity, homeFragment).commit()
             frameLayoutFragmentHost.visible()
@@ -145,7 +145,7 @@ class HomeActivity : AppCompatActivity() {
         snackbar.show()
     }
 
-    private fun openSearchDialog() {
+    private fun openSearchPokesDialog() {
         val searchDialog = SearchDialog()
         frameLayoutFragmentHost.visible()
         constraintLayoutHome.gone()

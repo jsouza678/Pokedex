@@ -7,7 +7,7 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.PROPERTY_TABLE_NAME
 @Entity(tableName = PROPERTY_TABLE_NAME)
 data class PropertyEntity constructor (
     @PrimaryKey
-    var id: Int,
+    var _id: Int,
     var abilities: String?,
     var name: String?,
     var height: Int?,

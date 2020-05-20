@@ -29,7 +29,7 @@ class PropertiesRepositoryImpl(
     override fun getProperties(id: Int): LiveData<PokeProperty>? {
         return propertyDao.getProperty(id)?.let {
             Transformations.map(it) { propertyObject ->
-                propertyObject?.let { propertyItem -> PokedexMapper.propertyAsDomain(propertyItem) }
+                propertyObject?.let { propertyItem -> PokedexMapper.propertyEntityAsDomainModel(propertyItem) }
             }
         }
     }
@@ -39,8 +39,8 @@ class PropertiesRepositoryImpl(
             if (CheckNetworkState.checkNetworkState(context)) {
                 _internet.postValue(PropertiesPokedexStatus.LOADING)
                 try {
-                    val pokeProperty = pokedexService.getPokeStats(id).await()
-                    propertyDao.insertAll(PokedexMapper.propertiesAsDatabase(pokeProperty))
+                    val pokeProperty = pokedexService.fetchPokeStatsAsync(id).await()
+                    propertyDao.insertAll(PokedexMapper.propertiesResponseAsDatabaseModel(pokeProperty))
                     if (pokeProperty.name.isBlank()) {
                         _internet.postValue(PropertiesPokedexStatus.EMPTY)
                     } else {

@@ -8,5 +8,5 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.POKE_TABLE_NAME
 data class PokemonEntity constructor(
     @PrimaryKey
     val _id: Int,
-    val name: String
+    val name: String?
 )

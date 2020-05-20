@@ -9,33 +9,38 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import souza.home.com.pokedexapp.data.pokedex.remote.response.*
+import souza.home.com.pokedexapp.data.pokedex.remote.response.AbilitiesRootResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.response.EvolutionChainResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.response.PokeRootResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.response.PropertyRootResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.response.TypesRootResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.response.VarietiesRootResponse
 import souza.home.com.pokedexapp.utils.Constants
 
 interface PokedexService {
     @GET("pokemon/?")
-    fun getPokes(@Query("offset") page: Int?):
+    fun fetchPokesAsync(@Query("offset") page: Int?):
             Deferred<PokeRootResponse> // Cached
 
     @GET("pokemon/{poke}")
-    fun getPokeStats(@Path("poke") poke: Int?):
-            Deferred<PropertyResponse> // Cached
+    fun fetchPokeStatsAsync(@Path("poke") poke: Int?):
+            Deferred<PropertyRootResponse> // Cached
 
     @GET("evolution-chain/{id}")
-    fun getEvolutionChain(@Path("id") id: Int?):
+    fun fetchEvolutionChainAsync(@Path("id") id: Int?):
             Deferred<EvolutionChainResponse> // Cached
 
     @GET("pokemon-species/{id}")
-    fun getVariations(@Path("id") id: Int?):
-            Deferred<VarietiesResponse> // Cached
+    fun fetchVariationsAsync(@Path("id") id: Int?):
+            Deferred<VarietiesRootResponse> // Cached
 
     @GET("type/{id}")
-    fun getTypeData(@Path("id") id: Int?):
-            Deferred<AllTypesResponse>
+    fun fetchTypeDataAsync(@Path("id") id: Int?):
+            Deferred<TypesRootResponse> // Non-Cached
 
     @GET("ability/{id}")
-    fun getAbilityData(@Path("id") id: Int):
-            Deferred<AllAbilitiesResponse>
+    fun fetchAbilityDataAsync(@Path("id") id: Int):
+            Deferred<AbilitiesRootResponse> // Non-Chached
 }
 
 private val moshi = Moshi.Builder()

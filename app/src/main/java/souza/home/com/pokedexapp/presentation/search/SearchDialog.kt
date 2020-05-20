@@ -21,17 +21,17 @@ import souza.home.com.extensions.gone
 import souza.home.com.extensions.observeOnce
 import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.domain.model.Poke
+import souza.home.com.pokedexapp.domain.model.Pokemon
 import souza.home.com.pokedexapp.presentation.pokecatalog.PokeCatalogFragment
-import souza.home.com.pokedexapp.presentation.pokedetail.DetailsFragment
-import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_2000
+import souza.home.com.pokedexapp.presentation.pokedetails.DetailsFragment
+import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_LONG
 import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 import souza.home.com.pokedexapp.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
 import souza.home.com.pokedexapp.utils.isString
 
 class SearchDialog : DialogFragment() {
 
-    private lateinit var pokesList: MutableList<Poke>
+    private lateinit var pokesList: MutableList<Pokemon>
     private lateinit var adapter: SearchDialogAdapter
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var recyclerView: RecyclerView
@@ -94,11 +94,11 @@ class SearchDialog : DialogFragment() {
     }
 
     private fun initSearchById(textSearch: String, textViewResult: TextView) {
-        viewModel.searchForItemsById(Integer.parseInt(textSearch)).observeOnce(this@SearchDialog, Observer {
+        viewModel.searchPokesById(Integer.parseInt(textSearch)).observeOnce(this@SearchDialog, Observer {
             if (it?.isEmpty()!!) {
                 errorMessage()
             } else {
-                adapter.submitList(it as MutableList<Poke>)
+                adapter.submitList(it as MutableList<Pokemon>)
                 val textResult = getString(R.string.pokemon_found_search_1) + it.size + getString(R.string.pokemon_found_search_3)
                 textViewResult.text = textResult
             }
@@ -106,11 +106,11 @@ class SearchDialog : DialogFragment() {
     }
 
     private fun initSearchByName(textSearch: String, textViewResult: TextView) {
-        viewModel.searchForItemsByName(textSearch).observeOnce(this@SearchDialog, Observer {
+        viewModel.searchPokesByName(textSearch).observeOnce(this@SearchDialog, Observer {
             if (it?.isEmpty()!!) {
                 errorMessage()
             } else {
-                adapter.submitList(it as MutableList<Poke>)
+                adapter.submitList(it as MutableList<Pokemon>)
                 val textResult = getString(R.string.pokemon_found_search_1) + it.size + getString(R.string.pokemon_found_search_4)
                 textViewResult.text = textResult
             }
@@ -151,16 +151,18 @@ class SearchDialog : DialogFragment() {
         toggleErrorVisibility()
         Handler().postDelayed({
             toggleBackErrorVisibility()
-        }, DELAY_POST_2000)
+        }, DELAY_LONG)
     }
 
     private fun setTransitionToPokeDetails() {
         adapter.onItemClick = {
-            val idPoke = it._id
+            val idPoke = it.id
             val pokeName = it.name
-            val details = DetailsFragment(idPoke, pokeName)
+            val details = pokeName?.let { it1 -> DetailsFragment(idPoke, it1) }
 
-            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_home_activity, details)?.addToBackStack(null)?.commit()
+            if (details != null) {
+                fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_home_activity, details)?.addToBackStack(null)?.commit()
+            }
             dismiss()
         }
     }

@@ -8,21 +8,21 @@ import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import souza.home.com.pokedexapp.domain.model.Poke
-import souza.home.com.pokedexapp.domain.usecase.GetPokesFromApi
+import souza.home.com.pokedexapp.domain.model.Pokemon
+import souza.home.com.pokedexapp.domain.usecase.FetchPokesFromApi
 import souza.home.com.pokedexapp.domain.usecase.GetPokesFromDatabase
 import souza.home.com.pokedexapp.utils.Constants.Companion.ABSOLUTE_ZERO
-import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_POST_1000
+import souza.home.com.pokedexapp.utils.Constants.Companion.DELAY_MEDIUM
 import souza.home.com.pokedexapp.utils.Constants.Companion.POKE_LIMIT
 
 class PokeCatalogViewModel(
     private val getPokesFromDatabase: GetPokesFromDatabase,
-    private val fetchPokesFromApi: GetPokesFromApi
+    private val fetchPokesFromApi: FetchPokesFromApi
 ) : ViewModel() {
 
     private var isLoading: Boolean = false
     private var element: Int = ABSOLUTE_ZERO
-    fun updatePokesListOnViewLiveData(): LiveData<List<Poke>?> = getPokesFromDatabase()
+    fun updatePokesListOnViewLiveData(): LiveData<List<Pokemon>?> = getPokesFromDatabase()
     private val coroutineScope = Dispatchers.IO
     private var hasNetworkConnectivity = true
     internal var turnOnProgressBar = MutableLiveData<Unit>()
@@ -43,15 +43,14 @@ class PokeCatalogViewModel(
         isLoading = false
         Handler().postDelayed({
             turnOffProgressBar.postValue(Unit)
-        }, DELAY_POST_1000)
+        }, DELAY_MEDIUM)
     }
 
-    fun onRecyclerViewScrolled(dy: Int, layoutManager: GridLayoutManager) {
+    fun loadOnRecyclerViewScrolled(dy: Int, layoutManager: GridLayoutManager) {
         if (dy> ABSOLUTE_ZERO) {
             val isItTheListEnd = itIsTheListEnd(layoutManager = layoutManager)
             if (isLoading.not() && isItTheListEnd && hasNetworkConnectivity) {
-                    //checkEndOfList.postValue(Unit)
-                    element += POKE_LIMIT // this will increase the elements and show the next page on API.
+                    element += POKE_LIMIT
                     getPokes()
             }
         }

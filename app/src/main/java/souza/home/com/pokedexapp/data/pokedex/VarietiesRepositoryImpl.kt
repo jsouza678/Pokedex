@@ -28,7 +28,7 @@ class VarietiesRepositoryImpl(
 
     override fun getVarieties(id: Int): LiveData<PokeVariety?>? {
         val varieties = Transformations.map(varietiesDao.getVariety(id)) {
-            it?.let { varietiesItem -> PokedexMapper.variationsAsDomain(varietiesItem) }
+            it?.let { varietiesItem -> PokedexMapper.variationsEntityAsDomainModel(varietiesItem) }
         }
         return varieties
     }
@@ -38,9 +38,9 @@ class VarietiesRepositoryImpl(
             if (CheckNetworkState.checkNetworkState(context)) {
                 _internet.postValue(VarietiesPokedexStatus.LOADING)
                 try {
-                    val pokeVariations = pokedexService.getVariations(id).await()
+                    val pokeVariations = pokedexService.fetchVariationsAsync(id).await()
                     varietiesDao.insertAll(
-                        PokedexMapper.variationsAsDatabase(
+                        PokedexMapper.variationsResponseAsDatabaseModel(
                             pokeVariations
                         )
                     )

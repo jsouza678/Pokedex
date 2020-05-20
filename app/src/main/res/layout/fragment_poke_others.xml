@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/layout_padding_16"
     android:layout_marginBottom="@dimen/material_margin_16"
-    tools:context=".presentation.pokedetail.detailsnested.evolutionchain.EvolutionChainFragment">
+    tools:context=".presentation.pokedetails.pokeattributes.evolutionchain.EvolutionChainFragment">
 
     <ScrollView
         android:layout_width="match_parent"

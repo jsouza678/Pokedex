@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDao
 import souza.home.com.pokedexapp.data.pokedex.mapper.PokedexMapper
-import souza.home.com.pokedexapp.domain.model.Poke
+import souza.home.com.pokedexapp.domain.model.Pokemon
 import souza.home.com.pokedexapp.domain.repository.SearchRepository
 
 class SearchRepositoryImpl(
@@ -13,15 +13,15 @@ class SearchRepositoryImpl(
     private val pokemonDao: PokemonDao
 ) : SearchRepository {
 
-    override fun searchPokesById(poke: Int): LiveData<List<Poke>?> {
+    override fun searchPokesById(poke: Int): LiveData<List<Pokemon>?> {
         return Transformations.map(pokemonDao.getPokesById(poke)) {
-            PokedexMapper.pokemonAsDomain(it)
+            PokedexMapper.pokemonEntityAsDomainModel(it)
         }
     }
 
-    override fun searchPokesByName(poke: String): LiveData<List<Poke>?> {
+    override fun searchPokesByName(poke: String): LiveData<List<Pokemon>?> {
         return Transformations.map(pokemonDao.getPokesByName(poke)) {
-            PokedexMapper.pokemonAsDomain(it)
+            PokedexMapper.pokemonEntityAsDomainModel(it)
         }
     }
 }

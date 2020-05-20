@@ -1,17 +1,17 @@
 package souza.home.com.pokedexapp.domain.model
 
-import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesMain
+import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesRoot
 import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.Sprites
-import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.Stats
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.Types
+import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.StatsRoot
+import souza.home.com.pokedexapp.data.pokedex.remote.model.type.TypeRoot
 
 data class PokeProperty(
-    var id: Int = 0,
-    var abilities: MutableList<AbilitiesMain>?,
-    var name: String?,
-    var height: Int? = 0,
-    var sprites: Sprites?,
-    var stats: List<Stats>?,
-    var types: MutableList<Types>?,
-    var weight: Int? = 0
+    val id: Int,
+    val abilities: MutableList<AbilitiesRoot>?,
+    val name: String?,
+    val height: Int?,
+    val sprites: Sprites?,
+    val stats: List<StatsRoot>?,
+    val types: MutableList<TypeRoot>?,
+    val weight: Int?
 )

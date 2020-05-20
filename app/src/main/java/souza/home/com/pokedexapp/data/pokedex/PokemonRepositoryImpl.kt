@@ -11,7 +11,7 @@ import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDao
 import souza.home.com.pokedexapp.data.pokedex.mapper.PokedexMapper
 import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
-import souza.home.com.pokedexapp.domain.model.Poke
+import souza.home.com.pokedexapp.domain.model.Pokemon
 import souza.home.com.pokedexapp.domain.repository.PokemonRepository
 
 class PokemonRepositoryImpl(
@@ -20,9 +20,9 @@ class PokemonRepositoryImpl(
     private val pokemonDao: PokemonDao
 ) : PokemonRepository {
 
-    override fun getAllPokes(): LiveData<List<Poke>?> {
+    override fun getPokes(): LiveData<List<Pokemon>?> {
         val pokes = Transformations.map(pokemonDao.getPokes()) { it ->
-            PokedexMapper.pokemonAsDomain(it)
+            PokedexMapper.pokemonEntityAsDomainModel(it)
         }
         return pokes
     }
@@ -36,8 +36,8 @@ class PokemonRepositoryImpl(
         withContext(Dispatchers.IO) {
             _internet.postValue(HomePokedexStatus.LOADING)
             try {
-                val pokeList = pokedexService.getPokes(page).await()
-                PokedexMapper.pokemonToDatabaseModel(pokeList)
+                val pokeList = pokedexService.fetchPokesAsync(page).await()
+                PokedexMapper.pokemonResponseAsDatabaseModel(pokeList)
                     ?.let { pokemonDao.insertAll(*it) }
                 _internet.postValue(HomePokedexStatus.DONE)
             } catch (e: Exception) {

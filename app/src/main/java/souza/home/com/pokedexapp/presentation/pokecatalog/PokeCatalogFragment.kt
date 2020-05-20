@@ -15,26 +15,24 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
-import org.koin.core.qualifier.named
 import souza.home.com.connectivity.Connectivity
 import souza.home.com.extensions.gone
 import souza.home.com.extensions.visible
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.data.pokedex.HomePokedexStatus
-import souza.home.com.pokedexapp.domain.model.Poke
-import souza.home.com.pokedexapp.presentation.pokedetail.DetailsFragment
+import souza.home.com.pokedexapp.domain.model.Pokemon
+import souza.home.com.pokedexapp.presentation.pokedetails.DetailsFragment
 import souza.home.com.pokedexapp.utils.Constants.Companion.ABSOLUTE_ZERO
 import souza.home.com.pokedexapp.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
 
 class PokeCatalogFragment : Fragment() {
 
-    private lateinit var pokesList: MutableList<Poke>
+    private lateinit var pokemons: MutableList<Pokemon>
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
     private val connectivity by inject<Connectivity>()
     private lateinit var floatingActionButton: FloatingActionButton
-    private lateinit var adapter: PokeCatalogAdapter
+    private lateinit var pokemonAdapter: PokeCatalogAdapter
     private lateinit var toolbarHomeTop: Toolbar
     private val viewModel by viewModel<PokeCatalogViewModel>()
 
@@ -45,36 +43,35 @@ class PokeCatalogFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home_pokedex, container, false)
-        pokesList = mutableListOf()
+        pokemons = mutableListOf()
         progressBar = view.findViewById(R.id.progress_bar_home)
         bindViews(view)
 
-        initRecyclerView(viewModel)
-        setFloactingActionPokeball()
-        initObservers(viewModel, view)
+        setupRecyclerView(viewModel)
+        setupFloactingActionPokeball()
+        initObservers(view)
         initConnectivityObserver()
 
         return view
     }
 
     private fun bindViews(view: View) {
-        adapter = PokeCatalogAdapter(pokesList, view.context)
+        pokemonAdapter = PokeCatalogAdapter(pokemons, view.context)
         recyclerView = view.findViewById(R.id.recycler_view_home)
         floatingActionButton = view.findViewById<FloatingActionButton>(R.id.floating_action_button_poke_ball_home)
         toolbarHomeTop = view.findViewById(R.id.pokedex_toolbar_home)
     }
 
-    private fun setFloactingActionPokeball() {
+    private fun setupFloactingActionPokeball() {
         floatingActionButton.setOnClickListener {
             recyclerView.smoothScrollToPosition(ABSOLUTE_ZERO)
         }
     }
 
-    private fun initObservers(viewModel: PokeCatalogViewModel, view: View) {
+    private fun initObservers(view: View) {
         viewModel.apply {
             this.updatePokesListOnViewLiveData().observe(viewLifecycleOwner, Observer {
-                it?.toMutableList()?.let { pokesList -> adapter.submitList(pokesList)
-                }
+                it?.toMutableList()?.let { pokes -> pokemonAdapter.submitList(pokes) }
             })
             this.turnOffProgressBar.observe(viewLifecycleOwner, Observer { turnOffProgressBar() })
 
@@ -90,20 +87,20 @@ class PokeCatalogFragment : Fragment() {
         })
     }
 
-    private fun initRecyclerView(viewModel: PokeCatalogViewModel) {
+    private fun setupRecyclerView(viewModel: PokeCatalogViewModel) {
 
         layoutManager = GridLayoutManager(context, TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = adapter
-        setTransitionToPokeDetails()
+        recyclerView.adapter = pokemonAdapter
+        setupTransitionToPokeDetails()
 
-        setListenerRecyclerView(recyclerView, viewModel)
+        setupRecyclerViewEndlessScroll(recyclerView, viewModel)
     }
 
-    private fun setListenerRecyclerView(recyclerView: RecyclerView, viewModel: PokeCatalogViewModel) {
+    private fun setupRecyclerViewEndlessScroll(recyclerView: RecyclerView, viewModel: PokeCatalogViewModel) {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                viewModel.onRecyclerViewScrolled(
+                viewModel.loadOnRecyclerViewScrolled(
                     dy = dy,
                     layoutManager = layoutManager
                 )
@@ -111,14 +108,18 @@ class PokeCatalogFragment : Fragment() {
         })
     }
 
-    private fun setTransitionToPokeDetails() {
-        adapter.onItemClick = {
+    private fun setupTransitionToPokeDetails() {
+        pokemonAdapter.onItemClick = {
 
-            val pokeId = it._id
+            val pokeId = it.id
             val pokeName = it.name
-            val details = DetailsFragment(pokeId, pokeName)
+            val details = pokeName?.let { pokemonName -> DetailsFragment(pokeId, pokemonName) }
 
-            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_home_activity, details)?.addToBackStack(null)?.commit()
+            details?.let { pokemonName ->
+                fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_home_activity,
+                    pokemonName
+                )?.addToBackStack(null)?.commit()
+            }
         }
     }
 
@@ -132,6 +133,6 @@ class PokeCatalogFragment : Fragment() {
 
     private fun turnOnEndListMessage(view: View) {
         progressBar.gone()
-        Snackbar.make(view, "You hit the end of the list.", BaseTransientBottomBar.LENGTH_SHORT).show()
+        Snackbar.make(view, getString(R.string.snackbar_message_end_of_the_list), BaseTransientBottomBar.LENGTH_SHORT).show()
     }
 }

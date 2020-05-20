@@ -7,26 +7,23 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 import souza.home.com.pokedexapp.utils.Constants.Companion.LANGUAGE_DESCRIPTIONS
 
 fun cropPokeUrl(url: String): String {
-    val id = url.substringAfterLast("n/").substringBeforeLast("/")
-    return id
+    return url.substringAfterLast("n/").substringBeforeLast("/")
 }
 
 fun cropAbilityUrl(url: String): String {
-    val id = url.substringAfterLast("y/").substringBeforeLast("/")
-    return id
+    return url.substringAfterLast("y/").substringBeforeLast("/")
 }
 
 fun cropTypeUrl(url: String): String {
-    val id = url.substringAfterLast("e/").substringBeforeLast("/")
-    return id
+    return url.substringAfterLast("e/").substringBeforeLast("/")
 }
 
 fun optimizeDescription(it: MutableList<FlavorDescription>?): String {
     var description: String = EMPTY_STRING
 
     for (i in ABSOLUTE_ZERO until it?.size!!) {
-        if (it.get(i).language.name == LANGUAGE_DESCRIPTIONS) {
-            description += it[i].flavor_text + "\n "
+        if (it[i].language?.name == LANGUAGE_DESCRIPTIONS) {
+            description += it[i].flavorText + "\n "
         }
     }
     return description
@@ -35,12 +32,12 @@ fun optimizeDescription(it: MutableList<FlavorDescription>?): String {
 fun optimizeChain(item: EvolutionChainResponse): MutableList<String> {
     val evolutionArray = mutableListOf<String>()
 
-    if (item.chain.species?.name != null) { // 1 If poke has one evolution
-        evolutionArray.add(item.chain.species!!.name!!)
-        try {
-            evolutionArray.add(item.chain.evolves_to!![0].species?.name!!) // 2 If poke has the second evolution
-            try {
-                evolutionArray.add(item.chain.evolves_to!![0].evolves_to!![0].species?.name!!) // 3 If poke has the third evolution
+    if (item.chain?.species?.name != null) {
+        evolutionArray.add(item.chain.species.name)
+        try { // 2 If poke has the first evolution
+            evolutionArray.add(item.chain.evolvesTo!![0].species?.name!!)
+            try { // 3 If poke has the second evolution
+                evolutionArray.add(item.chain.evolvesTo[0].evolvesTo!![0].species?.name!!)
             } catch (e: Exception) { }
         } catch (e: Exception) { }
     }
@@ -48,8 +45,7 @@ fun optimizeChain(item: EvolutionChainResponse): MutableList<String> {
 }
 
 fun isString(text: String): Boolean {
-    var numeric = true
-    numeric = text.matches("-?\\d+(\\.\\d+)?".toRegex())
+    val numeric: Boolean = text.matches("-?\\d+(\\.\\d+)?".toRegex())
 
     if (text == EMPTY_STRING) {
         return false

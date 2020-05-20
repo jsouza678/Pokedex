@@ -15,7 +15,7 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.IMAGE_MAX_WIDTH
 private var placeHolderId: Int = R.drawable.place_holder
 private var errorImageId: Int = R.drawable.error_image
 
-fun ImageView.loadUrl(
+fun ImageView.loadImageUrl(
     url: String? = null,
     onLoadCompleted: () -> Unit = {},
     onError: () -> Unit = {}

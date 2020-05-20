@@ -11,16 +11,16 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.random.Random
 import kotlinx.android.synthetic.main.recycler_poke_item_view.view.*
-import souza.home.com.extensions.loadUrl
+import souza.home.com.extensions.loadImageUrl
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.domain.model.Poke
+import souza.home.com.pokedexapp.domain.model.Pokemon
 import souza.home.com.pokedexapp.utils.Constants.Companion.BASTION_POKE_IMAGE_BASE_URL
 import souza.home.com.pokedexapp.utils.Constants.Companion.DEFAULT_IMAGE_FORMAT_BASTION
 import souza.home.com.pokedexapp.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
 
-class PokeCatalogAdapter(private val pokes: MutableList<Poke>?, private val context: Context) : RecyclerView.Adapter<PokeCatalogAdapter.ViewHolder>() {
+class PokeCatalogAdapter(private val pokemons: MutableList<Pokemon>?, private val context: Context) : RecyclerView.Adapter<PokeCatalogAdapter.ViewHolder>() {
 
-    var onItemClick: ((Poke) -> Unit)? = null
+    var onItemClick: ((Pokemon) -> Unit)? = null
     private val imageResourceUrl = BASTION_POKE_IMAGE_BASE_URL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,32 +28,31 @@ class PokeCatalogAdapter(private val pokes: MutableList<Poke>?, private val cont
         return ViewHolder(view)
     }
 
-    fun submitList(newData: MutableList<Poke>) {
-        if (pokes != null) {
-            if (pokes.isNotEmpty()) {
-                pokes.clear()
+    fun submitList(newData: MutableList<Pokemon>) {
+        if (pokemons != null) {
+            if (pokemons.isNotEmpty()) {
+                pokemons.clear()
             }
         }
-        pokes?.addAll(newData)
+        pokemons?.addAll(newData)
         notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
-        return pokes!!.size
+        return pokemons!!.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.itemBind(pokes!![position])
+        holder.itemBind(pokemons!![position])
     }
 
     private fun setColor(): Int {
 
-        val random: Random = Random
+        val randomNumber: Random = Random
+        val randomColor = randomNumber.nextInt(9)
 
-        val choosed = random.nextInt(9)
-
-        val color = arrayOf(
+        val generatedColor = arrayOf(
             R.color.poke_red_mid_translucent,
             R.color.poke_green_mid_translucent,
             R.color.poke_blue_mid_translucent,
@@ -65,7 +64,7 @@ class PokeCatalogAdapter(private val pokes: MutableList<Poke>?, private val cont
             R.color.poke_pink_mid_translucent,
             R.color.poke_brown_mid_translucent)
 
-        return color[choosed]
+        return generatedColor[randomColor]
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -76,17 +75,17 @@ class PokeCatalogAdapter(private val pokes: MutableList<Poke>?, private val cont
         private var formatedNumber: String = ""
         private var pokemonId: Int = 0
 
-        fun itemBind(pokes: Poke) {
+        fun itemBind(pokes: Pokemon) {
             pokeName.text = pokes.name
-            pokemonId = pokes._id
+            pokemonId = pokes.id
             formatedNumber = FORMAT_ID_POKE_DISPLAY.format(pokemonId)
             pokeId.text = context.resources.getString(R.string.text_view_placeholder_hash, formatedNumber)
-            pokeImage.loadUrl("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION")
+            pokeImage.loadImageUrl("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION")
             pokeCv.setCardBackgroundColor(ContextCompat.getColor(context, setColor()))
         }
         init {
             itemView.setOnClickListener {
-                onItemClick?.invoke(pokes!![adapterPosition])
+                onItemClick?.invoke(pokemons!![adapterPosition])
             }
         }
     }

@@ -1,6 +1,5 @@
 package souza.home.com.pokedexapp.di
 
-import android.app.Application
 import androidx.room.Room
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
@@ -13,26 +12,47 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import souza.home.com.connectivity.Connectivity
-import souza.home.com.pokedexapp.data.pokedex.*
-import souza.home.com.pokedexapp.data.pokedex.local.*
+import souza.home.com.pokedexapp.data.pokedex.EvolutionRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.PokemonRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.PropertiesRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.SearchRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.local.EvolutionChainDao
+import souza.home.com.pokedexapp.data.pokedex.local.PokemonDao
+import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
+import souza.home.com.pokedexapp.data.pokedex.local.PropertyDao
+import souza.home.com.pokedexapp.data.pokedex.local.VarietiesDao
 import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
-import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesMain
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.Types
+import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesRoot
+import souza.home.com.pokedexapp.data.pokedex.remote.model.type.TypeRoot
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
-import souza.home.com.pokedexapp.domain.repository.*
-import souza.home.com.pokedexapp.domain.usecase.*
+import souza.home.com.pokedexapp.domain.repository.EvolutionRepository
+import souza.home.com.pokedexapp.domain.repository.PokemonRepository
+import souza.home.com.pokedexapp.domain.repository.PropertiesRepository
+import souza.home.com.pokedexapp.domain.repository.SearchRepository
+import souza.home.com.pokedexapp.domain.repository.VarietiesRepository
+import souza.home.com.pokedexapp.domain.usecase.FetchEvolutionChainFromApi
+import souza.home.com.pokedexapp.domain.usecase.FetchPokesFromApi
+import souza.home.com.pokedexapp.domain.usecase.FetchPropertiesFromApi
+import souza.home.com.pokedexapp.domain.usecase.FetchVarietiesFromApi
+import souza.home.com.pokedexapp.domain.usecase.GetEvolutionChainFromDatabase
+import souza.home.com.pokedexapp.domain.usecase.GetPokesFromDatabase
+import souza.home.com.pokedexapp.domain.usecase.GetPropertiesFromDatabase
+import souza.home.com.pokedexapp.domain.usecase.GetVarietiesFromDatabase
+import souza.home.com.pokedexapp.domain.usecase.SearchPokesById
+import souza.home.com.pokedexapp.domain.usecase.SearchPokesByName
 import souza.home.com.pokedexapp.presentation.home.HomeViewModel
 import souza.home.com.pokedexapp.presentation.pokecatalog.PokeCatalogViewModel
-import souza.home.com.pokedexapp.presentation.pokedetail.DetailsGalleryAdapter
-import souza.home.com.pokedexapp.presentation.pokedetail.DetailsViewModel
-import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.about.AboutSpinnerAdapter
-import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.about.AboutViewModel
-import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.evolutionchain.EvolutionChainAdapter
-import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.evolutionchain.EvolutionChainViewModel
-import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.others.OthersAbilityAdapter
-import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.others.OthersTypeAdapter
-import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.others.OthersViewModel
-import souza.home.com.pokedexapp.presentation.pokedetail.detailsnested.stats.StatsViewModel
+import souza.home.com.pokedexapp.presentation.pokedetails.DetailsGalleryAdapter
+import souza.home.com.pokedexapp.presentation.pokedetails.DetailsViewModel
+import souza.home.com.pokedexapp.presentation.pokedetails.pokeattributes.about.AboutSpinnerAdapter
+import souza.home.com.pokedexapp.presentation.pokedetails.pokeattributes.about.AboutViewModel
+import souza.home.com.pokedexapp.presentation.pokedetails.pokeattributes.evolutionchain.EvolutionChainAdapter
+import souza.home.com.pokedexapp.presentation.pokedetails.pokeattributes.evolutionchain.EvolutionChainViewModel
+import souza.home.com.pokedexapp.presentation.pokedetails.pokeattributes.others.OthersAbilityAdapter
+import souza.home.com.pokedexapp.presentation.pokedetails.pokeattributes.others.OthersTypeAdapter
+import souza.home.com.pokedexapp.presentation.pokedetails.pokeattributes.others.OthersViewModel
+import souza.home.com.pokedexapp.presentation.pokedetails.pokeattributes.stats.StatsViewModel
 import souza.home.com.pokedexapp.presentation.search.SearchViewModel
 import souza.home.com.pokedexapp.utils.Constants
 
@@ -50,7 +70,7 @@ val pokedexModule = module {
     viewModel {
         PokeCatalogViewModel(
             get<GetPokesFromDatabase>(),
-            get<GetPokesFromApi>()
+            get<FetchPokesFromApi>()
         )
     }
 
@@ -68,7 +88,7 @@ val pokedexModule = module {
     viewModel { (chainId: Int) ->
         EvolutionChainViewModel(
             chainId,
-            get<GetEvolutionChainFromApi>(),
+            get<FetchEvolutionChainFromApi>(),
             get<GetEvolutionChainFromDatabase>()
         )
     }
@@ -76,7 +96,7 @@ val pokedexModule = module {
     viewModel { (pokeId: Int) ->
         AboutViewModel(
             pokeId,
-            get<GetVarietiesFromApi>(),
+            get<FetchVarietiesFromApi>(),
             get<GetVarietiesFromDatabase>()
         )
     }
@@ -84,7 +104,7 @@ val pokedexModule = module {
     viewModel { (pokeId: Int) ->
         StatsViewModel(
             pokeId,
-            get<GetPropertiesFromApi>(),
+            get<FetchPropertiesFromApi>(),
             get<GetPropertiesFromDatabase>()
         )
     }
@@ -92,7 +112,7 @@ val pokedexModule = module {
     viewModel { (pokeId: Int) ->
         OthersViewModel(
             pokeId,
-            get<GetPropertiesFromApi>(),
+            get<FetchPropertiesFromApi>(),
             get<GetPropertiesFromDatabase>()
         )
     }
@@ -100,9 +120,9 @@ val pokedexModule = module {
     viewModel { (pokeId: Int) ->
         DetailsViewModel(
             pokeId,
-            get<GetVarietiesFromApi>(),
+            get<FetchVarietiesFromApi>(),
             get<GetVarietiesFromDatabase>(),
-            get<GetPropertiesFromApi>(),
+            get<FetchPropertiesFromApi>(),
             get<GetPropertiesFromDatabase>()
         )
     }
@@ -111,28 +131,28 @@ val pokedexModule = module {
     factory { (dataList: MutableList<Varieties>) ->
         AboutSpinnerAdapter(
             context = get(),
-            dataList = dataList
+            pokeVariations = dataList
         )
     }
 
     factory { (dataList: MutableList<String>) ->
         EvolutionChainAdapter(
             context = get(),
-            dataList = dataList
+            evolutionChain = dataList
         )
     }
 
-    factory { (dataList: MutableList<Types>) ->
+    factory { (dataList: MutableList<TypeRoot>) ->
         OthersTypeAdapter(
             context = get(),
-            dataList = dataList
+            pokeTypes = dataList
         )
     }
 
-    factory { (dataList: MutableList<AbilitiesMain>) ->
+    factory { (dataList: MutableList<AbilitiesRoot>) ->
         OthersAbilityAdapter(
             context = get(),
-            dataList = dataList
+            pokeAbilities = dataList
         )
     }
 
@@ -145,13 +165,13 @@ val pokedexModule = module {
 
     // UseCases
     factory {
-        GetEvolutionChainFromApi(
+        FetchEvolutionChainFromApi(
             get<EvolutionRepository>()
         )
     }
 
     factory {
-        GetVarietiesFromApi(
+        FetchVarietiesFromApi(
             get<VarietiesRepository>()
         )
     }
@@ -163,7 +183,7 @@ val pokedexModule = module {
     }
 
     factory {
-        GetPropertiesFromApi(
+        FetchPropertiesFromApi(
             get<PropertiesRepository>()
         )
     }
@@ -187,7 +207,7 @@ val pokedexModule = module {
     }
 
     factory {
-        GetPokesFromApi(
+        FetchPokesFromApi(
             get<PokemonRepository>()
         )
     }

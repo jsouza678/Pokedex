@@ -1,8 +1,9 @@
 package souza.home.com.pokedexapp.data.pokedex.remote.model.variety
 
-import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
+import com.squareup.moshi.Json
 
 data class FlavorDescription(
-    var flavor_text: String = EMPTY_STRING,
-    var language: Language
+    @Json(name = "flavor_text")
+    val flavorText: String?,
+    val language: Language?
 )

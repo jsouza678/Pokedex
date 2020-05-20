@@ -7,12 +7,12 @@ import souza.home.com.pokedexapp.data.pokedex.local.entities.VarietyEntity
 import souza.home.com.pokedexapp.data.pokedex.remote.response.EvolutionChainResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.response.PokeRootResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.response.PokemonResponse
-import souza.home.com.pokedexapp.data.pokedex.remote.response.PropertyResponse
-import souza.home.com.pokedexapp.data.pokedex.remote.response.VarietiesResponse
-import souza.home.com.pokedexapp.domain.model.Poke
+import souza.home.com.pokedexapp.data.pokedex.remote.response.PropertyRootResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.response.VarietiesRootResponse
 import souza.home.com.pokedexapp.domain.model.PokeEvolutionChain
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.domain.model.PokeVariety
+import souza.home.com.pokedexapp.domain.model.Pokemon
 import souza.home.com.pokedexapp.utils.TypeConverter
 import souza.home.com.pokedexapp.utils.cropPokeUrl
 import souza.home.com.pokedexapp.utils.optimizeChain
@@ -22,76 +22,76 @@ class PokedexMapper {
 
     companion object {
 
-        fun pokemonToDatabaseModel(pokeRootProperty: PokeRootResponse): Array<PokemonEntity>? {
+        fun pokemonResponseAsDatabaseModel(pokeRootProperty: PokeRootResponse): Array<PokemonEntity>? {
             return pokeRootProperty.results?.map {
                 PokemonEntity(
                     _id = Integer.parseInt(cropPokeUrl(it._id)),
                     name = it.name) }?.toTypedArray()
         }
 
-        fun evolutionChainToDatabaseModel(evolutionChainResponse: EvolutionChainResponse): EvolutionEntity {
-            val pureEvolutionChain = optimizeChain(evolutionChainResponse)
-            val evolutionAsString = TypeConverter.fromEvolution(pureEvolutionChain)
+        fun evolutionChainResponseToDatabaseModel(evolutionChainResponse: EvolutionChainResponse): EvolutionEntity {
+            val optimizedEvolutionChain = optimizeChain(evolutionChainResponse)
+            val evolutionAsString = TypeConverter.fromEvolution(optimizedEvolutionChain)
 
             return EvolutionEntity(
                 _id = evolutionChainResponse._id,
-                evolution = evolutionAsString!!
+                evolution = evolutionAsString
             )
         }
 
-        fun variationsAsDatabase(pokeVarietiesReponse: VarietiesResponse): VarietyEntity {
-            val pokeVarietiesAsString = TypeConverter.fromVarieties(pokeVarietiesReponse.varieties)
-            val pokeDescriptionAsString = optimizeDescription(pokeVarietiesReponse.description)
-            val pokeEvolutionChainAsString = TypeConverter.fromEvolutionPath(pokeVarietiesReponse.evolution_chain)
-            val pokeColorAsString = TypeConverter.fromColor(pokeVarietiesReponse.color)
+        fun variationsResponseAsDatabaseModel(pokeVarietiesRootResponse: VarietiesRootResponse): VarietyEntity {
+            val pokeVarietiesAsString = TypeConverter.fromVarieties(pokeVarietiesRootResponse.varieties)
+            val pokeDescriptionAsString = optimizeDescription(pokeVarietiesRootResponse.description)
+            val pokeEvolutionChainAsString = TypeConverter.fromEvolutionPath(pokeVarietiesRootResponse.evolutionChain)
+            val pokeColorAsString = TypeConverter.fromColor(pokeVarietiesRootResponse.color)
 
             return VarietyEntity(
-                _poke_variety_id = Integer.parseInt(pokeVarietiesReponse._id),
+                _poke_variety_id = Integer.parseInt(pokeVarietiesRootResponse._id),
                 evolution_chain = pokeEvolutionChainAsString!!,
                 varieties = pokeVarietiesAsString!!,
                 color = pokeColorAsString!!,
                 description = pokeDescriptionAsString)
         }
 
-        fun propertiesAsDatabase(propertyResponse: PropertyResponse): PropertyEntity {
-            val abilitiesAsString = TypeConverter.fromAbilities(propertyResponse.abilities)
-            val spritesAsString = TypeConverter.fromSprites(propertyResponse.sprites)
-            val statsAsString = TypeConverter.fromStats(propertyResponse.stats)
-            val typesAsString = TypeConverter.fromTypes(propertyResponse.types)
+        fun propertiesResponseAsDatabaseModel(propertyRootResponse: PropertyRootResponse): PropertyEntity {
+            val abilitiesAsString = TypeConverter.fromAbilities(propertyRootResponse.abilities)
+            val spritesAsString = TypeConverter.fromSprites(propertyRootResponse.sprites)
+            val statsAsString = TypeConverter.fromStats(propertyRootResponse.stats)
+            val typesAsString = TypeConverter.fromTypes(propertyRootResponse.types)
 
             return PropertyEntity(
-                id = propertyResponse.id,
+                _id = propertyRootResponse.id,
                 abilities = abilitiesAsString,
-                name = propertyResponse.name,
-                height = propertyResponse.height,
+                name = propertyRootResponse.name,
+                height = propertyRootResponse.height,
                 sprites = spritesAsString,
                 stats = statsAsString,
                 types = typesAsString,
-                weight = propertyResponse.weight
+                weight = propertyRootResponse.weight
             )
         }
 
-        fun variationsAsDomain(pokeVariationsEntity: VarietyEntity): PokeVariety {
+        fun variationsEntityAsDomainModel(pokeVariationsEntity: VarietyEntity): PokeVariety {
             val pokeEvolutionPathAsObject = TypeConverter.toEvolutionPath(pokeVariationsEntity.evolution_chain)
             val pokeVarietiesAsList = TypeConverter.toVarietiesList(pokeVariationsEntity.varieties)
             val pokeColorAsObject = TypeConverter.toColor(pokeVariationsEntity.color)
 
             return PokeVariety(
-                _id = pokeVariationsEntity._poke_variety_id,
-                evolution_chain = pokeEvolutionPathAsObject!!,
+                id = pokeVariationsEntity._poke_variety_id,
+                evolutionChain = pokeEvolutionPathAsObject!!,
                 varieties = pokeVarietiesAsList!!,
                 color = pokeColorAsObject!!,
                 description = pokeVariationsEntity.description)
         }
 
-        fun propertyAsDomain(propertyEntity: PropertyEntity): PokeProperty {
+        fun propertyEntityAsDomainModel(propertyEntity: PropertyEntity): PokeProperty {
             val abilitiesAsList = TypeConverter.toAbilitiesList(propertyEntity.abilities)
             val spritesAsObject = TypeConverter.toSprites(propertyEntity.sprites)
             val statsAsList = TypeConverter.toStatsList(propertyEntity.stats)
             val typesAsList = TypeConverter.toTypesList(propertyEntity.types)
 
             return PokeProperty(
-                id = propertyEntity.id,
+                id = propertyEntity._id,
                 abilities = abilitiesAsList,
                 name = propertyEntity.name,
                 height = propertyEntity.height,
@@ -101,18 +101,18 @@ class PokedexMapper {
                 weight = propertyEntity.weight)
         }
 
-        fun pokemonAsDomain(pokemonResponse: List<PokemonResponse>?): List<Poke>? {
+        fun pokemonEntityAsDomainModel(pokemonResponse: List<PokemonResponse>?): List<Pokemon>? {
             return pokemonResponse?.map {
-                Poke(
-                    _id = Integer.parseInt(it._id),
+                Pokemon(
+                    id = Integer.parseInt(it._id),
                     name = it.name) }
         }
 
-        fun evolutionAsDomain(evolutionEntity: EvolutionEntity): PokeEvolutionChain {
+        fun evolutionEntityAsDomainModel(evolutionEntity: EvolutionEntity): PokeEvolutionChain {
             val chainAsEvolution = TypeConverter.toEvolution(evolutionEntity.evolution)
 
             return PokeEvolutionChain(
-                _id = evolutionEntity._id,
+                id = evolutionEntity._id,
                 evolution = chainAsEvolution
             )
         }

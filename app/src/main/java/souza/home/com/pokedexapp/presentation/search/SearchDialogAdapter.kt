@@ -8,17 +8,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.recycler_poke_item_view.view.*
-import souza.home.com.extensions.loadUrl
+import souza.home.com.extensions.loadImageUrl
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.domain.model.Poke
+import souza.home.com.pokedexapp.domain.model.Pokemon
 import souza.home.com.pokedexapp.utils.Constants.Companion.BASTION_POKE_IMAGE_BASE_URL
 import souza.home.com.pokedexapp.utils.Constants.Companion.DEFAULT_IMAGE_FORMAT_BASTION
 import souza.home.com.pokedexapp.utils.Constants.Companion.EMPTY_STRING
 import souza.home.com.pokedexapp.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
 
-class SearchDialogAdapter(private val pokes: MutableList<Poke>?, private val context: Context) : RecyclerView.Adapter<SearchDialogAdapter.ViewHolder>() {
+class SearchDialogAdapter(
+    private val pokemons: MutableList<Pokemon>?,
+    private val context: Context
+) : RecyclerView.Adapter<SearchDialogAdapter.ViewHolder>() {
 
-    var onItemClick: ((Poke) -> Unit)? = null
+    var onItemClick: ((Pokemon) -> Unit)? = null
     private val imageResourceUrl = BASTION_POKE_IMAGE_BASE_URL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,26 +29,26 @@ class SearchDialogAdapter(private val pokes: MutableList<Poke>?, private val con
         return ViewHolder(view)
     }
 
-    fun submitList(newData: MutableList<Poke>) {
-        if (pokes != null) {
-            if (pokes.isNotEmpty()) {
-                pokes.clear()
+    fun submitList(newData: MutableList<Pokemon>) {
+        if (pokemons != null) {
+            if (pokemons.isNotEmpty()) {
+                pokemons.clear()
             }
         }
-        pokes?.addAll(newData)
+        pokemons?.addAll(newData)
         notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
-        if (pokes != null) {
-            return pokes.size
+        if (pokemons != null) {
+            return pokemons.size
         } else {
             return 0
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        pokes?.get(position)?.let { holder.itemBind(it) }
+        pokemons?.get(position)?.let { holder.itemBind(it) }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -55,17 +58,17 @@ class SearchDialogAdapter(private val pokes: MutableList<Poke>?, private val con
         private var formattedNumber: String = EMPTY_STRING
         private var pokemonId: Int = 0
 
-        fun itemBind(pokes: Poke) {
+        fun itemBind(pokes: Pokemon) {
             pokeName.text = pokes.name
-            pokemonId = pokes._id
+            pokemonId = pokes.id
             formattedNumber = FORMAT_ID_POKE_DISPLAY.format(pokemonId)
             pokeId.text = context.resources?.getString(R.string.text_view_placeholder_hash, formattedNumber)
-            pokeImage.loadUrl("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION")
+            pokeImage.loadImageUrl("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION")
         }
 
         init {
             itemView.setOnClickListener {
-                pokes?.get(adapterPosition)?.let { item -> onItemClick?.invoke(item) }
+                pokemons?.get(adapterPosition)?.let { item -> onItemClick?.invoke(item) }
             }
         }
     }

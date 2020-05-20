@@ -8,5 +8,5 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.EVOLUTION_TABLE_NAME
 data class EvolutionEntity constructor(
     @PrimaryKey
     val _id: Int,
-    val evolution: String
+    val evolution: String?
 )

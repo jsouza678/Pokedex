@@ -3,12 +3,12 @@ package souza.home.com.pokedexapp.utils
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesMain
+import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesRoot
+import souza.home.com.pokedexapp.data.pokedex.remote.model.evolutionchain.EvolutionPath
 import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.Sprites
-import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.Stats
-import souza.home.com.pokedexapp.data.pokedex.remote.model.type.Types
+import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.StatsRoot
+import souza.home.com.pokedexapp.data.pokedex.remote.model.type.TypeRoot
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Color
-import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.EvolutionPath
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
 
 class TypeConverter {
@@ -27,10 +27,10 @@ class TypeConverter {
         }
 
         @TypeConverter
-        fun fromAbilities(pokeAbilities: MutableList<AbilitiesMain>?): String? {
+        fun fromAbilities(pokeAbilities: MutableList<AbilitiesRoot>?): String? {
             if (pokeAbilities == null) { return null }
             gson = Gson()
-            val type = object : TypeToken<MutableList<AbilitiesMain>>() {
+            val type = object : TypeToken<MutableList<AbilitiesRoot>>() {
             }.type
 
             return gson.toJson(pokeAbilities, type)
@@ -47,20 +47,20 @@ class TypeConverter {
         }
 
         @TypeConverter
-        fun fromStats(pokeStats: List<Stats>?): String? {
+        fun fromStats(pokeStats: List<StatsRoot>?): String? {
             if (pokeStats == null) { return null }
             gson = Gson()
-            val type = object : TypeToken<List<Stats>>() {
+            val type = object : TypeToken<List<StatsRoot>>() {
             }.type
 
             return gson.toJson(pokeStats, type)
         }
 
         @TypeConverter
-        fun fromTypes(pokeTypes: MutableList<Types>?): String? {
+        fun fromTypes(pokeTypes: MutableList<TypeRoot>?): String? {
             if (pokeTypes == null) { return null }
             gson = Gson()
-            val type = object : TypeToken<MutableList<Types>>() {
+            val type = object : TypeToken<MutableList<TypeRoot>>() {
             }.type
 
             return gson.toJson(pokeTypes, type)
@@ -95,7 +95,7 @@ class TypeConverter {
 
             return gson.toJson(evolutionChain, type)
         }
-        // /////////////////////
+
         @TypeConverter
         fun toVarietiesList(pokeVarieties: String?): MutableList<Varieties>? {
             if (pokeVarieties == null) { return null }
@@ -127,10 +127,10 @@ class TypeConverter {
         }
 
         @TypeConverter
-        fun toAbilitiesList(pokeAbilities: String?): MutableList<AbilitiesMain>? {
+        fun toAbilitiesList(pokeAbilities: String?): MutableList<AbilitiesRoot>? {
             if (pokeAbilities == null) { return null }
             gson = Gson()
-            val type = object : TypeToken<MutableList<AbilitiesMain>>() {
+            val type = object : TypeToken<MutableList<AbilitiesRoot>>() {
             }.type
 
             return gson.fromJson(pokeAbilities, type)
@@ -147,20 +147,20 @@ class TypeConverter {
         }
 
         @TypeConverter
-        fun toStatsList(pokeStats: String?): List<Stats>? {
+        fun toStatsList(pokeStats: String?): List<StatsRoot>? {
             if (pokeStats == null) { return null }
             gson = Gson()
-            val type = object : TypeToken<List<Stats>>() {
+            val type = object : TypeToken<List<StatsRoot>>() {
             }.type
 
             return gson.fromJson(pokeStats, type)
         }
 
         @TypeConverter
-        fun toTypesList(pokeTypes: String?): MutableList<Types>? {
+        fun toTypesList(pokeTypes: String?): MutableList<TypeRoot>? {
             if (pokeTypes == null) { return null }
             gson = Gson()
-            val type = object : TypeToken<MutableList<Types>>() {
+            val type = object : TypeToken<MutableList<TypeRoot>>() {
             }.type
 
             return gson.fromJson(pokeTypes, type)

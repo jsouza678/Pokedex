@@ -5,7 +5,7 @@ import souza.home.com.pokedexapp.R
 class ColorFormat {
     companion object {
         fun setColor(color: String?, pokeId: Int?): Int {
-            var colorV = when (color) {
+            var formattedColor = when (color) {
                 "red" -> R.color.poke_red
                 "green" -> R.color.poke_green
                 "blue" -> R.color.poke_blue
@@ -21,10 +21,10 @@ class ColorFormat {
 
             if (pokeId != null) {
                 if (pokeId > Constants.LIMIT_NORMAL_POKES) {
-                    colorV = R.color.poke_black
+                    formattedColor = R.color.poke_black
                 }
             }
-            return colorV
+            return formattedColor
         }
     }
 }

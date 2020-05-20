@@ -11,7 +11,7 @@ import souza.home.com.pokedexapp.utils.Constants.Companion.PROPERTY_TABLE_NAME
 @Dao
 interface PropertyDao {
 
-    @Query("select * from $PROPERTY_TABLE_NAME where $PROPERTY_TABLE_NAME.id = :id")
+    @Query("select * from $PROPERTY_TABLE_NAME where $PROPERTY_TABLE_NAME._id = :id")
     fun getProperty(id: Int): LiveData<PropertyEntity>?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
