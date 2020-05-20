@@ -22,7 +22,7 @@ fun ImageView.loadUrl(
 ) {
     val requestBuilder = Glide.with(context)
         .`as`(Drawable::class.java)
-        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
         .listener(object : RequestListener<Drawable> {
             override fun onLoadFailed(
                 e: GlideException?,
