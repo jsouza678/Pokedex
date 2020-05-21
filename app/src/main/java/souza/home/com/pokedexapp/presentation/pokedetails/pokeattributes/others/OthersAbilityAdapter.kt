@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import java.util.Locale
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesRoot
 
@@ -24,10 +25,12 @@ class OthersAbilityAdapter(
         this.notifyDataSetChanged()
     }
 
+    @ExperimentalStdlibApi
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val abillityItem = pokeAbilities[position]
         val rowView = inflater.inflate(R.layout.list_item_row, parent, false)
-        rowView.findViewById<TextView>(R.id.text_view_item_list).text = abillityItem.ability?.name?.capitalize()
+        rowView.findViewById<TextView>(R.id.text_view_item_list).text = abillityItem.ability?.name?.capitalize(
+            Locale.getDefault())
 
         rowView.tag = position
         return rowView

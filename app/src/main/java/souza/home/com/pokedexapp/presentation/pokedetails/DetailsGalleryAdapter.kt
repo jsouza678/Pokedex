@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.image_view_pager_item.view.*
 import souza.home.com.extensions.loadImageUrl
 import souza.home.com.pokedexapp.R
+import souza.home.com.pokedexapp.utils.Constants.Companion.ABSOLUTE_ZERO
 
 class DetailsGalleryAdapter(
     private val context: Context,
@@ -17,7 +18,7 @@ class DetailsGalleryAdapter(
 ) : PagerAdapter() {
 
     private companion object {
-        const val FIRST_POSITION = 0
+        const val FIRST_POSITION = ABSOLUTE_ZERO
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {

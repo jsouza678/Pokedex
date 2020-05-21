@@ -16,6 +16,8 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import java.util.Locale
+import kotlin.collections.ArrayList
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -48,6 +50,7 @@ class DetailsFragment(
     private lateinit var viewPagerGallery: ViewPager
     private val viewModel by viewModel<DetailsViewModel> { parametersOf(pokemonId) }
 
+    @ExperimentalStdlibApi
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
@@ -83,8 +86,9 @@ class DetailsFragment(
         toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
     }
 
+    @ExperimentalStdlibApi
     private fun setPokeAndIdText() {
-        pokeNameTextView.text = pokemonName.capitalize()
+        pokeNameTextView.text = pokemonName.capitalize(Locale.getDefault())
         val textId = FORMAT_ID_POKE_DISPLAY.format(pokemonId)
         pokeIdTextView.text = context?.resources?.getString(R.string.text_view_placeholder_hash, textId)
     }
@@ -118,7 +122,7 @@ class DetailsFragment(
             VarietiesPokedexStatus.LOADING -> {}
             VarietiesPokedexStatus.DONE -> initObserverData(viewModel, viewPager, tabs)
             VarietiesPokedexStatus.EMPTY -> initObserverData(viewModel, viewPager, tabs)
-            // In case of ERROR. Runs normally, because it has cache on some pokes.
+
             else -> {
                 initObserverData(viewModel, viewPager, tabs)
                 showError()

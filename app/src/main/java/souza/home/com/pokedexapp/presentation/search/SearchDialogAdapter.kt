@@ -40,10 +40,10 @@ class SearchDialogAdapter(
     }
 
     override fun getItemCount(): Int {
-        if (pokemons != null) {
-            return pokemons.size
+        return if (pokemons != null) {
+            pokemons.size
         } else {
-            return 0
+            0
         }
     }
 

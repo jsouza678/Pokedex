@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import java.util.Locale
 import souza.home.com.pokedexapp.R
 
 class EvolutionChainAdapter(
@@ -25,6 +26,7 @@ class EvolutionChainAdapter(
         this.notifyDataSetChanged()
     }
 
+    @ExperimentalStdlibApi
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val evolutionChainItem = evolutionChain?.get(position)
         val rowView = inflater.inflate(R.layout.list_item_row, parent, false)
@@ -32,7 +34,7 @@ class EvolutionChainAdapter(
 
         if (evolutionChain != null) {
             if (evolutionChain.size > 0) {
-                itemTextView.text = evolutionChainItem?.capitalize()
+                itemTextView.text = evolutionChainItem?.capitalize(Locale.getDefault())
             }
         }
         rowView.tag = position

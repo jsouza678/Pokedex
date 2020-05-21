@@ -47,9 +47,9 @@ class PokedexMapper {
 
             return VarietyEntity(
                 _poke_variety_id = Integer.parseInt(pokeVarietiesRootResponse._id),
-                evolution_chain = pokeEvolutionChainAsString!!,
-                varieties = pokeVarietiesAsString!!,
-                color = pokeColorAsString!!,
+                evolution_chain = pokeEvolutionChainAsString,
+                varieties = pokeVarietiesAsString,
+                color = pokeColorAsString,
                 description = pokeDescriptionAsString)
         }
 
@@ -78,9 +78,9 @@ class PokedexMapper {
 
             return PokeVariety(
                 id = pokeVariationsEntity._poke_variety_id,
-                evolutionChain = pokeEvolutionPathAsObject!!,
-                varieties = pokeVarietiesAsList!!,
-                color = pokeColorAsObject!!,
+                evolutionChain = pokeEvolutionPathAsObject,
+                varieties = pokeVarietiesAsList,
+                color = pokeColorAsObject,
                 description = pokeVariationsEntity.description)
         }
 

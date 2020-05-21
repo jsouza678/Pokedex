@@ -32,8 +32,7 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
     private val viewModel by viewModel<AboutViewModel> { parametersOf(pokemonId) }
     private lateinit var pokeVariationsSpinner: Spinner
     private lateinit var pokeDescriptionTextView: TextView
-    private lateinit var varietiesArray: MutableList<Varieties>
-    private var pokemonsArray: MutableList<Varieties> = mutableListOf()
+    private var pokemonsArray: MutableList<Varieties>? = mutableListOf()
     private val pokemonSpinnerAdapter by inject<AboutSpinnerAdapter> { parametersOf(pokemonsArray) }
     private lateinit var constraintDefault: ConstraintLayout
     private lateinit var constraintEvolution: ConstraintLayout
@@ -50,7 +49,6 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_about, container, false)
         bindViews(view)
-        varietiesArray = mutableListOf()
 
         if (pokemonId > LIMIT_NORMAL_POKES) {
             constraintDefault.gone()
@@ -91,7 +89,7 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
             turnOnSnackbarErrorPokeSelected()
         } else {
             turnOnSnackbarLoadingPokeSelected()
-            val newPokeName = pokemonsArray[itemSelectedOnSpinner].pokemon.name
+            val newPokeName = pokemonsArray?.get(itemSelectedOnSpinner)?.pokemon?.name
             val detailsFragment = newPokeName?.let { DetailsFragment(uriEvolutionChain, it) }
 
             detailsFragment?.let {
@@ -110,7 +108,7 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
     }
 
     private fun parseEvolutionPath() {
-        urlEvolutionChain = pokemonsArray[itemSelectedOnSpinner].pokemon._id
+        urlEvolutionChain = pokemonsArray?.get(itemSelectedOnSpinner)?.pokemon?._id!!
         uriEvolutionChain = Integer.parseInt(cropPokeUrl(urlEvolutionChain))
     }
 
