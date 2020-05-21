@@ -37,7 +37,6 @@ class StatsFragment(private val pokemonId: Int) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_stats, container, false)
         bindViews(view)
         initObservers()
@@ -52,6 +51,7 @@ class StatsFragment(private val pokemonId: Int) : Fragment() {
         specialAttackProgressBar = view.findViewById(R.id.progress_bar_special_attack_stat)
         specialDefenseProgressBar = view.findViewById(R.id.progress_bar_special_defense_stat)
         speedProgressBar = view.findViewById(R.id.progress_bar_speed_stat)
+
         attackTextView = view.findViewById(R.id.text_view_poke_attack_stat)
         hpTextView = view.findViewById(R.id.text_view_poke_hp_stat)
         defenseTextView = view.findViewById(R.id.text_view_poke_defense_stat)
@@ -102,7 +102,7 @@ class StatsFragment(private val pokemonId: Int) : Fragment() {
         statsAnimator.addUpdateListener {
                 animation -> tv.text = animation.animatedValue.toString()
         }
-        statsAnimator.duration = 600 // here you set the duration of the anim
+        statsAnimator.duration = 600
         statsAnimator.start()
     }
 }

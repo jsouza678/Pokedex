@@ -41,7 +41,6 @@ class PokeCatalogFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home_pokedex, container, false)
         pokemons = mutableListOf()
         progressBar = view.findViewById(R.id.progress_bar_home)

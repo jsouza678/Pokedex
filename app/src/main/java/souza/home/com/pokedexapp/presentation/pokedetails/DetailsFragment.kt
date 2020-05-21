@@ -23,8 +23,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import souza.home.com.extensions.observeOnce
 import souza.home.com.pokedexapp.R
-import souza.home.com.pokedexapp.data.pokedex.PropertiesPokedexStatus
-import souza.home.com.pokedexapp.data.pokedex.VarietiesPokedexStatus
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.domain.model.PokeVariety
 import souza.home.com.pokedexapp.utils.ColorFormat
@@ -52,7 +50,6 @@ class DetailsFragment(
 
     @ExperimentalStdlibApi
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
         bindViews(view)
         viewPagerDetail = view.findViewById(R.id.fragment_container_details)
@@ -66,11 +63,11 @@ class DetailsFragment(
         initGalleryViewPager()
 
         if (pokemonId> LIMIT_NORMAL_POKES) { showDataEvolutionPoke(viewPagerDetail, tabsViewPagerDetail)
-        } else { bindRequestVarietiesStatus(VarietiesPokedexStatus.DONE, viewPagerDetail, tabsViewPagerDetail) }
+        } else { bindRequestVarietiesStatus(viewPagerDetail, tabsViewPagerDetail) }
 
         if (pokemonId> LIMIT_NORMAL_POKES) { showDataEvolutionPoke(viewPagerDetail, tabsViewPagerDetail)
             initObserverData(viewModel, viewPagerDetail, tabsViewPagerDetail)
-        } else { bindRequestPropertiesStatus(PropertiesPokedexStatus.DONE, viewPagerDetail, tabsViewPagerDetail) }
+        } else { bindRequestPropertiesStatus(viewPagerDetail, tabsViewPagerDetail) }
 
         return view
     }
@@ -114,36 +111,17 @@ class DetailsFragment(
     }*/
 
     private fun bindRequestVarietiesStatus(
-        varietiesPokedexStatus: VarietiesPokedexStatus,
         viewPager: ViewPager,
         tabs: TabLayout
     ) {
-        when (varietiesPokedexStatus) {
-            VarietiesPokedexStatus.LOADING -> {}
-            VarietiesPokedexStatus.DONE -> initObserverData(viewModel, viewPager, tabs)
-            VarietiesPokedexStatus.EMPTY -> initObserverData(viewModel, viewPager, tabs)
-
-            else -> {
-                initObserverData(viewModel, viewPager, tabs)
-                showError()
-            }
-        }
+        initObserverData(viewModel, viewPager, tabs)
     }
 
     private fun bindRequestPropertiesStatus(
-        propertiesPokedexStatus: PropertiesPokedexStatus,
         viewPager: ViewPager,
         tabs: TabLayout
     ) {
-        when (propertiesPokedexStatus) {
-            PropertiesPokedexStatus.LOADING -> {}
-            PropertiesPokedexStatus.DONE -> initObserverData(viewModel, viewPager, tabs)
-            PropertiesPokedexStatus.EMPTY -> showError()
-            else -> {
-                initObserverData(viewModel, viewPager, tabs)
-                showError()
-            }
-        }
+        initObserverData(viewModel, viewPager, tabs)
     }
 
     private fun initObserverData(viewModel: DetailsViewModel, viewPager: ViewPager, tabsDetails: TabLayout) {
@@ -222,7 +200,7 @@ class DetailsFragment(
     private fun animateBackground(pokeColor: Int) {
         val backgroundColorAnimator = ObjectAnimator.ofObject(
             constraintLayoutDetail,
-            "backgroundColor",
+            getString(R.string.animator_gallery_color_property),
             ArgbEvaluator(),
             context?.let { ContextCompat.getColor(it, R.color.blue_poke) },
             context?.let { ContextCompat.getColor(it, pokeColor) })

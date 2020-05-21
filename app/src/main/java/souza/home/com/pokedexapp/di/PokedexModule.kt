@@ -227,7 +227,6 @@ val pokedexModule = module {
     // Home
     factory {
         PokemonRepositoryImpl(
-            context = get(),
             pokedexService = get<PokedexService>(),
             pokemonDao = get<PokemonDao>(named(pokemonDao))
         ) as PokemonRepository
@@ -237,7 +236,6 @@ val pokedexModule = module {
     // EvolutionChain
     factory {
         EvolutionRepositoryImpl(
-            context = get(),
             pokedexService = get<PokedexService>(),
             evolutionChainDao = get<EvolutionChainDao>(named(evolutionDao))
         ) as EvolutionRepository
@@ -246,7 +244,6 @@ val pokedexModule = module {
     // Varieties
     factory {
         VarietiesRepositoryImpl(
-            context = get(),
             pokedexService = get<PokedexService>(),
             varietiesDao = get<VarietiesDao>(named(varietyDao))
         ) as VarietiesRepository
@@ -255,7 +252,6 @@ val pokedexModule = module {
     // Properties
     factory {
         PropertiesRepositoryImpl(
-            context = get(),
             pokedexService = get<PokedexService>(),
             propertyDao = get<PropertyDao>(named(propertyDao))
         ) as PropertiesRepository
@@ -264,7 +260,6 @@ val pokedexModule = module {
     // Search
     factory {
         SearchRepositoryImpl(
-            context = get(),
             pokemonDao = get<PokemonDao>(named(pokemonDao))
         ) as SearchRepository
     }
@@ -292,8 +287,9 @@ val pokedexModule = module {
         Room.databaseBuilder(
             androidContext(),
             PokemonDatabase::class.java,
-            "poke.db" // context.getString(R.string.database_name)
-        ).build()
+            "pokedex.db"
+        ).fallbackToDestructiveMigration()
+            .build()
     }
 
     // DAO

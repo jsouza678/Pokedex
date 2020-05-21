@@ -35,7 +35,6 @@ class OthersFragment(private val pokemonId: Int) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_others, container, false)
         bindViews(view)
 
@@ -116,7 +115,7 @@ class OthersFragment(private val pokemonId: Int) : Fragment() {
     }
 
     private fun showPokesInTypesDialog(list: MutableList<TypeResponse>) {
-        val pokeTypesDialog: TypesDialog = TypesDialog(list)
+        val pokeTypesDialog = TypesDialog(list)
 
         fragmentManager?.let { pokeTypesDialog.show(it, getString(R.string.fragment_tag_pokemon_in_types_dialog)) }
     }

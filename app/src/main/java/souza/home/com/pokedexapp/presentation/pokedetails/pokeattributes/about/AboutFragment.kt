@@ -46,7 +46,6 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_poke_about, container, false)
         bindViews(view)
 

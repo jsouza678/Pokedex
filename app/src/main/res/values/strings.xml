@@ -86,5 +86,6 @@
     <string name="snackbar_message_internet_back">Your internet connection is back :)</string>
     <string name="snackbar_internet_off">No internet connection, working offline</string>
     <string name="snackbar_message_end_of_the_list">You hit the end of the list.</string>
+    <string name="animator_gallery_color_property">backgroundColor</string>
 
 </resources>
