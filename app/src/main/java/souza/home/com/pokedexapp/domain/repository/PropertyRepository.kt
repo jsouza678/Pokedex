@@ -3,7 +3,7 @@ package souza.home.com.pokedexapp.domain.repository
 import androidx.lifecycle.LiveData
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 
-interface PropertiesRepository {
+interface PropertyRepository {
 
     fun getProperties(id: Int): LiveData<PokeProperty>?
 

@@ -38,7 +38,6 @@ class OthersFragment(private val pokemonId: Int) : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_poke_others, container, false)
         bindViews(view)
-
         initObservers()
 
         return view
@@ -60,9 +59,12 @@ class OthersFragment(private val pokemonId: Int) : Fragment() {
         }
     }
 
-    private fun initObserverAbilitiesDetails() {
+    private fun initObserverAbilitiesDetails(id: Int) {
         viewModel.apply {
-            this.abilityDesc.observeOnce(viewLifecycleOwner, Observer { setupAbilityDescriptionDialog(it) })
+            this.getAbilityDesc(id)?.observeOnce(viewLifecycleOwner, Observer {
+                setupAbilityDescriptionDialog(it)
+            })
+            this.abilityDesc.observe(viewLifecycleOwner, Observer { })
         }
     }
 
@@ -98,9 +100,9 @@ class OthersFragment(private val pokemonId: Int) : Fragment() {
         abilitiesListView.setOnItemClickListener { parent, view, position, id ->
             val selectedAbility = adapterAbilities.getItem(position).ability?.url
             val abilityId = selectedAbility?.let { cropAbilityUrl(it) }?.let { Integer.parseInt(it) }
-            abilityId?.let { viewModel.getAbilityDesc(it) }
+            // abilityId?.let { viewModel.getAbilityDesc(it) }
 
-            initObserverAbilitiesDetails()
+            abilityId?.let { initObserverAbilitiesDetails(it) }
         }
     }
 

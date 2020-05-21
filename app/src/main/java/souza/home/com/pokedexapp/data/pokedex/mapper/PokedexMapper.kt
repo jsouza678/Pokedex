@@ -1,14 +1,16 @@
 package souza.home.com.pokedexapp.data.pokedex.mapper
 
+import souza.home.com.pokedexapp.data.pokedex.local.entities.AbilityEntity
 import souza.home.com.pokedexapp.data.pokedex.local.entities.EvolutionEntity
 import souza.home.com.pokedexapp.data.pokedex.local.entities.PokemonEntity
 import souza.home.com.pokedexapp.data.pokedex.local.entities.PropertyEntity
 import souza.home.com.pokedexapp.data.pokedex.local.entities.VarietyEntity
+import souza.home.com.pokedexapp.data.pokedex.remote.response.AbilityRootResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.response.EvolutionChainResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.response.PokeRootResponse
-import souza.home.com.pokedexapp.data.pokedex.remote.response.PokemonResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.response.PropertyRootResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.response.VarietiesRootResponse
+import souza.home.com.pokedexapp.domain.model.PokeAbility
 import souza.home.com.pokedexapp.domain.model.PokeEvolutionChain
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.domain.model.PokeVariety
@@ -25,7 +27,7 @@ class PokedexMapper {
         fun pokemonResponseAsDatabaseModel(pokeRootProperty: PokeRootResponse): Array<PokemonEntity>? {
             return pokeRootProperty.results?.map {
                 PokemonEntity(
-                    _id = Integer.parseInt(cropPokeUrl(it._id)),
+                    _id = Integer.parseInt(cropPokeUrl(it.id)),
                     name = it.name) }?.toTypedArray()
         }
 
@@ -34,7 +36,7 @@ class PokedexMapper {
             val evolutionAsString = TypeConverter.fromEvolution(optimizedEvolutionChain)
 
             return EvolutionEntity(
-                _id = evolutionChainResponse._id,
+                _id = evolutionChainResponse.id,
                 evolution = evolutionAsString
             )
         }
@@ -46,15 +48,15 @@ class PokedexMapper {
             val pokeColorAsString = TypeConverter.fromColor(pokeVarietiesRootResponse.color)
 
             return VarietyEntity(
-                _poke_variety_id = Integer.parseInt(pokeVarietiesRootResponse._id),
+                _id = Integer.parseInt(pokeVarietiesRootResponse.id),
                 evolution_chain = pokeEvolutionChainAsString,
                 varieties = pokeVarietiesAsString,
                 color = pokeColorAsString,
                 description = pokeDescriptionAsString)
         }
 
-        fun propertiesResponseAsDatabaseModel(propertyRootResponse: PropertyRootResponse): PropertyEntity {
-            val abilitiesAsString = TypeConverter.fromAbilities(propertyRootResponse.abilities)
+        fun propertyResponseAsDatabaseModel(propertyRootResponse: PropertyRootResponse): PropertyEntity {
+            val abilitiesAsString = TypeConverter.fromAbility(propertyRootResponse.abilities)
             val spritesAsString = TypeConverter.fromSprites(propertyRootResponse.sprites)
             val statsAsString = TypeConverter.fromStats(propertyRootResponse.stats)
             val typesAsString = TypeConverter.fromTypes(propertyRootResponse.types)
@@ -71,17 +73,26 @@ class PokedexMapper {
             )
         }
 
-        fun variationsEntityAsDomainModel(pokeVariationsEntity: VarietyEntity): PokeVariety {
-            val pokeEvolutionPathAsObject = TypeConverter.toEvolutionPath(pokeVariationsEntity.evolution_chain)
-            val pokeVarietiesAsList = TypeConverter.toVarietiesList(pokeVariationsEntity.varieties)
-            val pokeColorAsObject = TypeConverter.toColor(pokeVariationsEntity.color)
+        fun abilityResponseAsDatabaseModel(abilityRootResponse: AbilityRootResponse): AbilityEntity {
+            val abilityDescriptionAsString = abilityRootResponse.effect?.get(0)?.effect
+
+            return AbilityEntity(
+                _id = abilityRootResponse.id,
+                effect = abilityDescriptionAsString
+            )
+        }
+
+        fun varietyEntityAsDomainModel(varietyEntity: VarietyEntity): PokeVariety {
+            val pokeEvolutionPathAsObject = TypeConverter.toEvolutionPath(varietyEntity.evolution_chain)
+            val pokeVarietiesAsList = TypeConverter.toVarietiesList(varietyEntity.varieties)
+            val pokeColorAsObject = TypeConverter.toColor(varietyEntity.color)
 
             return PokeVariety(
-                id = pokeVariationsEntity._poke_variety_id,
+                id = varietyEntity._id,
                 evolutionChain = pokeEvolutionPathAsObject,
                 varieties = pokeVarietiesAsList,
                 color = pokeColorAsObject,
-                description = pokeVariationsEntity.description)
+                description = varietyEntity.description)
         }
 
         fun propertyEntityAsDomainModel(propertyEntity: PropertyEntity): PokeProperty {
@@ -101,10 +112,10 @@ class PokedexMapper {
                 weight = propertyEntity.weight)
         }
 
-        fun pokemonEntityAsDomainModel(pokemonResponse: List<PokemonResponse>?): List<Pokemon>? {
-            return pokemonResponse?.map {
+        fun pokemonEntityAsDomainModel(pokemonEntity: List<PokemonEntity>?): List<Pokemon>? {
+            return pokemonEntity?.map {
                 Pokemon(
-                    id = Integer.parseInt(it._id),
+                    id = it._id,
                     name = it.name) }
         }
 
@@ -116,5 +127,10 @@ class PokedexMapper {
                 evolution = chainAsEvolution
             )
         }
+
+        fun abilityAsDomainModel(abilityEntity: AbilityEntity): PokeAbility {
+            return PokeAbility(
+                id = abilityEntity._id,
+                description = abilityEntity.effect) }
     }
 }

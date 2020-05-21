@@ -24,10 +24,9 @@ class TypesDialog(private val pokeTypes: MutableList<TypeResponse>) : DialogFrag
     private lateinit var textViewResult: TextView
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val view: View =
-            activity?.layoutInflater?.inflate(R.layout.fragment_poke_types_dialog, null)!!
+        val view: View = View.inflate(context, R.layout.fragment_poke_types_dialog, null)
         val listSize =
-            getString(R.string.pokemon_found_search_1) + pokeTypes?.size + getString(R.string.pokemon_found_search_2)
+            getString(R.string.pokemon_found_search_1) + pokeTypes.size + getString(R.string.pokemon_found_search_2)
         val typesAlertDialog = AlertDialog.Builder(activity)
         recyclerView = view.findViewById(R.id.recycler_view_poke_search_dialog)
         buttonDismiss = view.findViewById(R.id.button_dismiss_custom_search_dialog)
@@ -61,7 +60,7 @@ class TypesDialog(private val pokeTypes: MutableList<TypeResponse>) : DialogFrag
 
     private fun setTransitionToPokeDetails() {
         adapter.onItemClick = {
-            val urlChain = it.pokemon!!._id
+            val urlChain = it.pokemon!!.id
             val pokeName = it.pokemon.name
             val pokePath = Integer.parseInt(cropPokeUrl(urlChain))
             val details = pokeName?.let { it1 -> DetailsFragment(pokePath, it1) }

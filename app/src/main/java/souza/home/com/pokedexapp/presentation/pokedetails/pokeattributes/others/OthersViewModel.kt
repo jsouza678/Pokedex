@@ -9,14 +9,17 @@ import kotlinx.coroutines.launch
 import souza.home.com.pokedexapp.data.pokedex.remote.PokeApi
 import souza.home.com.pokedexapp.data.pokedex.remote.response.TypeResponse
 import souza.home.com.pokedexapp.domain.model.PokeProperty
+import souza.home.com.pokedexapp.domain.usecase.FetchAbilityFromApi
 import souza.home.com.pokedexapp.domain.usecase.FetchPropertiesFromApi
+import souza.home.com.pokedexapp.domain.usecase.GetAbilityFromDatabase
 import souza.home.com.pokedexapp.domain.usecase.GetPropertiesFromDatabase
-import souza.home.com.pokedexapp.utils.Constants.Companion.ABSOLUTE_ZERO
 
 class OthersViewModel(
     private val pokemonId: Int,
     private val fetchPropertiesFromApi: FetchPropertiesFromApi,
-    private val getPropertiesFromDatabase: GetPropertiesFromDatabase
+    private val getPropertiesFromDatabase: GetPropertiesFromDatabase,
+    private val fetchAbilityFromApi: FetchAbilityFromApi,
+    private val getAbilityFromDatabase: GetAbilityFromDatabase
 ) : ViewModel() {
 
     private var _abilityDesc = MutableLiveData<String>()
@@ -40,8 +43,10 @@ class OthersViewModel(
         }
     }
 
-    fun getAbilityDesc(abilityId: Int) {
+    fun getAbilityDesc(abilityId: Int): LiveData<String>? {
         getAbilityData(abilityId)
+
+        return getAbilityFromDatabase(abilityId)
     }
 
     fun getPokesInTypes(typeId: Int) {
@@ -50,9 +55,7 @@ class OthersViewModel(
 
     private fun getAbilityData(abilityId: Int) {
         viewModelScope.launch(coroutineScope) {
-            val getAbilityDeferred = PokeApi.retrofitService.fetchAbilityDataAsync(abilityId)
-            val abilityData = getAbilityDeferred.await()
-            _abilityDesc.postValue(abilityData.effect?.get(ABSOLUTE_ZERO)?.effect)
+            fetchAbilityFromApi(abilityId)
         }
     }
 

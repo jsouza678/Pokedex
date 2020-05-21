@@ -6,19 +6,18 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import souza.home.com.pokedexapp.data.pokedex.local.entities.PokemonEntity
-import souza.home.com.pokedexapp.data.pokedex.remote.response.PokemonResponse
 import souza.home.com.pokedexapp.utils.Constants.Companion.POKE_TABLE_NAME
 
 @Dao
 interface PokemonDao {
     @Query("SELECT * FROM $POKE_TABLE_NAME")
-    fun getPokes(): LiveData<List<PokemonResponse>?>
+    fun getPokes(): LiveData<List<PokemonEntity>?>
 
     @Query("SELECT * FROM $POKE_TABLE_NAME WHERE $POKE_TABLE_NAME._id LIKE :pokeId||'%'")
-    fun getPokesById(pokeId: Int): LiveData<List<PokemonResponse>?>
+    fun getPokesById(pokeId: Int): LiveData<List<PokemonEntity>?>
 
     @Query("SELECT * FROM $POKE_TABLE_NAME WHERE $POKE_TABLE_NAME.name LIKE :pokeName||'%'")
-    fun getPokesByName(pokeName: String): LiveData<List<PokemonResponse>?>
+    fun getPokesByName(pokeName: String): LiveData<List<PokemonEntity>?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg pokes: PokemonEntity)

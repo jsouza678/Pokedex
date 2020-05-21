@@ -4,9 +4,8 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class AbilitiesRootResponse(
-    @Json(name = "id")
-    val _id: Int,
+data class AbilityRootResponse(
+    val id: Int,
     @Json(name = "effect_entries")
     val effect: MutableList<AbilitiesDescription>?
 )

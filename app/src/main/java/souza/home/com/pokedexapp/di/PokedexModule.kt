@@ -12,11 +12,13 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import souza.home.com.connectivity.Connectivity
+import souza.home.com.pokedexapp.data.pokedex.AbilityRepositoryImpl
 import souza.home.com.pokedexapp.data.pokedex.EvolutionRepositoryImpl
 import souza.home.com.pokedexapp.data.pokedex.PokemonRepositoryImpl
-import souza.home.com.pokedexapp.data.pokedex.PropertiesRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.PropertyRepositoryImpl
 import souza.home.com.pokedexapp.data.pokedex.SearchRepositoryImpl
-import souza.home.com.pokedexapp.data.pokedex.VarietiesRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.VarietyRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.local.AbilityDao
 import souza.home.com.pokedexapp.data.pokedex.local.EvolutionChainDao
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDao
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
@@ -26,15 +28,18 @@ import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
 import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesRoot
 import souza.home.com.pokedexapp.data.pokedex.remote.model.type.TypeRoot
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
+import souza.home.com.pokedexapp.domain.repository.AbilityRepository
 import souza.home.com.pokedexapp.domain.repository.EvolutionRepository
 import souza.home.com.pokedexapp.domain.repository.PokemonRepository
-import souza.home.com.pokedexapp.domain.repository.PropertiesRepository
+import souza.home.com.pokedexapp.domain.repository.PropertyRepository
 import souza.home.com.pokedexapp.domain.repository.SearchRepository
-import souza.home.com.pokedexapp.domain.repository.VarietiesRepository
+import souza.home.com.pokedexapp.domain.repository.VarietyRepository
+import souza.home.com.pokedexapp.domain.usecase.FetchAbilityFromApi
 import souza.home.com.pokedexapp.domain.usecase.FetchEvolutionChainFromApi
 import souza.home.com.pokedexapp.domain.usecase.FetchPokesFromApi
 import souza.home.com.pokedexapp.domain.usecase.FetchPropertiesFromApi
 import souza.home.com.pokedexapp.domain.usecase.FetchVarietiesFromApi
+import souza.home.com.pokedexapp.domain.usecase.GetAbilityFromDatabase
 import souza.home.com.pokedexapp.domain.usecase.GetEvolutionChainFromDatabase
 import souza.home.com.pokedexapp.domain.usecase.GetPokesFromDatabase
 import souza.home.com.pokedexapp.domain.usecase.GetPropertiesFromDatabase
@@ -61,6 +66,7 @@ private const val pokemonDatabase = "POKEMON_DATABASE"
 private const val pokemonDao = "POKEMON_DAO"
 private const val varietyDao = "VARIETY_DAO"
 private const val propertyDao = "PROPERTY_DAO"
+private const val abilityDao = "ABILITY_DAO"
 private const val evolutionDao = "EVOLUTION_CHAIN_DAO"
 
 @Suppress("RemoveExplicitTypeArguments", "USELESS_CAST")
@@ -113,7 +119,9 @@ val pokedexModule = module {
         OthersViewModel(
             pokeId,
             get<FetchPropertiesFromApi>(),
-            get<GetPropertiesFromDatabase>()
+            get<GetPropertiesFromDatabase>(),
+            get<FetchAbilityFromApi>(),
+            get<GetAbilityFromDatabase>()
         )
     }
 
@@ -171,26 +179,38 @@ val pokedexModule = module {
     }
 
     factory {
+        FetchAbilityFromApi(
+            get<AbilityRepository>()
+        )
+    }
+
+    factory {
+        GetAbilityFromDatabase(
+            get<AbilityRepository>()
+        )
+    }
+
+    factory {
         FetchVarietiesFromApi(
-            get<VarietiesRepository>()
+            get<VarietyRepository>()
         )
     }
 
     factory {
         GetVarietiesFromDatabase(
-            get<VarietiesRepository>()
+            get<VarietyRepository>()
         )
     }
 
     factory {
         FetchPropertiesFromApi(
-            get<PropertiesRepository>()
+            get<PropertyRepository>()
         )
     }
 
     factory {
         GetPropertiesFromDatabase(
-            get<PropertiesRepository>()
+            get<PropertyRepository>()
         )
     }
 
@@ -243,18 +263,18 @@ val pokedexModule = module {
 
     // Varieties
     factory {
-        VarietiesRepositoryImpl(
+        VarietyRepositoryImpl(
             pokedexService = get<PokedexService>(),
             varietiesDao = get<VarietiesDao>(named(varietyDao))
-        ) as VarietiesRepository
+        ) as VarietyRepository
     }
 
     // Properties
     factory {
-        PropertiesRepositoryImpl(
+        PropertyRepositoryImpl(
             pokedexService = get<PokedexService>(),
             propertyDao = get<PropertyDao>(named(propertyDao))
-        ) as PropertiesRepository
+        ) as PropertyRepository
     }
 
     // Search
@@ -265,10 +285,18 @@ val pokedexModule = module {
     }
 
     // Connectivity
-    factory() {
+    factory {
         Connectivity(
             androidApplication()
         )
+    }
+
+    // Ability
+    factory {
+        AbilityRepositoryImpl(
+            pokedexService = get<PokedexService>(),
+            abilityDao = get<AbilityDao>(named(abilityDao))
+        ) as AbilityRepository
     }
 
     // Retrofit
@@ -299,6 +327,10 @@ val pokedexModule = module {
 
     single(named(evolutionDao)) {
         get<PokemonDatabase>(named(pokemonDatabase)).evolutionChainDao
+    }
+
+    single(named(abilityDao)) {
+        get<PokemonDatabase>(named(pokemonDatabase)).abilityDao
     }
 
     single(named(propertyDao)) {

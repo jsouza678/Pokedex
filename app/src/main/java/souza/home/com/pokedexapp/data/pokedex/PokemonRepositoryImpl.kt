@@ -24,8 +24,10 @@ class PokemonRepositoryImpl(
 
     override suspend fun refreshPokes(page: Int) {
         withContext(Dispatchers.IO) {
-            val pokeList = pokedexService.fetchPokesAsync(page).await()
-            PokedexMapper.pokemonResponseAsDatabaseModel(pokeList)?.let { pokemonDao.insertAll(*it) }
+            try {
+                val pokeList = pokedexService.fetchPokesAsync(page).await()
+                PokedexMapper.pokemonResponseAsDatabaseModel(pokeList)?.let { pokemonDao.insertAll(*it) }
+            } catch (e: Exception) { }
         }
     }
 }

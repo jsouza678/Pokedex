@@ -107,7 +107,7 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
     }
 
     private fun parseEvolutionPath() {
-        urlEvolutionChain = pokemonsArray?.get(itemSelectedOnSpinner)?.pokemon?._id!!
+        urlEvolutionChain = pokemonsArray?.get(itemSelectedOnSpinner)?.pokemon?.id!!
         uriEvolutionChain = Integer.parseInt(cropPokeUrl(urlEvolutionChain))
     }
 

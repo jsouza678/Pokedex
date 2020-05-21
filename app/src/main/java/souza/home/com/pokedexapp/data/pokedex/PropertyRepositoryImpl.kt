@@ -8,12 +8,12 @@ import souza.home.com.pokedexapp.data.pokedex.local.PropertyDao
 import souza.home.com.pokedexapp.data.pokedex.mapper.PokedexMapper
 import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
 import souza.home.com.pokedexapp.domain.model.PokeProperty
-import souza.home.com.pokedexapp.domain.repository.PropertiesRepository
+import souza.home.com.pokedexapp.domain.repository.PropertyRepository
 
-class PropertiesRepositoryImpl(
+class PropertyRepositoryImpl(
     private val pokedexService: PokedexService,
     private val propertyDao: PropertyDao
-) : PropertiesRepository {
+) : PropertyRepository {
 
     override fun getProperties(id: Int): LiveData<PokeProperty>? {
         return propertyDao.getProperty(id)?.let {
@@ -25,8 +25,10 @@ class PropertiesRepositoryImpl(
 
     override suspend fun refreshProperties(id: Int) {
         withContext(Dispatchers.IO) {
-            val pokeProperty = pokedexService.fetchPokeStatsAsync(id).await()
-            propertyDao.insertAll(PokedexMapper.propertiesResponseAsDatabaseModel(pokeProperty))
+            try {
+                val pokeProperty = pokedexService.fetchPokeStatsAsync(id).await()
+                propertyDao.insertAll(PokedexMapper.propertyResponseAsDatabaseModel(pokeProperty))
+            } catch (e: Exception) {}
         }
     }
 }

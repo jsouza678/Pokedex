@@ -27,7 +27,7 @@ class TypeConverter {
         }
 
         @TypeConverter
-        fun fromAbilities(pokeAbilities: MutableList<AbilitiesRoot>?): String? {
+        fun fromAbility(pokeAbilities: MutableList<AbilitiesRoot>?): String? {
             if (pokeAbilities == null) { return null }
             gson = Gson()
             val type = object : TypeToken<MutableList<AbilitiesRoot>>() {

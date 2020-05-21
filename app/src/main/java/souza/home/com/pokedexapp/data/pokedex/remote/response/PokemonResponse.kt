@@ -6,6 +6,6 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class PokemonResponse(
     @Json(name = "url")
-    val _id: String,
+    val id: String,
     val name: String?
 )

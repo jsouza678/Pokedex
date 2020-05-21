@@ -12,6 +12,7 @@ class Constants {
         const val VARIETY_TABLE_NAME = "variety"
         const val EVOLUTION_TABLE_NAME = "evolution"
         const val PROPERTY_TABLE_NAME = "property"
+        const val ABILITY_TABLE_NAME = "ability"
         const val TIME_BACKGROUND_ANIMATION: Long = 400
         const val LIMIT_NORMAL_POKES = 807
         const val LANGUAGE_DESCRIPTIONS = "en"

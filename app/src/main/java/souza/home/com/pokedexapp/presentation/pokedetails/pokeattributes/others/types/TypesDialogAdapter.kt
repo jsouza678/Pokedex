@@ -57,7 +57,7 @@ class TypesDialogAdapter(
 
         fun itemBind(pokes: TypeResponse) {
             pokeNameTextView.text = pokes.pokemon?.name
-            pokemonId = cropPokeUrl(pokes.pokemon?._id!!)
+            pokemonId = cropPokeUrl(pokes.pokemon?.id!!)
             formattedNumber = FORMAT_ID_POKE_DISPLAY.format(Integer.parseInt(pokemonId))
             pokeIdTextView.text = context.resources.getString(R.string.text_view_placeholder_hash, formattedNumber)
             pokeImageImageView.loadImageUrl("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION")

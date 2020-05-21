@@ -9,7 +9,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import souza.home.com.pokedexapp.data.pokedex.remote.response.AbilitiesRootResponse
+import souza.home.com.pokedexapp.data.pokedex.remote.response.AbilityRootResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.response.EvolutionChainResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.response.PokeRootResponse
 import souza.home.com.pokedexapp.data.pokedex.remote.response.PropertyRootResponse
@@ -40,7 +40,7 @@ interface PokedexService {
 
     @GET("ability/{id}")
     fun fetchAbilityDataAsync(@Path("id") id: Int):
-            Deferred<AbilitiesRootResponse> // Non-Chached
+            Deferred<AbilityRootResponse> // Chached
 }
 
 private val moshi = Moshi.Builder()

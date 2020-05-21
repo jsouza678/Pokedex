@@ -1,7 +1,7 @@
 package souza.home.com.pokedexapp.domain.usecase
 
-import souza.home.com.pokedexapp.domain.repository.PropertiesRepository
+import souza.home.com.pokedexapp.domain.repository.PropertyRepository
 
-class FetchPropertiesFromApi(private val propertiesRepository: PropertiesRepository) {
-    suspend operator fun invoke(id: Int) = propertiesRepository.refreshProperties(id)
+class FetchPropertiesFromApi(private val propertyRepository: PropertyRepository) {
+    suspend operator fun invoke(id: Int) = propertyRepository.refreshProperties(id)
 }

@@ -1,7 +1,7 @@
 package souza.home.com.pokedexapp.domain.usecase
 
-import souza.home.com.pokedexapp.domain.repository.VarietiesRepository
+import souza.home.com.pokedexapp.domain.repository.VarietyRepository
 
-class FetchVarietiesFromApi(private val varietiesRepository: VarietiesRepository) {
-    suspend operator fun invoke(id: Int) = varietiesRepository.refreshVarieties(id)
+class FetchVarietiesFromApi(private val varietyRepository: VarietyRepository) {
+    suspend operator fun invoke(id: Int) = varietyRepository.refreshVarieties(id)
 }

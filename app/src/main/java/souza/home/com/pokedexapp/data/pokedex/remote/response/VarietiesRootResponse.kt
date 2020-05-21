@@ -9,8 +9,7 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
 
 @JsonClass(generateAdapter = true)
 data class VarietiesRootResponse(
-    @Json(name = "id")
-    val _id: String,
+    val id: String,
     @Json(name = "evolution_chain")
     val evolutionChain: EvolutionPath?,
     val varieties: MutableList<Varieties>?,
