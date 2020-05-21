@@ -17,12 +17,14 @@ import souza.home.com.pokedexapp.data.pokedex.EvolutionRepositoryImpl
 import souza.home.com.pokedexapp.data.pokedex.PokemonRepositoryImpl
 import souza.home.com.pokedexapp.data.pokedex.PropertyRepositoryImpl
 import souza.home.com.pokedexapp.data.pokedex.SearchRepositoryImpl
+import souza.home.com.pokedexapp.data.pokedex.TypeRepositoryImpl
 import souza.home.com.pokedexapp.data.pokedex.VarietyRepositoryImpl
 import souza.home.com.pokedexapp.data.pokedex.local.AbilityDao
 import souza.home.com.pokedexapp.data.pokedex.local.EvolutionChainDao
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDao
 import souza.home.com.pokedexapp.data.pokedex.local.PokemonDatabase
 import souza.home.com.pokedexapp.data.pokedex.local.PropertyDao
+import souza.home.com.pokedexapp.data.pokedex.local.TypeDao
 import souza.home.com.pokedexapp.data.pokedex.local.VarietiesDao
 import souza.home.com.pokedexapp.data.pokedex.remote.PokedexService
 import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesRoot
@@ -33,15 +35,18 @@ import souza.home.com.pokedexapp.domain.repository.EvolutionRepository
 import souza.home.com.pokedexapp.domain.repository.PokemonRepository
 import souza.home.com.pokedexapp.domain.repository.PropertyRepository
 import souza.home.com.pokedexapp.domain.repository.SearchRepository
+import souza.home.com.pokedexapp.domain.repository.TypeRepository
 import souza.home.com.pokedexapp.domain.repository.VarietyRepository
 import souza.home.com.pokedexapp.domain.usecase.FetchAbilityFromApi
 import souza.home.com.pokedexapp.domain.usecase.FetchEvolutionChainFromApi
 import souza.home.com.pokedexapp.domain.usecase.FetchPokesFromApi
+import souza.home.com.pokedexapp.domain.usecase.FetchPokesInTypesFromApi
 import souza.home.com.pokedexapp.domain.usecase.FetchPropertiesFromApi
 import souza.home.com.pokedexapp.domain.usecase.FetchVarietiesFromApi
 import souza.home.com.pokedexapp.domain.usecase.GetAbilityFromDatabase
 import souza.home.com.pokedexapp.domain.usecase.GetEvolutionChainFromDatabase
 import souza.home.com.pokedexapp.domain.usecase.GetPokesFromDatabase
+import souza.home.com.pokedexapp.domain.usecase.GetPokesInTypesFromDatabase
 import souza.home.com.pokedexapp.domain.usecase.GetPropertiesFromDatabase
 import souza.home.com.pokedexapp.domain.usecase.GetVarietiesFromDatabase
 import souza.home.com.pokedexapp.domain.usecase.SearchPokesById
@@ -67,6 +72,7 @@ private const val pokemonDao = "POKEMON_DAO"
 private const val varietyDao = "VARIETY_DAO"
 private const val propertyDao = "PROPERTY_DAO"
 private const val abilityDao = "ABILITY_DAO"
+private const val typeDao = "TYPE_DAO"
 private const val evolutionDao = "EVOLUTION_CHAIN_DAO"
 
 @Suppress("RemoveExplicitTypeArguments", "USELESS_CAST")
@@ -121,7 +127,9 @@ val pokedexModule = module {
             get<FetchPropertiesFromApi>(),
             get<GetPropertiesFromDatabase>(),
             get<FetchAbilityFromApi>(),
-            get<GetAbilityFromDatabase>()
+            get<GetAbilityFromDatabase>(),
+            get<FetchPokesInTypesFromApi>(),
+            get<GetPokesInTypesFromDatabase>()
         )
     }
 
@@ -203,8 +211,20 @@ val pokedexModule = module {
     }
 
     factory {
+        GetPokesInTypesFromDatabase(
+            get<TypeRepository>()
+        )
+    }
+
+    factory {
         FetchPropertiesFromApi(
             get<PropertyRepository>()
+        )
+    }
+
+    factory {
+        FetchPokesInTypesFromApi(
+            get<TypeRepository>()
         )
     }
 
@@ -277,6 +297,22 @@ val pokedexModule = module {
         ) as PropertyRepository
     }
 
+    // Ability
+    factory {
+        AbilityRepositoryImpl(
+            pokedexService = get<PokedexService>(),
+            abilityDao = get<AbilityDao>(named(abilityDao))
+        ) as AbilityRepository
+    }
+
+    // Properties
+    factory {
+        TypeRepositoryImpl(
+            pokedexService = get<PokedexService>(),
+            typeDao = get<TypeDao>(named(typeDao))
+        ) as TypeRepository
+    }
+
     // Search
     factory {
         SearchRepositoryImpl(
@@ -289,14 +325,6 @@ val pokedexModule = module {
         Connectivity(
             androidApplication()
         )
-    }
-
-    // Ability
-    factory {
-        AbilityRepositoryImpl(
-            pokedexService = get<PokedexService>(),
-            abilityDao = get<AbilityDao>(named(abilityDao))
-        ) as AbilityRepository
     }
 
     // Retrofit
@@ -331,6 +359,10 @@ val pokedexModule = module {
 
     single(named(abilityDao)) {
         get<PokemonDatabase>(named(pokemonDatabase)).abilityDao
+    }
+
+    single(named(typeDao)) {
+        get<PokemonDatabase>(named(pokemonDatabase)).typeDao
     }
 
     single(named(propertyDao)) {

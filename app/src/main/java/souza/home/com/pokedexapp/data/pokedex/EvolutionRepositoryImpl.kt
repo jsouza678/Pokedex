@@ -25,8 +25,10 @@ class EvolutionRepositoryImpl(
 
     override suspend fun refreshEvolutionChain(id: Int) {
         withContext(Dispatchers.IO) {
-            val pokeEvolution = pokedexService.fetchEvolutionChainAsync(id).await()
-            evolutionChainDao.insertAll(PokedexMapper.evolutionChainResponseToDatabaseModel(pokeEvolution))
+            try {
+                val pokeEvolution = pokedexService.fetchEvolutionChainAsync(id).await()
+                evolutionChainDao.insertAll(PokedexMapper.evolutionChainResponseToDatabaseModel(pokeEvolution))
+            } catch (e: Exception) {}
         }
     }
 }

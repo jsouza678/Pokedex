@@ -10,6 +10,7 @@ import souza.home.com.pokedexapp.data.pokedex.remote.model.stat.StatsRoot
 import souza.home.com.pokedexapp.data.pokedex.remote.model.type.TypeRoot
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Color
 import souza.home.com.pokedexapp.data.pokedex.remote.model.variety.Varieties
+import souza.home.com.pokedexapp.data.pokedex.remote.response.TypeResponse
 
 class TypeConverter {
 
@@ -64,6 +65,16 @@ class TypeConverter {
             }.type
 
             return gson.toJson(pokeTypes, type)
+        }
+
+        @TypeConverter
+        fun fromTypesResponse(pokeTypesResponse: MutableList<TypeResponse>?): String? {
+            if (pokeTypesResponse == null) { return null }
+            gson = Gson()
+            val type = object : TypeToken<MutableList<TypeResponse>>() {
+            }.type
+
+            return gson.toJson(pokeTypesResponse, type)
         }
 
         @TypeConverter
@@ -164,6 +175,16 @@ class TypeConverter {
             }.type
 
             return gson.fromJson(pokeTypes, type)
+        }
+
+        @TypeConverter
+        fun toTypesResponseList(pokeTypesResponse: String?): MutableList<TypeResponse>? {
+            if (pokeTypesResponse == null) { return null }
+            gson = Gson()
+            val type = object : TypeToken<MutableList<TypeResponse>>() {
+            }.type
+
+            return gson.fromJson(pokeTypesResponse, type)
         }
 
         @TypeConverter

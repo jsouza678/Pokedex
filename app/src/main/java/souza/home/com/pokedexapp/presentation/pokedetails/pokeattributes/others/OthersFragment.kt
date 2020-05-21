@@ -61,16 +61,13 @@ class OthersFragment(private val pokemonId: Int) : Fragment() {
 
     private fun initObserverAbilitiesDetails(id: Int) {
         viewModel.apply {
-            this.getAbilityDesc(id)?.observeOnce(viewLifecycleOwner, Observer {
-                setupAbilityDescriptionDialog(it)
-            })
-            this.abilityDesc.observe(viewLifecycleOwner, Observer { })
+            this.getAbilityDesc(id)?.observeOnce(viewLifecycleOwner, Observer { setupAbilityDescriptionDialog(it) })
         }
     }
 
-    private fun initObserverPokeInTypes() {
+    private fun initObserverPokeInTypes(id: Int) {
         viewModel.apply {
-            this.pokeTypes.observeOnce(viewLifecycleOwner, Observer { showPokesInTypesDialog(it) })
+            this.getPokesInTypes(id)?.observeOnce(viewLifecycleOwner, Observer { showPokesInTypesDialog(it.pokesInTypes!!) })
         }
     }
 
@@ -89,9 +86,8 @@ class OthersFragment(private val pokemonId: Int) : Fragment() {
         typesListView.setOnItemClickListener { parent, view, position, id ->
             val selectedType = adapterTypes.getItem(position).type?.url
             val typeId = selectedType?.let { cropTypeUrl(it) }?.let { Integer.parseInt(it) }
-            selectedType?.let { typeId?.let { idType -> viewModel.getPokesInTypes(idType) } }
 
-            initObserverPokeInTypes()
+            typeId?.let { initObserverPokeInTypes(it) }
         }
     }
 
@@ -100,7 +96,6 @@ class OthersFragment(private val pokemonId: Int) : Fragment() {
         abilitiesListView.setOnItemClickListener { parent, view, position, id ->
             val selectedAbility = adapterAbilities.getItem(position).ability?.url
             val abilityId = selectedAbility?.let { cropAbilityUrl(it) }?.let { Integer.parseInt(it) }
-            // abilityId?.let { viewModel.getAbilityDesc(it) }
 
             abilityId?.let { initObserverAbilitiesDetails(it) }
         }

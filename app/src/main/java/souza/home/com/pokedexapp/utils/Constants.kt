@@ -10,6 +10,7 @@ class Constants {
         const val POKE_TABLE_NAME = "pokemon"
         const val POKE_LIMIT = 20
         const val VARIETY_TABLE_NAME = "variety"
+        const val TYPE_TABLE_NAME = "type"
         const val EVOLUTION_TABLE_NAME = "evolution"
         const val PROPERTY_TABLE_NAME = "property"
         const val ABILITY_TABLE_NAME = "ability"

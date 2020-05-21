@@ -40,7 +40,7 @@ interface PokedexService {
 
     @GET("ability/{id}")
     fun fetchAbilityDataAsync(@Path("id") id: Int):
-            Deferred<AbilityRootResponse> // Chached
+            Deferred<AbilityRootResponse> // Cached
 }
 
 private val moshi = Moshi.Builder()
