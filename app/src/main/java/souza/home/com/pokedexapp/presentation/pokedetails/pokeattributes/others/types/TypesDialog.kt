@@ -24,21 +24,21 @@ class TypesDialog(private val pokeTypes: MutableList<TypeResponse>) : DialogFrag
     private lateinit var textViewResult: TextView
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val view: View = activity?.layoutInflater?.inflate(R.layout.fragment_poke_types_dialog, null)!!
-
+        val view: View =
+            activity?.layoutInflater?.inflate(R.layout.fragment_poke_types_dialog, null)!!
+        val listSize =
+            getString(R.string.pokemon_found_search_1) + pokeTypes?.size + getString(R.string.pokemon_found_search_2)
+        val typesAlertDialog = AlertDialog.Builder(activity)
         recyclerView = view.findViewById(R.id.recycler_view_poke_search_dialog)
         buttonDismiss = view.findViewById(R.id.button_dismiss_custom_search_dialog)
         textViewResult = view.findViewById(R.id.text_view_label_search_dialog)
         adapter = TypesDialogAdapter(pokeTypes, view.context)
-
-        val typesAlertDialog = AlertDialog.Builder(activity)
-        typesAlertDialog.setView(view)
         setupRecyclerView()
         setupDismissButtonOnClick()
         setTransitionToPokeDetails()
-        val listSize = getString(R.string.pokemon_found_search_1) + pokeTypes.size + getString(R.string.pokemon_found_search_2)
         textViewResult.text = listSize
 
+        typesAlertDialog.setView(view)
         return typesAlertDialog.create()
     }
 
@@ -61,13 +61,14 @@ class TypesDialog(private val pokeTypes: MutableList<TypeResponse>) : DialogFrag
 
     private fun setTransitionToPokeDetails() {
         adapter.onItemClick = {
-            val urlChain = it.pokemon._id
+            val urlChain = it.pokemon!!._id
             val pokeName = it.pokemon.name
             val pokePath = Integer.parseInt(cropPokeUrl(urlChain))
             val details = pokeName?.let { it1 -> DetailsFragment(pokePath, it1) }
 
             details?.let { it1 ->
-                fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_home_activity,
+                fragmentManager?.beginTransaction()?.replace(
+                    R.id.nav_host_fragment_home_activity,
                     it1
                 )?.commit()
             }

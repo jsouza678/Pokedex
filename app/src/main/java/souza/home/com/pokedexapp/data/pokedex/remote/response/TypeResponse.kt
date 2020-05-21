@@ -4,5 +4,5 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class TypeResponse(
-    val pokemon: PokemonResponse
+    val pokemon: PokemonResponse?
 )

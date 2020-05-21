@@ -11,6 +11,7 @@ import souza.home.com.pokedexapp.data.pokedex.remote.response.TypeResponse
 import souza.home.com.pokedexapp.domain.model.PokeProperty
 import souza.home.com.pokedexapp.domain.usecase.FetchPropertiesFromApi
 import souza.home.com.pokedexapp.domain.usecase.GetPropertiesFromDatabase
+import souza.home.com.pokedexapp.utils.Constants.Companion.ABSOLUTE_ZERO
 
 class OthersViewModel(
     private val pokemonId: Int,
@@ -18,12 +19,6 @@ class OthersViewModel(
     private val getPropertiesFromDatabase: GetPropertiesFromDatabase
 ) : ViewModel() {
 
-    private val _internetStatus = MutableLiveData<Boolean>()
-    val internetStatus: LiveData<Boolean>
-        get() = _internetStatus
-    private var _statusAb = MutableLiveData<AbilityPokedexStatus>()
-    val statusAb: LiveData<AbilityPokedexStatus>
-        get() = _statusAb
     private var _abilityDesc = MutableLiveData<String>()
     val abilityDesc: LiveData<String>
         get() = _abilityDesc
@@ -36,11 +31,10 @@ class OthersViewModel(
     fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = getPropertiesFromDatabase(pokemonId)
 
     init {
-        _pokeTypes.value = mutableListOf()
-        getOtherProperties(pokemonId)
+        getProperties(pokemonId)
     }
 
-    private fun getOtherProperties(pokemon: Int) {
+    private fun getProperties(pokemon: Int) {
         viewModelScope.launch(coroutineScope) {
             fetchPropertiesFromApi(pokemon)
         }
@@ -55,39 +49,18 @@ class OthersViewModel(
     }
 
     private fun getAbilityData(abilityId: Int) {
-        _statusAb.value = AbilityPokedexStatus.LOADING
-
         viewModelScope.launch(coroutineScope) {
             val getAbilityDeferred = PokeApi.retrofitService.fetchAbilityDataAsync(abilityId)
-
-            try {
-                val abilityData = getAbilityDeferred.await()
-
-                _abilityDesc.postValue(abilityData.effect?.get(0)?.effect)
-
-                _statusAb.postValue(AbilityPokedexStatus.DONE)
-            } catch (t: Throwable) {
-                _statusAb.postValue(AbilityPokedexStatus.ERROR)
-            }
+            val abilityData = getAbilityDeferred.await()
+            _abilityDesc.postValue(abilityData.effect?.get(ABSOLUTE_ZERO)?.effect)
         }
     }
 
     private fun getPokesFromTypes(typeId: Int) {
-
-        _statusAb.value = AbilityPokedexStatus.LOADING
-
         viewModelScope.launch(coroutineScope) {
             val getTypesDeferred = PokeApi.retrofitService.fetchTypeDataAsync(typeId)
-
-            try {
-                val typesData = getTypesDeferred.await()
-                _pokeTypes.postValue(typesData.pokemon)
-                _statusAb.postValue(AbilityPokedexStatus.DONE)
-            } catch (t: Throwable) {
-                _statusAb.postValue(AbilityPokedexStatus.ERROR)
-            }
+            val typesData = getTypesDeferred.await().pokemon
+            _pokeTypes.postValue(typesData)
         }
     }
 }
-
-enum class AbilityPokedexStatus { LOADING, ERROR, DONE }

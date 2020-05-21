@@ -11,6 +11,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import souza.home.com.extensions.observeOnce
 import souza.home.com.pokedexapp.R
 import souza.home.com.pokedexapp.data.pokedex.remote.model.ability.AbilitiesRoot
 import souza.home.com.pokedexapp.data.pokedex.remote.model.type.TypeRoot
@@ -38,9 +39,7 @@ class OthersFragment(private val pokemonId: Int) : Fragment() {
         val view = inflater.inflate(R.layout.fragment_poke_others, container, false)
         bindViews(view)
 
-        setupTypesList()
-        setupAbilitiesList()
-        initObserver()
+        initObservers()
 
         return view
     }
@@ -50,54 +49,45 @@ class OthersFragment(private val pokemonId: Int) : Fragment() {
         abilitiesListView = view.findViewById(R.id.list_view_abilities_others)
     }
 
-    private fun initObserver() {
+    private fun initObservers() {
         viewModel.apply {
-            this.updatePropertiesOnViewLiveData()?.observe(viewLifecycleOwner, Observer {
-                if (it != null) {
-                    it.types?.let { itemTypes -> adapterTypes.submitList(itemTypes) }
-                    it.abilities?.let { itemAbilities -> adapterAbilities.submitList(itemAbilities) }
-                }
+            this.updatePropertiesOnViewLiveData()?.observeOnce(viewLifecycleOwner, Observer {
+                it.types?.let { itemTypes -> adapterTypes.submitList(itemTypes)
+                    setupTypesList() }
+                it.abilities?.let { itemAbilities -> adapterAbilities.submitList(itemAbilities)
+                    setupAbilitiesList() }
             })
         }
     }
 
     private fun initObserverAbilitiesDetails() {
         viewModel.apply {
-            this.statusAb.observe(viewLifecycleOwner, Observer {
-                if (it == AbilityPokedexStatus.DONE) {
-                    setupDialog(viewModel.abilityDesc.value)
-                    openDialog()
-                    this.statusAb.removeObservers(viewLifecycleOwner)
-                }
-            })
+            this.abilityDesc.observeOnce(viewLifecycleOwner, Observer { setupAbilityDescriptionDialog(it) })
         }
     }
 
     private fun initObserverPokeInTypes() {
         viewModel.apply {
-            this.statusAb.observe(viewLifecycleOwner, Observer {
-                if (it == AbilityPokedexStatus.DONE) {
-                    showPokesInTypesDialog(viewModel.pokeTypes.value!!)
-                    this.statusAb.removeObservers(viewLifecycleOwner) }
-            })
+            this.pokeTypes.observeOnce(viewLifecycleOwner, Observer { showPokesInTypesDialog(it) })
         }
     }
 
-    private fun setupDialog(message: String?) {
+    private fun setupAbilityDescriptionDialog(message: String?) {
         materialAlertDialogBuilder = MaterialAlertDialogBuilder(context).setTitle(getString(R.string.ability_description_dialog_pokemon_in_types)).setPositiveButton(getString(R.string.button_text_dismiss), null)
         materialAlertDialogBuilder.setMessage(message)
+        openAbilityDescriptionDialog()
     }
 
-    private fun openDialog() {
+    private fun openAbilityDescriptionDialog() {
         materialAlertDialogBuilder.show()
     }
 
     private fun setupTypesList() {
         typesListView.adapter = adapterTypes
         typesListView.setOnItemClickListener { parent, view, position, id ->
-            val elementId = adapterTypes.getItem(position).type?.url // The item that was clicked
-            val typeId = elementId?.let { cropTypeUrl(it) }?.let { Integer.parseInt(it) }
-            elementId?.let { typeId?.let { idType -> viewModel.getPokesInTypes(idType) } }
+            val selectedType = adapterTypes.getItem(position).type?.url
+            val typeId = selectedType?.let { cropTypeUrl(it) }?.let { Integer.parseInt(it) }
+            selectedType?.let { typeId?.let { idType -> viewModel.getPokesInTypes(idType) } }
 
             initObserverPokeInTypes()
         }
@@ -106,8 +96,8 @@ class OthersFragment(private val pokemonId: Int) : Fragment() {
     private fun setupAbilitiesList() {
         abilitiesListView.adapter = adapterAbilities
         abilitiesListView.setOnItemClickListener { parent, view, position, id ->
-            val chosenPokemonId = adapterAbilities.getItem(position).ability?.url // The item that was clicked
-            val abilityId = chosenPokemonId?.let { cropAbilityUrl(it) }?.let { Integer.parseInt(it) }
+            val selectedAbility = adapterAbilities.getItem(position).ability?.url
+            val abilityId = selectedAbility?.let { cropAbilityUrl(it) }?.let { Integer.parseInt(it) }
             abilityId?.let { viewModel.getAbilityDesc(it) }
 
             initObserverAbilitiesDetails()
@@ -115,8 +105,7 @@ class OthersFragment(private val pokemonId: Int) : Fragment() {
     }
 
     private fun showPokesInTypesDialog(list: MutableList<TypeResponse>) {
-        val pokeTypesDialog = TypesDialog(list)
-
+        val pokeTypesDialog = list.let { TypesDialog(it) }
         fragmentManager?.let { pokeTypesDialog.show(it, getString(R.string.fragment_tag_pokemon_in_types_dialog)) }
     }
 }
