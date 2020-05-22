@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/tab_text_color"
+    tools:context="com.souza.search.presentation.SearchDialog">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_area_search_dialog"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="@dimen/material_margin_16"
+        android:paddingStart="@dimen/material_margin_16"
+        android:paddingEnd="@dimen/material_margin_16"
+        app:layout_constraintEnd_toStartOf="@id/search_button_search_dialog"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_edit_text_search_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/type_your_search_here_hint"
+            android:inputType="textEmailAddress"
+            android:maxLength="25"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/search_button_search_dialog"
+        android:layout_width="@dimen/button_search_dialog_fragment"
+        android:layout_height="@dimen/button_search_dialog_fragment"
+        android:layout_marginStart="@dimen/material_margin_8"
+        android:layout_marginTop="@dimen/material_margin_16"
+        android:layout_marginEnd="@dimen/material_margin_24"
+        android:layout_marginBottom="@dimen/material_margin_16"
+        android:background="@drawable/icon_search"
+        android:clickable="false"
+        android:contentDescription="@string/content_description_image_button_search"
+        android:focusable="auto"
+        app:layout_constraintBottom_toBottomOf="@id/input_area_search_dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/input_area_search_dialog"
+        app:layout_constraintTop_toTopOf="@id/input_area_search_dialog" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/material_card_view_search_dialog"
+        style="@style/ShapeAppearanceOverlay_card_custom_corners"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/material_margin_8"
+        android:layout_marginTop="@dimen/material_margin_8"
+        android:layout_marginEnd="@dimen/material_margin_8"
+        android:layout_marginBottom="@dimen/material_margin_8"
+        app:cardCornerRadius="@dimen/default_corner_radius_card_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_area_search_dialog">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_layout_error_search_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recycler_view_container_height_pokes_in_types"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/text_view_error_search_dialog"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/material_margin_16"
+                android:layout_marginTop="@dimen/material_margin_32"
+                android:layout_marginEnd="@dimen/material_margin_16"
+                android:text="@string/error_message_search_dialog"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image_view_error_poke_search_dialog"
+                android:layout_width="@dimen/poke_sad_no_result_search"
+                android:layout_height="@dimen/poke_sad_no_result_search"
+                android:layout_marginStart="@dimen/material_margin_16"
+                android:layout_marginEnd="@dimen/material_margin_16"
+                android:layout_marginBottom="@dimen/material_margin_32"
+                android:contentDescription="@string/error_image_view_search_dialog"
+                android:src="@drawable/poke_crying_not_expected"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_error_search_dialog" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_layout_default_search_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recycler_view_container_height_pokes_in_types"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/text_view_label_search_dialog"
+                style="@style/dialog_pokes_in_search_text"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/material_margin_16"
+                android:layout_marginTop="@dimen/material_margin_16"
+                android:layout_marginEnd="@dimen/material_margin_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/text_view_custom_alert_dialog_types_body" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_poke_search_dialog"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/recycler_view_height_search_dialog"
+                android:layout_marginStart="@dimen/material_margin_16"
+                android:layout_marginTop="@dimen/material_margin_8"
+                android:layout_marginEnd="@dimen/material_margin_16"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_label_search_dialog"
+                app:spanCount="2"
+                tools:listitem="@layout/recycler_poke_item_view">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <Button
+                android:id="@+id/button_dismiss_custom_search_dialog"
+                style="@style/button_default"
+                android:text="@string/button_text_dismiss"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recycler_view_poke_search_dialog" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

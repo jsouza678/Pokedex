@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/blue_poke">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/material_margin_8"
+        android:layout_marginTop="@dimen/material_margin_8"
+        android:layout_marginEnd="@dimen/material_margin_8"
+        android:layout_marginBottom="@dimen/material_margin_8"
+        style="@style/ShapeAppearanceOverlay_card_custom_corners"
+        app:cardCornerRadius="@dimen/default_corner_radius_card_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/recycler_view_container_height_pokes_in_types"
+            tools:context=".presentation.search.SearchDialog">
+
+            <TextView
+                android:id="@+id/text_view_label_search_dialog"
+                style="@style/dialog_pokes_in_search_text"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/material_margin_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/text_view_custom_alert_dialog_types_body" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_poke_search_dialog"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/recycler_view_search_dialog"
+                android:layout_marginStart="@dimen/material_margin_16"
+                android:layout_marginTop="@dimen/material_margin_8"
+                android:layout_marginEnd="@dimen/material_margin_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_label_search_dialog"
+                tools:listitem="@layout/recycler_poke_item_view">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <Button
+                android:id="@+id/button_dismiss_custom_search_dialog"
+                style="@style/button_default"
+                android:layout_width="120dp"
+                android:layout_height="@dimen/button_dismiss_types_dialog_height"
+                android:text="@string/button_text_dismiss"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recycler_view_poke_search_dialog" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,6 +35,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation project (':home')
+    implementation project (':pokecatalog')
+    implementation project (':pokedetail')
+    implementation project (':search')
+    implementation project (':shared-components')
+
     // Uncategorized
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.core:core-ktx:$core_ktx_version"
