@@ -1,6 +1,5 @@
 package com.souza.pokedetail.data.pokedex.remote.response
 
-import com.souza.pokedetail.data.pokedex.remote.response.AbilitiesDescription
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.souza.connectivity.Connectivity
@@ -63,7 +64,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun openSplashFragment() {
-        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_home_activity, splashScreenFragment).commit()
+        changeFragment(splashScreenFragment)
     }
 
     private fun closeSplashFragment() {
@@ -93,10 +94,17 @@ class HomeActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun changeFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.nav_host_fragment_home_activity, fragment)
+            .commit()
+    }
+
     private fun setupButtonDiscoverPokes() {
         buttonDiscoverNewPokes.setOnClickListener {
             constraintLayoutHome.gone()
-            supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_home_activity, homeFragment).commit()
+            changeFragment(homeFragment)
             frameLayoutFragmentHost.visible()
         }
     }

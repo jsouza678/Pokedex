@@ -20,17 +20,17 @@ import com.souza.extensions.observeOnce
 import com.souza.pokedetail.R
 import com.souza.pokedetail.domain.model.PokeProperty
 import com.souza.pokedetail.domain.model.PokeVariety
-import java.util.Locale
-import kotlin.collections.ArrayList
-import org.koin.android.ext.android.inject
-import org.koin.android.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 import com.souza.pokedetail.utils.ColorFormat
 import com.souza.pokedetail.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
 import com.souza.pokedetail.utils.Constants.Companion.LIMIT_NORMAL_POKES
 import com.souza.pokedetail.utils.Constants.Companion.OFFSCREEN_DEFAULT_VIEW_PAGER
 import com.souza.pokedetail.utils.Constants.Companion.TIME_BACKGROUND_ANIMATION
 import com.souza.pokedetail.utils.cropPokeUrl
+import java.util.Locale
+import kotlin.collections.ArrayList
+import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class DetailsFragment(
     private val pokemonId: Int,

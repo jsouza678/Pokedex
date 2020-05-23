@@ -1,5 +1,6 @@
 package souza.home.com.pokecatalog.presentation.pokecatalog
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,13 +17,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.souza.connectivity.Connectivity
 import com.souza.extensions.gone
 import com.souza.extensions.visible
+import com.souza.pokedetail.presentation.pokedetails.DetailsActivity
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import souza.home.com.pokecatalog.R
 import souza.home.com.pokecatalog.domain.model.Pokemon
 import souza.home.com.pokecatalog.utils.Constants.Companion.ABSOLUTE_ZERO
 import souza.home.com.pokecatalog.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
-import com.souza.pokedetail.presentation.pokedetails.DetailsFragment
 
 class PokeCatalogFragment : Fragment() {
 
@@ -112,13 +113,11 @@ class PokeCatalogFragment : Fragment() {
 
             val pokeId = it.id
             val pokeName = it.name
-            val details = pokeName?.let { pokemonName -> DetailsFragment(pokeId, pokemonName) }
 
-            /*details?.let { pokemonName ->
-                fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_home_activity,
-                    pokemonName
-                )?.addToBackStack(null)?.commit()
-            }*/
+            val intent = Intent(activity, DetailsActivity::class.java)
+            intent.putExtra("pokeId", pokeId)
+            intent.putExtra("pokeName", pokeName)
+            activity?.startActivity(intent)
         }
     }
 

@@ -9,9 +9,9 @@ import android.widget.TextView
 import com.souza.pokedetail.R
 import com.souza.pokedetail.data.pokedex.remote.model.variety.Varieties
 import com.souza.pokedetail.data.pokedex.remote.response.PokemonResponse
-import java.util.Locale
 import com.souza.pokedetail.utils.Constants.Companion.ABSOLUTE_ZERO
 import com.souza.pokedetail.utils.Constants.Companion.EMPTY_STRING
+import java.util.Locale
 
 class AboutSpinnerAdapter(
     private val context: Context,

@@ -16,7 +16,6 @@ class PokedexMapper {
             }?.toTypedArray()
         }
 
-
         fun pokemonEntityAsDomainModel(pokemonEntity: List<souza.home.com.pokecatalog.data.pokedex.local.entities.PokemonEntity>?): List<souza.home.com.pokecatalog.domain.model.Pokemon>? {
             return pokemonEntity?.map {
                 souza.home.com.pokecatalog.domain.model.Pokemon(

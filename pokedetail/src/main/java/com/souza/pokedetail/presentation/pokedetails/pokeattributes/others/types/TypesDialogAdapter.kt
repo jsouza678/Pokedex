@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.souza.extensions.loadImageUrl
 import com.souza.pokedetail.R
 import com.souza.pokedetail.data.pokedex.remote.response.TypeResponse
-import kotlinx.android.synthetic.main.recycler_poke_item_view.view.*
 import com.souza.pokedetail.utils.Constants.Companion.BASTION_POKE_IMAGE_BASE_URL
 import com.souza.pokedetail.utils.Constants.Companion.DEFAULT_IMAGE_FORMAT_BASTION
 import com.souza.pokedetail.utils.Constants.Companion.EMPTY_STRING
 import com.souza.pokedetail.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
 import com.souza.pokedetail.utils.cropPokeUrl
+import kotlinx.android.synthetic.main.recycler_poke_item_view.view.*
 
 class TypesDialogAdapter(
     private val pokeTypes: MutableList<TypeResponse>?,

@@ -1,7 +1,6 @@
 package souza.home.com.pokecatalog.utils
 
 import souza.home.com.pokecatalog.R
-import souza.home.com.pokecatalog.utils.Constants
 
 class ColorFormat {
     companion object {

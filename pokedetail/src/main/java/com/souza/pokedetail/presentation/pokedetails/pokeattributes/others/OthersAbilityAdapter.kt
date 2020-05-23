@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.souza.pokedetail.R
-import java.util.Locale
 import com.souza.pokedetail.data.pokedex.remote.model.ability.AbilitiesRoot
+import java.util.Locale
 
 class OthersAbilityAdapter(
     private val context: Context,

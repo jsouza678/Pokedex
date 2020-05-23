@@ -1,6 +1,10 @@
 package com.souza.pokedetail.data.pokedex.remote
 
-import com.souza.pokedetail.data.pokedex.remote.response.*
+import com.souza.pokedetail.data.pokedex.remote.response.AbilityRootResponse
+import com.souza.pokedetail.data.pokedex.remote.response.EvolutionChainResponse
+import com.souza.pokedetail.data.pokedex.remote.response.PropertyRootResponse
+import com.souza.pokedetail.data.pokedex.remote.response.TypesRootResponse
+import com.souza.pokedetail.data.pokedex.remote.response.VarietiesRootResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path

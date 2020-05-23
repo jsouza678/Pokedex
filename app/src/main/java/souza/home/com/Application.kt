@@ -2,6 +2,9 @@ package souza.home.com
 
 import android.app.Application
 import com.souza.home.di.homeModule
+import com.souza.pokedetail.di.pokeDetailModule
+import com.souza.search.di.searchModule
+import com.souza.shared_components.di.sharedModule
 import org.koin.android.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.logger.AndroidLogger
@@ -9,9 +12,6 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.EmptyLogger
 import org.koin.core.logger.Logger
 import souza.home.com.pokecatalog.di.pokeCatalogModule
-import com.souza.pokedetail.di.pokeDetailModule
-import com.souza.search.di.searchModule
-import com.souza.shared_components.di.sharedModule
 
 class Application : Application() {
 

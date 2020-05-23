@@ -2,10 +2,10 @@ package com.souza.search.data.pokedex
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import souza.home.com.pokecatalog.data.pokedex.local.PokemonDao
-import souza.home.com.pokecatalog.domain.model.Pokemon
 import com.souza.search.data.mapper.PokedexMapper
 import com.souza.search.domain.repository.SearchRepository
+import souza.home.com.pokecatalog.data.pokedex.local.PokemonDao
+import souza.home.com.pokecatalog.domain.model.Pokemon
 
 class SearchRepositoryImpl(
     private val pokemonDao: PokemonDao

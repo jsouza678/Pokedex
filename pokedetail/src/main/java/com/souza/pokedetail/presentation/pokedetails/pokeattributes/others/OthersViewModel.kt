@@ -6,7 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.souza.pokedetail.domain.model.PokeProperty
 import com.souza.pokedetail.domain.model.PokeType
-import com.souza.pokedetail.domain.usecase.*
+import com.souza.pokedetail.domain.usecase.FetchAbilityFromApi
+import com.souza.pokedetail.domain.usecase.FetchPokesInTypesFromApi
+import com.souza.pokedetail.domain.usecase.FetchPropertiesFromApi
+import com.souza.pokedetail.domain.usecase.GetAbilityFromDatabase
+import com.souza.pokedetail.domain.usecase.GetPokesInTypesFromDatabase
+import com.souza.pokedetail.domain.usecase.GetPropertiesFromDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

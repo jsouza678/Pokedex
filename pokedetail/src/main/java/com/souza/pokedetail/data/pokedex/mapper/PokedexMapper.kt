@@ -1,9 +1,20 @@
 package com.souza.pokedetail.data.pokedex.mapper
 
-import com.souza.pokedetail.data.pokedex.local.entities.*
-import com.souza.pokedetail.data.pokedex.remote.response.*
+import com.souza.pokedetail.data.pokedex.local.entities.AbilityEntity
+import com.souza.pokedetail.data.pokedex.local.entities.EvolutionEntity
+import com.souza.pokedetail.data.pokedex.local.entities.PropertyEntity
+import com.souza.pokedetail.data.pokedex.local.entities.TypeEntity
+import com.souza.pokedetail.data.pokedex.local.entities.VarietyEntity
+import com.souza.pokedetail.data.pokedex.remote.response.AbilityRootResponse
+import com.souza.pokedetail.data.pokedex.remote.response.EvolutionChainResponse
+import com.souza.pokedetail.data.pokedex.remote.response.PropertyRootResponse
+import com.souza.pokedetail.data.pokedex.remote.response.TypesRootResponse
+import com.souza.pokedetail.data.pokedex.remote.response.VarietiesRootResponse
 import com.souza.pokedetail.domain.model.PokeAbility
-import com.souza.pokedetail.domain.model.*
+import com.souza.pokedetail.domain.model.PokeEvolutionChain
+import com.souza.pokedetail.domain.model.PokeProperty
+import com.souza.pokedetail.domain.model.PokeType
+import com.souza.pokedetail.domain.model.PokeVariety
 import com.souza.pokedetail.utils.TypeConverter
 import com.souza.pokedetail.utils.optimizeChain
 import com.souza.pokedetail.utils.optimizeDescription

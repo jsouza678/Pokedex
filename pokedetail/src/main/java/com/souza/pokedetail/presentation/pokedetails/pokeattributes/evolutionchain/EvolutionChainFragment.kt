@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.souza.extensions.observeOnce
 import com.souza.pokedetail.R
-import com.souza.pokedetail.presentation.pokedetails.pokeattributes.evolutionchain.EvolutionChainAdapter
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf

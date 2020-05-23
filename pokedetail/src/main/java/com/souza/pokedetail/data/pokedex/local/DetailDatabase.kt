@@ -2,7 +2,11 @@ package com.souza.pokedetail.data.pokedex.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.souza.pokedetail.data.pokedex.local.entities.*
+import com.souza.pokedetail.data.pokedex.local.entities.AbilityEntity
+import com.souza.pokedetail.data.pokedex.local.entities.EvolutionEntity
+import com.souza.pokedetail.data.pokedex.local.entities.PropertyEntity
+import com.souza.pokedetail.data.pokedex.local.entities.TypeEntity
+import com.souza.pokedetail.data.pokedex.local.entities.VarietyEntity
 
 @Database(entities = [
     VarietyEntity::class,

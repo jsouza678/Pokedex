@@ -18,14 +18,14 @@ import com.souza.extensions.observeOnce
 import com.souza.extensions.visible
 import com.souza.pokedetail.R
 import com.souza.pokedetail.data.pokedex.remote.model.variety.Varieties
-import org.koin.android.ext.android.inject
-import org.koin.android.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 import com.souza.pokedetail.presentation.pokedetails.DetailsFragment
 import com.souza.pokedetail.utils.Constants.Companion.ABSOLUTE_ZERO
 import com.souza.pokedetail.utils.Constants.Companion.EMPTY_STRING
 import com.souza.pokedetail.utils.Constants.Companion.LIMIT_NORMAL_POKES
 import com.souza.pokedetail.utils.cropPokeUrl
+import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class AboutFragment(private val pokemonId: Int) : Fragment() {
 
@@ -91,10 +91,10 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
             val newPokeName = pokemonsArray?.get(itemSelectedOnSpinner)?.pokemon?.name
             val detailsFragment = newPokeName?.let { DetailsFragment(uriEvolutionChain, it) }
 
-            /*detailsFragment?.let {
+            detailsFragment?.let {
                 fragmentManager?.beginTransaction()
-                    ?.replace(R.id.nav_host_fragment_home_activity, it)?.commit()
-            }*/
+                    ?.replace(R.id.nav_host_fragment_details_activity, it)?.commit()
+            }
         }
     }
 

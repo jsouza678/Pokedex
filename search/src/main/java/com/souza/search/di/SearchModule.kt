@@ -1,12 +1,12 @@
 package com.souza.search.di
 
-import org.koin.android.viewmodel.dsl.viewModel
-import org.koin.core.qualifier.named
-import org.koin.dsl.module
 import com.souza.search.data.pokedex.SearchRepositoryImpl
 import com.souza.search.domain.repository.SearchRepository
 import com.souza.search.domain.usecase.SearchPokesById
 import com.souza.search.domain.usecase.SearchPokesByName
+import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 import souza.home.com.pokecatalog.data.pokedex.local.PokemonDao
 import souza.home.com.pokedexapp.presentation.search.SearchViewModel
 
@@ -24,7 +24,7 @@ val searchModule = module {
     }
 
     // Adapter
-    //TODO put adapter from home
+    // TODO put adapter from home
 
     // UseCases
 
@@ -46,5 +46,4 @@ val searchModule = module {
             pokemonDao = get<PokemonDao>(named(pokemonDao))
         ) as SearchRepository
     }
-
 }

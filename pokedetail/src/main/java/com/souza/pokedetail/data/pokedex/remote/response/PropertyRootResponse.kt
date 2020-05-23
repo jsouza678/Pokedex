@@ -1,11 +1,11 @@
 package com.souza.pokedetail.data.pokedex.remote.response
 
-import com.squareup.moshi.JsonClass
 import com.souza.pokedetail.data.pokedex.remote.model.ability.AbilitiesRoot
 import com.souza.pokedetail.data.pokedex.remote.model.stat.Sprites
 import com.souza.pokedetail.data.pokedex.remote.model.stat.StatsRoot
 import com.souza.pokedetail.data.pokedex.remote.model.type.TypeRoot
 import com.souza.pokedetail.utils.Constants.Companion.EMPTY_STRING
+import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class PropertyRootResponse(

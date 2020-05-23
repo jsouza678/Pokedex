@@ -10,15 +10,15 @@ import androidx.lifecycle.Observer
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.souza.extensions.observeOnce
 import com.souza.pokedetail.R
-import org.koin.android.ext.android.inject
-import org.koin.android.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 import com.souza.pokedetail.data.pokedex.remote.model.ability.AbilitiesRoot
 import com.souza.pokedetail.data.pokedex.remote.model.type.TypeRoot
 import com.souza.pokedetail.data.pokedex.remote.response.TypeResponse
 import com.souza.pokedetail.presentation.pokedetails.pokeattributes.others.types.TypesDialog
 import com.souza.pokedetail.utils.cropAbilityUrl
 import com.souza.pokedetail.utils.cropTypeUrl
+import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class OthersFragment(private val pokemonId: Int) : Fragment() {
 

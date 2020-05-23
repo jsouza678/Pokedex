@@ -13,23 +13,20 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.souza.extensions.gone
 import com.souza.extensions.observeOnce
 import com.souza.extensions.visible
+import com.souza.pokedetail.presentation.pokedetails.DetailsFragment
 import com.souza.search.R
-import org.koin.android.viewmodel.ext.android.viewModel
-import souza.home.com.pokecatalog.domain.model.Pokemon
-import souza.home.com.pokedexapp.presentation.search.SearchDialogAdapter
-import souza.home.com.pokedexapp.presentation.search.SearchViewModel
 import com.souza.search.utils.Constants.Companion.DELAY_LONG
 import com.souza.search.utils.Constants.Companion.EMPTY_STRING
 import com.souza.search.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
 import com.souza.search.utils.isString
-import souza.home.com.pokecatalog.presentation.pokecatalog.PokeCatalogFragment
-import com.souza.pokedetail.presentation.pokedetails.DetailsFragment
+import org.koin.android.viewmodel.ext.android.viewModel
+import souza.home.com.pokecatalog.domain.model.Pokemon
+import souza.home.com.pokedexapp.presentation.search.SearchDialogAdapter
+import souza.home.com.pokedexapp.presentation.search.SearchViewModel
 
 class SearchDialog : DialogFragment() {
 
@@ -120,11 +117,11 @@ class SearchDialog : DialogFragment() {
     }
 
     private fun setupButtonDismiss() {
-      /*  buttonDismiss.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_home_activity, PokeCatalogFragment())?.commit()
-            dismiss()
-            view?.let { view -> Snackbar.make(view, getString(R.string.redirect_search_to_home_message), BaseTransientBottomBar.LENGTH_SHORT).show() }
-        }*/
+        /*  buttonDismiss.setOnClickListener {
+              fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_home_activity, PokeCatalogFragment())?.commit()
+              dismiss()
+              view?.let { view -> Snackbar.make(view, getString(R.string.redirect_search_to_home_message), BaseTransientBottomBar.LENGTH_SHORT).show() }
+          }*/
     }
 
     private fun initRecyclerview() {
@@ -162,9 +159,9 @@ class SearchDialog : DialogFragment() {
             val pokeName = it.name
             val details = pokeName?.let { it1 -> DetailsFragment(idPoke, it1) }
 
-          /*  if (details != null) {
-                fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_home_activity, details)?.addToBackStack(null)?.commit()
-            }*/
+            if (details != null) {
+                fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_details_activity, details)?.addToBackStack(null)?.commit()
+            }
             dismiss()
         }
     }
