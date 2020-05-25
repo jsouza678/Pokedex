@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -17,7 +18,6 @@
             <option value="$PROJECT_DIR$/pokecatalog" />
             <option value="$PROJECT_DIR$/pokedetail" />
             <option value="$PROJECT_DIR$/search" />
-            <option value="$PROJECT_DIR$/shared-components" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

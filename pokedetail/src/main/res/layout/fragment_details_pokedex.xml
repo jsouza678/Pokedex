@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:background="@color/blue_poke"
     android:layout_height="match_parent"
-    tools:context=".presentation.pokedetails.DetailsFragment">
+    tools:context=".presentation.pokedetails.PokeDetailsFragment">
 
     <ImageView
         android:id="@+id/image_view_sprite_background_details"

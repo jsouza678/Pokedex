@@ -1,4 +1,4 @@
-package souza.home.com.pokedexapp.presentation.search
+package com.souza.search.presentation
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -16,11 +16,11 @@ import com.souza.search.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
 import kotlinx.android.synthetic.main.recycler_poke_item_view.view.*
 
 class SearchDialogAdapter(
-    private val pokemons: MutableList<souza.home.com.pokecatalog.domain.model.Pokemon>?,
+    private val pokemons: MutableList<com.souza.pokecatalog.domain.model.Pokemon>?,
     private val context: Context
 ) : RecyclerView.Adapter<SearchDialogAdapter.ViewHolder>() {
 
-    var onItemClick: ((souza.home.com.pokecatalog.domain.model.Pokemon) -> Unit)? = null
+    var onItemClick: ((com.souza.pokecatalog.domain.model.Pokemon) -> Unit)? = null
     private val imageResourceUrl = BASTION_POKE_IMAGE_BASE_URL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,7 +28,7 @@ class SearchDialogAdapter(
         return ViewHolder(view)
     }
 
-    fun submitList(newData: MutableList<souza.home.com.pokecatalog.domain.model.Pokemon>) {
+    fun submitList(newData: MutableList<com.souza.pokecatalog.domain.model.Pokemon>) {
         if (pokemons != null) {
             if (pokemons.isNotEmpty()) {
                 pokemons.clear()
@@ -57,7 +57,7 @@ class SearchDialogAdapter(
         private var formattedNumber: String = EMPTY_STRING
         private var pokemonId: Int = 0
 
-        fun itemBind(pokes: souza.home.com.pokecatalog.domain.model.Pokemon) {
+        fun itemBind(pokes: com.souza.pokecatalog.domain.model.Pokemon) {
             pokeName.text = pokes.name
             pokemonId = pokes.id
             formattedNumber = FORMAT_ID_POKE_DISPLAY.format(pokemonId)

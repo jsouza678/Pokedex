@@ -1,14 +1,14 @@
 package com.souza.search.di
 
+import com.souza.pokecatalog.data.pokedex.local.PokemonDao
 import com.souza.search.data.pokedex.SearchRepositoryImpl
 import com.souza.search.domain.repository.SearchRepository
 import com.souza.search.domain.usecase.SearchPokesById
 import com.souza.search.domain.usecase.SearchPokesByName
+import com.souza.search.presentation.SearchViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import souza.home.com.pokecatalog.data.pokedex.local.PokemonDao
-import souza.home.com.pokedexapp.presentation.search.SearchViewModel
 
 private const val pokemonDao = "POKEMON_DAO"
 
@@ -23,11 +23,7 @@ val searchModule = module {
         )
     }
 
-    // Adapter
-    // TODO put adapter from home
-
     // UseCases
-
     factory {
         SearchPokesById(
             get<SearchRepository>()

@@ -69,6 +69,7 @@
     <string name="content_description_poke_ball_image_view_splash">Poke Ball image on splash screen</string>
     <string name="content_description_sprite_background">Sprite background used on home and details screen</string>
     <string name="content_description_image_button_search">Search logo image search dialog</string>
+    <string name="content_description_image_snorlax_home_fragment">Welcome snorlax image</string>
 
     <!-- Error Messages -->
     <string name="error_message_search_dialog">Unfortunately we have not found any pokes. \n Make your search again, or click on dismiss to discover more pokes!</string>
@@ -87,5 +88,6 @@
     <string name="snackbar_internet_off">No internet connection, working offline</string>
     <string name="snackbar_message_end_of_the_list">You hit the end of the list.</string>
     <string name="animator_gallery_color_property">backgroundColor</string>
+
 
 </resources>

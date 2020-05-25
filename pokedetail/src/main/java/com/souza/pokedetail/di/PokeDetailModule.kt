@@ -32,8 +32,9 @@ import com.souza.pokedetail.domain.usecase.GetEvolutionChainFromDatabase
 import com.souza.pokedetail.domain.usecase.GetPokesInTypesFromDatabase
 import com.souza.pokedetail.domain.usecase.GetPropertiesFromDatabase
 import com.souza.pokedetail.domain.usecase.GetVarietiesFromDatabase
-import com.souza.pokedetail.presentation.pokedetails.DetailsGalleryAdapter
-import com.souza.pokedetail.presentation.pokedetails.DetailsViewModel
+import com.souza.pokedetail.presentation.pokedetails.PokeDetailsActivityViewModel
+import com.souza.pokedetail.presentation.pokedetails.PokeDetailsGalleryAdapter
+import com.souza.pokedetail.presentation.pokedetails.PokeDetailsViewModel
 import com.souza.pokedetail.presentation.pokedetails.pokeattributes.about.AboutSpinnerAdapter
 import com.souza.pokedetail.presentation.pokedetails.pokeattributes.about.AboutViewModel
 import com.souza.pokedetail.presentation.pokedetails.pokeattributes.evolutionchain.EvolutionChainAdapter
@@ -101,13 +102,18 @@ val pokeDetailModule = module {
     }
 
     viewModel { (pokeId: Int) ->
-        DetailsViewModel(
+        PokeDetailsViewModel(
             pokeId,
             get<FetchVarietiesFromApi>(),
             get<GetVarietiesFromDatabase>(),
             get<FetchPropertiesFromApi>(),
             get<GetPropertiesFromDatabase>()
         )
+    }
+
+    // ViewModels
+    viewModel {
+        PokeDetailsActivityViewModel()
     }
 
     // Adapter
@@ -140,7 +146,7 @@ val pokeDetailModule = module {
     }
 
     factory { (dataList: MutableList<String>) ->
-        DetailsGalleryAdapter(
+        PokeDetailsGalleryAdapter(
             context = get(),
             gallery = dataList
         )
@@ -248,6 +254,7 @@ val pokeDetailModule = module {
         ) as TypeRepository
     }
 
+    // Retrofit
     single {
         getRetrofitService(
             get<Retrofit>(named(pokeDetailRetrofit))

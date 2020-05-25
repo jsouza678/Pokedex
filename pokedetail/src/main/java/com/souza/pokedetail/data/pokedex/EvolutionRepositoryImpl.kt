@@ -18,7 +18,9 @@ class EvolutionRepositoryImpl(
     override fun getEvolutionChain(id: Int): LiveData<PokeEvolutionChain>? {
         return evolutionChainDao.getEvolutionChain(id)?.let {
             Transformations.map(it) { evolutionObject ->
-                evolutionObject?.let { evolutionItem -> PokedexMapper.evolutionEntityAsDomainModel(evolutionItem) }
+                evolutionObject?.let { evolutionItem -> PokedexMapper.evolutionEntityAsDomainModel(
+                    evolutionEntity = evolutionItem
+                ) }
             }
         }
     }
@@ -27,7 +29,9 @@ class EvolutionRepositoryImpl(
         withContext(Dispatchers.IO) {
             try {
                 val pokeEvolution = pokeDetailService.fetchEvolutionChainAsync(id).await()
-                evolutionChainDao.insertAll(PokedexMapper.evolutionChainResponseToDatabaseModel(pokeEvolution))
+                evolutionChainDao.insertAll(PokedexMapper.evolutionChainResponseToDatabaseModel(
+                    evolutionChainResponse = pokeEvolution
+                ))
             } catch (e: Exception) {}
         }
     }

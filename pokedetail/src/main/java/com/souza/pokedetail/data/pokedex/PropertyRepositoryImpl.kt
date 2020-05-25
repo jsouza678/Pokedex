@@ -18,7 +18,9 @@ class PropertyRepositoryImpl(
     override fun getProperties(id: Int): LiveData<PokeProperty>? {
         return propertyDao.getProperty(id)?.let {
             Transformations.map(it) { propertyObject ->
-                propertyObject?.let { propertyItem -> PokedexMapper.propertyEntityAsDomainModel(propertyItem) }
+                propertyObject?.let { propertyItem -> PokedexMapper.propertyEntityAsDomainModel(
+                    propertyEntity = propertyItem
+                ) }
             }
         }
     }
@@ -27,7 +29,9 @@ class PropertyRepositoryImpl(
         withContext(Dispatchers.IO) {
             try {
                 val pokeProperty = pokeDetailService.fetchPokeStatsAsync(id).await()
-                propertyDao.insertAll(PokedexMapper.propertyResponseAsDatabaseModel(pokeProperty))
+                propertyDao.insertAll(PokedexMapper.propertyResponseAsDatabaseModel(
+                    propertyRootResponse = pokeProperty
+                ))
             } catch (e: Exception) {}
         }
     }

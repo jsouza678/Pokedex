@@ -9,7 +9,7 @@ apply plugin: "kotlin-kapt"
 android {
 
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "souza.home.com.pokedexapp"
@@ -18,11 +18,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
-            }
-        }
     }
     buildTypes {
         release {
@@ -39,13 +34,11 @@ dependencies {
     implementation project (':pokecatalog')
     implementation project (':pokedetail')
     implementation project (':search')
-    implementation project (':shared-components')
 
     // Uncategorized
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.core:core-ktx:$core_ktx_version"
     implementation "androidx.legacy:legacy-support-v4:$legacy_support_version"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // App Compat
     implementation "androidx.appcompat:appcompat:$app_compat_version"
@@ -94,12 +87,11 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson_version"
 
     // Tests
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation "androidx.test.ext:junit:$junit_version"
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 
     // Koin
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
-
 }

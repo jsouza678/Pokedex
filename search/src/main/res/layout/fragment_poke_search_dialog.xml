@@ -11,7 +11,7 @@
         android:id="@+id/input_area_search_dialog"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/material_margin_8"
         android:layout_marginTop="@dimen/material_margin_16"
         android:paddingStart="@dimen/material_margin_16"
         android:paddingEnd="@dimen/material_margin_16"
@@ -65,7 +65,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container_layout_error_search_dialog"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/recycler_view_container_height_pokes_in_types"
+            android:layout_height="@dimen/recycler_view_container_height_search_dialog"
             android:visibility="gone">
 
             <TextView
@@ -113,7 +113,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/text_view_custom_alert_dialog_types_body" />
+                tools:text="@string/text_view_custom_alert_dialog_search_dialog" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_poke_search_dialog"

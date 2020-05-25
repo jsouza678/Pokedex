@@ -87,5 +87,7 @@
     <string name="snackbar_internet_off">No internet connection, working offline</string>
     <string name="snackbar_message_end_of_the_list">You hit the end of the list.</string>
     <string name="animator_gallery_color_property">backgroundColor</string>
+    <string name="poke_id_extra_activity_home_to_details">pokeId</string>
+    <string name="poke_name_extra_activity_home_to_details">pokeName</string>
 
 </resources>

@@ -16,7 +16,7 @@ val homeModule = module {
 
     factory {
         Connectivity(
-            androidApplication()
+            application = androidApplication()
         )
     }
 }

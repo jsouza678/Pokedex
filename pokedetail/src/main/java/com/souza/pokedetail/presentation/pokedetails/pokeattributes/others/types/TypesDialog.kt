@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.souza.pokedetail.R
 import com.souza.pokedetail.data.pokedex.remote.response.TypeResponse
-import com.souza.pokedetail.presentation.pokedetails.DetailsFragment
+import com.souza.pokedetail.presentation.pokedetails.PokeDetailsFragment
 import com.souza.pokedetail.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
 import com.souza.pokedetail.utils.cropPokeUrl
 
@@ -63,7 +63,7 @@ class TypesDialog(private val pokeTypes: MutableList<TypeResponse>) : DialogFrag
             val urlChain = it.pokemon!!.id
             val pokeName = it.pokemon.name
             val pokePath = Integer.parseInt(cropPokeUrl(urlChain))
-            val details = pokeName?.let { it1 -> DetailsFragment(pokePath, it1) }
+            val details = pokeName?.let { it1 -> PokeDetailsFragment(pokePath, it1) }
 
             details?.let { it1 ->
                 fragmentManager?.beginTransaction()?.replace(

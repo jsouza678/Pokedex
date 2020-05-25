@@ -16,17 +16,20 @@ class VarietyRepositoryImpl(
 ) : VarietyRepository {
 
     override fun getVarieties(id: Int): LiveData<PokeVariety?>? {
-        val varieties = Transformations.map(varietiesDao.getVariety(id)) {
-            it?.let { varietiesItem -> PokedexMapper.varietyEntityAsDomainModel(varietiesItem) }
+        return Transformations.map(varietiesDao.getVariety(id)) { varietyObject ->
+            varietyObject?.let { varietyItem -> PokedexMapper.varietyEntityAsDomainModel(
+                varietyEntity = varietyItem
+            ) }
         }
-        return varieties
     }
 
     override suspend fun refreshVarieties(id: Int) {
         withContext(Dispatchers.IO) {
             try {
                 val pokeVariations = pokeDetailService.fetchVariationsAsync(id).await()
-                varietiesDao.insertAll(PokedexMapper.variationsResponseAsDatabaseModel(pokeVariations))
+                varietiesDao.insertAll(PokedexMapper.variationsResponseAsDatabaseModel(
+                    pokeVarietiesRootResponse = pokeVariations
+                ))
             } catch (e: Exception) {}
         }
     }

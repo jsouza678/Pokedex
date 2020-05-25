@@ -83,7 +83,7 @@ class OthersFragment(private val pokemonId: Int) : Fragment() {
 
     private fun setupTypesList() {
         typesListView.adapter = adapterTypes
-        typesListView.setOnItemClickListener { parent, view, position, id ->
+        typesListView.setOnItemClickListener { _, _, position, _ ->
             val selectedType = adapterTypes.getItem(position).type?.url
             val typeId = selectedType?.let { cropTypeUrl(it) }?.let { Integer.parseInt(it) }
 
@@ -93,7 +93,7 @@ class OthersFragment(private val pokemonId: Int) : Fragment() {
 
     private fun setupAbilitiesList() {
         abilitiesListView.adapter = adapterAbilities
-        abilitiesListView.setOnItemClickListener { parent, view, position, id ->
+        abilitiesListView.setOnItemClickListener { _, _, position, _ ->
             val selectedAbility = adapterAbilities.getItem(position).ability?.url
             val abilityId = selectedAbility?.let { cropAbilityUrl(it) }?.let { Integer.parseInt(it) }
 

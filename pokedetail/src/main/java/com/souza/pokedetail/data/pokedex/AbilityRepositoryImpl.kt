@@ -13,15 +13,15 @@ class AbilityRepositoryImpl(
 ) : AbilityRepository {
 
     override fun getAbilityDescription(id: Int): LiveData<String>? {
-        return Transformations.map(abilityDao.getAbility(id)) {
-            it?.let { abilityItem -> PokedexMapper.abilityAsDomainModel(abilityItem).description }
+        return Transformations.map(abilityDao.getAbility(id)) { abilityObject ->
+            abilityObject?.let { abilityItem -> PokedexMapper.abilityAsDomainModel(abilityEntity = abilityItem).description }
         }
     }
 
     override suspend fun refreshAbilities(id: Int) {
         try {
             val pokeAbility = pokeDetailService.fetchAbilityDataAsync(id).await()
-            abilityDao.insertAll(PokedexMapper.abilityResponseAsDatabaseModel(pokeAbility))
+            abilityDao.insertAll(PokedexMapper.abilityResponseAsDatabaseModel(abilityRootResponse = pokeAbility))
         } catch (e: Exception) { }
     }
 }

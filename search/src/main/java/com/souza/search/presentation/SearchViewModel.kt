@@ -1,19 +1,20 @@
-package souza.home.com.pokedexapp.presentation.search
+package com.souza.search.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.souza.pokecatalog.domain.model.Pokemon
 import com.souza.search.domain.usecase.SearchPokesById
 import com.souza.search.domain.usecase.SearchPokesByName
 
 class SearchViewModel(
-    var searchPokesByName: SearchPokesByName,
-    var searchPokesById: SearchPokesById
+    var searchPokesByNameUseCase: SearchPokesByName,
+    var searchPokesByIdUseCase: SearchPokesById
 ) : ViewModel() {
 
-    fun searchPokesById(id: Int): LiveData<List<souza.home.com.pokecatalog.domain.model.Pokemon>?> {
-        return searchPokesById(id)
+    fun searchPokesById(id: Int): LiveData<List<Pokemon>?> {
+        return searchPokesByIdUseCase(id)
     }
-    fun searchPokesByName(name: String): LiveData<List<souza.home.com.pokecatalog.domain.model.Pokemon>?> {
-        return searchPokesByName(name)
+    fun searchPokesByName(name: String): LiveData<List<Pokemon>?> {
+        return searchPokesByNameUseCase(name)
     }
 }

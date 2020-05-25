@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:backgroundTint="@color/translucent"
-    tools:context=".presentation.pokedetails.DetailsActivity">
+    tools:context=".presentation.pokedetails.PokeDetailsActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_details_activity"

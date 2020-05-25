@@ -18,7 +18,7 @@ import com.souza.extensions.observeOnce
 import com.souza.extensions.visible
 import com.souza.pokedetail.R
 import com.souza.pokedetail.data.pokedex.remote.model.variety.Varieties
-import com.souza.pokedetail.presentation.pokedetails.DetailsFragment
+import com.souza.pokedetail.presentation.pokedetails.PokeDetailsFragment
 import com.souza.pokedetail.utils.Constants.Companion.ABSOLUTE_ZERO
 import com.souza.pokedetail.utils.Constants.Companion.EMPTY_STRING
 import com.souza.pokedetail.utils.Constants.Companion.LIMIT_NORMAL_POKES
@@ -73,7 +73,7 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, p3: Long) {
                 itemSelectedOnSpinner = position - 1
                 when (position) {
-                    0 -> { } // Do Nothing. This is the hint position.
+                    ABSOLUTE_ZERO -> { } // Do Nothing. This is the hint position.
                     else -> { onSpinnerSelectedChange() }
                 }
             }
@@ -89,13 +89,20 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
         } else {
             turnOnSnackbarLoadingPokeSelected()
             val newPokeName = pokemonsArray?.get(itemSelectedOnSpinner)?.pokemon?.name
-            val detailsFragment = newPokeName?.let { DetailsFragment(uriEvolutionChain, it) }
+            val detailsFragment = newPokeName?.let { PokeDetailsFragment(
+                pokemonId = uriEvolutionChain,
+                pokemonName = it
+            ) }
 
-            detailsFragment?.let {
-                fragmentManager?.beginTransaction()
-                    ?.replace(R.id.nav_host_fragment_details_activity, it)?.commit()
-            }
+            detailsFragment?.let { changeFragment(fragment = it) }
         }
+    }
+
+    private fun changeFragment(fragment: Fragment) {
+        fragmentManager
+            ?.beginTransaction()
+            ?.replace(R.id.nav_host_fragment_details_activity, fragment)
+            ?.commit()
     }
 
     private fun turnOnSnackbarErrorPokeSelected() {
@@ -124,7 +131,7 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
 
     private fun setupOnClickPokeDescriptionDialog(message: String?) {
         pokeDescriptionTextView.setOnClickListener {
-            setupPokeDescriptionDialog(message)
+            setupPokeDescriptionDialog(message = message)
             openPokeDescriptionDialog()
         }
     }

@@ -1,8 +1,9 @@
 <manifest package="com.souza.pokedetail"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application>
-        <activity android:name=".presentation.pokedetails.DetailsActivity"
+        <activity android:name=".presentation.pokedetails.PokeDetailsActivity"
             android:theme="@style/AppTheme"/>
     </application>
 

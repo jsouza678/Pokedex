@@ -1,7 +1,7 @@
 package com.souza.search.domain.repository
 
 import androidx.lifecycle.LiveData
-import souza.home.com.pokecatalog.domain.model.Pokemon
+import com.souza.pokecatalog.domain.model.Pokemon
 
 interface SearchRepository {
 

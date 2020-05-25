@@ -2,6 +2,7 @@ package com.souza.search.presentation
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -17,16 +18,14 @@ import com.google.android.material.textfield.TextInputEditText
 import com.souza.extensions.gone
 import com.souza.extensions.observeOnce
 import com.souza.extensions.visible
-import com.souza.pokedetail.presentation.pokedetails.DetailsFragment
+import com.souza.pokecatalog.domain.model.Pokemon
+import com.souza.pokedetail.presentation.pokedetails.PokeDetailsActivity
 import com.souza.search.R
 import com.souza.search.utils.Constants.Companion.DELAY_LONG
 import com.souza.search.utils.Constants.Companion.EMPTY_STRING
 import com.souza.search.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
 import com.souza.search.utils.isString
 import org.koin.android.viewmodel.ext.android.viewModel
-import souza.home.com.pokecatalog.domain.model.Pokemon
-import souza.home.com.pokedexapp.presentation.search.SearchDialogAdapter
-import souza.home.com.pokedexapp.presentation.search.SearchViewModel
 
 class SearchDialog : DialogFragment() {
 
@@ -42,7 +41,7 @@ class SearchDialog : DialogFragment() {
     private val viewModel by viewModel<SearchViewModel>()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val view: View = activity?.layoutInflater!!.inflate(R.layout.fragment_poke_search_dialog, null)
+        val view: View = View.inflate(context, R.layout.fragment_poke_search_dialog, null)
         bindViews(view)
         pokesList = mutableListOf()
         adapter = activity?.applicationContext?.let { SearchDialogAdapter(pokesList, it) }!!
@@ -94,34 +93,36 @@ class SearchDialog : DialogFragment() {
 
     private fun initSearchById(textSearch: String, textViewResult: TextView) {
         viewModel.searchPokesById(Integer.parseInt(textSearch)).observeOnce(this@SearchDialog, Observer {
-            if (it?.isEmpty()!!) {
-                errorMessage()
-            } else {
-                adapter.submitList(it as MutableList<souza.home.com.pokecatalog.domain.model.Pokemon>)
-                val textResult = getString(R.string.pokemon_found_search_1) + it.size + getString(R.string.pokemon_found_search_3)
-                textViewResult.text = textResult
+            if (it != null) {
+                if (it.isEmpty()) {
+                    errorMessage()
+                } else {
+                    adapter.submitList(it as MutableList<Pokemon>)
+                    val textResult = getString(R.string.pokemon_found_search_1) + it.size + getString(R.string.pokemon_found_search_3)
+                    textViewResult.text = textResult
+                }
             }
         })
     }
 
     private fun initSearchByName(textSearch: String, textViewResult: TextView) {
         viewModel.searchPokesByName(textSearch).observeOnce(this@SearchDialog, Observer {
-            if (it?.isEmpty()!!) {
-                errorMessage()
-            } else {
-                adapter.submitList(it as MutableList<Pokemon>)
-                val textResult = getString(R.string.pokemon_found_search_1) + it.size + getString(R.string.pokemon_found_search_4)
-                textViewResult.text = textResult
+            if (it != null) {
+                if (it.isEmpty()) {
+                    errorMessage()
+                } else {
+                    adapter.submitList(it as MutableList<Pokemon>)
+                    val textResult = getString(R.string.pokemon_found_search_1) + it.size + getString(R.string.pokemon_found_search_4)
+                    textViewResult.text = textResult
+                }
             }
         })
     }
 
     private fun setupButtonDismiss() {
-        /*  buttonDismiss.setOnClickListener {
-              fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_home_activity, PokeCatalogFragment())?.commit()
-              dismiss()
-              view?.let { view -> Snackbar.make(view, getString(R.string.redirect_search_to_home_message), BaseTransientBottomBar.LENGTH_SHORT).show() }
-          }*/
+        buttonDismiss.setOnClickListener {
+            dismiss()
+        }
     }
 
     private fun initRecyclerview() {
@@ -155,13 +156,13 @@ class SearchDialog : DialogFragment() {
 
     private fun setTransitionToPokeDetails() {
         adapter.onItemClick = {
-            val idPoke = it.id
+            val pokeId = it.id
             val pokeName = it.name
-            val details = pokeName?.let { it1 -> DetailsFragment(idPoke, it1) }
 
-            if (details != null) {
-                fragmentManager?.beginTransaction()?.replace(R.id.nav_host_fragment_details_activity, details)?.addToBackStack(null)?.commit()
-            }
+            val intent = Intent(activity, PokeDetailsActivity::class.java)
+            intent.putExtra("pokeId", pokeId)
+            intent.putExtra("pokeName", pokeName)
+            activity?.startActivity(intent)
             dismiss()
         }
     }
