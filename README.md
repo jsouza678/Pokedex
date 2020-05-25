@@ -43,7 +43,7 @@ KtlintFormat - esta tarefa modifica o código para que ele siga o padrão do lin
 O `./gradlew ktlintFormat` roda uma rotina que formata o código de acordo com o máximo que o lint pode fazer de modificações para que o código esteja no seu padrão.
 
  ## Arquitetura
- A aplicação busca o desacoplamento e a escalabilidade em sua arquitetura, fazendo uso do Clean Architecture e do MVVM.
+ A aplicação busca o desacoplamento e a escalabilidade em sua arquitetura, fazendo uso do Clean Architecture e do MVVM com Modularização.
 
  ## Principais dependências
 
@@ -63,7 +63,7 @@ O `./gradlew ktlintFormat` roda uma rotina que formata o código de acordo com o
  
  **Koin** _injeção de dependência_
  <p>Escolhida por sua simples implementação comparada ao Dagger (E recentemente com o Koin 2.0, o desempenho não é muito diferente).</p>
- 
+
 ## O que eu gostaria de ter feito
 
  * _criado testes unitários;_
