@@ -18,7 +18,5 @@ class Constants {
         const val EMPTY_STRING = ""
         const val TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW = 2
         const val ABSOLUTE_ZERO = 0
-        const val DELAY_MEDIUM: Long = 1000
-        const val DELAY_LONG: Long = 2000
     }
 }

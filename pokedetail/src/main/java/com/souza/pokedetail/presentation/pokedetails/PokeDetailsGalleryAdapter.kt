@@ -10,7 +10,7 @@ import androidx.viewpager.widget.ViewPager
 import com.souza.extensions.loadImageUrl
 import com.souza.pokedetail.R
 import com.souza.pokedetail.utils.Constants.Companion.ABSOLUTE_ZERO
-import kotlinx.android.synthetic.main.image_view_pager_item.view.*
+import kotlinx.android.synthetic.main.image_view_pager_item.view.picture_image_view_pager_item
 
 class PokeDetailsGalleryAdapter(
     private val context: Context,

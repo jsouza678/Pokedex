@@ -34,12 +34,26 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+    <ImageView
+        android:id="@+id/image_view_no_images_details"
+        android:layout_width="@dimen/empty_poke_image_size"
+        android:layout_height="@dimen/empty_poke_image_size"
+        android:visibility="gone"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginEnd="@dimen/material_margin_16"
+        android:layout_marginBottom="@dimen/material_margin_16"
+        android:src="@drawable/error_image"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@id/tab_layout_carousel_details"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_details" />
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/image_slider_details"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/match_constraint"
         android:layout_marginStart="@dimen/material_margin_16"
-        android:layout_marginTop="@dimen/material_margin_16"
         android:layout_marginEnd="@dimen/material_margin_16"
         android:layout_marginBottom="@dimen/material_margin_16"
         android:scaleType="centerCrop"
