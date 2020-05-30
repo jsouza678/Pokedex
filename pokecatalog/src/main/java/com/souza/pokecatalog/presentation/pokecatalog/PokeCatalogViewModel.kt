@@ -16,24 +16,23 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PokeCatalogViewModel(
-    private val getPokesFromDatabase: GetPokesFromDatabase,
-    private val fetchPokesFromApi: FetchPokesFromApi
+    internal val getPokesFromDatabase: GetPokesFromDatabase,
+    internal val fetchPokesFromApi: FetchPokesFromApi
 ) : ViewModel() {
 
-    private var isLoading: Boolean = false
-    private var page: Int = ABSOLUTE_ZERO
-    fun updatePokesListOnViewLiveData(): LiveData<List<Pokemon>?> = getPokesFromDatabase()
-    private val coroutineScope = Dispatchers.IO
-    private var hasNetworkConnectivity = true
+    internal var isLoading: Boolean = false
+    internal var page: Int = ABSOLUTE_ZERO
+    internal val coroutineScope = Dispatchers.IO
+    internal var hasNetworkConnectivity = true
     internal var turnOnProgressBar = MutableLiveData<Unit>()
     internal var turnOffProgressBar = MutableLiveData<Unit>()
     internal var checkEndOfList = MutableLiveData<Unit>()
 
-    init {
-        getPokes()
-    }
+    fun updatePokesListOnViewLiveData(): LiveData<List<Pokemon>?> = getPokesFromDatabase()
+    fun turnOnProgressBarOnLiveData(): LiveData<Unit> = turnOnProgressBar
+    fun turnOffProgressBarOnLiveData(): LiveData<Unit> = turnOffProgressBar
 
-    private fun getPokes() {
+    fun getPokes() {
         if (hasNetworkConnectivity.not()) return
         isLoading = true
         turnOnProgressBar.postValue(Unit)
@@ -56,7 +55,7 @@ class PokeCatalogViewModel(
         }
     }
 
-    private fun itIsTheListEnd(layoutManager: GridLayoutManager): Boolean {
+    internal fun itIsTheListEnd(layoutManager: GridLayoutManager): Boolean {
         val visibleItemCount = layoutManager.childCount
         val totalItemCount = layoutManager.itemCount
         val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
@@ -64,7 +63,7 @@ class PokeCatalogViewModel(
         return visibleItemCount + firstVisibleItemPosition >= totalItemCount
     }
 
-    fun updateConnectivityStatus(hasNetworkConnectivity: Boolean) {
+    internal fun updateConnectivityStatus(hasNetworkConnectivity: Boolean) {
         this.hasNetworkConnectivity = hasNetworkConnectivity
     }
 }

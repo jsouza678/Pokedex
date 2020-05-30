@@ -46,6 +46,7 @@ class PokeCatalogFragment : Fragment() {
         pokemons = mutableListOf()
 
         bindViews(view)
+        viewModel.getPokes()
         setupRecyclerView()
         setupFloatingActionPokeball()
         initObservers(view)
@@ -73,9 +74,9 @@ class PokeCatalogFragment : Fragment() {
             this.updatePokesListOnViewLiveData().observe(viewLifecycleOwner, Observer {
                 it?.toMutableList()?.let { pokes -> pokemonAdapter.submitList(pokes) }
             })
-            this.turnOffProgressBar.observe(viewLifecycleOwner, Observer { turnOffProgressBar() })
+            this.turnOffProgressBarOnLiveData().observe(viewLifecycleOwner, Observer { turnOffProgressBar() })
 
-            this.turnOnProgressBar.observe(viewLifecycleOwner, Observer { turnOnProgressBar() })
+            this.turnOnProgressBarOnLiveData().observe(viewLifecycleOwner, Observer { turnOnProgressBar() })
 
             this.checkEndOfList.observe(viewLifecycleOwner, Observer { turnOnEndListMessage(view) })
         }
