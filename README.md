@@ -65,12 +65,8 @@ O `./gradlew ktlintFormat` roda uma rotina que formata o código de acordo com o
  <p>Escolhida por sua simples implementação comparada ao Dagger (E recentemente com o Koin 2.0, o desempenho não é muito diferente).</p>
 
 ## O que eu gostaria de ter feito
-
- * _criado testes unitários;_
  
  * _criado testes de ui;_
- 
- * _CI_
  
  * _implementado animações e transições entre as telas da aplicação;_  
  
