@@ -7,9 +7,9 @@
     android:gravity="center"
     android:padding="@dimen/layout_padding_4">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_view_poke_item"
-        android:layout_width="@dimen/card_view_poke_width"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/card_view_poke_height"
         app:cardBackgroundColor="@color/mid_translucent_white"
         app:cardCornerRadius="@dimen/material_margin_8"
@@ -25,29 +25,32 @@
                 android:id="@+id/text_view_name_poke_recycler"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/material_margin_8"
                 android:layout_marginStart="@dimen/material_margin_8"
+                android:layout_marginBottom="@dimen/material_margin_8"
                 android:background="@drawable/round"
                 android:padding="@dimen/padding_recycler_text_home"
                 android:text="@string/mock_poke_name"
-                android:textColor="@color/poke_white"
+                android:textAlignment="center"
+                android:textColor="@color/poke_black"
                 android:textSize="@dimen/text_size_recycler_text_view"
-                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_id_poke_recycler" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/text_view_id_poke_recycler"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/material_margin_16"
                 android:layout_marginTop="@dimen/material_margin_8"
                 android:layout_marginEnd="@dimen/material_margin_16"
+                android:background="@drawable/round"
+                android:padding="@dimen/layout_padding_4"
                 android:text="@string/mock_text_view_poke_id_details"
-                android:textColor="@color/black_transparent"
+                android:textColor="@color/poke_black"
                 android:textSize="@dimen/text_size_recycler_text_view_id"
+                app:layout_constraintBottom_toTopOf="@+id/image_view_poke_sprite_recycler"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -55,16 +58,14 @@
                 android:layout_width="@dimen/recycler_view_poke_image_view_size"
                 android:layout_height="@dimen/recycler_view_poke_image_view_size"
                 android:layout_marginStart="@dimen/material_margin_16"
-                android:layout_marginTop="@dimen/material_margin_8"
                 android:layout_marginEnd="@dimen/material_margin_16"
                 android:layout_marginBottom="@dimen/material_margin_8"
                 android:contentDescription="@string/content_description_image_view_poke_sprite"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/text_view_name_poke_recycler"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_view_name_poke_recycler"
                 tools:src="@drawable/mock_poke_home_image" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

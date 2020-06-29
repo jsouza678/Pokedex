@@ -15,7 +15,7 @@ import com.souza.pokedetail.utils.Constants.Companion.DEFAULT_IMAGE_FORMAT_BASTI
 import com.souza.pokedetail.utils.Constants.Companion.EMPTY_STRING
 import com.souza.pokedetail.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
 import com.souza.pokedetail.utils.cropPokeUrl
-import kotlinx.android.synthetic.main.recycler_poke_item_view.view.*
+import kotlinx.android.synthetic.main.recycler_poke_item_view_detail.view.*
 
 class TypesDialogAdapter(
     private val pokeTypes: MutableList<TypeResponse>?,
@@ -26,7 +26,7 @@ class TypesDialogAdapter(
     private val imageResourceUrl = BASTION_POKE_IMAGE_BASE_URL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.recycler_poke_item_view, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.recycler_poke_item_view_detail, parent, false)
         return ViewHolder(view)
     }
 

@@ -27,7 +27,7 @@
 
             <TextView
                 android:id="@+id/text_view_label_search_dialog"
-                style="@style/dialog_pokes_in_search_text"
+                style="@style/dialog_pokes_in_types_text"
                 android:layout_width="@dimen/match_constraint"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/material_margin_16"
@@ -47,7 +47,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_view_label_search_dialog"
-                tools:listitem="@layout/recycler_poke_item_view">
+                tools:listitem="@layout/recycler_poke_item_view_detail">
 
             </androidx.recyclerview.widget.RecyclerView>
 

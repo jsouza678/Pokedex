@@ -1,24 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">Pokedex</string>
-    <!-- Others -->
-    <string name="button_text_dismiss">Dismiss</string>
-    <string name="search_hint">Search poke by id or name</string>
-    <string name="type_your_search_here_hint">Type your search here</string>
-    <string name="redirect_search_to_home_message">Redirecting to the home page</string>
-    <string name="input_text_search_dialog">Error on this field.</string>
-    <string name="pokemon_found_search_1">We\'ve found&#160;</string>
-    <string name="pokemon_found_search_2">&#160;pokemons with this type</string>
-    <string name="pokemon_found_search_3">&#160;pokemons with this id</string>
-    <string name="pokemon_found_search_4">&#160;pokemons with this name</string>
-    <string name="text_view_custom_alert_dialog_search_dialog">We\'ve found pokemons with this type</string>
-    <string name="search_fragment_tag">search_fragment</string>
-
-    <!-- Content Descriptions -->
-    <string name="content_description_image_button_search">Search logo image search dialog</string>
-
-    <!-- Error Messages -->
-    <string name="error_message_search_dialog">Unfortunately we have not found any pokes. \n Make your search again, or click on dismiss to discover more pokes!</string>
-    <string name="error_image_view_search_dialog">Error image on search dialog</string>
-
+    <string name="poke_id_extra_activity_home_to_details">pokeId</string>
+    <string name="poke_name_extra_activity_home_to_details">pokeName</string>
 </resources>

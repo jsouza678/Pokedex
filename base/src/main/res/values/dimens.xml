@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    // Shared Resources
+    <dimen name="match_constraint">0dp</dimen>
+    <dimen name="material_margin_4">4dp</dimen>
+    <dimen name="material_margin_8">8dp</dimen>
+    <dimen name="material_margin_16">16dp</dimen>
+    <dimen name="material_margin_24">24dp</dimen>
+    <dimen name="material_margin_32">32dp</dimen>
+    <dimen name="layout_padding_4">4dp</dimen>
+    <dimen name="layout_padding_16">16dp</dimen>
+    <dimen name="default_corner_radius_card_view">18dp</dimen>
+
+    // Home
+    <dimen name="bottom_bar_home_height">50dp</dimen>
+    <dimen name="progress_bar_size_home">88dp</dimen>
+    <dimen name="padding_recycler_text_home">5dp</dimen>
+    <dimen name="floating_action_button_max_image_size_home">56dp</dimen>
+
+    // Catalog
+    <dimen name="poke_ball_container_layout_height">80dp</dimen>
+    <dimen name="card_view_poke_height">160dp</dimen>
+    <dimen name="card_view_poke_width">160dp</dimen>
+    <dimen name="text_size_recycler_text_view">18sp</dimen>
+    <dimen name="text_size_recycler_text_view_id">12sp</dimen>
+    <dimen name="recycler_view_poke_image_view_size">80dp</dimen>
+
+    // Detail
+    <dimen name="recycler_view_container_height_pokes_in_types">420dp</dimen>
+    <dimen name="no_list_image">150dp</dimen>
+    <dimen name="button_dismiss_types_dialog_width">120dp</dimen>
+    <dimen name="button_dismiss_types_dialog_height">50dp</dimen>
+    <dimen name="custom_card_view_top_corner_radius">25dp</dimen>
+    <dimen name="custom_card_view_low_corner_radius">0dp</dimen>
+    <dimen name="about_poke_description">175dp</dimen>
+    <dimen name="stat_text_size">18sp</dimen>
+    <dimen name="stat_label_text_size">14sp</dimen>
+    <dimen name="view_pager_default_height">250dp</dimen>
+    <dimen name="empty_poke_image_size">120dp</dimen>
+
+    // Uncategorized
+    <dimen name="background_sprite_size">150dp</dimen>
+    <dimen name="margin_top_no_connection_image">228dp</dimen>
+    <dimen name="default_list_view_height">80dp</dimen>
+
+    // Search
+    <dimen name="recycler_view_search_dialog">280dp</dimen>
+    <dimen name="recycler_view_height_search_dialog">280dp</dimen>
+    <dimen name="button_search_dialog_fragment">30dp</dimen>
+    <dimen name="recycler_view_container_height_search_dialog">420dp</dimen>
+    <dimen name="poke_sad_no_result_search">200dp</dimen>
+
+</resources>

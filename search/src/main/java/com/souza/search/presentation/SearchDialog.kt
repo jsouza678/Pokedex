@@ -44,7 +44,7 @@ class SearchDialog : DialogFragment() {
         val view: View = View.inflate(context, R.layout.fragment_poke_search_dialog, null)
         bindViews(view)
         pokesList = mutableListOf()
-        adapter = activity?.applicationContext?.let { SearchDialogAdapter(pokesList, it) }!!
+        adapter = SearchDialogAdapter(pokesList, requireContext())
         val textViewResult: TextView = view.findViewById(R.id.text_view_label_search_dialog)
 
         val alert = AlertDialog.Builder(context)
