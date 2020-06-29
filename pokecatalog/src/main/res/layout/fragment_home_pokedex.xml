@@ -88,7 +88,7 @@
             app:fabAlignmentMode="center"
             app:fabCradleMargin="@dimen/material_margin_8" />
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/material_margin_8"
@@ -102,18 +102,27 @@
                 android:layout_width="@dimen/progress_bar_size_home"
                 android:layout_height="@dimen/progress_bar_size_home"
                 android:layout_centerInParent="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 android:visibility="visible" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floating_action_button_poke_ball_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:layout_centerInParent="true"
+                android:scaleType="fitXY"
                 android:src="@drawable/poke_ball"
                 android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:maxImageSize="@dimen/floating_action_button_max_image_size_home"
                 app:tint="@null" />
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
