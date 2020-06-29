@@ -15,11 +15,11 @@ import com.souza.search.utils.Constants.Companion.BASTION_POKE_IMAGE_BASE_URL
 import com.souza.search.utils.Constants.Companion.DEFAULT_IMAGE_FORMAT_BASTION
 import com.souza.search.utils.Constants.Companion.EMPTY_STRING
 import com.souza.search.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
+import java.util.Locale
 import kotlinx.android.synthetic.main.recycler_poke_item_view_search.view.card_view_poke_item
 import kotlinx.android.synthetic.main.recycler_poke_item_view_search.view.image_view_poke_sprite_recycler
 import kotlinx.android.synthetic.main.recycler_poke_item_view_search.view.text_view_id_poke_recycler
 import kotlinx.android.synthetic.main.recycler_poke_item_view_search.view.text_view_name_poke_recycler
-import java.util.*
 
 class SearchDialogAdapter(
     private val pokemons: MutableList<Pokemon>?,

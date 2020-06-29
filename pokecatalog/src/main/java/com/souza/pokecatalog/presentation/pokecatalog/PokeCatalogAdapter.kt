@@ -20,8 +20,9 @@ import kotlinx.android.synthetic.main.recycler_poke_item_view.view.image_view_po
 import kotlinx.android.synthetic.main.recycler_poke_item_view.view.text_view_id_poke_recycler
 import kotlinx.android.synthetic.main.recycler_poke_item_view.view.text_view_name_poke_recycler
 
-class PokeCatalogAdapter(private val pokemons: MutableList<Pokemon>?,
-                         private val context: Context
+class PokeCatalogAdapter(
+    private val pokemons: MutableList<Pokemon>?,
+    private val context: Context
 ) : RecyclerView.Adapter<PokeCatalogAdapter.ViewHolder>() {
 
     var onItemClick: ((Pokemon) -> Unit)? = null
