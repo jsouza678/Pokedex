@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="poke_ball_container_layout_height">80dp</dimen>
+    <dimen name="card_view_poke_height">160dp</dimen>
+    <dimen name="card_view_poke_width">160dp</dimen>
+    <dimen name="text_size_recycler_text_view">18sp</dimen>
+    <dimen name="text_size_recycler_text_view_id">12sp</dimen>
+    <dimen name="recycler_view_poke_image_view_size">80dp</dimen>
+</resources>

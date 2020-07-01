@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.souza.extensions.loadImageUrl
+import com.google.android.material.card.MaterialCardView
+import com.souza.extensions.loadImageUrlAndCard
 import com.souza.pokedetail.R
 import com.souza.pokedetail.data.pokedex.remote.response.TypeResponse
 import com.souza.pokedetail.utils.Constants.Companion.BASTION_POKE_IMAGE_BASE_URL
@@ -54,13 +55,14 @@ class TypesDialogAdapter(
         private val pokeIdTextView: TextView = itemView.text_view_id_poke_recycler
         private var formattedNumber: String = EMPTY_STRING
         private var pokemonId: String = EMPTY_STRING
+        private val pokemonCv: MaterialCardView = itemView.card_view_poke_item
 
         fun itemBind(pokes: TypeResponse) {
             pokeNameTextView.text = pokes.pokemon?.name
             pokemonId = cropPokeUrl(pokes.pokemon?.id!!)
             formattedNumber = FORMAT_ID_POKE_DISPLAY.format(Integer.parseInt(pokemonId))
             pokeIdTextView.text = context.resources.getString(R.string.text_view_placeholder_hash, formattedNumber)
-            pokeImageImageView.loadImageUrl("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION")
+            pokeImageImageView.loadImageUrlAndCard("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION", pokemonCv)
         }
 
         init {

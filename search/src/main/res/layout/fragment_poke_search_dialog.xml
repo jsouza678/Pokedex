@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/tab_text_color"
+    android:background="@color/default_foreground_color"
     tools:context="com.souza.search.presentation.SearchDialog">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -99,6 +99,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container_layout_default_search_dialog"
             android:layout_width="match_parent"
+            android:background="@color/default_bg_secondary"
             android:layout_height="@dimen/recycler_view_container_height_pokes_in_types"
             android:visibility="visible">
 
@@ -133,7 +134,7 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
-            <Button
+            <android.widget.Button
                 android:id="@+id/button_dismiss_custom_search_dialog"
                 android:text="@string/button_text_dismiss"
                 style="@style/small_button"

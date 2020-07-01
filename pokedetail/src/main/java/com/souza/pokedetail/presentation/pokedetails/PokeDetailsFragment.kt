@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayout
 import com.souza.extensions.gone
 import com.souza.extensions.observeOnce
 import com.souza.pokedetail.R
+import com.souza.pokedetail.databinding.FragmentDetailsPokedexBinding
 import com.souza.pokedetail.domain.model.PokeProperty
 import com.souza.pokedetail.domain.model.PokeVariety
 import com.souza.pokedetail.utils.ColorFormat
@@ -51,27 +52,25 @@ class PokeDetailsFragment(
 
     @ExperimentalStdlibApi
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_details_pokedex, container, false)
-        bindViews(view)
-        viewPagerDetail = view.findViewById(R.id.fragment_container_details)
-        emptyPokeImage = view.findViewById(R.id.image_view_no_images_details)
-        tabsViewPagerDetail = view.findViewById<TabLayout>(R.id.tab_layout_details)
-        tabsCarousel = view.findViewById<TabLayout>(R.id.tab_layout_carousel_details)
-        val toolbar = view.findViewById<Toolbar>(R.id.toolbar_details)
+        val binding = FragmentDetailsPokedexBinding.inflate(layoutInflater)
+
+        pokeNameTextView = binding.textViewPokeNameDetails
+        pokeIdTextView = binding.textViewPokeIdDetails
+        constraintLayoutDetail = binding.layoutDetails
+        viewPagerGallery = binding.imageSliderDetails
+        viewPagerDetail = binding.fragmentContainerDetails
+        emptyPokeImage = binding.imageViewNoImagesDetails
+        tabsViewPagerDetail = binding.tabLayoutDetails
+        tabsCarousel = binding.tabLayoutCarouselDetails
+        val toolbar = binding.toolbarDetails
+
         pokeSprites = ArrayList()
 
         setToolbarBackButton(toolbar)
         setPokeAndIdText()
         initObserverCheckIfItsEvolutionPoke(viewPagerDetail, tabsViewPagerDetail)
 
-        return view
-    }
-
-    private fun bindViews(view: View) {
-        pokeNameTextView = view.findViewById(R.id.text_view_poke_name_details)
-        pokeIdTextView = view.findViewById(R.id.text_view_poke_id_details)
-        constraintLayoutDetail = view.findViewById(R.id.layout_details)
-        viewPagerGallery = view.findViewById(R.id.image_slider_details)
+        return binding.root
     }
 
     private fun setToolbarBackButton(toolbar: Toolbar) {

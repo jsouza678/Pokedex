@@ -14,6 +14,7 @@
     <color name="yellow_poke">#F8C406</color>
     <color name="blue_poke">#375CA7</color>
     <color name="default_bg_color">#FFF</color>
+    <color name="default_foreground_color">#FFF</color>
     <color name="text_color_detail">#000</color>
 
     <!-- Poke Colors -->
@@ -42,4 +43,7 @@
     <color name="poke_pink_mid_translucent">#80FA6FFF</color>
     <color name="poke_brown_mid_translucent">#80C47C55</color>
     <color name="black_transparent">#80000000</color>
+    <color name="default_foreground_secondary">#FFFFFF</color>
+    <color name="default_bg_secondary">#B8B8B8</color>
+
 </resources>

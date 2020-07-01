@@ -8,7 +8,7 @@ import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.souza.extensions.observeOnce
-import com.souza.pokedetail.R
+import com.souza.pokedetail.databinding.FragmentPokeChainBinding
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -25,16 +25,14 @@ class EvolutionChainFragment(private val pokemonId: Int) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_poke_chain, container, false)
-        bindViews(view)
+        val binding = FragmentPokeChainBinding.inflate(layoutInflater)
+
+        evolutionChainListView = binding.listViewChain
+
         initObserver()
         initChainEvolution()
 
-        return view
-    }
-
-    private fun bindViews(view: View) {
-        evolutionChainListView = view.findViewById(R.id.list_view_chain)
+        return binding.root
     }
 
     private fun initObserver() {

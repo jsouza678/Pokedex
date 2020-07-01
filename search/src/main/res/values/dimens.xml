@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="recycler_view_search_dialog">280dp</dimen>
+    <dimen name="recycler_view_height_search_dialog">280dp</dimen>
+    <dimen name="button_search_dialog_fragment">30dp</dimen>
+    <dimen name="recycler_view_container_height_search_dialog">420dp</dimen>
+    <dimen name="poke_sad_no_result_search">200dp</dimen>
+    <dimen name="padding_recycler_text_search">2dp</dimen>
+
+</resources>

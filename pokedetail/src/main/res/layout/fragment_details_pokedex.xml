@@ -11,12 +11,15 @@
 
     <ImageView
         android:id="@+id/image_view_sprite_background_details"
-        android:layout_width="@dimen/background_sprite_size"
-        android:layout_height="@dimen/background_sprite_size"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/translucent"
+        android:alpha=".05"
         android:contentDescription="@string/content_description_sprite_background"
-        android:src="@drawable/mock_background_sprite_poke"
+        android:src="@drawable/bg"
+        app:layout_constraintBottom_toTopOf="@+id/cardview_down_details"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
@@ -82,7 +85,7 @@
         style="@style/CustomCardViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/default_bg_color"
+        app:cardBackgroundColor="@color/default_foreground_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -95,9 +98,8 @@
                 android:id="@+id/text_view_poke_name_details"
                 style="@style/poke_name_detail_style"
                 android:layout_width="wrap_content"
-                android:textColor="@color/text_color_detail"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/tab_layout_details"
+                android:textColor="@color/text_color_detail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -105,6 +107,7 @@
 
             <TextView
                 android:id="@+id/text_view_poke_id_details"
+                style="@style/poke_id_detail_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/material_margin_16"
@@ -122,7 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/material_margin_4"
-                android:background="@color/default_bg_color"
+                android:background="@color/default_bg_secondary"
                 app:layout_constraintBottom_toTopOf="@+id/fragment_container_details"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -135,7 +138,7 @@
                 android:id="@+id/fragment_container_details"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/view_pager_default_height"
-                android:background="@color/default_bg_color"
+                android:background="@color/default_bg_secondary"
                 app:layout_anchor="@id/tab_layout_details"
                 app:layout_anchorGravity="bottom"
                 app:layout_constraintBottom_toBottomOf="parent"

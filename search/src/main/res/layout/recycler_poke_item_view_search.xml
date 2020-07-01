@@ -29,7 +29,7 @@
                 android:layout_marginStart="@dimen/material_margin_8"
                 android:layout_marginBottom="@dimen/material_margin_8"
                 android:background="@drawable/round"
-                android:padding="@dimen/padding_recycler_text_home"
+                android:padding="@dimen/padding_recycler_text_search"
                 android:text="@string/mock_poke_name"
                 android:textAlignment="center"
                 android:textColor="@color/poke_black"

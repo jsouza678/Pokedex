@@ -1,3 +1,4 @@
+include ':resource-components'
 include ':app'
 rootProject.name='PokedexApp'
 include ':pokecatalog'

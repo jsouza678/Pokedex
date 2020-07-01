@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_bar_home_height">50dp</dimen>
+    <dimen name="progress_bar_size_home">88dp</dimen>
+    <dimen name="padding_recycler_text_home">2dp</dimen>
+    <dimen name="floating_action_button_max_image_size_home">56dp</dimen>
+</resources>

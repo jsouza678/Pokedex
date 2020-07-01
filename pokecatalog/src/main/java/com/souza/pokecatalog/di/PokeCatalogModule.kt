@@ -9,6 +9,7 @@ import com.souza.pokecatalog.data.pokedex.remote.PokeCatalogService
 import com.souza.pokecatalog.domain.repository.PokemonRepository
 import com.souza.pokecatalog.domain.usecase.FetchPokesFromApi
 import com.souza.pokecatalog.domain.usecase.GetPokesFromDatabase
+import com.souza.pokecatalog.presentation.pokecatalog.PokeCatalogAdapter
 import com.souza.pokecatalog.presentation.pokecatalog.PokeCatalogViewModel
 import com.souza.pokecatalog.utils.Constants
 import com.squareup.moshi.Moshi
@@ -36,6 +37,7 @@ val pokeCatalogModule = module {
     }
 
     // Adapter
+    single { PokeCatalogAdapter() }
 
     // UseCases
     factory {

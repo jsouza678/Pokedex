@@ -43,14 +43,14 @@ class PokeCatalogViewModel(
         Handler().postDelayed({
             turnOffProgressBar.postValue(Unit)
         }, DELAY_MEDIUM)
+        page += POKE_LIMIT
     }
 
     fun loadOnRecyclerViewScrolled(dy: Int, layoutManager: GridLayoutManager) {
         if (dy> ABSOLUTE_ZERO) {
             val isItTheListEnd = itIsTheListEnd(layoutManager = layoutManager)
             if (isLoading.not() && isItTheListEnd && hasNetworkConnectivity) {
-                    page += POKE_LIMIT
-                    getPokes()
+                getPokes()
             }
         }
     }

@@ -18,6 +18,7 @@ import com.souza.extensions.observeOnce
 import com.souza.extensions.visible
 import com.souza.pokedetail.R
 import com.souza.pokedetail.data.pokedex.remote.model.variety.Varieties
+import com.souza.pokedetail.databinding.FragmentPokeAboutBinding
 import com.souza.pokedetail.presentation.pokedetails.PokeDetailsFragment
 import com.souza.pokedetail.utils.Constants.Companion.ABSOLUTE_ZERO
 import com.souza.pokedetail.utils.Constants.Companion.EMPTY_STRING
@@ -46,8 +47,12 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_poke_about, container, false)
-        bindViews(view)
+        val binding = FragmentPokeAboutBinding.inflate(layoutInflater)
+
+        pokeDescriptionTextView = binding.textViewPokeDescAbout
+        pokeVariationsSpinner = binding.spinnerVariationsAbout
+        constraintDefault = binding.constraintLayoutDefaultAbout
+        constraintEvolution = binding.constraintLayoutMysteriousAbout
 
         if (pokemonId > LIMIT_NORMAL_POKES) {
             constraintDefault.gone()
@@ -57,14 +62,7 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
         initSpinner()
         initDataObserver()
 
-        return view
-    }
-
-    private fun bindViews(view: View) {
-        pokeDescriptionTextView = view.findViewById(R.id.text_view_poke_desc_about)
-        pokeVariationsSpinner = view.findViewById(R.id.spinner_variations_about)
-        constraintDefault = view.findViewById(R.id.constraint_layout_default_about)
-        constraintEvolution = view.findViewById(R.id.constraint_layout_mysterious_about)
+        return binding.root
     }
 
     private fun initSpinner() {
@@ -137,7 +135,9 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
     }
 
     private fun setupPokeDescriptionDialog(message: String?) {
-        materialAlertDialogBuilder = MaterialAlertDialogBuilder(context).setTitle(getString(R.string.pokemon_description_dialog_pokemon_in_types)).setPositiveButton(getString(R.string.button_text_dismiss), null)
+        materialAlertDialogBuilder = MaterialAlertDialogBuilder(context)
+            .setTitle(getString(R.string.pokemon_description_dialog_pokemon_in_types))
+            .setPositiveButton(getString(R.string.button_text_dismiss), null)
         materialAlertDialogBuilder.setMessage(message)
     }
 

@@ -7,7 +7,7 @@
     android:gravity="center"
     android:padding="@dimen/layout_padding_4">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_view_poke_item"
         android:layout_width="@dimen/card_view_poke_width"
         android:layout_height="@dimen/card_view_poke_height"
@@ -66,5 +66,5 @@
                 tools:src="@drawable/mock_poke_home_image" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

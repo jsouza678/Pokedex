@@ -3,4 +3,10 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <application>
+        <activity
+            android:name=".presentation.HomeActivity"
+            android:windowSoftInputMode="adjustPan" />
+    </application>
+
 </manifest>

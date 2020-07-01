@@ -13,6 +13,7 @@ import com.souza.pokedetail.R
 import com.souza.pokedetail.data.pokedex.remote.model.ability.AbilitiesRoot
 import com.souza.pokedetail.data.pokedex.remote.model.type.TypeRoot
 import com.souza.pokedetail.data.pokedex.remote.response.TypeResponse
+import com.souza.pokedetail.databinding.FragmentPokeOthersBinding
 import com.souza.pokedetail.presentation.pokedetails.pokeattributes.others.types.TypesDialog
 import com.souza.pokedetail.utils.cropAbilityUrl
 import com.souza.pokedetail.utils.cropTypeUrl
@@ -36,16 +37,14 @@ class OthersFragment(private val pokemonId: Int) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_poke_others, container, false)
-        bindViews(view)
+        val binding = FragmentPokeOthersBinding.inflate(layoutInflater)
+
+        typesListView = binding.listViewTypesOthers
+        abilitiesListView = binding.listViewAbilitiesOthers
+
         initObservers()
 
-        return view
-    }
-
-    private fun bindViews(view: View) {
-        typesListView = view.findViewById(R.id.list_view_types_others)
-        abilitiesListView = view.findViewById(R.id.list_view_abilities_others)
+        return binding.root
     }
 
     private fun initObservers() {

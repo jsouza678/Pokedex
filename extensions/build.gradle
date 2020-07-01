@@ -36,6 +36,10 @@ dependencies {
     // App Compat
     implementation "androidx.appcompat:appcompat:$app_compat_version"
 
+
+    // MaterialDesign
+    implementation "com.google.android.material:material:$material_design_version"
+
     // Tests
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
@@ -43,6 +47,7 @@ dependencies {
 
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
+    implementation "com.github.florent37:glidepalette:$glide_palette_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
     kapt "com.github.bumptech.glide:annotations:$glide_version"
 }

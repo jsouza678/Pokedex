@@ -1,7 +1,9 @@
 package com.souza.pokecatalog.utils
 
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import androidx.core.graphics.alpha
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -65,7 +67,12 @@ fun ImageView.loadImageUrlAndCard(
                 .intoCallBack { palette ->
                     val rgb = palette?.dominantSwatch?.rgb
                     if (rgb != null) {
-                        paletteCard.setCardBackgroundColor(rgb)
+                        val red = Color.red(rgb)
+                        val green = Color.green(rgb)
+                        val blue = Color.blue(rgb)
+                        val alpha = 204
+
+                        paletteCard.setCardBackgroundColor(Color.argb(alpha, red, green, blue))
                     }
                 }
                 .crossfade(true))

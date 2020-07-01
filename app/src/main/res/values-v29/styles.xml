@@ -7,27 +7,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- Custom Styles -->
-    <style name="pokemon_logo_style_home">
-        <item name="android:fontFamily">@font/poke_solid</item>
-        <item name="android:shadowColor">@color/yellow_poke</item>
-        <item name="android:shadowDx">5</item>
-        <item name="android:shadowDy">5</item>
-        <item name="android:shadowRadius">1</item>
-        <item name="android:textColor">@color/blue_poke</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="pokedex_logo_splash_screen">
-        <item name="android:fontFamily">@font/poke_solid</item>
-        <item name="android:textColor">@color/poke_black</item>
-        <item name="android:textSize">36sp</item>
-    </style>
-
-    <style name="style_welcome_text_main_activity">
-        <item name="android:fontFamily">@font/open_sans</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textSize">14sp</item>
-    </style>
 </resources>

@@ -3,7 +3,7 @@ package com.souza.pokedetail.presentation.pokedetails.pokeattributes.others.type
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.view.View
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.souza.pokedetail.R
 import com.souza.pokedetail.data.pokedex.remote.response.TypeResponse
+import com.souza.pokedetail.databinding.FragmentPokeTypesDialogBinding
 import com.souza.pokedetail.presentation.pokedetails.PokeDetailsFragment
 import com.souza.pokedetail.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
 import com.souza.pokedetail.utils.cropPokeUrl
@@ -24,20 +25,20 @@ class TypesDialog(private val pokeTypes: MutableList<TypeResponse>) : DialogFrag
     private lateinit var textViewResult: TextView
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val view: View = View.inflate(context, R.layout.fragment_poke_types_dialog, null)
+        val binding = FragmentPokeTypesDialogBinding.inflate(LayoutInflater.from(context))
         val listSize =
             getString(R.string.pokemon_found_search_1) + pokeTypes.size + getString(R.string.pokemon_found_search_2)
         val typesAlertDialog = AlertDialog.Builder(activity)
-        recyclerView = view.findViewById(R.id.recycler_view_poke_search_dialog)
-        buttonDismiss = view.findViewById(R.id.button_dismiss_custom_search_dialog)
-        textViewResult = view.findViewById(R.id.text_view_label_search_dialog)
-        adapter = TypesDialogAdapter(pokeTypes, view.context)
+        recyclerView = binding.recyclerViewPokeSearchDialog
+        buttonDismiss = binding.buttonDismissCustomSearchDialog
+        textViewResult = binding.textViewLabelSearchDialog
+        adapter = TypesDialogAdapter(pokeTypes, requireContext())
         setupRecyclerView()
         setupDismissButtonOnClick()
         setTransitionToPokeDetails()
         textViewResult.text = listSize
 
-        typesAlertDialog.setView(view)
+        typesAlertDialog.setView(binding.root)
         return typesAlertDialog.create()
     }
 

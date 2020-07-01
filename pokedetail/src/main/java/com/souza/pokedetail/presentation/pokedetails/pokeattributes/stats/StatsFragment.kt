@@ -9,7 +9,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.souza.pokedetail.R
+import com.souza.pokedetail.databinding.FragmentPokeStatsBinding
 import com.souza.pokedetail.domain.model.PokeProperty
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -37,29 +37,27 @@ class StatsFragment(private val pokemonId: Int) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_poke_stats, container, false)
-        bindViews(view)
+        val binding = FragmentPokeStatsBinding.inflate(layoutInflater)
+
+        attackTextView = binding.textViewPokeAttackStat
+        hpTextView = binding.textViewPokeHpStat
+        defenseTextView = binding.textViewPokeDefenseStat
+        specialAttackTextView = binding.textViewPokeSpecialAttackStat
+        specialDefenseTextView = binding.textViewPokeSpecialDefenseStat
+        speedTextView = binding.textViewPokeSpeedStat
+        weightTextView = binding.textViewDetailWeightStat
+        heightTextView = binding.textViewDetailHeightStat
+
+        hpProgressBar = binding.progressBarHpStat
+        attackProgressBar = binding.progressBarAttackStat
+        defenseProgressBar = binding.progressBarDefenseStat
+        specialAttackProgressBar = binding.progressBarSpecialAttackStat
+        specialDefenseProgressBar = binding.progressBarSpecialDefenseStat
+        speedProgressBar = binding.progressBarSpeedStat
+
         initObservers()
 
-        return view
-    }
-
-    private fun bindViews(view: View) {
-        hpProgressBar = view.findViewById(R.id.progress_bar_hp_stat)
-        attackProgressBar = view.findViewById(R.id.progress_bar_attack_stat)
-        defenseProgressBar = view.findViewById(R.id.progress_bar_defense_stat)
-        specialAttackProgressBar = view.findViewById(R.id.progress_bar_special_attack_stat)
-        specialDefenseProgressBar = view.findViewById(R.id.progress_bar_special_defense_stat)
-        speedProgressBar = view.findViewById(R.id.progress_bar_speed_stat)
-
-        attackTextView = view.findViewById(R.id.text_view_poke_attack_stat)
-        hpTextView = view.findViewById(R.id.text_view_poke_hp_stat)
-        defenseTextView = view.findViewById(R.id.text_view_poke_defense_stat)
-        specialAttackTextView = view.findViewById(R.id.text_view_poke_special_attack_stat)
-        specialDefenseTextView = view.findViewById(R.id.text_view_poke_special_defense_stat)
-        speedTextView = view.findViewById(R.id.text_view_poke_speed_stat)
-        weightTextView = view.findViewById(R.id.text_view_detail_weight_stat)
-        heightTextView = view.findViewById(R.id.text_view_detail_height_stat)
+        return binding.root
     }
 
     private fun initObservers() {

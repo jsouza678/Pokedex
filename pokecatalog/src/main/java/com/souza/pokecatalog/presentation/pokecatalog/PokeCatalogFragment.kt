@@ -18,7 +18,7 @@ import com.souza.connectivity.Connectivity
 import com.souza.extensions.gone
 import com.souza.extensions.visible
 import com.souza.pokecatalog.R
-import com.souza.pokecatalog.domain.model.Pokemon
+import com.souza.pokecatalog.databinding.FragmentPokeCatalogBinding
 import com.souza.pokecatalog.utils.Constants.Companion.ABSOLUTE_ZERO
 import com.souza.pokecatalog.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
 import com.souza.pokedetail.presentation.pokedetails.PokeDetailsActivity
@@ -27,14 +27,12 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class PokeCatalogFragment : Fragment() {
 
-    private lateinit var pokemons: MutableList<Pokemon>
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
     private val connectivity by inject<Connectivity>()
     private lateinit var floatingActionButton: FloatingActionButton
-    private lateinit var pokemonAdapter: PokeCatalogAdapter
-    private lateinit var toolbarHomeTop: Toolbar
+    private val pokemonAdapter by inject<PokeCatalogAdapter>()
     private val viewModel by viewModel<PokeCatalogViewModel>()
 
     override fun onCreateView(
@@ -42,25 +40,21 @@ class PokeCatalogFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_home_pokedex, container, false)
-        pokemons = mutableListOf()
+        val binding = FragmentPokeCatalogBinding.inflate(layoutInflater)
 
-        bindViews(view)
+        progressBar = binding.progressBarHome
+        recyclerView = binding.recyclerViewHome
+        floatingActionButton = binding.floatingActionButtonPokeBallHome
+
+        val toolbar = binding.pokedexToolbarHome
+        setToolbarBackButton(toolbar)
         viewModel.getPokes()
         setupRecyclerView()
         setupFloatingActionPokeball()
-        initObservers(view)
+        initObservers()
         initConnectivityObserver()
 
-        return view
-    }
-
-    private fun bindViews(view: View) {
-        pokemonAdapter = PokeCatalogAdapter(pokemons, view.context)
-        progressBar = view.findViewById(R.id.progress_bar_home)
-        recyclerView = view.findViewById(R.id.recycler_view_home)
-        floatingActionButton = view.findViewById<FloatingActionButton>(R.id.floating_action_button_poke_ball_home)
-        toolbarHomeTop = view.findViewById(R.id.pokedex_toolbar_home)
+        return binding.root
     }
 
     private fun setupFloatingActionPokeball() {
@@ -69,7 +63,11 @@ class PokeCatalogFragment : Fragment() {
         }
     }
 
-    private fun initObservers(view: View) {
+    private fun setToolbarBackButton(toolbar: Toolbar) {
+        toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
+    }
+
+    private fun initObservers() {
         viewModel.apply {
             this.updatePokesListOnViewLiveData().observe(viewLifecycleOwner, Observer {
                 it?.toMutableList()?.let { pokes -> pokemonAdapter.submitList(pokes) }
@@ -78,7 +76,7 @@ class PokeCatalogFragment : Fragment() {
 
             this.turnOnProgressBarOnLiveData().observe(viewLifecycleOwner, Observer { turnOnProgressBar() })
 
-            this.checkEndOfList.observe(viewLifecycleOwner, Observer { turnOnEndListMessage(view) })
+            this.checkEndOfList.observe(viewLifecycleOwner, Observer { turnOnEndListMessage() })
         }
     }
 
@@ -128,8 +126,8 @@ class PokeCatalogFragment : Fragment() {
         progressBar.gone()
     }
 
-    private fun turnOnEndListMessage(view: View) {
+    private fun turnOnEndListMessage() {
         progressBar.gone()
-        Snackbar.make(view, getString(R.string.snackbar_message_end_of_the_list), BaseTransientBottomBar.LENGTH_SHORT).show()
+        Snackbar.make(requireView(), getString(R.string.snackbar_message_end_of_the_list), BaseTransientBottomBar.LENGTH_SHORT).show()
     }
 }

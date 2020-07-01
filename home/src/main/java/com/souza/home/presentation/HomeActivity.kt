@@ -16,6 +16,7 @@ import com.souza.connectivity.Connectivity
 import com.souza.extensions.gone
 import com.souza.extensions.visible
 import com.souza.home.R
+import com.souza.home.databinding.ActivityHomeBinding
 import com.souza.pokecatalog.presentation.pokecatalog.PokeCatalogFragment
 import com.souza.search.presentation.SearchDialog
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -24,33 +25,32 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var buttonDiscoverNewPokes: Button
     private lateinit var frameLayoutFragmentHost: FrameLayout
-    private lateinit var mainToolbar: Toolbar
     private lateinit var connectivitySnackbar: Snackbar
+    private lateinit var mainToolbar: Toolbar
     private lateinit var connectivity: Connectivity
     private var hasNetworkConnectivity = true
     private lateinit var constraintLayoutHome: ConstraintLayout
     private val viewModel by viewModel<HomeViewModel>()
-    private val splashScreenFragment = SplashScreen()
     private val homeFragment = PokeCatalogFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        val binding = ActivityHomeBinding.inflate(layoutInflater)
 
-        bindViews()
+        buttonDiscoverNewPokes = binding.buttonDiscoverPokesHomeActivity
+        frameLayoutFragmentHost = binding.navHostFragmentHomeActivity
+        constraintLayoutHome = binding.constraintLayoutHomeActivity
+        mainToolbar = binding.toolbarHomeActivity
+
         constraintLayoutHome.visible()
+
         setupToolbar()
         setupButtonDiscoverPokes()
         initConnectivityCallback()
         initConnectivitySnackbar()
         initConnectivityObserver()
-    }
 
-    private fun bindViews() {
-        buttonDiscoverNewPokes = findViewById(R.id.button_discover_pokes_home_activity)
-        frameLayoutFragmentHost = findViewById(R.id.nav_host_fragment_home_activity)
-        mainToolbar = findViewById(R.id.toolbar_home_activity)
-        constraintLayoutHome = findViewById(R.id.constraint_layout_home_activity)
+        setContentView(binding.root)
     }
 
     private fun setupToolbar() {
@@ -114,7 +114,7 @@ class HomeActivity : AppCompatActivity() {
     private fun initConnectivitySnackbar() {
         connectivitySnackbar =
             Snackbar.make(
-                findViewById(R.id.nav_host_fragment_home_activity),
+                frameLayoutFragmentHost,
                 getString(R.string.snackbar_message_internet_back),
                 Snackbar.LENGTH_INDEFINITE
             )

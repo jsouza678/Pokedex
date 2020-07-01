@@ -27,15 +27,14 @@
                 android:visibility="visible"
                 tools:layout_editor_absoluteX="16dp">
 
-                <TextView
+                <ImageView
                     android:id="@+id/text_view_app_name_details_activity"
                     android:layout_width="wrap_content"
-                    style="@style/pokemon_logo_style_home"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/material_margin_4"
                     android:padding="@dimen/material_margin_4"
-                    android:text="@string/app_name"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    app:srcCompat="@drawable/pokedex_logo" />
 
             </LinearLayout>
 

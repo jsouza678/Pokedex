@@ -5,7 +5,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -21,6 +21,7 @@ import com.souza.extensions.visible
 import com.souza.pokecatalog.domain.model.Pokemon
 import com.souza.pokedetail.presentation.pokedetails.PokeDetailsActivity
 import com.souza.search.R
+import com.souza.search.databinding.FragmentPokeSearchDialogBinding
 import com.souza.search.utils.Constants.Companion.DELAY_LONG
 import com.souza.search.utils.Constants.Companion.EMPTY_STRING
 import com.souza.search.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW
@@ -41,15 +42,21 @@ class SearchDialog : DialogFragment() {
     private val viewModel by viewModel<SearchViewModel>()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val view: View = View.inflate(context, R.layout.fragment_poke_search_dialog, null)
-        bindViews(view)
+        val binding = FragmentPokeSearchDialogBinding.inflate(LayoutInflater.from(context))
+
+        recyclerView = binding.recyclerViewPokeSearchDialog
+        buttonDismiss = binding.buttonDismissCustomSearchDialog
+        searchButtonDialog = binding.searchButtonSearchDialog
+        constraintErrorLayout = binding.containerLayoutErrorSearchDialog
+        constraintDefaultLayout = binding.containerLayoutDefaultSearchDialog
+        val textViewResult: TextView = binding.textViewLabelSearchDialog
+        textInputArea = binding.inputEditTextSearchDialog
+
         pokesList = mutableListOf()
         adapter = SearchDialogAdapter(pokesList, requireContext())
-        val textViewResult: TextView = view.findViewById(R.id.text_view_label_search_dialog)
 
         val alert = AlertDialog.Builder(context)
-        alert.setView(view)
-        textInputArea = view.findViewById<TextInputEditText>(R.id.input_edit_text_search_dialog)
+        alert.setView(binding.root)
 
         initSearchButtonClickListener(textViewResult)
         setTransitionToPokeDetails()
@@ -57,14 +64,6 @@ class SearchDialog : DialogFragment() {
         setupButtonDismiss()
 
         return alert.create()
-    }
-
-    private fun bindViews(view: View) {
-        recyclerView = view.findViewById(R.id.recycler_view_poke_search_dialog)
-        buttonDismiss = view.findViewById(R.id.button_dismiss_custom_search_dialog)
-        searchButtonDialog = view.findViewById(R.id.search_button_search_dialog)
-        constraintErrorLayout = view.findViewById(R.id.container_layout_error_search_dialog)
-        constraintDefaultLayout = view.findViewById(R.id.container_layout_default_search_dialog)
     }
 
     private fun initSearchButtonClickListener(textViewResult: TextView) {
