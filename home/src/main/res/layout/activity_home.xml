@@ -8,92 +8,135 @@
     android:orientation="vertical"
     tools:context=".presentation.HomeActivity">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_layout_home_activity"
-        android:layout_width="@dimen/match_constraint"
-        android:layout_height="@dimen/match_constraint"
-        android:visibility="gone"
+          android:id="@+id/constraint_layout_home_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_home_activity"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        android:translationZ="2dp"
+
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/search_menu">
+
+        <ImageView
+            android:id="@+id/image_view_app_name_home_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pokedex_logo"
+            android:text="@string/app_name"
+            android:visibility="visible"
+            android:gravity="center"
+            android:layout_marginStart="?android:attr/actionBarSize"
+            android:layout_marginLeft="?android:attr/actionBarSize" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/welcome_text_view_home_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/raleway_semibold"
+        android:text="Gotta catch 'em all!"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        android:translationZ="2dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_home_activity" />
+
+    <android.widget.Button
+        android:id="@+id/button_discover_pokes_home_activity"
+        android:layout_width="174dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginBottom="125dp"
+        android:background="@drawable/main_button"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="Discover Pokes"
+        android:textColor="@color/poke_text"
+        android:textSize="14sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_home_activity"
+        <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            android:visibility="visible"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/up_pokeball"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent=".5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:visibility="visible"
-                tools:layout_editor_absoluteX="16dp">
-
-                <TextView
-                    android:id="@+id/text_view_app_name_home_activity"
-                    style="@style/pokemon_logo_style_home"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/material_margin_4"
-                    android:padding="@dimen/material_margin_4"
-                    android:text="@string/app_name"
-                    android:visibility="visible" />
-
-            </LinearLayout>
-
-        </androidx.appcompat.widget.Toolbar>
-
-        <TextView
-            android:id="@+id/welcome_text_view_home_activity"
-            style="@style/style_welcome_text_main_activity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/material_margin_16"
-            android:layout_marginTop="@dimen/material_margin_16"
-            android:layout_marginEnd="@dimen/material_margin_16"
-            android:text="@string/welcome_screen_message"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_home_activity" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/image_view_snorlax_welcome_home_activity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/material_margin_16"
-            android:layout_marginTop="@dimen/material_margin_16"
-            android:layout_marginEnd="@dimen/material_margin_16"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/welcome_text_view_home_activity"
-            app:srcCompat="@drawable/first_time_snorlax"
-            android:contentDescription="@string/content_description_image_snorlax_home_fragment" />
-
-        <Button
-            android:id="@+id/button_discover_pokes_home_activity"
-            style="@style/button_default"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/material_margin_16"
-            android:layout_marginTop="@dimen/material_margin_16"
-            android:layout_marginEnd="@dimen/material_margin_16"
-            android:layout_marginBottom="@dimen/material_margin_24"
-            android:text="@string/button_activity_discover_pokes"
-            android:visibility="visible"
+            android:id="@+id/imageView21"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/down_pokeball"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_snorlax_welcome_home_activity" />
+            app:layout_constraintTop_toBottomOf="@id/imageView2" />
+
+        <ImageView
+            android:id="@+id/imageVi2ew"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/ball"
+            android:translationY="75dp"
+            android:translationZ="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <ImageView
+            android:id="@+id/imageVi2ewuu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/line"
+            android:translationY="-12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="1.2"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout

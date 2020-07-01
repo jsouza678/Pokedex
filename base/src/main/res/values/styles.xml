@@ -28,19 +28,35 @@
         <item name="android:textSize">36sp</item>
     </style>
 
-    <style name="button_default" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="android:layout_width">90dp</item>
-        <item name="android:layout_height">40dp</item>
+    <style name="style_welcome_text_main_activity">
+        <item name="android:fontFamily">@font/raleway_semibold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="default_button">
+        <item name="android:layout_width">@dimen/match_constraint</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/main_button</item>
+        <item name="android:fontFamily">@font/raleway_semibold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="paddingEnd">@dimen/default_padding_button</item>
+        <item name="paddingStart">@dimen/default_padding_button</item>
+    </style>
+
+    <style name="small_button" parent="default_button">
         <item name="android:layout_marginStart">@dimen/material_margin_16</item>
-        <item name="android:layout_marginTop">@dimen/material_margin_8</item>
+        <item name="android:layout_marginTop">@dimen/material_margin_16</item>
         <item name="android:layout_marginEnd">@dimen/material_margin_16</item>
         <item name="android:layout_marginBottom">@dimen/material_margin_16</item>
     </style>
 
-    <style name="style_welcome_text_main_activity">
-        <item name="android:fontFamily">@font/open_sans</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textSize">14sp</item>
+    <style name="large_button" parent="default_button">
+        <item name="android:layout_marginStart">@dimen/material_margin_32</item>
+        <item name="android:layout_marginTop">@dimen/material_margin_32</item>
+        <item name="android:layout_marginEnd">@dimen/material_margin_32</item>
+        <item name="android:layout_marginBottom">@dimen/material_margin_32</item>
     </style>
+
 
 </resources>

@@ -4,49 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/real_white"
+    android:background="@color/default_bg_color"
     android:visibility="visible"
     tools:context=".presentation.pokecatalog.PokeCatalogFragment">
 
     <ImageView
         android:id="@+id/background_sprite_home"
-        android:layout_width="@dimen/background_sprite_size"
-        android:layout_height="@dimen/background_sprite_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/content_description_sprite_background"
         android:scaleType="centerCrop"
         android:visibility="visible"
+        android:tint="#80000000"
+        android:rotation="45"
+        android:translationY="-20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mock_background_sprite_poke" />
+        app:srcCompat="@drawable/bg" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/pokedex_toolbar_home"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/translucent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:visibility="visible"
-            tools:layout_editor_absoluteX="16dp">
-
-            <TextView
-                android:id="@+id/text_view_app_name_home_activity"
-                style="@style/pokemon_logo_style_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/material_margin_4"
-                android:padding="@dimen/material_margin_4"
-                android:text="@string/app_name"
-                android:visibility="visible" />
-        </LinearLayout>
+    <ImageView
+        android:id="@+id/image_view_app_name_home_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pokedex_logo"
+        android:text="@string/app_name"
+        android:visibility="visible"
+        android:gravity="center"
+        android:layout_marginStart="?android:attr/actionBarSize"
+        android:layout_marginLeft="?android:attr/actionBarSize"
+        android:layout_marginEnd="?android:attr/actionBarSize"
+        android:layout_marginRight="?android:attr/actionBarSize" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -72,7 +70,7 @@
         android:id="@+id/poke_ball_bottom_toolbar_home"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/poke_ball_container_layout_height"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,11 +100,11 @@
                 android:layout_width="@dimen/progress_bar_size_home"
                 android:layout_height="@dimen/progress_bar_size_home"
                 android:layout_centerInParent="true"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:visibility="visible" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floating_action_button_poke_ball_home"

@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#375CA7</color>
-    <color name="colorPrimaryDark">#2D4C8B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#FF00</color>
+    <color name="colorPrimaryDark">#FF00</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="poke_ball_stroke">#000</color>
+    <color name="poke_ball_up">#FF00</color>
+    <color name="poke_ball_down">#FFF</color>
+    <color name="poke_text">#000</color>
+    <color name="poke_button_bg">#FFF</color>
     <color name="real_white">#FFFFFF</color>
     <color name="real_black">#000000</color>
     <color name="yellow_poke">#F8C406</color>
     <color name="blue_poke">#375CA7</color>
+    <color name="default_bg_color">#FFF</color>
+    <color name="text_color_detail">#000</color>
+
     <!-- Poke Colors -->
     <color name="poke_red">#F7786B</color>
     <color name="tab_text_color">#CBCDCF</color>

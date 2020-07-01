@@ -15,6 +15,7 @@
         android:layout_marginTop="@dimen/material_margin_16"
         android:layout_marginEnd="@dimen/material_margin_16"
         android:text="@string/text_view_evolution_chain_title"
+        android:textColor="@color/text_color_detail"
         style="@style/poke_name_detail_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

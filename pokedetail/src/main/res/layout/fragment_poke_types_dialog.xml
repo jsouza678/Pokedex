@@ -30,6 +30,7 @@
                 style="@style/dialog_pokes_in_types_text"
                 android:layout_width="@dimen/match_constraint"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_color_detail"
                 android:layout_marginTop="@dimen/material_margin_16"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +54,7 @@
 
             <Button
                 android:id="@+id/button_dismiss_custom_search_dialog"
-                style="@style/button_default"
+                style="@style/small_button"
                 android:layout_width="120dp"
                 android:layout_height="@dimen/button_dismiss_types_dialog_height"
                 android:text="@string/button_text_dismiss"

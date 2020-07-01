@@ -13,6 +13,7 @@
         android:layout_marginStart="@dimen/material_margin_8"
         android:layout_marginTop="@dimen/material_margin_8"
         android:layout_marginEnd="@dimen/material_margin_8"
+        android:textColor="@color/text_color_detail"
         android:layout_marginBottom="@dimen/material_margin_8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
