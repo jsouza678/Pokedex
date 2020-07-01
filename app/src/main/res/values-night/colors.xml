@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="poke_white">#FFF</color>
+    <color name="poke_ball_stroke">#000</color>
+    <color name="poke_ball_up">#000</color>
+    <color name="poke_ball_down">#FFF</color>
+    <color name="poke_text">#fff</color>
+    <color name="poke_button_bg">#FF00</color>
+
+</resources>
