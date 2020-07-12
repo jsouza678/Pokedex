@@ -33,18 +33,16 @@ class SearchDialog : DialogFragment() {
     private lateinit var pokesList: MutableList<Pokemon>
     private lateinit var adapter: SearchDialogAdapter
     private lateinit var layoutManager: GridLayoutManager
-    private lateinit var recyclerView: RecyclerView
     private lateinit var buttonDismiss: Button
     private lateinit var searchButtonDialog: ImageButton
     private lateinit var textInputArea: TextInputEditText
     private lateinit var constraintErrorLayout: ConstraintLayout
     private lateinit var constraintDefaultLayout: ConstraintLayout
     private val viewModel by viewModel<SearchViewModel>()
+    private val binding = FragmentPokeSearchDialogBinding.inflate(LayoutInflater.from(context))
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val binding = FragmentPokeSearchDialogBinding.inflate(LayoutInflater.from(context))
 
-        recyclerView = binding.recyclerViewPokeSearchDialog
         buttonDismiss = binding.buttonDismissCustomSearchDialog
         searchButtonDialog = binding.searchButtonSearchDialog
         constraintErrorLayout = binding.containerLayoutErrorSearchDialog
@@ -126,9 +124,9 @@ class SearchDialog : DialogFragment() {
 
     private fun initRecyclerview() {
         layoutManager = GridLayoutManager(context, TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW)
-        recyclerView.layoutManager = layoutManager
+        binding.recyclerViewPokeSearchDialog.layoutManager = layoutManager
 
-        recyclerView.adapter = adapter
+        binding.recyclerViewPokeSearchDialog.adapter = adapter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
