@@ -17,4 +17,5 @@
     <color name="text_color_detail">#FFF</color>
     <color name="default_foreground_secondary">#3D2D2D</color>
     <color name="default_bg_secondary">#2D313D</color>
+    <color name="default_bg_sprite_color">#FFF</color>
 </resources>

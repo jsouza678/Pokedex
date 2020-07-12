@@ -15,7 +15,8 @@
         android:contentDescription="@string/content_description_sprite_background"
         android:scaleType="centerCrop"
         android:visibility="visible"
-        android:tint="#80000000"
+        android:tint="@color/default_bg_sprite_color"
+        android:alpha="0.2"
         android:rotation="45"
         android:translationY="-20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,10 +43,7 @@
         android:text="@string/app_name"
         android:visibility="visible"
         android:gravity="center"
-        android:layout_marginStart="?android:attr/actionBarSize"
-        android:layout_marginLeft="?android:attr/actionBarSize"
-        android:layout_marginEnd="?android:attr/actionBarSize"
-        android:layout_marginRight="?android:attr/actionBarSize" />
+        android:layout_marginEnd="?android:attr/actionBarSize" />
 
     </androidx.appcompat.widget.Toolbar>
 

@@ -7,13 +7,11 @@ import android.widget.Button
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.souza.connectivity.Connectivity
-import com.souza.extensions.gone
 import com.souza.extensions.visible
 import com.souza.home.R
 import com.souza.home.databinding.ActivityHomeBinding
@@ -26,12 +24,11 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var buttonDiscoverNewPokes: Button
     private lateinit var frameLayoutFragmentHost: FrameLayout
     private lateinit var connectivitySnackbar: Snackbar
-    private lateinit var mainToolbar: Toolbar
-    private lateinit var connectivity: Connectivity
+    private lateinit var toolbar: Toolbar
+    private lateinit var checkConnectivity: Connectivity
     private var hasNetworkConnectivity = true
-    private lateinit var constraintLayoutHome: ConstraintLayout
     private val viewModel by viewModel<HomeViewModel>()
-    private val homeFragment = PokeCatalogFragment()
+    private val pokeCatalogFragment = PokeCatalogFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +36,7 @@ class HomeActivity : AppCompatActivity() {
 
         buttonDiscoverNewPokes = binding.buttonDiscoverPokesHomeActivity
         frameLayoutFragmentHost = binding.navHostFragmentHomeActivity
-        constraintLayoutHome = binding.constraintLayoutHomeActivity
-        mainToolbar = binding.toolbarHomeActivity
-
-        constraintLayoutHome.visible()
+        toolbar = binding.toolbarHomeActivity
 
         setupToolbar()
         setupButtonDiscoverPokes()
@@ -54,13 +48,12 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupToolbar() {
-        setSupportActionBar(mainToolbar)
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_menu, menu)
-
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -84,14 +77,13 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupButtonDiscoverPokes() {
         buttonDiscoverNewPokes.setOnClickListener {
-            constraintLayoutHome.gone()
-            changeFragment(fragment = homeFragment)
+            changeFragment(fragment = pokeCatalogFragment)
             frameLayoutFragmentHost.visible()
         }
     }
 
     private fun initConnectivityObserver() {
-        connectivity.observe(this@HomeActivity, Observer { hasNetworkConnectivity ->
+        checkConnectivity.observe(this@HomeActivity, Observer { hasNetworkConnectivity ->
             this.hasNetworkConnectivity = hasNetworkConnectivity
             viewModel.mustShowConnectivitySnackbar(hasNetworkConnectivity = hasNetworkConnectivity)
         })
@@ -108,7 +100,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun initConnectivityCallback() {
-        connectivity = Connectivity(application)
+        checkConnectivity = Connectivity(application)
     }
 
     private fun initConnectivitySnackbar() {
@@ -138,11 +130,5 @@ class HomeActivity : AppCompatActivity() {
         val searchDialog = SearchDialog()
         frameLayoutFragmentHost.visible()
         searchDialog.show(supportFragmentManager, getString(R.string.search_fragment_tag))
-    }
-
-    override fun onBackPressed() {
-        frameLayoutFragmentHost.gone()
-        constraintLayoutHome.visible()
-        super.onBackPressed()
     }
 }

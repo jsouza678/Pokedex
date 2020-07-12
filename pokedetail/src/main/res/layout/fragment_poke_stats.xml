@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/text_view_detail_hp_label_stat"
-        style="@style/stat_label"
+        style="@style/stat_style_label"
         android:layout_marginStart="@dimen/material_margin_16"
         android:layout_marginTop="@dimen/material_margin_16"
         android:text="@string/poke_hp_label"
@@ -21,7 +21,7 @@
         android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin_8"
-        style="@style/stat_value"
+        style="@style/stat_style_value"
         android:textColor="@color/text_color_detail"
         app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_hp_label_stat"
         app:layout_constraintStart_toEndOf="@id/text_view_detail_hp_label_stat"
@@ -44,7 +44,7 @@
 
     <TextView
         android:id="@+id/text_view_detail_attack_label_stat"
-        style="@style/stat_label"
+        style="@style/stat_style_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin_16"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin_8"
         android:textColor="@color/text_color_detail"
-        style="@style/stat_value"
+        style="@style/stat_style_value"
         tools:text="@string/mock_attack"
         app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_attack_label_stat"
         app:layout_constraintStart_toEndOf="@id/text_view_detail_attack_label_stat" />
@@ -81,7 +81,7 @@
 
     <TextView
         android:id="@+id/text_view_detail_defense_label_stat"
-        style="@style/stat_label"
+        style="@style/stat_style_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin_16"
@@ -95,7 +95,7 @@
         android:id="@+id/text_view_poke_defense_stat"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
-        style="@style/stat_value"
+        style="@style/stat_style_value"
         android:textColor="@color/text_color_detail"
         android:layout_marginStart="@dimen/material_margin_8"
         app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_defense_label_stat"
@@ -118,7 +118,7 @@
 
     <TextView
         android:id="@+id/text_view_detail_special_attack_label_stat"
-        style="@style/stat_label"
+        style="@style/stat_style_label"
         android:layout_width="wrap_content"
         android:textColor="@color/text_color_detail"
         android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin_8"
         android:textColor="@color/text_color_detail"
-        style="@style/stat_value"
+        style="@style/stat_style_value"
         tools:text="@string/mock_special_attack"
         app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_special_attack_label_stat"
         app:layout_constraintStart_toEndOf="@id/text_view_detail_special_attack_label_stat" />
@@ -155,7 +155,7 @@
 
     <TextView
         android:id="@+id/text_view_detail_special_defense_label_stat"
-        style="@style/stat_label"
+        style="@style/stat_style_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/text_color_detail"
@@ -169,7 +169,7 @@
         android:id="@+id/text_view_poke_special_defense_stat"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
-        style="@style/stat_value"
+        style="@style/stat_style_value"
         android:textColor="@color/text_color_detail"
         android:layout_marginStart="@dimen/material_margin_8"
         app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_special_defense_label_stat"
@@ -193,7 +193,7 @@
 
     <TextView
         android:id="@+id/text_view_detail_speed_label_stat"
-        style="@style/stat_label"
+        style="@style/stat_style_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/text_color_detail"
@@ -209,7 +209,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin_16"
         android:textColor="@color/text_color_detail"
-        style="@style/stat_value"
+        style="@style/stat_style_value"
         app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_speed_label_stat"
         app:layout_constraintStart_toEndOf="@id/text_view_detail_speed_label_stat"
         tools:text="@string/mock_speed" />
@@ -231,7 +231,7 @@
 
     <TextView
         android:id="@+id/text_view_detail_weight_label_stat"
-        style="@style/stat_label"
+        style="@style/stat_style_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/text_color_detail"
@@ -247,14 +247,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin_8"
         tools:text="@string/mock_weight"
-        style="@style/stat_value"
+        style="@style/stat_style_value"
         android:textColor="@color/text_color_detail"
         app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_weight_label_stat"
         app:layout_constraintStart_toEndOf="@id/text_view_detail_weight_label_stat" />
 
     <TextView
         android:id="@+id/text_view_detail_height_label_stat"
-        style="@style/stat_label"
+        style="@style/stat_style_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/material_margin_16"
@@ -272,7 +272,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/text_color_detail"
         android:layout_marginStart="@dimen/material_margin_8"
-        style="@style/stat_value"
+        style="@style/stat_style_value"
         tools:text="@string/mock_height"
         app:layout_constraintBaseline_toBaselineOf="@id/text_view_detail_height_label_stat"
         app:layout_constraintStart_toEndOf="@id/text_view_detail_height_label_stat" />

@@ -82,7 +82,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardview_down_details"
-        style="@style/CustomCardViewStyle"
+        style="@style/custom_card_view_style_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/default_foreground_color"
@@ -96,7 +96,7 @@
 
             <TextView
                 android:id="@+id/text_view_poke_name_details"
-                style="@style/poke_name_detail_style"
+                style="@style/poke_name_style_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_color_detail"
@@ -107,7 +107,7 @@
 
             <TextView
                 android:id="@+id/text_view_poke_id_details"
-                style="@style/poke_id_detail_style"
+                style="@style/poke_id_style_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/material_margin_16"
@@ -131,7 +131,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_view_poke_id_details"
                 app:tabSelectedTextColor="@color/blue_poke"
-                app:tabTextAppearance="@style/custom_tab_text_style"
+                app:tabTextAppearance="@style/custom_tab_text_style_detail"
                 app:tabTextColor="@color/tab_text_color" />
 
             <androidx.viewpager.widget.ViewPager
