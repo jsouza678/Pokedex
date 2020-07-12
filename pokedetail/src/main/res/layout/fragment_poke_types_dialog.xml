@@ -39,7 +39,7 @@
         <android.widget.Button
             android:id="@+id/button_dismiss_custom_search_dialog"
             style="@style/small_button_style"
-            android:layout_width="120dp"
+            android:layout_width="@dimen/button_dismiss_types_dialog_width"
             android:layout_height="@dimen/button_dismiss_types_dialog_height"
             android:text="@string/button_text_dismiss"
             app:layout_constraintBottom_toBottomOf="parent"

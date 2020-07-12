@@ -20,7 +20,6 @@
         android:layout_height="?android:attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         android:translationZ="2dp"
-        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +33,8 @@
             android:text="@string/app_name"
             android:visibility="visible"
             android:gravity="center"
-            android:layout_marginStart="?android:attr/actionBarSize" />
+            android:layout_marginStart="?android:attr/actionBarSize"
+            android:contentDescription="@string/toolbar_pokedex_logo_home_fragment" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -42,11 +42,11 @@
         android:id="@+id/welcome_text_view_home_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/material_margin_16"
+        android:layout_marginTop="@dimen/material_margin_16"
+        android:layout_marginEnd="@dimen/material_margin_16"
         android:fontFamily="@font/raleway_semibold"
-        android:text="Gotta catch 'em all!"
+        android:text="@string/welcome_screen_message_home_activity"
         android:textColor="#FFF"
         android:textSize="18sp"
         android:elevation="2dp"
@@ -57,20 +57,12 @@
 
     <android.widget.Button
         android:id="@+id/button_discover_pokes_home_activity"
-        android:layout_width="174dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
+        android:layout_width="@dimen/discover_pokes_button_width_home_activity"
+        android:layout_height="@dimen/discover_pokes_button_height_home_activity"
+        style="@style/large_button_style"
         android:layout_marginBottom="125dp"
-        android:background="@drawable/main_button"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:text="@string/button_activity_discover_pokes"
-        android:textColor="@color/poke_text"
         android:textSize="14sp"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -33,8 +33,8 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
     private val viewModel by viewModel<AboutViewModel> { parametersOf(pokemonId) }
     private lateinit var pokeVariationsSpinner: Spinner
     private lateinit var pokeDescriptionTextView: TextView
-    private var pokemonsArray: MutableList<Varieties>? = mutableListOf()
-    private val pokemonSpinnerAdapter by inject<AboutSpinnerAdapter> { parametersOf(pokemonsArray) }
+    private var pokemonList: MutableList<Varieties>? = mutableListOf()
+    private val pokemonSpinnerAdapter by inject<AboutSpinnerAdapter> { parametersOf(pokemonList) }
     private lateinit var constraintDefault: ConstraintLayout
     private lateinit var constraintEvolution: ConstraintLayout
     private var uriEvolutionChain: Int = ABSOLUTE_ZERO
@@ -86,7 +86,7 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
             turnOnSnackbarErrorPokeSelected()
         } else {
             turnOnSnackbarLoadingPokeSelected()
-            val newPokeName = pokemonsArray?.get(itemSelectedOnSpinner)?.pokemon?.name
+            val newPokeName = pokemonList?.get(itemSelectedOnSpinner)?.pokemon?.name
             val detailsFragment = newPokeName?.let { PokeDetailsFragment(
                 pokemonId = uriEvolutionChain,
                 pokemonName = it
@@ -112,7 +112,7 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
     }
 
     private fun parseEvolutionPath() {
-        urlEvolutionChain = pokemonsArray?.get(itemSelectedOnSpinner)?.pokemon?.id!!
+        urlEvolutionChain = pokemonList?.get(itemSelectedOnSpinner)?.pokemon?.id!!
         uriEvolutionChain = Integer.parseInt(cropPokeUrl(urlEvolutionChain))
     }
 
@@ -120,7 +120,7 @@ class AboutFragment(private val pokemonId: Int) : Fragment() {
         viewModel.apply {
             this.updateVariationsOnViewLiveData()?.observeOnce(viewLifecycleOwner, Observer {
                 pokemonSpinnerAdapter.submitList(it?.varieties)
-                pokemonsArray = it?.varieties!!
+                pokemonList = it?.varieties!!
                 pokeDescriptionTextView.text = it.description
                 setupOnClickPokeDescriptionDialog(it.description)
             })

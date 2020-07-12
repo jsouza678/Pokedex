@@ -31,6 +31,7 @@
                     android:id="@+id/text_view_app_name_details_activity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/app_name"
                     android:layout_margin="@dimen/material_margin_4"
                     android:padding="@dimen/material_margin_4"
                     android:visibility="visible"

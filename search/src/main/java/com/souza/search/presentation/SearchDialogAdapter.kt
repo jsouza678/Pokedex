@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
+import com.souza.extensions.loadImageUrlAndCard
 import com.souza.pokecatalog.domain.model.Pokemon
-import com.souza.pokecatalog.utils.loadImageUrlAndCard
 import com.souza.search.R
 import com.souza.search.utils.Constants.Companion.BASTION_POKE_IMAGE_BASE_URL
 import com.souza.search.utils.Constants.Companion.DEFAULT_IMAGE_FORMAT_BASTION

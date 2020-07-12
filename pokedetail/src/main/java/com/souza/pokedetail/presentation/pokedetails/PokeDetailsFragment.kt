@@ -28,7 +28,6 @@ import com.souza.pokedetail.utils.Constants.Companion.OFFSCREEN_DEFAULT_VIEW_PAG
 import com.souza.pokedetail.utils.Constants.Companion.TIME_BACKGROUND_ANIMATION
 import com.souza.pokedetail.utils.cropPokeUrl
 import java.util.Locale
-import kotlin.collections.ArrayList
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -63,8 +62,6 @@ class PokeDetailsFragment(
         tabsViewPagerDetail = binding.tabLayoutDetails
         tabsCarousel = binding.tabLayoutCarouselDetails
         val toolbar = binding.toolbarDetails
-
-        pokeSprites = ArrayList()
 
         setToolbarBackButton(toolbar)
         setPokeAndIdText()

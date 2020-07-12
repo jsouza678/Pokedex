@@ -9,10 +9,13 @@
     <dimen name="material_margin_16">16dp</dimen>
     <dimen name="material_margin_24">24dp</dimen>
     <dimen name="material_margin_32">32dp</dimen>
+    <dimen name="material_margin_64">64dp</dimen>
     <dimen name="layout_padding_4">4dp</dimen>
     <dimen name="layout_padding_16">16dp</dimen>
     <dimen name="default_corner_radius_card_view">18dp</dimen>
     <dimen name="default_padding_button">32dp</dimen>
+    <dimen name="discover_pokes_button_width_home_activity">174dp</dimen>
+    <dimen name="discover_pokes_button_height_home_activity">364dp</dimen>
 
     // Home
     <dimen name="bottom_bar_home_height">50dp</dimen>

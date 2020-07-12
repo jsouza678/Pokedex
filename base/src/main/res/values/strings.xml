@@ -33,7 +33,7 @@
     <string name="button_text_dismiss">Dismiss</string>
     <string name="unknown_viewmodel">Unknown ViewModel Class</string>
     <string name="spinner_hint">Select one item</string>
-    <string name="welcome_screen_message">Welcome! \n Gotta Catch \'Em All!</string>
+    <string name="welcome_screen_message_home_activity">Gotta Catch \'Em All!</string>
     <string name="button_activity_discover_pokes">Discover Pokes</string>
     <string name="search_hint">Search poke by id or name</string>
     <string name="type_your_search_here_hint">Type your search here</string>

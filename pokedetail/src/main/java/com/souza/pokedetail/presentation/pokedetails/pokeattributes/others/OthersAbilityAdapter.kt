@@ -27,9 +27,9 @@ class OthersAbilityAdapter(
 
     @ExperimentalStdlibApi
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val abillityItem = pokeAbilities[position]
+        val abilityItem = pokeAbilities[position]
         val rowView = inflater.inflate(R.layout.list_item_row, parent, false)
-        rowView.findViewById<TextView>(R.id.text_view_item_list).text = abillityItem.ability?.name?.capitalize(
+        rowView.findViewById<TextView>(R.id.text_view_item_list).text = abilityItem.ability?.name?.capitalize(
             Locale.getDefault())
 
         rowView.tag = position

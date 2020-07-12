@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.souza.pokedetail.databinding.FragmentPokeStatsBinding
 import com.souza.pokedetail.domain.model.PokeProperty
+import com.souza.pokedetail.utils.Constants.Companion.ABSOLUTE_ZERO
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -96,7 +97,7 @@ class StatsFragment(private val pokemonId: Int) : Fragment() {
 
     private fun animateStats(item: Int?, tv: TextView) {
         val statsAnimator = ValueAnimator()
-        statsAnimator.setObjectValues(0, item)
+        statsAnimator.setObjectValues(ABSOLUTE_ZERO, item)
         statsAnimator.addUpdateListener {
                 animation -> tv.text = animation.animatedValue.toString()
         }

@@ -41,13 +41,13 @@ class PokeCatalogFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentPokeCatalogBinding.inflate(layoutInflater)
-
-        progressBar = binding.progressBarHome
-        recyclerView = binding.recyclerViewHome
-        floatingActionButton = binding.floatingActionButtonPokeBallHome
-
-        val toolbar = binding.pokedexToolbarHome
+        val toolbar = binding.pokedexToolbarCatalogFragment
         setToolbarBackButton(toolbar)
+
+        progressBar = binding.progressBarCatalogFragment
+        recyclerView = binding.recyclerViewCatalogFragment
+        floatingActionButton = binding.floatingActionButtonPokeBallCatalogFragment
+
         viewModel.getPokes()
         setupRecyclerView()
         setupFloatingActionPokeball()

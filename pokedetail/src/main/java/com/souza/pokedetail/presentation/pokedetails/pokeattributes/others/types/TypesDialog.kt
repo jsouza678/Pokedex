@@ -64,9 +64,9 @@ class TypesDialog(private val pokeTypes: MutableList<TypeResponse>) : DialogFrag
             val urlChain = it.pokemon!!.id
             val pokeName = it.pokemon.name
             val pokePath = Integer.parseInt(cropPokeUrl(urlChain))
-            val details = pokeName?.let { it1 -> PokeDetailsFragment(pokePath, it1) }
+            val details = PokeDetailsFragment(pokePath, pokeName)
 
-            details?.let { it1 ->
+            details.let { it1 ->
                 fragmentManager?.beginTransaction()?.replace(
                     R.id.nav_host_fragment_details_activity,
                     it1

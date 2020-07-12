@@ -9,7 +9,7 @@
     tools:context=".presentation.pokecatalog.PokeCatalogFragment">
 
     <ImageView
-        android:id="@+id/background_sprite_home"
+        android:id="@+id/background_sprite_catalog_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/content_description_sprite_background"
@@ -25,7 +25,7 @@
         app:srcCompat="@drawable/bg" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/pokedex_toolbar_home"
+        android:id="@+id/pokedex_toolbar_catalog_fragment"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
@@ -36,11 +36,12 @@
         app:navigationIcon="@drawable/up_button_icon">
 
     <ImageView
-        android:id="@+id/image_view_app_name_home_activity"
+        android:id="@+id/image_view_app_name_catalog_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/pokedex_logo"
         android:text="@string/app_name"
+        android:contentDescription="@string/app_name"
         android:visibility="visible"
         android:gravity="center"
         android:layout_marginEnd="?android:attr/actionBarSize" />
@@ -48,7 +49,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_home"
+        android:id="@+id/recycler_view_catalog_fragment"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/match_constraint"
         android:layout_marginStart="@dimen/material_margin_8"
@@ -57,26 +58,26 @@
         android:layout_marginBottom="@dimen/material_margin_8"
         android:clipToPadding="false"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/poke_ball_bottom_toolbar_home"
+        app:layout_constraintBottom_toTopOf="@id/poke_ball_bottom_toolbar_catalog_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pokedex_toolbar_home"
+        app:layout_constraintTop_toBottomOf="@id/pokedex_toolbar_catalog_fragment"
         tools:listitem="@layout/recycler_poke_item_view" />
 
     <!-- In case of Empty list -->
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/poke_ball_bottom_toolbar_home"
+        android:id="@+id/poke_ball_bottom_toolbar_catalog_fragment"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/poke_ball_container_layout_height"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recycler_view_home">
+        app:layout_constraintTop_toBottomOf="@id/recycler_view_catalog_fragment">
 
         <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottom_app_bar_home"
+            android:id="@+id/bottom_app_bar_catalog_fragment"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_bar_home_height"
             android:layout_gravity="bottom"
@@ -90,11 +91,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/material_margin_8"
             android:visibility="visible"
-            app:layout_anchor="@id/bottom_app_bar_home"
+            app:layout_anchor="@id/bottom_app_bar_catalog_fragment"
             app:layout_anchorGravity="center">
 
             <ProgressBar
-                android:id="@+id/progress_bar_home"
+                android:id="@+id/progress_bar_catalog_fragment"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="@dimen/progress_bar_size_home"
                 android:layout_height="@dimen/progress_bar_size_home"
@@ -106,9 +107,9 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/floating_action_button_poke_ball_home"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:id="@+id/floating_action_button_poke_ball_catalog_fragment"
+                android:layout_width="@dimen/poke_ball_image_view_size"
+                android:layout_height="@dimen/poke_ball_image_view_size"
                 android:layout_centerInParent="true"
                 android:scaleType="fitXY"
                 android:src="@drawable/poke_ball"

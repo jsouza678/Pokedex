@@ -41,8 +41,8 @@ class HomeActivity : AppCompatActivity() {
         setupToolbar()
         setupButtonDiscoverPokes()
         initConnectivityCallback()
-        initConnectivitySnackbar()
         initConnectivityObserver()
+        initConnectivitySnackbar()
 
         setContentView(binding.root)
     }
@@ -50,21 +50,6 @@ class HomeActivity : AppCompatActivity() {
     private fun setupToolbar() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.search_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.search_menu_icon -> {
-                openSearchPokesDialogOnMenuClick()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun changeFragment(fragment: Fragment) {
@@ -130,5 +115,20 @@ class HomeActivity : AppCompatActivity() {
         val searchDialog = SearchDialog()
         frameLayoutFragmentHost.visible()
         searchDialog.show(supportFragmentManager, getString(R.string.search_fragment_tag))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.search_menu_icon -> {
+                openSearchPokesDialogOnMenuClick()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

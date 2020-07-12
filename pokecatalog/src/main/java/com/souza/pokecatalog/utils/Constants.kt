@@ -8,7 +8,6 @@ class Constants {
         const val DEFAULT_IMAGE_FORMAT_BASTION = ".png"
         const val POKE_TABLE_NAME = "pokemon"
         const val POKE_LIMIT = 20
-        const val LIMIT_NORMAL_POKES = 807
         const val TWO_COLUMN_GRID_LAYOUT_RECYCLER_VIEW = 2
         const val ABSOLUTE_ZERO = 0
         const val DELAY_MEDIUM: Long = 1000
