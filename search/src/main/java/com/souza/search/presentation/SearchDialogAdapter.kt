@@ -30,7 +30,11 @@ class SearchDialogAdapter(
     private val imageResourceUrl = BASTION_POKE_IMAGE_BASE_URL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.recycler_poke_item_view_search, parent, false)
+        val view = LayoutInflater
+            .from(context)
+            .inflate(R.layout.recycler_poke_item_view_search,
+                parent,
+                false)
         return ViewHolder(view)
     }
 
@@ -63,15 +67,18 @@ class SearchDialogAdapter(
         private val pokeId: TextView = itemView.text_view_id_poke_recycler
         private var formattedNumber: String = EMPTY_STRING
         private var pokemonId: Int = 0
-        private val pokeCv: MaterialCardView = itemView.card_view_poke_item
+        private val pokeCardView: MaterialCardView = itemView.card_view_poke_item
 
         @ExperimentalStdlibApi
         fun itemBind(pokes: Pokemon) {
-            pokeName.text = pokes.name?.capitalize(Locale.getDefault())
+            pokeName.text = pokes.name.capitalize(Locale.getDefault())
             pokemonId = pokes.id
             formattedNumber = FORMAT_ID_POKE_DISPLAY.format(pokemonId)
             pokeId.text = context.resources?.getString(R.string.text_view_placeholder_hash, formattedNumber)
-            pokeImage.loadImageUrlAndPaletteColorToCardView("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION", pokeCv)
+            pokeImage
+                .loadImageUrlAndPaletteColorToCardView(
+                    "$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION",
+                    pokeCardView)
         }
 
         init {

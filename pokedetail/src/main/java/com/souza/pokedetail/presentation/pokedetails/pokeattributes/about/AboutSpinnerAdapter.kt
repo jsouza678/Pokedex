@@ -34,7 +34,7 @@ class AboutSpinnerAdapter(
         if (rowView == null) {
             val pokeVariationItem = pokeVariations[position]
             rowView = inflater.inflate(R.layout.list_item_row, parent, false)
-            rowView.findViewById<TextView>(R.id.text_view_item_list).text = pokeVariationItem.pokemon.name?.capitalize(
+            rowView.findViewById<TextView>(R.id.text_view_item_list).text = pokeVariationItem.pokemon.name.capitalize(
                 Locale.getDefault())
             rowView.tag = position
         }

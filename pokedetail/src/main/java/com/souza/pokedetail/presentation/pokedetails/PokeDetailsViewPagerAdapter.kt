@@ -40,7 +40,7 @@ internal class PokeDetailsViewPagerAdapter(
     )
 
     override fun getItem(position: Int): Fragment {
-        if (pokemonId > LIMIT_NORMAL_POKES) { // this defines a poke as an evolution! so some fragments will not show.
+        if (pokemonId > LIMIT_NORMAL_POKES) {
             return evolutionPokeFragments[position]
         }
         return defaultPokeFragments[position]

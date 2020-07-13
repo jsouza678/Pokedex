@@ -3,10 +3,7 @@ package com.souza.home.presentation
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,22 +18,16 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var buttonDiscoverNewPokes: Button
-    private lateinit var frameLayoutFragmentHost: FrameLayout
     private lateinit var connectivitySnackbar: Snackbar
-    private lateinit var toolbar: Toolbar
     private lateinit var checkConnectivity: Connectivity
     private var hasNetworkConnectivity = true
     private val viewModel by viewModel<HomeViewModel>()
     private val pokeCatalogFragment = PokeCatalogFragment()
+    private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityHomeBinding.inflate(layoutInflater)
-
-        buttonDiscoverNewPokes = binding.buttonDiscoverPokesHomeActivity
-        frameLayoutFragmentHost = binding.navHostFragmentHomeActivity
-        toolbar = binding.toolbarHomeActivity
+        binding = ActivityHomeBinding.inflate(layoutInflater)
 
         setupToolbar()
         setupButtonDiscoverPokes()
@@ -48,7 +39,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupToolbar() {
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbarHomeActivity)
         supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
@@ -61,9 +52,9 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupButtonDiscoverPokes() {
-        buttonDiscoverNewPokes.setOnClickListener {
+        binding.buttonDiscoverPokesHomeActivity.setOnClickListener {
             changeFragment(fragment = pokeCatalogFragment)
-            frameLayoutFragmentHost.visible()
+            binding.navHostFragmentHomeActivity.visible()
         }
     }
 
@@ -91,7 +82,7 @@ class HomeActivity : AppCompatActivity() {
     private fun initConnectivitySnackbar() {
         connectivitySnackbar =
             Snackbar.make(
-                frameLayoutFragmentHost,
+                binding.navHostFragmentHomeActivity,
                 getString(R.string.snackbar_message_internet_back),
                 Snackbar.LENGTH_INDEFINITE
             )
@@ -99,21 +90,28 @@ class HomeActivity : AppCompatActivity() {
 
     private fun showConnectivityOnSnackbar() {
         connectivitySnackbar.duration = Snackbar.LENGTH_SHORT
-        connectivitySnackbar.view.setBackgroundColor(ContextCompat.getColor(this, R.color.poke_green))
+        connectivitySnackbar
+            .view.setBackgroundColor(ContextCompat
+                .getColor(this, R.color.poke_green)
+            )
         connectivitySnackbar.setText(getString(R.string.snackbar_message_internet_back))
         connectivitySnackbar.show()
     }
 
     private fun showConnectivityOffSnackbar() {
         connectivitySnackbar.duration = Snackbar.LENGTH_INDEFINITE
-        connectivitySnackbar.view.setBackgroundColor(ContextCompat.getColor(this, R.color.poke_red))
+        connectivitySnackbar
+            .view
+            .setBackgroundColor(ContextCompat
+                .getColor(this, R.color.poke_red)
+            )
         connectivitySnackbar.setText(getString(R.string.snackbar_internet_off))
         connectivitySnackbar.show()
     }
 
     private fun openSearchPokesDialogOnMenuClick() {
         val searchDialog = SearchDialogFragment()
-        frameLayoutFragmentHost.visible()
+        binding.navHostFragmentHomeActivity.visible()
         searchDialog.show(supportFragmentManager, getString(R.string.search_fragment_tag))
     }
 

@@ -12,14 +12,16 @@ class SearchRepositoryImpl(
 ) : SearchRepository {
 
     override fun searchPokesById(poke: Int): LiveData<List<Pokemon>?> {
-        return Transformations.map(pokemonDao.getPokesById(poke)) {
-            PokedexMapper.pokemonEntityAsDomainModel(it)
+        return Transformations.map(pokemonDao.getPokesById(poke)) { pokemonEntity ->
+            PokedexMapper
+                .pokemonEntityAsDomainModel(pokemonEntity)
         }
     }
 
     override fun searchPokesByName(poke: String): LiveData<List<Pokemon>?> {
         return Transformations.map(pokemonDao.getPokesByName(poke)) {
-            PokedexMapper.pokemonEntityAsDomainModel(it)
+            PokedexMapper
+                .pokemonEntityAsDomainModel(it)
         }
     }
 }

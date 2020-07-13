@@ -17,9 +17,10 @@ class VarietyRepositoryImpl(
 
     override fun getVarieties(id: Int): LiveData<PokeVariety?>? {
         return Transformations.map(varietiesDao.getVariety(id)) { varietyObject ->
-            varietyObject?.let { varietyItem -> PokedexMapper.varietyEntityAsDomainModel(
-                varietyEntity = varietyItem
-            ) }
+            varietyObject?.let { varietyItem ->
+                PokedexMapper
+                    .varietyEntityAsDomainModel(varietyEntity = varietyItem)
+            }
         }
     }
 
@@ -27,9 +28,10 @@ class VarietyRepositoryImpl(
         withContext(Dispatchers.IO) {
             try {
                 val pokeVariations = pokeDetailService.fetchVariationsAsync(id).await()
-                varietiesDao.insertAll(PokedexMapper.variationsResponseAsDatabaseModel(
-                    pokeVarietiesRootResponse = pokeVariations
-                ))
+                varietiesDao.insertAll(
+                    PokedexMapper
+                        .variationsResponseAsDatabaseModel(pokeVarietiesRootResponse = pokeVariations)
+                )
             } catch (e: Exception) {}
         }
     }

@@ -16,8 +16,9 @@ class PokemonRepositoryImpl(
 ) : PokemonRepository {
 
     override fun getPokes(): LiveData<List<Pokemon>?> {
-        return Transformations.map(pokemonDao.getPokes()) { it ->
-            PokedexMapper.pokemonEntityAsDomainModel(pokemonEntity = it)
+        return Transformations.map(pokemonDao.getPokes()) { pokemonEntity ->
+            PokedexMapper
+                .pokemonEntityAsDomainModel(pokemonEntity = pokemonEntity)
         }
     }
 
@@ -25,7 +26,10 @@ class PokemonRepositoryImpl(
         withContext(Dispatchers.IO) {
             try {
                 val pokeList = pokeCatalogService.fetchPokesAsync(page).await()
-                PokedexMapper.pokemonResponseAsDatabaseModel(pokeRootProperty = pokeList)?.let { pokemonDao.insertAll(*it) }
+                PokedexMapper
+                    .pokemonResponseAsDatabaseModel(pokeRootProperty = pokeList)?.let {
+                    pokemonDao.insertAll(*it)
+                }
             } catch (e: Exception) { }
         }
     }

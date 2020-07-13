@@ -29,7 +29,11 @@ class PokeCatalogAdapter : RecyclerView.Adapter<PokeCatalogAdapter.ViewHolder>()
     private val imageResourceUrl = BASTION_POKE_IMAGE_BASE_URL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_poke_item_view, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.recycler_poke_item_view,
+                parent,
+                false
+            )
         return ViewHolder(view)
     }
 
@@ -65,7 +69,11 @@ class PokeCatalogAdapter : RecyclerView.Adapter<PokeCatalogAdapter.ViewHolder>()
             pokemonId = pokes.id
             formattedNumber = FORMAT_ID_POKE_DISPLAY.format(pokemonId)
             pokeId.text = "#$formattedNumber"
-            pokeImage.loadImageUrlAndPaletteColorToCardView("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION", pokeCardView)
+            pokeImage
+                .loadImageUrlAndPaletteColorToCardView(
+                    "$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION",
+                    pokeCardView
+                )
         }
         init {
             itemView.setOnClickListener {

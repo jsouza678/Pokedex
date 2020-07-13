@@ -18,7 +18,10 @@ class TypeRepositoryImpl(
     override fun getPokesInType(id: Int): LiveData<PokeType>? {
         return typeDao.getTypes(id).let {
             Transformations.map(it) { typeObject ->
-                typeObject?.let { typeItem -> PokedexMapper.typeAsDomainModel(typeEntity = typeItem) }
+                typeObject?.let { typeItem ->
+                    PokedexMapper
+                        .typeAsDomainModel(typeEntity = typeItem)
+                }
             }
         }
     }
@@ -27,7 +30,10 @@ class TypeRepositoryImpl(
         withContext(Dispatchers.IO) {
             try {
                 val pokeType = pokeDetailService.fetchTypeDataAsync(id).await()
-                typeDao.insertAll(PokedexMapper.typeResponseAsDatabaseModel(typesRootResponse = pokeType))
+                typeDao.insertAll(
+                    PokedexMapper
+                        .typeResponseAsDatabaseModel(typesRootResponse = pokeType)
+                )
             } catch (e: Exception) {}
         }
     }

@@ -1,7 +1,6 @@
 package com.souza.pokedetail.di
 
 import androidx.room.Room
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.souza.pokedetail.data.pokedex.AbilityRepositoryImpl
 import com.souza.pokedetail.data.pokedex.EvolutionRepositoryImpl
 import com.souza.pokedetail.data.pokedex.PropertyRepositoryImpl
@@ -43,15 +42,12 @@ import com.souza.pokedetail.presentation.pokedetails.pokeattributes.others.Other
 import com.souza.pokedetail.presentation.pokedetails.pokeattributes.others.OthersTypeAdapter
 import com.souza.pokedetail.presentation.pokedetails.pokeattributes.others.OthersViewModel
 import com.souza.pokedetail.presentation.pokedetails.pokeattributes.stats.StatsViewModel
-import com.souza.pokedetail.utils.Constants
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.souza.shared_components.di.SHARED_RETROFIT
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 private const val varietyDao = "VARIETY_DAO"
 private const val propertyDao = "PROPERTY_DAO"
@@ -59,7 +55,6 @@ private const val abilityDao = "ABILITY_DAO"
 private const val typeDao = "TYPE_DAO"
 private const val evolutionDao = "EVOLUTION_CHAIN_DAO"
 private const val detailDatabase = "DETAIL_DATABASE"
-private const val pokeDetailRetrofit = "POKEDETAIL_RETROFIT"
 
 @Suppress("RemoveExplicitTypeArguments", "USELESS_CAST")
 val pokeDetailModule = module {
@@ -257,12 +252,8 @@ val pokeDetailModule = module {
     // Retrofit
     single {
         getRetrofitService(
-            get<Retrofit>(named(pokeDetailRetrofit))
+            get<Retrofit>(named(SHARED_RETROFIT))
         )
-    }
-
-    single(named(pokeDetailRetrofit)) {
-        createRetrofit()
     }
 
     // DB
@@ -297,14 +288,5 @@ val pokeDetailModule = module {
     }
 }
 
-private fun getRetrofitService(retrofit: Retrofit): PokeDetailService = retrofit.create(PokeDetailService::class.java)
-
-private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
-
-private fun createRetrofit(): Retrofit = Retrofit.Builder()
-    .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-    .baseUrl(Constants.POKE_API_BASE_URL)
-    .build()
+private fun getRetrofitService(retrofit: Retrofit): PokeDetailService = retrofit
+    .create(PokeDetailService::class.java)

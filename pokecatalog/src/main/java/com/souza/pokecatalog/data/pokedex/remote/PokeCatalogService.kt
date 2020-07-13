@@ -8,6 +8,5 @@ import retrofit2.http.Query
 interface PokeCatalogService {
 
     @GET("pokemon/?")
-    fun fetchPokesAsync(@Query("offset") page: Int?):
-            Deferred<PokeRootResponse> // Cached
+    fun fetchPokesAsync(@Query("offset") page: Int?): Deferred<PokeRootResponse>
 }

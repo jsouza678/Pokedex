@@ -5,6 +5,7 @@ import com.souza.home.di.homeModule
 import com.souza.pokecatalog.di.pokeCatalogModule
 import com.souza.pokedetail.di.pokeDetailModule
 import com.souza.search.di.searchModule
+import com.souza.shared_components.di.sharedModule
 import org.koin.android.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.logger.AndroidLogger
@@ -25,7 +26,8 @@ class Application : Application() {
                     homeModule,
                     pokeCatalogModule,
                     pokeDetailModule,
-                    searchModule
+                    searchModule,
+                    sharedModule
                 )
             )
         }

@@ -61,7 +61,9 @@ class SearchDialogFragment : DialogFragment() {
             val textSearch = textInputArea.text.toString()
             val checkString = isString(textSearch)
 
-            if (textSearch == EMPTY_STRING) { textInputArea.error = getString(R.string.input_text_search_dialog) } else {
+            if (textSearch == EMPTY_STRING) {
+                textInputArea.error = getString(R.string.input_text_search_dialog)
+            } else {
                 if (checkString) {
                     initSearchById(textSearch, textViewResult)
                     textInputArea.text?.clear()
@@ -81,7 +83,9 @@ class SearchDialogFragment : DialogFragment() {
     }
 
     private fun initSearchById(textSearch: String, textViewResult: TextView) {
-        viewModel.searchPokesById(Integer.parseInt(textSearch)).observeOnce(this@SearchDialogFragment, Observer {
+        val textSearchAsInt = Integer.parseInt(textSearch)
+        viewModel.searchPokesById(textSearchAsInt).observeOnce(this@SearchDialogFragment,
+            Observer {
             if (it != null) {
                 if (it.isEmpty()) {
                     errorMessage()
@@ -95,7 +99,8 @@ class SearchDialogFragment : DialogFragment() {
     }
 
     private fun initSearchByName(textSearch: String, textViewResult: TextView) {
-        viewModel.searchPokesByName(textSearch).observeOnce(this@SearchDialogFragment, Observer {
+        viewModel.searchPokesByName(textSearch).observeOnce(this@SearchDialogFragment,
+            Observer {
             if (it != null) {
                 if (it.isEmpty()) {
                     errorMessage()

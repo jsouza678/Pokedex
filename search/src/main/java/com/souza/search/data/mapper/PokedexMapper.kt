@@ -1,24 +1,26 @@
 package com.souza.search.data.mapper
 
+import com.souza.pokecatalog.data.pokedex.local.entities.PokemonEntity
 import com.souza.pokecatalog.data.pokedex.remote.model.PokeRootResponse
+import com.souza.pokecatalog.domain.model.Pokemon
 import com.souza.search.utils.cropPokeUrl
 
 class PokedexMapper {
 
     companion object {
 
-        fun pokemonResponseAsDatabaseModel(pokeRootProperty: PokeRootResponse): Array<com.souza.pokecatalog.data.pokedex.local.entities.PokemonEntity>? {
+        fun pokemonResponseAsDatabaseModel(pokeRootProperty: PokeRootResponse): Array<PokemonEntity>? {
             return pokeRootProperty.results?.map {
-                com.souza.pokecatalog.data.pokedex.local.entities.PokemonEntity(
+                PokemonEntity(
                     _id = Integer.parseInt(cropPokeUrl(it.id)),
                     name = it.name
                 )
             }?.toTypedArray()
         }
 
-        fun pokemonEntityAsDomainModel(pokemonEntity: List<com.souza.pokecatalog.data.pokedex.local.entities.PokemonEntity>?): List<com.souza.pokecatalog.domain.model.Pokemon>? {
+        fun pokemonEntityAsDomainModel(pokemonEntity: List<PokemonEntity>?): List<Pokemon>? {
             return pokemonEntity?.map {
-                com.souza.pokecatalog.domain.model.Pokemon(
+                Pokemon(
                     id = it._id,
                     name = it.name
                 )

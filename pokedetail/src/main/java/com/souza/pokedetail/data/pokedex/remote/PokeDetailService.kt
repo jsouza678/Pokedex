@@ -12,22 +12,17 @@ import retrofit2.http.Path
 interface PokeDetailService {
 
     @GET("pokemon/{poke}")
-    fun fetchPokeStatsAsync(@Path("poke") poke: Int?):
-            Deferred<PropertyRootResponse> // Cached
+    fun fetchPokeStatsAsync(@Path("poke") poke: Int?): Deferred<PropertyRootResponse>
 
     @GET("evolution-chain/{id}")
-    fun fetchEvolutionChainAsync(@Path("id") id: Int?):
-            Deferred<EvolutionChainResponse> // Cached
+    fun fetchEvolutionChainAsync(@Path("id") id: Int?): Deferred<EvolutionChainResponse>
 
     @GET("pokemon-species/{id}")
-    fun fetchVariationsAsync(@Path("id") id: Int?):
-            Deferred<VarietiesRootResponse> // Cached
+    fun fetchVariationsAsync(@Path("id") id: Int?): Deferred<VarietiesRootResponse>
 
     @GET("type/{id}")
-    fun fetchTypeDataAsync(@Path("id") id: Int?):
-            Deferred<TypesRootResponse> // Non-Cached
+    fun fetchTypeDataAsync(@Path("id") id: Int?): Deferred<TypesRootResponse>
 
     @GET("ability/{id}")
-    fun fetchAbilityDataAsync(@Path("id") id: Int):
-            Deferred<AbilityRootResponse> // Cached
+    fun fetchAbilityDataAsync(@Path("id") id: Int): Deferred<AbilityRootResponse>
 }

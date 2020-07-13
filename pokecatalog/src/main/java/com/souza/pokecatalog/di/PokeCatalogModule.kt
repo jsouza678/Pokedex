@@ -1,7 +1,6 @@
 package com.souza.pokecatalog.di
 
 import androidx.room.Room
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.souza.pokecatalog.data.pokedex.PokemonRepositoryImpl
 import com.souza.pokecatalog.data.pokedex.local.PokemonDao
 import com.souza.pokecatalog.data.pokedex.local.PokemonDatabase
@@ -11,19 +10,15 @@ import com.souza.pokecatalog.domain.usecase.FetchPokesFromApi
 import com.souza.pokecatalog.domain.usecase.GetPokesFromDatabase
 import com.souza.pokecatalog.presentation.pokecatalog.PokeCatalogAdapter
 import com.souza.pokecatalog.presentation.pokecatalog.PokeCatalogViewModel
-import com.souza.pokecatalog.utils.Constants
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.souza.shared_components.di.SHARED_RETROFIT
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 private const val pokemonDatabase = "POKEMON_DATABASE"
 private const val pokemonDao = "POKEMON_DAO"
-private const val pokeCatalogRetrofit = "POKECATALOG_RETROFIT"
 
 @Suppress("RemoveExplicitTypeArguments", "USELESS_CAST")
 val pokeCatalogModule = module {
@@ -54,12 +49,8 @@ val pokeCatalogModule = module {
 
     single {
         getRetrofitService(
-            get<Retrofit>(named(pokeCatalogRetrofit))
+            get<Retrofit>(named(SHARED_RETROFIT))
         )
-    }
-
-    single(named(pokeCatalogRetrofit)) {
-        createRetrofit()
     }
 
     // Home
@@ -86,14 +77,5 @@ val pokeCatalogModule = module {
     }
 }
 
-private fun getRetrofitService(retrofit: Retrofit): PokeCatalogService = retrofit.create(PokeCatalogService::class.java)
-
-private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
-
-private fun createRetrofit(): Retrofit = Retrofit.Builder()
-    .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-    .baseUrl(Constants.POKE_API_BASE_URL)
-    .build()
+private fun getRetrofitService(retrofit: Retrofit): PokeCatalogService = retrofit
+    .create(PokeCatalogService::class.java)
