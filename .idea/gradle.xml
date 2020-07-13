@@ -12,14 +12,15 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/base" />
             <option value="$PROJECT_DIR$/connectivity" />
+            <option value="$PROJECT_DIR$/core-components" />
             <option value="$PROJECT_DIR$/extensions" />
             <option value="$PROJECT_DIR$/home" />
             <option value="$PROJECT_DIR$/pokecatalog" />
             <option value="$PROJECT_DIR$/pokedetail" />
             <option value="$PROJECT_DIR$/resource-components" />
             <option value="$PROJECT_DIR$/search" />
+            <option value="$PROJECT_DIR$/shared-components" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

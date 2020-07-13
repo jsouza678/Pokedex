@@ -31,33 +31,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    // Uncategorized
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.core:core-ktx:$core_ktx_version"
-    implementation "androidx.legacy:legacy-support-v4:$legacy_support_version"
 
-    // App Compat
-    implementation "androidx.appcompat:appcompat:$app_compat_version"
+    implementation project (':pokecatalog')
+    implementation project (':pokedetail')
+    implementation project (':core-components')
+    implementation project (':shared-components')
 
     // Tests
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 
-    implementation project (':pokecatalog')
-    implementation project (':pokedetail')
-    implementation project (':base')
-
-    // RecyclerView
-    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
-
-    // Koin
-    implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-android-viewmodel:$koin_version"
-
-    // MaterialDesign
-    implementation "com.google.android.material:material:$material_design_version"
-
-    // Constraint Layout
-    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
 }
