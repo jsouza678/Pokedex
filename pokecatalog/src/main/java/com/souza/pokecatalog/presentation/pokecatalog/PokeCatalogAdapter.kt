@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
-import com.souza.extensions.loadImageUrlAndCard
+import com.souza.extensions.loadImageUrlAndPaletteColorToCardView
 import com.souza.pokecatalog.R
 import com.souza.pokecatalog.domain.model.Pokemon
 import com.souza.pokecatalog.utils.Constants.Companion.ABSOLUTE_ZERO
@@ -65,7 +65,7 @@ class PokeCatalogAdapter : RecyclerView.Adapter<PokeCatalogAdapter.ViewHolder>()
             pokemonId = pokes.id
             formattedNumber = FORMAT_ID_POKE_DISPLAY.format(pokemonId)
             pokeId.text = "#$formattedNumber"
-            pokeImage.loadImageUrlAndCard("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION", pokeCardView)
+            pokeImage.loadImageUrlAndPaletteColorToCardView("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION", pokeCardView)
         }
         init {
             itemView.setOnClickListener {

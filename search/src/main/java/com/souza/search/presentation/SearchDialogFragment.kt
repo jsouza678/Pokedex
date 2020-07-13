@@ -6,14 +6,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.souza.extensions.gone
 import com.souza.extensions.observeOnce
@@ -28,44 +24,40 @@ import com.souza.search.utils.Constants.Companion.TWO_COLUMN_GRID_LAYOUT_RECYCLE
 import com.souza.search.utils.isString
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class SearchDialog : DialogFragment() {
+class SearchDialogFragment : DialogFragment() {
 
-    private lateinit var pokesList: MutableList<Pokemon>
+    private val pokesList: MutableList<Pokemon> = mutableListOf()
     private lateinit var adapter: SearchDialogAdapter
     private lateinit var layoutManager: GridLayoutManager
-    private lateinit var buttonDismiss: Button
-    private lateinit var searchButtonDialog: ImageButton
     private lateinit var textInputArea: TextInputEditText
-    private lateinit var constraintErrorLayout: ConstraintLayout
-    private lateinit var constraintDefaultLayout: ConstraintLayout
     private val viewModel by viewModel<SearchViewModel>()
-    private val binding = FragmentPokeSearchDialogBinding.inflate(LayoutInflater.from(context))
+    private lateinit var binding : FragmentPokeSearchDialogBinding
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        binding = FragmentPokeSearchDialogBinding.inflate(LayoutInflater.from(context))
 
-        buttonDismiss = binding.buttonDismissCustomSearchDialog
-        searchButtonDialog = binding.searchButtonSearchDialog
-        constraintErrorLayout = binding.containerLayoutErrorSearchDialog
-        constraintDefaultLayout = binding.containerLayoutDefaultSearchDialog
-        val textViewResult: TextView = binding.textViewLabelSearchDialog
-        textInputArea = binding.inputEditTextSearchDialog
-
-        pokesList = mutableListOf()
         adapter = SearchDialogAdapter(pokesList, requireContext())
 
-        val alert = AlertDialog.Builder(context)
-        alert.setView(binding.root)
+        val searchTextViewResult: TextView = binding.textViewLabelSearchDialog
+        textInputArea = binding.inputEditTextSearchDialog
 
-        initSearchButtonClickListener(textViewResult)
+        initSearchButtonClickListener(searchTextViewResult)
         setTransitionToPokeDetails()
         initRecyclerview()
         setupButtonDismiss()
 
-        return alert.create()
+        return setupDialog().create()
+    }
+
+    private fun setupDialog(): AlertDialog.Builder {
+        val alert = AlertDialog.Builder(context)
+        alert.setView(binding.root)
+
+        return alert
     }
 
     private fun initSearchButtonClickListener(textViewResult: TextView) {
-        searchButtonDialog.setOnClickListener {
+        binding.searchButtonSearchDialog.setOnClickListener {
             val textSearch = textInputArea.text.toString()
             val checkString = isString(textSearch)
 
@@ -89,7 +81,7 @@ class SearchDialog : DialogFragment() {
     }
 
     private fun initSearchById(textSearch: String, textViewResult: TextView) {
-        viewModel.searchPokesById(Integer.parseInt(textSearch)).observeOnce(this@SearchDialog, Observer {
+        viewModel.searchPokesById(Integer.parseInt(textSearch)).observeOnce(this@SearchDialogFragment, Observer {
             if (it != null) {
                 if (it.isEmpty()) {
                     errorMessage()
@@ -103,7 +95,7 @@ class SearchDialog : DialogFragment() {
     }
 
     private fun initSearchByName(textSearch: String, textViewResult: TextView) {
-        viewModel.searchPokesByName(textSearch).observeOnce(this@SearchDialog, Observer {
+        viewModel.searchPokesByName(textSearch).observeOnce(this@SearchDialogFragment, Observer {
             if (it != null) {
                 if (it.isEmpty()) {
                     errorMessage()
@@ -117,7 +109,7 @@ class SearchDialog : DialogFragment() {
     }
 
     private fun setupButtonDismiss() {
-        buttonDismiss.setOnClickListener {
+        binding.buttonDismissCustomSearchDialog.setOnClickListener {
             dismiss()
         }
     }
@@ -135,13 +127,13 @@ class SearchDialog : DialogFragment() {
     }
 
     private fun toggleErrorVisibility() {
-        constraintDefaultLayout.gone()
-        constraintErrorLayout.visible()
+        binding.containerLayoutDefaultSearchDialog.gone()
+        binding.containerLayoutErrorSearchDialog.visible()
     }
 
     private fun toggleBackErrorVisibility() {
-        constraintDefaultLayout.visible()
-        constraintErrorLayout.gone()
+        binding.containerLayoutDefaultSearchDialog.visible()
+        binding.containerLayoutErrorSearchDialog.gone()
     }
 
     private fun errorMessage() {

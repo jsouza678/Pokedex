@@ -43,7 +43,6 @@ class PokeCatalogViewModel(
         Handler().postDelayed({
             turnOffProgressBar.postValue(Unit)
         }, DELAY_MEDIUM)
-        page += POKE_LIMIT
     }
 
     fun loadOnRecyclerViewScrolled(dy: Int, layoutManager: GridLayoutManager) {

@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
-import com.souza.extensions.loadImageUrlAndCard
+import com.souza.extensions.loadImageUrlAndPaletteColorToCardView
 import com.souza.pokecatalog.domain.model.Pokemon
 import com.souza.search.R
 import com.souza.search.utils.Constants.Companion.BASTION_POKE_IMAGE_BASE_URL
@@ -71,7 +71,7 @@ class SearchDialogAdapter(
             pokemonId = pokes.id
             formattedNumber = FORMAT_ID_POKE_DISPLAY.format(pokemonId)
             pokeId.text = context.resources?.getString(R.string.text_view_placeholder_hash, formattedNumber)
-            pokeImage.loadImageUrlAndCard("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION", pokeCv)
+            pokeImage.loadImageUrlAndPaletteColorToCardView("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION", pokeCv)
         }
 
         init {

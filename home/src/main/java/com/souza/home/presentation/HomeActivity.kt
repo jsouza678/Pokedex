@@ -16,7 +16,7 @@ import com.souza.extensions.visible
 import com.souza.home.R
 import com.souza.home.databinding.ActivityHomeBinding
 import com.souza.pokecatalog.presentation.pokecatalog.PokeCatalogFragment
-import com.souza.search.presentation.SearchDialog
+import com.souza.search.presentation.SearchDialogFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeActivity : AppCompatActivity() {
@@ -112,7 +112,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun openSearchPokesDialogOnMenuClick() {
-        val searchDialog = SearchDialog()
+        val searchDialog = SearchDialogFragment()
         frameLayoutFragmentHost.visible()
         searchDialog.show(supportFragmentManager, getString(R.string.search_fragment_tag))
     }
