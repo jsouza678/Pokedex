@@ -45,5 +45,4 @@ dependencies {
 
     api project (':resource-components')
     api project (':extensions')
-    api project (':connectivity')
 }

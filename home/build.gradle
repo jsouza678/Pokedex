@@ -34,7 +34,6 @@ dependencies {
     implementation project (':core-components')
     implementation project (':pokecatalog')
     implementation project (':search')
-    implementation project (':connectivity')
 
     // Uncategorized
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

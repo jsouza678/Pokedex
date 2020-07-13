@@ -47,7 +47,6 @@ dependencies {
 
     // Room
     api "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
 
     // Retrofit
     api "com.squareup.retrofit2:retrofit:$retrofit_version"

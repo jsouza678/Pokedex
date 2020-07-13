@@ -55,10 +55,11 @@ fun ImageView.loadImageUrlAndPaletteColorToCardView(
         .into(this)
 }
 
-private fun setupGlide(imageView: ImageView,
-                       onLoadCompleted: () -> Unit = {},
-                       onError: () -> Unit = {}
-) : RequestBuilder<Drawable> {
+private fun setupGlide(
+    imageView: ImageView,
+    onLoadCompleted: () -> Unit = {},
+    onError: () -> Unit = {}
+): RequestBuilder<Drawable> {
     val requestBuilder = Glide.with(imageView)
         .`as`(Drawable::class.java)
         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)

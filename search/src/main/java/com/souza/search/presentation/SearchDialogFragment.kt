@@ -31,7 +31,7 @@ class SearchDialogFragment : DialogFragment() {
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var textInputArea: TextInputEditText
     private val viewModel by viewModel<SearchViewModel>()
-    private lateinit var binding : FragmentPokeSearchDialogBinding
+    private lateinit var binding: FragmentPokeSearchDialogBinding
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = FragmentPokeSearchDialogBinding.inflate(LayoutInflater.from(context))

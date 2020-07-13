@@ -11,7 +11,6 @@ import com.souza.pokecatalog.domain.usecase.FetchPokesFromApi
 import com.souza.pokecatalog.domain.usecase.GetPokesFromDatabase
 import com.souza.pokecatalog.utils.Constants.Companion.ABSOLUTE_ZERO
 import com.souza.pokecatalog.utils.Constants.Companion.DELAY_MEDIUM
-import com.souza.pokecatalog.utils.Constants.Companion.POKE_LIMIT
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
