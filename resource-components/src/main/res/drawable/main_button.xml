@@ -2,10 +2,10 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="@color/real_white" />
+            <solid android:color="@color/poke_button_bg" />
             <corners android:radius="32dp" />
                 <stroke
-                    android:width="2px"
+                    android:width="5px"
                     android:color="#000"/>
         </shape>
     </item>

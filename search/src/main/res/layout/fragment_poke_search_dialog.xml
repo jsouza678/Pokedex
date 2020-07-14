@@ -38,7 +38,7 @@
         android:layout_marginTop="@dimen/material_margin_16"
         android:layout_marginEnd="@dimen/material_margin_24"
         android:layout_marginBottom="@dimen/material_margin_16"
-        android:background="@drawable/icon_search"
+        android:background="@drawable/icon_search_dialog"
         android:clickable="false"
         android:contentDescription="@string/content_description_image_button_search"
         android:focusable="auto"

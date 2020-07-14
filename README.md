@@ -16,7 +16,7 @@ Ao clicar na descrição do pokemon, se abrirá uma janela com a sua descrição
 ## Algumas screenshots
 ![first_screen_light](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/home_light.jpg)
 ![first_screen_dark](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/home_dark.jpg)
-![catalog_screen_light](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/catalog_light.jpg)
+![catalog_screen_light](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/catalog_light.png)
 ![catalog_screen_dark](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/catalog_dark.jpg)
 ![details_light](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/details_1_light.jpg)
 ![details_dark](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/details_1_dark.jpg)

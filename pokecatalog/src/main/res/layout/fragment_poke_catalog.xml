@@ -28,7 +28,6 @@
         android:id="@+id/pokedex_toolbar_catalog_fragment"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

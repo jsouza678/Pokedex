@@ -78,7 +78,9 @@ class PokeCatalogFragment : Fragment() {
     }
 
     private fun setToolbarBackButton(toolbar: Toolbar) {
-        toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
+        toolbar.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
     }
 
     private fun initObservers() {
