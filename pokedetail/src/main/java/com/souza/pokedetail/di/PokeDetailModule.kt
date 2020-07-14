@@ -13,9 +13,6 @@ import com.souza.pokedetail.data.pokedex.local.PropertyDao
 import com.souza.pokedetail.data.pokedex.local.TypeDao
 import com.souza.pokedetail.data.pokedex.local.VarietiesDao
 import com.souza.pokedetail.data.pokedex.remote.PokeDetailService
-import com.souza.pokedetail.data.pokedex.remote.model.ability.AbilitiesRoot
-import com.souza.pokedetail.data.pokedex.remote.model.type.TypeRoot
-import com.souza.pokedetail.data.pokedex.remote.model.variety.Varieties
 import com.souza.pokedetail.domain.repository.AbilityRepository
 import com.souza.pokedetail.domain.repository.EvolutionRepository
 import com.souza.pokedetail.domain.repository.PropertyRepository

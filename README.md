@@ -2,7 +2,7 @@
 
 O aplicativo é, como seu nome diz, uma pokedex, que permite consultar todos os pokemons existentes!
 
-Ao abrir o aplicativo o usuário deve escolher entre realizar uma pesquisa por nome ou id do pokemon em um search dialog, ou descobrir os pokemons na lista.
+Ao abrir o aplicativo o usuário deve escolher entre realizar uma pesquisa por nome do pokemon em um search dialog, ou descobrir os pokemons na lista.
 
 A pesquisa ocorre no cache do aplicativo, então é necessário que o usuário descubra os pokemons primeiro!
 
@@ -14,12 +14,12 @@ Ao clicar em um tipo, aparecerá uma lista com todos os pokemons do mesmo tipo.
 Ao clicar na descrição do pokemon, se abrirá uma janela com a sua descrição completa.
 
 ## Algumas screenshots
-![first_screen](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/first_screen.png) 
-![menu](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/menu.png) 
-![details](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/details_root.png)
-![details_stats](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/details_stats.png)
-![details_other_types](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/details_other_types.png)
-![error_search](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/error_.png)
+![first_screen_light](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/home_light.jpg)
+![first_screen_dark](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/home_dark.jpg)
+![catalog_screen_light](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/catalog_light.jpg)
+![catalog_screen_dark](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/catalog_dark.jpg)
+![details_light](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/details_1_light.jpg)
+![details_dark](https://github.com/jsouza678/pokedex/blob/master/screenshots/resized/details_1_dark.jpg)
 
 ## Ambiente de instalação
 * 1: Instale o Android Studio;
@@ -68,6 +68,4 @@ O `./gradlew ktlintFormat` roda uma rotina que formata o código de acordo com o
  
  * _criado testes de ui;_
  
- * _implementado animações e transições entre as telas da aplicação;_  
- 
- * _implementado search na API por nome e ID_
+ * _implementado animações e transições entre as telas da aplicação;_

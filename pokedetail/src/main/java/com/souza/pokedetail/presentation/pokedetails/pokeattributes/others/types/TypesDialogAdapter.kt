@@ -21,8 +21,8 @@ import kotlinx.android.synthetic.main.recycler_poke_item_view_detail.view.image_
 import kotlinx.android.synthetic.main.recycler_poke_item_view_detail.view.text_view_id_poke_recycler
 import kotlinx.android.synthetic.main.recycler_poke_item_view_detail.view.text_view_name_poke_recycler
 
-class TypesDialogAdapter
-    : RecyclerView.Adapter<TypesDialogAdapter.ViewHolder>() {
+class TypesDialogAdapter :
+    RecyclerView.Adapter<TypesDialogAdapter.ViewHolder>() {
 
     private val pokeTypes = mutableListOf<TypeResponse>()
 

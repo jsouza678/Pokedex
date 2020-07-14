@@ -15,7 +15,7 @@
     <dimen name="default_corner_radius_card_view">18dp</dimen>
     <dimen name="default_padding_button">32dp</dimen>
     <dimen name="discover_pokes_button_width_home_activity">174dp</dimen>
-    <dimen name="discover_pokes_button_height_home_activity">36dp</dimen>
+    <dimen name="discover_pokes_button_height_home_activity">45dp</dimen>
 
     // Home
     <dimen name="bottom_bar_home_height">50dp</dimen>

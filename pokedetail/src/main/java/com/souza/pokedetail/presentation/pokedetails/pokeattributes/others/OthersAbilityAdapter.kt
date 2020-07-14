@@ -9,8 +9,8 @@ import com.souza.pokedetail.R
 import com.souza.pokedetail.data.pokedex.remote.model.ability.AbilitiesRoot
 import java.util.Locale
 
-class OthersAbilityAdapter
-    : BaseAdapter() {
+class OthersAbilityAdapter :
+    BaseAdapter() {
 
     private val pokeAbilities = mutableListOf<AbilitiesRoot>()
 

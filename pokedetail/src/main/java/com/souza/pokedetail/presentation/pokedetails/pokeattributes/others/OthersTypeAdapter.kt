@@ -7,10 +7,10 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.souza.pokedetail.R
 import com.souza.pokedetail.data.pokedex.remote.model.type.TypeRoot
-import java.util.*
+import java.util.Locale
 
-class OthersTypeAdapter
-    : BaseAdapter() {
+class OthersTypeAdapter :
+    BaseAdapter() {
 
     private val pokeTypes = mutableListOf<TypeRoot>()
 

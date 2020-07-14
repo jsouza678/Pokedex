@@ -13,7 +13,7 @@ import com.souza.pokedetail.utils.Constants.Companion.ABSOLUTE_ZERO
 import kotlinx.android.synthetic.main.image_view_pager_item.view.picture_image_view_pager_item
 
 class PokeDetailsGalleryAdapter(
-    private val gallery : MutableList<String>
+    private val gallery: MutableList<String>
 ) : PagerAdapter() {
 
     private companion object {

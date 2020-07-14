@@ -10,10 +10,10 @@ import com.souza.pokedetail.data.pokedex.remote.model.variety.Varieties
 import com.souza.pokedetail.data.pokedex.remote.response.PokemonResponse
 import com.souza.pokedetail.utils.Constants.Companion.ABSOLUTE_ZERO
 import com.souza.pokedetail.utils.Constants.Companion.EMPTY_STRING
-import java.util.*
+import java.util.Locale
 
-class AboutSpinnerAdapter
-    : BaseAdapter() {
+class AboutSpinnerAdapter :
+    BaseAdapter() {
 
     private val pokeVariations = mutableListOf<Varieties>()
 

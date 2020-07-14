@@ -9,8 +9,8 @@ import com.souza.pokedetail.R
 import com.souza.pokedetail.utils.Constants.Companion.ABSOLUTE_ZERO
 import java.util.Locale
 
-class EvolutionChainAdapter
-    : BaseAdapter() {
+class EvolutionChainAdapter :
+    BaseAdapter() {
 
     private val evolutionChain = mutableListOf<String>()
 
