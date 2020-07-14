@@ -25,13 +25,6 @@ class OthersViewModel(
     private val getPokesInTypesFromDatabase: GetPokesInTypesFromDatabase
 ) : ViewModel() {
 
-    private var _abilityDesc = MutableLiveData<String>()
-    val abilityDesc: LiveData<String>
-        get() = _abilityDesc
-    private var _pokeTypes = MutableLiveData<PokeType>()
-    val pokeTypes: LiveData<PokeType>
-        get() = _pokeTypes
-
     private val coroutineScope = Dispatchers.IO
 
     fun updatePropertiesOnViewLiveData(): LiveData<PokeProperty>? = getPropertiesFromDatabase(pokemonId)

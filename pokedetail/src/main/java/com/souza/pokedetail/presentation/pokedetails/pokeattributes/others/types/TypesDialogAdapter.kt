@@ -1,6 +1,6 @@
 package com.souza.pokedetail.presentation.pokedetails.pokeattributes.others.types
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,37 +16,38 @@ import com.souza.pokedetail.utils.Constants.Companion.DEFAULT_IMAGE_FORMAT_BASTI
 import com.souza.pokedetail.utils.Constants.Companion.EMPTY_STRING
 import com.souza.pokedetail.utils.Constants.Companion.FORMAT_ID_POKE_DISPLAY
 import com.souza.pokedetail.utils.cropPokeUrl
-import kotlinx.android.synthetic.main.recycler_poke_item_view_detail.view.*
+import kotlinx.android.synthetic.main.recycler_poke_item_view_detail.view.card_view_poke_item
+import kotlinx.android.synthetic.main.recycler_poke_item_view_detail.view.image_view_poke_sprite_recycler
+import kotlinx.android.synthetic.main.recycler_poke_item_view_detail.view.text_view_id_poke_recycler
+import kotlinx.android.synthetic.main.recycler_poke_item_view_detail.view.text_view_name_poke_recycler
 
-class TypesDialogAdapter(
-    private val pokeTypes: MutableList<TypeResponse>?,
-    private val context: Context
-) : RecyclerView.Adapter<TypesDialogAdapter.ViewHolder>() {
+class TypesDialogAdapter
+    : RecyclerView.Adapter<TypesDialogAdapter.ViewHolder>() {
+
+    private val pokeTypes = mutableListOf<TypeResponse>()
 
     var onItemClick: ((TypeResponse) -> Unit)? = null
     private val imageResourceUrl = BASTION_POKE_IMAGE_BASE_URL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.recycler_poke_item_view_detail, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_poke_item_view_detail, parent, false)
         return ViewHolder(view)
     }
 
     fun submitList(newData: MutableList<TypeResponse>) {
-        if (pokeTypes != null) {
-            if (pokeTypes.isNotEmpty()) {
-                pokeTypes.clear()
-            }
+        if (pokeTypes.isNotEmpty()) {
+            pokeTypes.clear()
         }
-        pokeTypes?.addAll(newData)
+        pokeTypes.addAll(newData)
         notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
-        return pokeTypes!!.size
+        return pokeTypes.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        pokeTypes?.get(position)?.let { holder.itemBind(it) }
+        pokeTypes[position].let { holder.itemBind(it) }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -57,17 +58,18 @@ class TypesDialogAdapter(
         private var pokemonId: String = EMPTY_STRING
         private val pokemonCv: MaterialCardView = itemView.card_view_poke_item
 
+        @SuppressLint("SetTextI18n")
         fun itemBind(pokes: TypeResponse) {
             pokeNameTextView.text = pokes.pokemon?.name
             pokemonId = cropPokeUrl(pokes.pokemon?.id!!)
-            formattedNumber = FORMAT_ID_POKE_DISPLAY.format(Integer.parseInt(pokemonId))
-            pokeIdTextView.text = context.resources.getString(R.string.text_view_placeholder_hash, formattedNumber)
+            formattedNumber = FORMAT_ID_POKE_DISPLAY.format(pokemonId)
+            pokeIdTextView.text = "#$formattedNumber"
             pokeImageImageView.loadImageUrlAndPaletteColorToCardView("$imageResourceUrl$pokemonId$DEFAULT_IMAGE_FORMAT_BASTION", pokemonCv)
         }
 
         init {
             itemView.setOnClickListener {
-                pokeTypes?.get(adapterPosition)?.let { it1 -> onItemClick?.invoke(it1) }
+                pokeTypes.get(adapterPosition).let { it1 -> onItemClick?.invoke(it1) }
             }
         }
     }

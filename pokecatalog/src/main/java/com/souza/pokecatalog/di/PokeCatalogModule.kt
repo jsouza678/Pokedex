@@ -32,7 +32,9 @@ val pokeCatalogModule = module {
     }
 
     // Adapter
-    single { PokeCatalogAdapter() }
+    single {
+        PokeCatalogAdapter()
+    }
 
     // UseCases
     factory {

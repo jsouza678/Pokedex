@@ -23,9 +23,13 @@ class PokeDetailsActivity : AppCompatActivity() {
 
         val pokeId = intent.getIntExtra(getString(R.string.poke_id_extra_activity_home_to_details), ABSOLUTE_ZERO)
         val pokeName: String? = intent.getStringExtra(getString(R.string.poke_name_extra_activity_home_to_details))
-        val detailsFragment = pokeName?.let { PokeDetailsFragment(pokemonId = pokeId, pokemonName = it) }
+        val detailsFragment = pokeName?.let {
+            PokeDetailsFragment(pokemonId = pokeId, pokemonName = it)
+        }
 
-        detailsFragment?.let { changeFragment(fragment = it) }
+        detailsFragment?.let {
+            changeFragment(fragment = it)
+        }
 
         initConnectivityCallback()
         initConnectivitySnackbar()
@@ -70,14 +74,24 @@ class PokeDetailsActivity : AppCompatActivity() {
 
     private fun showConnectivityOnSnackbar() {
         connectivitySnackbar.duration = Snackbar.LENGTH_SHORT
-        connectivitySnackbar.view.setBackgroundColor(ContextCompat.getColor(this, R.color.poke_green))
+        connectivitySnackbar.view
+            .setBackgroundColor(
+                ContextCompat
+                    .getColor(this,
+                        R.color.poke_green)
+            )
         connectivitySnackbar.setText(getString(R.string.snackbar_message_internet_back))
         connectivitySnackbar.show()
     }
 
     private fun showConnectivityOffSnackbar() {
         connectivitySnackbar.duration = Snackbar.LENGTH_INDEFINITE
-        connectivitySnackbar.view.setBackgroundColor(ContextCompat.getColor(this, R.color.poke_red))
+        connectivitySnackbar.view
+            .setBackgroundColor(
+                ContextCompat
+                    .getColor(this,
+                        R.color.poke_red)
+            )
         connectivitySnackbar.setText(getString(R.string.snackbar_internet_off))
         connectivitySnackbar.show()
     }

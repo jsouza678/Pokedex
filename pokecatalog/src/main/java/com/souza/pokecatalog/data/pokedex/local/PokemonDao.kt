@@ -10,11 +10,9 @@ import com.souza.pokecatalog.utils.Constants.Companion.POKE_TABLE_NAME
 
 @Dao
 interface PokemonDao {
+
     @Query("SELECT * FROM $POKE_TABLE_NAME")
     fun getPokes(): LiveData<List<PokemonEntity>?>
-
-    @Query("SELECT * FROM $POKE_TABLE_NAME WHERE $POKE_TABLE_NAME._id LIKE :pokeId||'%'")
-    fun getPokesById(pokeId: Int): LiveData<List<PokemonEntity>?>
 
     @Query("SELECT * FROM $POKE_TABLE_NAME WHERE $POKE_TABLE_NAME.name LIKE :pokeName||'%'")
     fun getPokesByName(pokeName: String): LiveData<List<PokemonEntity>?>

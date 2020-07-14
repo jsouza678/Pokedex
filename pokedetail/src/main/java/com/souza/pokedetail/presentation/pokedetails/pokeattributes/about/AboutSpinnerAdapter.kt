@@ -1,6 +1,5 @@
 package com.souza.pokedetail.presentation.pokedetails.pokeattributes.about
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,33 +10,35 @@ import com.souza.pokedetail.data.pokedex.remote.model.variety.Varieties
 import com.souza.pokedetail.data.pokedex.remote.response.PokemonResponse
 import com.souza.pokedetail.utils.Constants.Companion.ABSOLUTE_ZERO
 import com.souza.pokedetail.utils.Constants.Companion.EMPTY_STRING
-import java.util.Locale
+import java.util.*
 
-class AboutSpinnerAdapter(
-    private val context: Context,
-    private val pokeVariations: MutableList<Varieties>
-) : BaseAdapter() {
+class AboutSpinnerAdapter
+    : BaseAdapter() {
+
+    private val pokeVariations = mutableListOf<Varieties>()
 
     private var pokemonMock: PokemonResponse =
         PokemonResponse(
             EMPTY_STRING,
-            context.getString(R.string.spinner_hint)
+            "Select one item"
         )
     private var poke: Varieties =
         Varieties(pokemonMock)
 
-    private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
     @ExperimentalStdlibApi
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-        var rowView = convertView
-        if (rowView == null) {
-            val pokeVariationItem = pokeVariations[position]
-            rowView = inflater.inflate(R.layout.list_item_row, parent, false)
-            rowView.findViewById<TextView>(R.id.text_view_item_list).text = pokeVariationItem.pokemon.name.capitalize(
-                Locale.getDefault())
-            rowView.tag = position
-        }
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
+        val rowView = convertView ?: LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.list_item_row,
+                parent,
+                false
+            )
+
+        val pokeVariationItem = pokeVariations[position]
+
+        rowView.findViewById<TextView>(R.id.text_view_item_list).text = pokeVariationItem.pokemon.name.capitalize(
+            Locale.getDefault())
+        rowView.tag = position
 
         return rowView
     }

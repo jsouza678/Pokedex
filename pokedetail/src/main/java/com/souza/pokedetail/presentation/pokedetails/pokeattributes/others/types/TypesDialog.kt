@@ -32,7 +32,7 @@ class TypesDialog(private val pokeTypes: MutableList<TypeResponse>) : DialogFrag
         recyclerView = binding.recyclerViewPokeSearchDialog
         buttonDismiss = binding.buttonDismissCustomSearchDialog
         textViewResult = binding.textViewLabelSearchDialog
-        adapter = TypesDialogAdapter(pokeTypes, requireContext())
+        adapter = TypesDialogAdapter()
         setupRecyclerView()
         setupDismissButtonOnClick()
         setTransitionToPokeDetails()

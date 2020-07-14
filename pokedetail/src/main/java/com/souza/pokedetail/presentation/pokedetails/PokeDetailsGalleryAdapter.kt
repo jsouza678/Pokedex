@@ -13,8 +13,7 @@ import com.souza.pokedetail.utils.Constants.Companion.ABSOLUTE_ZERO
 import kotlinx.android.synthetic.main.image_view_pager_item.view.picture_image_view_pager_item
 
 class PokeDetailsGalleryAdapter(
-    private val context: Context,
-    private val gallery: MutableList<String>
+    private val gallery : MutableList<String>
 ) : PagerAdapter() {
 
     private companion object {
@@ -30,7 +29,7 @@ class PokeDetailsGalleryAdapter(
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = container.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.image_view_pager_item, container, false)
         val viewPager = container as ViewPager
         val imageView: ImageView = view.picture_image_view_pager_item

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/default_foreground_color"
-    tools:context="com.souza.search.presentation.SearchDialogFragment">
+    tools:context="com.souza.search.presentation.PokeSearchDialogFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_area_search_dialog"

@@ -57,7 +57,6 @@
         android:layout_marginEnd="@dimen/material_margin_8"
         android:layout_marginBottom="@dimen/material_margin_8"
         android:clipToPadding="false"
-        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/poke_ball_bottom_toolbar_catalog_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

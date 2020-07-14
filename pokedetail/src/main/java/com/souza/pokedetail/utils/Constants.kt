@@ -1,6 +1,7 @@
 package com.souza.pokedetail.utils
 
 class Constants {
+
     companion object {
         const val POKE_API_BASE_URL = "https://pokeapi.co/api/v2/"
         const val BASTION_POKE_IMAGE_BASE_URL = "https://pokeres.bastionbot.org/images/pokemon/"

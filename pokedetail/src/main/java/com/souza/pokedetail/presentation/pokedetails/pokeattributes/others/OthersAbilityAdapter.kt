@@ -1,6 +1,5 @@
 package com.souza.pokedetail.presentation.pokedetails.pokeattributes.others
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +9,10 @@ import com.souza.pokedetail.R
 import com.souza.pokedetail.data.pokedex.remote.model.ability.AbilitiesRoot
 import java.util.Locale
 
-class OthersAbilityAdapter(
-    private val context: Context,
-    private val pokeAbilities: MutableList<AbilitiesRoot>
-) : BaseAdapter() {
+class OthersAbilityAdapter
+    : BaseAdapter() {
 
-    private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private val pokeAbilities = mutableListOf<AbilitiesRoot>()
 
     fun submitList(newData: MutableList<AbilitiesRoot>) {
         if (pokeAbilities.isNotEmpty()) {
@@ -26,9 +23,16 @@ class OthersAbilityAdapter(
     }
 
     @ExperimentalStdlibApi
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val rowView = convertView ?: LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.list_item_row,
+                parent,
+                false
+            )
+
         val abilityItem = pokeAbilities[position]
-        val rowView = inflater.inflate(R.layout.list_item_row, parent, false)
+
         rowView.findViewById<TextView>(R.id.text_view_item_list).text = abilityItem.ability?.name?.capitalize(
             Locale.getDefault())
 

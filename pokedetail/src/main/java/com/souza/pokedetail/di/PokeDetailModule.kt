@@ -112,37 +112,24 @@ val pokeDetailModule = module {
     }
 
     // Adapter
-    factory { (dataList: MutableList<Varieties>) ->
-        AboutSpinnerAdapter(
-            context = get(),
-            pokeVariations = dataList
-        )
+    factory {
+        AboutSpinnerAdapter()
     }
 
-    factory { (dataList: MutableList<String>) ->
-        EvolutionChainAdapter(
-            context = get(),
-            evolutionChain = dataList
-        )
+    factory {
+        EvolutionChainAdapter()
     }
 
-    factory { (dataList: MutableList<TypeRoot>) ->
-        OthersTypeAdapter(
-            context = get(),
-            pokeTypes = dataList
-        )
+    factory {
+        OthersTypeAdapter()
     }
 
-    factory { (dataList: MutableList<AbilitiesRoot>) ->
-        OthersAbilityAdapter(
-            context = get(),
-            pokeAbilities = dataList
-        )
+    factory {
+        OthersAbilityAdapter()
     }
 
     factory { (dataList: MutableList<String>) ->
         PokeDetailsGalleryAdapter(
-            context = get(),
             gallery = dataList
         )
     }

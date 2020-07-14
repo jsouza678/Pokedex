@@ -43,21 +43,3 @@ fun optimizeChain(item: EvolutionChainResponse): MutableList<String> {
     }
     return evolutionArray
 }
-
-fun isString(text: String): Boolean {
-    val numeric: Boolean = text.matches("-?\\d+(\\.\\d+)?".toRegex())
-
-    if (text == EMPTY_STRING) {
-        return false
-    }
-
-    if (numeric) {
-        return try {
-            Integer.parseInt(text)
-            true
-        } catch (e: Exception) {
-            false
-        }
-    }
-    return numeric
-}

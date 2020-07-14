@@ -83,13 +83,12 @@ class PokeCatalogFragment : Fragment() {
 
     private fun initObservers() {
         viewModel.apply {
-            this.updatePokesListOnViewLiveData().observe(viewLifecycleOwner, Observer { pokemonList ->
-                pokemonList?.toMutableList()?.let { pokes -> pokemonAdapter.submitList(pokes) }
+            this.updatePokesListOnViewLiveData().observe(viewLifecycleOwner, Observer {
+                it?.toMutableList()?.let { pokes -> pokemonAdapter.submitList(pokes) }
             })
             this.turnOffProgressBarOnLiveData().observe(viewLifecycleOwner, Observer {
                 turnOffProgressBar()
             })
-
             this.turnOnProgressBarOnLiveData().observe(viewLifecycleOwner, Observer {
                 turnOnProgressBar()
             })

@@ -3,9 +3,9 @@ package com.souza.search.di
 import com.souza.pokecatalog.data.pokedex.local.PokemonDao
 import com.souza.search.data.pokedex.SearchRepositoryImpl
 import com.souza.search.domain.repository.SearchRepository
-import com.souza.search.domain.usecase.SearchPokesById
 import com.souza.search.domain.usecase.SearchPokesByName
-import com.souza.search.presentation.SearchViewModel
+import com.souza.search.presentation.PokeSearchAdapter
+import com.souza.search.presentation.PokeSearchViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -17,19 +17,16 @@ val searchModule = module {
 
     // ViewModels
     viewModel {
-        SearchViewModel(
-            get<SearchPokesByName>(),
-            get<SearchPokesById>()
+        PokeSearchViewModel(
+            get<SearchPokesByName>()
         )
+    }
+
+    single {
+        PokeSearchAdapter()
     }
 
     // UseCases
-    factory {
-        SearchPokesById(
-            get<SearchRepository>()
-        )
-    }
-
     factory {
         SearchPokesByName(
             get<SearchRepository>()

@@ -8,7 +8,6 @@ import com.souza.search.utils.cropPokeUrl
 class PokedexMapper {
 
     companion object {
-
         fun pokemonResponseAsDatabaseModel(pokeRootProperty: PokeRootResponse): Array<PokemonEntity>? {
             return pokeRootProperty.results?.map {
                 PokemonEntity(

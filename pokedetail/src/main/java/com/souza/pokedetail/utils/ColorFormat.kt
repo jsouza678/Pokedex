@@ -3,6 +3,7 @@ package com.souza.pokedetail.utils
 import com.souza.pokedetail.R
 
 class ColorFormat {
+
     companion object {
         fun setColor(color: String?, pokeId: Int?): Int {
             var formattedColor = when (color) {
